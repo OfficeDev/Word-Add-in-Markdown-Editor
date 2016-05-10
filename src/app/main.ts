@@ -1,5 +1,9 @@
 import { bootstrap } from '@angular/platform-browser-dynamic';
-import { AppComponent } from "./app.component";
+import {HTTP_PROVIDERS} from '@angular/http';
+
+import HomeComponent from "./home/home.component";
+import GithubService from "./github/github.service";
+import MarkdownService from "./markdown/markdown.service";
 
 // try {
 //     Office.initialize = (reason) => {
@@ -8,5 +12,5 @@ import { AppComponent } from "./app.component";
 //     };
 // }
 // catch (e) {
-    bootstrap(AppComponent);
+    bootstrap(HomeComponent, [HTTP_PROVIDERS, GithubService, MarkdownService]);
 // }

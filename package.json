@@ -29,7 +29,8 @@
     "angular2-in-memory-web-api": "0.0.7",    
     "lodash": "^4.12.0",
     "es6-promise": "^3.1.2",
-    "jquery": "^2.2.3"
+    "jquery": "^2.2.3",
+    "marked": "^0.3.5"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",

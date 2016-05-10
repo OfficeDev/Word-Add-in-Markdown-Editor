@@ -123,7 +123,12 @@ new Configuration()
             name: 'angular2-in-memory-web-api',
             development: 'node_modules/angular2-in-memory-web-api',
             production: 'https://npmcdn.com/angular2-in-memory-web-api'
+        },
+        {
+            name: 'marked',
+            main: 'marked.js',
+            production: 'node_modules/marked/lib'
         }
-    ])    
+    ])
     .queueImport('app/main')
     .configure();
