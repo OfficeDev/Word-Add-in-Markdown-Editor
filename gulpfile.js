@@ -1,65 +1,50 @@
-var gulp = require('gulp');
+/// Gulp configuration for Typescript, SASS and Live Reload
 
-var assetsDev = 'assets/';
-var assetsProd = 'src/';
+'use strict';
 
-var appDev = 'dev/';
-var appProd = 'app/';
+var gulp = require('gulp'),
+    del = require('del'),
+    sass = require('gulp-sass'),
+    typescript = require('gulp-typescript'),
+    sourcemaps = require('gulp-sourcemaps'),
+    merge = require('merge2'),
+    config = require('./gulpfile.config.json'),
+    packageConfig = require('./package.json');
 
-/* Mixed */
-var ext_replace = require('gulp-ext-replace');
+var tsProject = typescript.createProject('tsconfig.json', {sortdest: true});
 
-/* CSS */
-var postcss = require('gulp-postcss');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('autoprefixer');
-var precss = require('precss');
-var cssnano = require('cssnano');
+gulp.task('clean', function (done) {
+    return del(config.server.root, done);
+});
 
-/* JS & TS */
-var jsuglify = require('gulp-uglify');
-var typescript = require('gulp-typescript');
+gulp.task('compile:sass', function () {
+    return gulp.src(config.app.source + "/**/*.scss")
+        .pipe(sass())
+        .pipe(gulp.dest(config.app.dest))
+        .pipe(connect.reload());
+});
 
-/* Images */
-var imagemin = require('gulp-imagemin');
-
-var tsProject = typescript.createProject('tsconfig.json');
-
-gulp.task('build-css', function () {
-    return gulp.src(assetsDev + 'scss/*.scss')
+gulp.task('compile:ts', function () {
+    var tsResult = tsProject.src()
         .pipe(sourcemaps.init())
-        .pipe(postcss([precss, autoprefixer, cssnano]))
-        .pipe(sourcemaps.write())
-        .pipe(ext_replace('.css'))
-        .pipe(gulp.dest(assetsProd + 'css/'));
+        .pipe(typescript(tsProject));
+
+    tsResult.js
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(config.app.dest))
+        .pipe(connect.reload());
 });
 
-gulp.task('build-ts', function () {
-    return gulp.src(appDev + '**/*.ts')
-        .pipe(sourcemaps.init())
-        .pipe(typescript(tsProject))
-        .pipe(sourcemaps.write())
-        //.pipe(jsuglify())
-        .pipe(gulp.dest(appProd));
-});
-
-gulp.task('build-img', function () {
-    return gulp.src(assetsDev + 'img/**/*')
-        .pipe(imagemin({
-            progressive: true
-        }))
-        .pipe(gulp.dest(assetsProd + 'img/'));
-});
-
-gulp.task('build-html', function () {
-    return gulp.src(appDev + '**/*.html')
-        .pipe(gulp.dest(appProd));
+gulp.task('copy', function () {
+    gulp.src(config.app.source + "/**/!(*.ts|*.scss)", { base: config.app.source })
+        .pipe(gulp.dest(config.app.dest));
 });
 
 gulp.task('watch', function () {
-    gulp.watch(appDev + '**/*.ts', ['build-ts']);
-    gulp.watch(assetsDev + 'scss/**/*.scss', ['build-css']);
-    gulp.watch(assetsDev + 'img/*', ['build-img']);
+    gulp.watch(config.app.source + "/**/*.scss", ['compile:sass']);
+    gulp.watch(config.app.source + "/**/*.ts", ['compile:ts']);
+    gulp.watch(config.app.source + "/**/!(*.ts|*.scss)", ['refresh']);
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-css']);
+gulp.task('build', ['compile:sass', 'compile:ts', 'copy']);
+gulp.task('default', ['watch', 'build']);

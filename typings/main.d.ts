@@ -1,1 +1,3 @@
-/// <reference path="main/ambient/office-js/index.d.ts" />
+/// <reference path="main/ambient/es6-shim/index.d.ts" />
+/// <reference path="main/ambient/lodash/index.d.ts" />
+/// <reference path="main/ambient/systemjs/index.d.ts" />

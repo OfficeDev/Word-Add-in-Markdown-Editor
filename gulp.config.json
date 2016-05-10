@@ -1,0 +1,17 @@
+{
+    "lib": {
+        "source": "node_modules",
+        "dest": "www\\lib"
+    },
+    "app": {
+        "source": "src",
+        "dest": "www"
+    },
+    "server": {
+        "baseDir": "www\\"
+    },
+    "port": 8080,
+    "files": [
+        "./src/**/*"
+    ]
+}

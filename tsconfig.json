@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es6",
     "module": "system",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -8,18 +8,12 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "outDir": "./app"
+    "rootDir": "./src",
+    "outDir": "./www"
   },
-  "filesGlob": [
-    "./dev/**/*.ts",
-    "!./node_modules/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
     "typings/main",
     "typings/main.d.ts"
-  ],
-  "atom": {
-    "rewriteTsconfig": true
-  }
+  ]
 }
