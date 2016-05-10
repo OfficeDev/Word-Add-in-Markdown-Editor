@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'word-md-addin',
-    styleUrls: ['./app.css']
+    styleUrls: ['../app.css'],
     template: `
         <h1>Word MD Add-in</h1>
         <p>Hello World!</p>

@@ -9,8 +9,7 @@
   <DisplayName DefaultValue="Angular2 base a
   dd-in" />
   <Description DefaultValue="A sample word addin" />
-  <AppDomains>
-   
+  <AppDomains>  
     <AppDomain>http://localhost:3000</AppDomain>
   </AppDomains>
   <Hosts>

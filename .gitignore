@@ -59,3 +59,4 @@ bld/**
 bin/**
 .vs/**
 .idea/**
+*.log.*

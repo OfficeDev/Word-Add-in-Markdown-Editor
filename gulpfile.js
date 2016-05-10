@@ -8,20 +8,19 @@ var gulp = require('gulp'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
     merge = require('merge2'),
-    config = require('./gulpfile.config.json'),
+    config = require('./gulp.config.json'),
     packageConfig = require('./package.json');
 
-var tsProject = typescript.createProject('tsconfig.json', {sortdest: true});
+var tsProject = typescript.createProject('tsconfig.json');
 
 gulp.task('clean', function (done) {
-    return del(config.server.root, done);
+    return del('./www', done);
 });
 
 gulp.task('compile:sass', function () {
     return gulp.src(config.app.source + "/**/*.scss")
         .pipe(sass())
-        .pipe(gulp.dest(config.app.dest))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(config.app.dest));
 });
 
 gulp.task('compile:ts', function () {
@@ -31,8 +30,7 @@ gulp.task('compile:ts', function () {
 
     tsResult.js
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(config.app.dest))
-        .pipe(connect.reload());
+        .pipe(gulp.dest(config.app.dest));
 });
 
 gulp.task('copy', function () {

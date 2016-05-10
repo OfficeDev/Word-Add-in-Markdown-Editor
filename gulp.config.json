@@ -7,9 +7,6 @@
         "source": "src",
         "dest": "www"
     },
-    "server": {
-        "baseDir": "www\\"
-    },
     "port": 8080,
     "files": [
         "./src/**/*"
