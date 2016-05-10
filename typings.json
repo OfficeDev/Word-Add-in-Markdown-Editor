@@ -3,6 +3,7 @@
   "version": false,
   "dependencies": {},
   "ambientDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",
     "office-js": "registry:dt/office-js#0.0.0+20160505164725",
     "systemjs": "registry:dt/systemjs#0.18.4+20160417155658"
