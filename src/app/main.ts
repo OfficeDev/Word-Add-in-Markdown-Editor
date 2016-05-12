@@ -5,12 +5,12 @@ import HomeComponent from "./home/home.component";
 import GithubService from "./github/github.service";
 import MarkdownService from "./markdown/markdown.service";
 
-// try {
-//     Office.initialize = (reason) => {
-//         console.log('Office is initialized');
-//         bootstrap(AppComponent);
-//     };
-// }
-// catch (e) {
+try {
+    Office.initialize = (reason) => {
+        console.log('Office is initialized');
+        bootstrap(HomeComponent, [HTTP_PROVIDERS, GithubService, MarkdownService]);
+    };
+}
+catch (e) {
     bootstrap(HomeComponent, [HTTP_PROVIDERS, GithubService, MarkdownService]);
-// }
+}

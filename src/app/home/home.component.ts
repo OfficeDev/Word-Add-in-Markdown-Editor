@@ -10,6 +10,7 @@ import WordService from '../word/word.service';
 
 export default class HomeComponent {
     constructor(private _wordService: WordService) {
+        _wordService.sayHello();
         _wordService.insertHtml();
     }
 }
