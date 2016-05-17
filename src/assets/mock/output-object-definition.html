@@ -1,0 +1,1507 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        <!--
+        /* Font Definitions */
+        @font-face
+        {font-family:"Cambria Math";
+            panose-1:2 4 5 3 5 4 6 3 2 4;}
+        @font-face
+        {font-family:Calibri;
+            panose-1:2 15 5 2 2 2 4 3 2 4;}
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal
+        {margin-top:0in;
+            margin-right:0in;
+            margin-bottom:8.0pt;
+            margin-left:0in;
+            line-height:107%;
+            font-size:11.0pt;
+            font-family:"Calibri",sans-serif;}
+        h1
+        {mso-style-link:"Heading 1 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:24.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h2
+        {mso-style-link:"Heading 2 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:18.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h3
+        {mso-style-link:"Heading 3 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:13.5pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h4
+        {mso-style-link:"Heading 4 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:12.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        a:link, span.MsoHyperlink
+        {color:blue;
+            text-decoration:underline;}
+        a:visited, span.MsoHyperlinkFollowed
+        {color:purple;
+            text-decoration:underline;}
+        p
+        {margin-right:0in;
+            margin-left:0in;
+            font-size:12.0pt;
+            font-family:"Times New Roman",serif;}
+        code
+        {font-family:"Courier New";}
+        pre
+        {mso-style-link:"HTML Preformatted Char";
+            margin:0in;
+            margin-bottom:.0001pt;
+            font-size:10.0pt;
+            font-family:"Courier New";}
+        span.Heading1Char
+        {mso-style-name:"Heading 1 Char";
+            mso-style-link:"Heading 1";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading2Char
+        {mso-style-name:"Heading 2 Char";
+            mso-style-link:"Heading 2";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading3Char
+        {mso-style-name:"Heading 3 Char";
+            mso-style-link:"Heading 3";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading4Char
+        {mso-style-name:"Heading 4 Char";
+            mso-style-link:"Heading 4";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        p.msonormal0, li.msonormal0, div.msonormal0
+        {mso-style-name:msonormal;
+            margin-right:0in;
+            margin-left:0in;
+            font-size:12.0pt;
+            font-family:"Times New Roman",serif;}
+        span.HTMLPreformattedChar
+        {mso-style-name:"HTML Preformatted Char";
+            mso-style-link:"HTML Preformatted";
+            font-family:"Courier New";}
+        .MsoChpDefault
+        {font-family:"Calibri",sans-serif;}
+        .MsoPapDefault
+        {margin-bottom:8.0pt;
+            line-height:107%;}
+        @page WordSection1
+        {size:8.5in 11.0in;
+            margin:1.0in 1.0in 1.0in 1.0in;}
+        div.WordSection1
+        {page:WordSection1;}
+        -->
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+    <h1>Body Object (JavaScript API for Word)</h1>
+
+    <p><em>Word 2016, Word for iPad, Word for Mac</em></p>
+
+    <p>Represents the body of a document or a section.</p>
+
+    <h2 id=properties>Properties</h2>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Property</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Req. Set</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>style</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets or sets the style used for the body. This is the name
+                    of the pre-installed or custom style.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>text</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the text of the body. Use the insertText method to
+                    insert text. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>type</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the type of the body. The type can be 'MainDoc',
+                    'Section', 'Header', 'Footer', or 'TableCell'. Read-only. Possible values
+                    are: Unknown, MainDoc, Section, Header, Footer, TableCell.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+    </table>
+
+    <p><em>See property access <a href="#property-access-examples">examples.</a></em></p>
+
+    <h2 id=relationships>Relationships</h2>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Relationship</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Req. Set</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>contentControls</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="contentcontrolcollection.md">ContentControlCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of rich text content control objects
+                    in the body. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>font</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="font.md">Font</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the text format of the body. Use this to get and set
+                    font name, size, color and other properties. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>inlinePictures</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="inlinepicturecollection.md">InlinePictureCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of inlinePicture objects in the body.
+                    The collection does not include floating images. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>lists</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="listcollection.md">ListCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of list objects in the body.
+                    Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>paragraphs</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="paragraphcollection.md">ParagraphCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of paragraph objects in the body.
+                    Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>parentBody</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="body.md">Body</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the parent body of the body. For example, a table
+                    cell body's parent body could be a header. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>parentContentControl</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="contentcontrol.md">ContentControl</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the content control that contains the body. Returns
+                    null if there isn't a parent content control. Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>tables</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="tablecollection.md">TableCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of table objects in the body.
+                    Read-only.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'></td>
+        </tr>
+    </table>
+
+    <h2 id=methods>Methods</h2>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Method</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Return Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Req. Set</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#clear">clear()</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>void</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Clears the contents of the body object. The user can
+                    perform the undo operation on the cleared content.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#gethtml">getHtml()</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the HTML representation of the body object.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#getooxml">getOoxml()</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the OOXML (Office Open XML) representation of the
+                    body object.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#getrangerangelocation-string">getRange(rangeLocation:
+                    string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="range.md">Range</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the whole body, or the starting or ending point of
+                    the body, as a range.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertbreakbreaktype-string-insertlocat">insertBreak(breakType:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>void</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts a break at the specified location in the main
+                    document. The insertLocation value can be 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertcontentcontrol">insertContentControl()</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="contentcontrol.md">ContentControl</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Wraps the body object with a Rich Text content control.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertfilefrombase64base64file-string-i">insertFileFromBase64(base64File:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="range.md">Range</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts a document into the body at the specified
+                    location. The insertLocation value can be 'Replace', 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#inserthtmlhtml-string-insertlocation-st">insertHtml(html:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="range.md">Range</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts HTML at the specified location. The insertLocation
+                    value can be 'Replace', 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertinlinepicturefrombase64base64enco">insertInlinePictureFromBase64(base64EncodedImage:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="inlinepicture.md">InlinePicture</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts a picture into the body at the specified location.
+                    The insertLocation value can be 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.2</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertooxmlooxml-string-insertlocation-">insertOoxml(ooxml:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="range.md">Range</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts OOXML at the specified location. The
+                    insertLocation value can be 'Replace', 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#insertparagraphparagraphtext-string-ins">insertParagraph(paragraphText:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="paragraph.md">Paragraph</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts a paragraph at the specified location. The
+                    insertLocation value can be 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#inserttablerowcount-number-columncount-">insertTable(rowCount:
+                    number, columnCount: number, insertLocation: string, values: string[][])</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="table.md">Table</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts a table with the specified number of rows and
+                    columns. The insertLocation value can be 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.3</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#inserttexttext-string-insertlocation-st">insertText(text:
+                    string, insertLocation: string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="range.md">Range</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Inserts text into the body at the specified location. The
+                    insertLocation value can be 'Replace', 'Start' or 'End'.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#loadparam-object">load(param: object)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>void</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Fills the proxy object created in JavaScript layer with
+                    property and object values specified in the parameter.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#searchsearchtext-string-searchoptions-p">search(searchText:
+                    string, searchOptions: ParamTypeStrings.SearchOptions)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="searchresultcollection.md">SearchResultCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Performs a search with the specified searchOptions on the
+                    scope of the body object. The search results are a collection of range
+                    objects.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="#selectselectionmode-string">select(selectionMode:
+                    string)</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>void</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Selects the body and navigates the Word UI to it.</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>1.1</p>
+            </td>
+        </tr>
+    </table>
+
+    <h2 id=method-details>Method Details</h2>
+
+    <h3 id=clear->clear()</h3>
+
+    <p>Clears the contents of the body object. The user can perform the undo
+        operation on the cleared content.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.clear();</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <p>None</p>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>void</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to clear the contents of the body.</code></pre><pre><code>    body.clear();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Cleared the body contents.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p>The <a href="https://aka.ms/sillystorywordaddin">Silly stories</a> add-in
+        sample shows how the <strong>clear</strong> method can be used to clear the
+        contents of a document.</p>
+
+    <h3 id=gethtml->getHtml()</h3>
+
+    <p>Gets the HTML representation of the body object.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.getHtml();</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <p>None</p>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>string</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to get the HTML contents of the body.</code></pre><pre><code>    var bodyHTML = body.getHtml();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log(&quot;Body HTML contents: &quot; + bodyHTML.value);</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=getooxml->getOoxml()</h3>
+
+    <p>Gets the OOXML (Office Open XML) representation of the body object.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.getOoxml();</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <p>None</p>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>string</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to get the OOXML contents of the body.</code></pre><pre><code>    var bodyOOXML = body.getOoxml();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log(&quot;Body OOXML contents: &quot; + bodyOOXML.value);</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=getrange-rangelocation-string->getRange(rangeLocation: string)</h3>
+
+    <p>Gets the whole body, or the starting or ending point of the body, as a
+        range.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.getRange(rangeLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>rangeLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Optional. Optional. The range location can be 'Whole',
+                    'Start' or 'End'. Possible values are: Whole, Start, End</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="range.md">Range</a></p>
+
+    <h3 id=insertbreak-breaktype-string-insertlocation-string->insertBreak(breakType:
+        string, insertLocation: string)</h3>
+
+    <p>Inserts a break at the specified location in the main document. The
+        insertLocation value can be 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertBreak(breakType, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>breakType</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The break type to add to the body. Possible
+                    values are: <code><span style='font-size:10.0pt;line-height:107%'>Page</span></code>
+                    Page break at the insertion point.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Column</span></code> Column break at the insertion point.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Next</span></code> Section break on
+                    next page.,<code><span style='font-size:10.0pt;line-height:107%'>SectionContinuous</span></code>
+                    New section without a corresponding page break.,<code><span style='font-size:
+  10.0pt;line-height:107%'>SectionEven</span></code> Section break with the
+                    next section beginning on the next even-numbered page. If the section break
+                    falls on an even-numbered page, Word leaves the next odd-numbered page
+                    blank.,<code><span style='font-size:10.0pt;line-height:107%'>SectionOdd</span></code>
+                    Section break with the next section beginning on the next odd-numbered page.
+                    If the section break falls on an odd-numbered page, Word leaves the next
+                    even-numbered page blank.,<code><span style='font-size:10.0pt;line-height:
+  107%'>Line</span></code> Line break.,<code><span style='font-size:10.0pt;
+  line-height:107%'>LineClearLeft</span></code> Line break.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>LineClearRight</span></code> Line
+                    break.,<code><span style='font-size:10.0pt;line-height:107%'>TextWrapping</span></code>
+                    Ends the current line and forces the text to continue below a picture, table,
+                    or other item. The text continues on the next blank line that does not
+                    contain a table aligned with the left or right margin.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Start' or 'End'. Possible
+                    values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>void</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (ctx) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = ctx.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert a page break at the start of the document body.</code></pre><pre><code>    body.insertBreak(Word.BreakType.page, Word.InsertLocation.start);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return ctx.sync().then(function () {</code></pre><pre><code>        console.log('Added a page break at the start of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=insertcontentcontrol->insertContentControl()</h3>
+
+    <p>Wraps the body object with a Rich Text content control.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertContentControl();</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <p>None</p>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="contentcontrol.md">ContentControl</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to wrap the body in a content control.</code></pre><pre><code>    body.insertContentControl();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Wrapped the body in a content control.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=insertfilefrombase64-base64file-string-insertlocation-string->insertFileFromBase64(base64File:
+        string, insertLocation: string)</h3>
+
+    <p>Inserts a document into the body at the specified location. The
+        insertLocation value can be 'Replace', 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertFileFromBase64(base64File, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>base64File</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The base64 encoded content of a .docx file.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Replace', 'Start' or 'End'.
+                    Possible values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="range.md">Range</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert base64 encoded .docx at the beginning of the content body.</code></pre><pre><code>    // You will need to implement getBase64() to pass in a string of a base64 encoded docx file.</code></pre><pre><code>    body.insertFileFromBase64(getBase64(), Word.InsertLocation.start);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Added base64 encoded text to the beginning of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=inserthtml-html-string-insertlocation-string->insertHtml(html: string,
+        insertLocation: string)</h3>
+
+    <p>Inserts HTML at the specified location. The insertLocation value can be
+        'Replace', 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertHtml(html, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>html</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The HTML to be inserted in the document.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Replace', 'Start' or 'End'.
+                    Possible values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="range.md">Range</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert HTML in to the beginning of the body.</code></pre><pre><code>    body.insertHtml('&lt;strong&gt;This is text inserted with body.insertHtml()&lt;/strong&gt;', Word.InsertLocation.start);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('HTML added to the beginning of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3
+            id=insertinlinepicturefrombase64-base64encodedimage-string-insertlocation-string->insertInlinePictureFromBase64(base64EncodedImage:
+        string, insertLocation: string)</h3>
+
+    <p>Inserts a picture into the body at the specified location. The
+        insertLocation value can be 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertInlinePictureFromBase64(base64EncodedImage, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>base64EncodedImage</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The base64 encoded image to be inserted in the
+                    body.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Start' or 'End'. Possible
+                    values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="inlinepicture.md">InlinePicture</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert OOXML in to the beginning of the body.</code></pre><pre><code>    body.insertOoxml(&quot;&lt;pkg:package xmlns:pkg='http://schemas.microsoft.com/office/2006/xmlPackage'&gt;&lt;pkg:part pkg:name='/_rels/.rels' pkg:contentType='application/vnd.openxmlformats-package.relationships+xml' pkg:padding='512'&gt;&lt;pkg:xmlData&gt;&lt;Relationships xmlns='http://schemas.openxmlformats.org/package/2006/relationships'&gt;&lt;Relationship Id='rId1' Type='http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument' Target='word/document.xml'/&gt;&lt;/Relationships&gt;&lt;/pkg:xmlData&gt;&lt;/pkg:part&gt;&lt;pkg:part pkg:name='/word/document.xml' pkg:contentType='application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'&gt;&lt;pkg:xmlData&gt;&lt;w:document xmlns:w='http://schemas.openxmlformats.org/wordprocessingml/2006/main' &gt;&lt;w:body&gt;&lt;w:p&gt;&lt;w:pPr&gt;&lt;w:spacing w:before='360' w:after='0' w:line='480' w:lineRule='auto'/&gt;&lt;w:rPr&gt;&lt;w:color w:val='70AD47' w:themeColor='accent6'/&gt;&lt;w:sz w:val='28'/&gt;&lt;/w:rPr&gt;&lt;/w:pPr&gt;&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:color w:val='70AD47' w:themeColor='accent6'/&gt;&lt;w:sz w:val='28'/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;This text has formatting directly applied to achieve its font size, color, line spacing, and paragraph spacing.&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;&lt;/w:body&gt;&lt;/w:document&gt;&lt;/pkg:xmlData&gt;&lt;/pkg:part&gt;&lt;/pkg:package&gt;&quot;, Word.InsertLocation.start);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('OOXML added to the beginning of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p><em>Additional information</em></p>
+
+    <p>Read <a href="https://msdn.microsoft.com/en-us/library/office/dn423225.aspx">Create
+        better add-ins for Word with Office Open XML</a> for guidance on working with
+        OOXML. The [Word-Add-in-DocumentAssembly][body.insertOoxml] sample shows how
+        you can use this API to assemble a document.</p>
+
+    <h3 id=insertooxml-ooxml-string-insertlocation-string->insertOoxml(ooxml:
+        string, insertLocation: string)</h3>
+
+    <p>Inserts OOXML at the specified location. The insertLocation value can be
+        'Replace', 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertOoxml(ooxml, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>ooxml</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The OOXML to be inserted.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Replace', 'Start' or 'End'.
+                    Possible values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="range.md">Range</a></p>
+
+    <h3 id=insertparagraph-paragraphtext-string-insertlocation-string->insertParagraph(paragraphText:
+        string, insertLocation: string)</h3>
+
+    <p>Inserts a paragraph at the specified location. The insertLocation value can
+        be 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertParagraph(paragraphText, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>paragraphText</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The paragraph text to be inserted.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Start' or 'End'. Possible
+                    values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="paragraph.md">Paragraph</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert the paragraph at the end of the document body.</code></pre><pre><code>    body.insertParagraph('Content of a new paragraph', Word.InsertLocation.end);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Paragraph added at the end of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p><em>Additional information</em> The
+        [Word-Add-in-DocumentAssembly][body.insertParagraph] sample shows how you can
+        use the insertParagraph method to assemble a document.</p>
+
+    <h3
+            id=inserttable-rowcount-number-columncount-number-insertlocation-string-values-string->insertTable(rowCount:
+        number, columnCount: number, insertLocation: string, values: string[][])</h3>
+
+    <p>Inserts a table with the specified number of rows and columns. The
+        insertLocation value can be 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertTable(rowCount, columnCount, insertLocation, values);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>rowCount</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>number</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The number of rows in the table.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>columnCount</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>number</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The number of columns in the table.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Start' or 'End'. Possible
+                    values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>values</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string[][]</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Optional. Optional 2D array. Cells are filled if the
+                    corresponding strings are specified in the array.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="table.md">Table</a></p>
+
+    <h3 id=inserttext-text-string-insertlocation-string->insertText(text: string,
+        insertLocation: string)</h3>
+
+    <p>Inserts text into the body at the specified location. The insertLocation
+        value can be 'Replace', 'Start' or 'End'.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.insertText(text, insertLocation);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>text</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. Text to be inserted.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>insertLocation</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The value can be 'Replace', 'Start' or 'End'.
+                    Possible values are: <code><span style='font-size:10.0pt;line-height:107%'>Before</span></code>
+                    Add content before the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>After</span></code> Add content
+                    after the contents of the calling object.,<code><span style='font-size:10.0pt;
+  line-height:107%'>Start</span></code> Prepend content to the contents of the
+                    calling object.,<code><span style='font-size:10.0pt;line-height:107%'>End</span></code>
+                    Append content to the contents of the calling object.,<code><span
+                            style='font-size:10.0pt;line-height:107%'>Replace</span></code> Replace the
+                    contents of the current object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="range.md">Range</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to insert text in to the beginning of the body.</code></pre><pre><code>    body.insertText('This is text inserted with body.insertText()', Word.InsertLocation.start);</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Text added to the beginning of the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=load-param-object->load(param: object)</h3>
+
+    <p>Fills the proxy object created in JavaScript layer with property and object
+        values specified in the parameter.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>object.load(param);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>param</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>object</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Optional. Accepts parameter and relationship names as
+                    delimited string or an array. Or, provide <a href="loadoption.md">loadOption</a>
+                    object.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>void</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to load font and style information for the document body.</code></pre><pre><code>    context.load(body, 'font/size, font/name, font/color, style');</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        // Show the results of the load method. Here we show the</code></pre><pre><code>        // property values on the body object.</code></pre><pre><code>        var results = 'Font size: ' + body.font.size +</code></pre><pre><code>                      '; Font name: ' + body.font.name +</code></pre><pre><code>                      '; Font color: ' + body.font.color +</code></pre><pre><code>                      '; Body style: ' + body.style;</code></pre><pre><code>&nbsp;</code></pre><pre><code>        console.log(results);</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=search-searchtext-string-searchoptions-paramtypestrings-searchoptions->search(searchText:
+        string, searchOptions: ParamTypeStrings.SearchOptions)</h3>
+
+    <p>Performs a search with the specified searchOptions on the scope of the body
+        object. The search results are a collection of range objects.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.search(searchText, searchOptions);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>searchText</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Required. The search text.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>searchOptions</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>ParamTypeStrings.SearchOptions</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Optional. Optional. Options for the search.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p><a href="searchresultcollection.md">SearchResultCollection</a></p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to search the document.</code></pre><pre><code>    var searchResults = context.document.body.search('video', {matchCase: false});</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to load the results.</code></pre><pre><code>    context.load(searchResults, 'text, font');</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        var results = 'Found count: ' + searchResults.items.length +</code></pre><pre><code>                      '; we highlighted the results.';</code></pre><pre><code>&nbsp;</code></pre><pre><code>        // Queue a command to change the font for each found item.</code></pre><pre><code>        for (var i = 0; i &lt; searchResults.items.length; i++) {</code></pre><pre><code>          searchResults.items[i].font.color = '#FF0000'    // Change color to Red</code></pre><pre><code>          searchResults.items[i].font.highlightColor = '#FFFF00';</code></pre><pre><code>          searchResults.items[i].font.bold = true;</code></pre><pre><code>        }</code></pre><pre><code>&nbsp;</code></pre><pre><code>        // Synchronize the document state by executing the queued commands,</code></pre><pre><code>        // and return a promise to indicate task completion.</code></pre><pre><code>        return context.sync().then(function () {</code></pre><pre><code>            console.log(results);</code></pre><pre><code>        });</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p><em>Additional information</em> The
+        [Word-Add-in-DocumentAssembly][body.search] sample provides another example of
+        how to search a document.</p>
+
+    <h3 id=select-selectionmode-string->select(selectionMode: string)</h3>
+
+    <p>Selects the body and navigates the Word UI to it.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.select(selectionMode);</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Parameter</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>selectionMode</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Optional. Optional. The selection mode can be 'Select',
+                    'Start' or 'End'. 'Select' is the default. Possible values are: Select,
+                    Start, End</p>
+            </td>
+        </tr>
+    </table>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>void</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to select the document body. The Word UI will</code></pre><pre><code>    // move to the selected document body.</code></pre><pre><code>    body.select();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Selected the document body.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <h3 id=property-access-examples>Property access examples</h3>
+
+    <p><em>Get the text property on the body object</em></p>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to load the text in document body.</code></pre><pre><code>    context.load(body, 'text');</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log(&quot;Body contents: &quot; + body.text);</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p><em>Get the style and the font size, font name, and font color properties on
+        the body object.</em></p>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to load font and style information for the document body.</code></pre><pre><code>    context.load(body, 'font/size, font/name, font/color, style');</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        // Show the results of the load method. Here we show the</code></pre><pre><code>        // property values on the body object.</code></pre><pre><code>        var results = 'Font size: ' + body.font.size +</code></pre><pre><code>                      '; Font name: ' + body.font.name +</code></pre><pre><code>                      '; Font color: ' + body.font.color +</code></pre><pre><code>                      '; Body style: ' + body.style;</code></pre><pre><code>&nbsp;</code></pre><pre><code>        console.log(results);</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log('Error: ' + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log('Debug info: ' + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
+

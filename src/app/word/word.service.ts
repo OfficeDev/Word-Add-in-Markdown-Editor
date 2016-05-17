@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
-import GithubService from "../github/github.service";
+import {GithubService} from "../github/github.service";
 
 @Injectable()
-export default class WordService {
+export class WordService {
     constructor(private _githubService:GithubService) {
 
     }
@@ -17,10 +17,10 @@ export default class WordService {
             .subscribe(
                 html => {
                     return this._insertHtmlIntoWord(html)
-                        .then(()=> {
-                            return this.getHtmlFromWord();
-                            //return this.getHtmlFromWord2();
-                        });
+                    // .then(()=> {
+                    //return this.getHtmlFromWord();
+                    //return this.getHtmlFromWord2();
+
                 },
                 error => {
                     console.error(error);
@@ -55,7 +55,6 @@ export default class WordService {
         if (!Word) return;
 
         return this._run((context) => {
-            console.log("Entered getHtmlFromWord and have Word");
             var html = context.document.body.getHtml();
             return context.sync()
                 .then(function () {
@@ -64,10 +63,35 @@ export default class WordService {
                     return context.sync();
                 })
                 .then(function () {
-                    console.log("Inserted html using method 1");
+                    console.log("Inserted html using getHtml");
                 });
         });
     }
+
+    cleanupLists() {
+        if (!Word) return;
+
+        return this._run((context) => {
+            var paragraphs = context.document.body.paragraphs;
+            paragraphs.load();
+            var listArray;
+            var list;
+            var paragraph;
+            return context.sync().then(function () {
+                paragraph = paragraphs.items[1];
+                list = paragraph.startNewList();
+                list.load();
+            }).then(context.sync).then(function () {
+                list.insertParagraph('item1', 'start');
+                list.insertParagraph('item2', 'end');
+                list.insertParagraph('item3', 'after');
+            }).then(context.sync).then(function () {
+            });
+        }).catch(function (e) {
+            console.log(e.description);
+        });
+    }
+
 
     getHtmlFromWord2() {
         if (!Word) return;
@@ -76,38 +100,50 @@ export default class WordService {
             var body = context.document.body;
             // Create a proxy object for the paragraphs collection.
             var paragraphs = body.paragraphs;
-            // Queue a commmand to load the text and style properties for all of the paragraphs.
-            context.load(paragraphs, 'text, style');
-
+            context.load(paragraphs, 'text');
             return context.sync()
-                .then(()=> {
-                    // for (let i = 0; i < paragraphs.items.length; i++) {
-                    //     let styleName:string = paragraphs.items[i].style;
-                    //     let paragraphContents = paragraphs.items[i].getHtml();
-                    //
-                    //     context.document.body.insertText(paragraphContents.value+" "+styleName, Word.InsertLocation.end);
-                    // }
-
+                .then(function () {
                     // var paragraphContents = paragraphs.items.map((paragraph)=> {
                     //     return {
-                    //         style: paragraph.style,
-                    //         contents: paragraph.getHtml()
+                    //         contents: paragraph.text
+                    //         //inlinePicture: paragraph.inlinePictures.load(),
                     //     }
                     // });
+                    //
+                    // return context.sync()
+                    // .then(()=> {
+                    //     paragraphContents.forEach((paragraph)=> {
+                    //     body.insertText(paragraph.contents, Word.InsertLocation.end);
+                    //
+                    //     });
+                    // });
 
-                    var html = paragraphs.items[0].getHtml();
-                    console.log(html);
-                    // console.log(paragraphContents);
 
-                    return context.sync()
-                        .then(()=> {
-                            // paragraphContents.forEach((paragraph)=> {
-                                context.document.body.insertText(html.value + " " + paragraphs.items[0].style, Word.InsertLocation.end);
-                                // console.log(paragraph);
-                                // context.document.body.insertText(paragraph.contents.value + " " + paragraph.style, Word.InsertLocation.end);
-                            // });
-                        });
                 });
         });
+
     }
 }
+
+//         var images = paragraphs.items.map(function (paragraph) {
+//             var inlinePictures = paragraph.inlinePictures;
+//             context.load(inlinePictures);
+//             return inlinePictures;
+//         });
+//
+//         return context.sync()
+//             .then(function () {
+//                 images.forEach(function (inlinePictures) {
+//                     if (inlinePictures.items.length > 0) {
+//                         context.document.body.insertText("[Inline picture] ", "End");
+//                     }
+//                     else {
+//                         context.document.body.insertText("[No inline picture] ", "Start");
+//                     }
+//                 })
+//             });
+//         // paragraph.insertText("[" + paragraph.style + "] ", "Start");
+//     })
+//     context.sync();
+//
+// });

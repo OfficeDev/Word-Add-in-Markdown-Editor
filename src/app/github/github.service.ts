@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, RequestOptions} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
-import MarkdownService from '../markdown/markdown.service';
+import {MarkdownService} from '../markdown/markdown.service';
+import {REPOSITORIES} from "../shared/repositories";
+import {FILES} from "../shared/files";
+import {Repository} from '../shared/repository';
+import {MdFile} from '../shared/file';
 
 @Injectable()
-export default class GithubService {
+export class GithubService {
     constructor(
         private _http: Http,
         private _markdownService: MarkdownService
@@ -18,10 +22,27 @@ export default class GithubService {
     }
 
     getFileData() {
-        return this._http.get('/www/assets/mock/readme-simple.md')
+        return this._http.get('/www/assets/mock/readme-object-definition.md')
             .map((response: Response) => {
                 let text = response.text();
                 return this._markdownService.convertToHtml(text);
             });
     }
+    
+    getRepositoryIndex(item: Repository) {
+        return REPOSITORIES.indexOf(item);
+    }
+
+    getFileIndex(item: MdFile) {
+        return FILES.indexOf(item);
+    }
+
+    getAllRepositoriesForUser() {
+        return REPOSITORIES;
+    }
+
+    getAllMDFilesInRepo() {
+        return FILES;
+    }
+    
 }

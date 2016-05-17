@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import marked from 'marked';
 
 @Injectable()
-export default class MarkdownService {
+export class MarkdownService {
     constructor() {
 
     }
