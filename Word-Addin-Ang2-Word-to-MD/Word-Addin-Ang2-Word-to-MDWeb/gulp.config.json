@@ -9,7 +9,7 @@
   },
   "port": 8080,
   "files": [
-    "./wwwroot/**/*.{html,css,js}"
+    "./src/**/*.{html,scss,ts}"
   ],
   "server": { "baseDir": "./wwwroot" }
 }

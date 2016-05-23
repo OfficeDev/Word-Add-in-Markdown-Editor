@@ -50,5 +50,5 @@ gulp.task('watch', function () {
     ], ['copy']);
 });
 
-gulp.task('build', ['compile:sass', 'compile:common:sass', 'compile:ts', 'copy']);
+gulp.task('build', ['compile:sass', 'compile:ts', 'copy']);
 gulp.task('default', ['watch', 'build']);

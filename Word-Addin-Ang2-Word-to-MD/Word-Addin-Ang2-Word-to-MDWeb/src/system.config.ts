@@ -105,12 +105,12 @@ class Configuration {
 }
 
 new Configuration()
-    .useDevelopment()
+    .useProduction()
     .registerLibraries(<IPackage[]>[
         {
             name: 'app',
             main: 'main.js',
-            production: 'www/app'
+            production: 'app'
         },
         {
             name: 'rxjs',
@@ -120,7 +120,8 @@ new Configuration()
         {
             name: 'marked',
             main: 'marked.js',
-            production: 'node_modules/marked/lib'
+            development: 'node_modules/marked/lib',
+            production: 'https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5'
         }
     ])
     .queueImport('app/main')
