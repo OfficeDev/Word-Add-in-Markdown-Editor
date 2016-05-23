@@ -105,7 +105,7 @@ class Configuration {
 }
 
 new Configuration()
-    .useProduction()
+    .useDevelopment()
     .registerLibraries(<IPackage[]>[
         {
             name: 'app',
@@ -124,5 +124,6 @@ new Configuration()
         }
     ])
     .queueImport('app/main')
+    .queueImport('rxjs')
     .queueImport('marked')
     .configure();
