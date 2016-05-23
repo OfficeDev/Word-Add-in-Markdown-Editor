@@ -33,7 +33,7 @@
     flex: 1 1 0;
     background: transparent no-repeat center center;
     background-size: contain;
-    background-image: url("/www/assets/images/logo-background-geometric.png");
+    background-image: url("assets/images/logo-background-geometric.png");
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;

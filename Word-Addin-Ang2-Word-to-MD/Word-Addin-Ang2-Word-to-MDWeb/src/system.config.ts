@@ -60,6 +60,7 @@ class Configuration {
         '@angular/compiler',
         '@angular/core',
         '@angular/http',
+        '@angular/platform-browser',    
         '@angular/platform-browser-dynamic',
         '@angular/router',
         '@angular/testing',

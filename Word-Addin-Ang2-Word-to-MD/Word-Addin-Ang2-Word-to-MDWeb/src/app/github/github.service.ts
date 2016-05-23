@@ -22,7 +22,7 @@ export class GithubService {
     }
 
     getFileData() {
-        return this._http.get('/www/assets/mock/readme-simple.md')
+        return this._http.get('assets/mock/readme-simple.md')
             .map((response: Response) => {
                 let text = response.text();
                 return this._markdownService.convertToHtml(text);

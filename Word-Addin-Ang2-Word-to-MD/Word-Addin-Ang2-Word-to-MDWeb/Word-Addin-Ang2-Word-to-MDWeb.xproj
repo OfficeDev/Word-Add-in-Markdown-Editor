@@ -17,8 +17,8 @@
     <TargetOfficeVersion>15.0</TargetOfficeVersion>
   </PropertyGroup>
   <ItemGroup>
-    <DnxInvisibleContent Include="node_modules" />
     <DnxInvisibleContent Include="typings" />
+    <DnxInvisibleContent Include="node_modules" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
