@@ -17,8 +17,12 @@ export class WordService {
             .subscribe(
                 html => {
                     return this._insertHtmlIntoWord(html)
-                    // .then(()=> {
-                    //return this.getHtmlFromWord();
+                    .then(()=> {
+                        //return this.cleanupLists();
+                        //return this.getHtmlFromWord();
+                        return this.formatTables();
+                    })
+
                     //return this.getHtmlFromWord2();
 
                 },
@@ -68,29 +72,48 @@ export class WordService {
         });
     }
 
-    cleanupLists() {
-        if (!Word) return;
+cleanupLists() {
+    if (!Word) return;
 
-        return this._run((context) => {
-            var paragraphs = context.document.body.paragraphs;
-            paragraphs.load();
-            var listArray;
-            var list;
-            var paragraph;
+    return this._run((context) => {
+        var paras = context.document.body.paragraphs;
+        paras.load();
+        return context.sync().then(function () {
+            var para = paras.items[2] as any;
+            console.log(para);
+           var list = para.startNewList();
+            list.load();
             return context.sync().then(function () {
-                paragraph = paragraphs.items[1];
-                list = paragraph.startNewList();
-                list.load();
-            }).then(context.sync).then(function () {
-                list.insertParagraph('item1', 'start');
-                list.insertParagraph('item2', 'end');
-                list.insertParagraph('item3', 'after');
-            }).then(context.sync).then(function () {
-            });
-        }).catch(function (e) {
-            console.log(e.description);
-        });
-    }
+                list.insertParagraph("item1", 'start');
+                list.insertParagraph("item2", 'end');
+                list.insertParagraph("normal Paragraph before", 'before');
+                list.insertParagraph("normal Paragraph after", 'after');
+                return context.sync();
+            })
+        })
+    }).catch(function (e) {
+        console.log(e.description);
+    });
+}
+
+formatTables() {
+    if (!Word) return;
+
+    return this._run((context) => {
+        var tables = context.document.body.tables;
+        tables.load("style");
+        return context.sync().then(function () {
+             for(var i=0;i<=tables.items.length;i++) {
+                 console.log(tables.items[i].style);
+                 tables.items[i].style = "Grid Table 4 - Accent 1";
+             }
+            return context.sync();
+        })
+    }).catch(function (e) {
+        console.log(e.description);
+    });
+}
+
 
 
     getHtmlFromWord2() {
