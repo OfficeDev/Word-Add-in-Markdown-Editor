@@ -1,6 +1,7 @@
 {
   "name": "word-addin-ang2-word-to-md",
-  "description": "",
+  "description": "a word addin that connects to github",
+  "repository": "",
   "version": "1.0.0",
   "scripts": {
     "start": "concurrent \"npm run gulp\" \"npm run lite\"",
