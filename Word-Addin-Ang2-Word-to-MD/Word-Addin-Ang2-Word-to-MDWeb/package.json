@@ -1,0 +1,17 @@
+{
+  "name": "Word_Addin_Ang2_Word_to_MDWeb",
+  "version": "1.0.0",
+  "scripts": {
+    "gulp": "gulp serve",
+    "start": "npm run gulp"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "office-ui-fabric": "^2.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "browser-sync": "^2.12.8"
+  }
+}
