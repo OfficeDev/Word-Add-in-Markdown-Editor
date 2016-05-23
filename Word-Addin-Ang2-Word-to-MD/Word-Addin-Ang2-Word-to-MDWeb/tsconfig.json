@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "module": "system",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -13,5 +13,5 @@
     "node_modules",
     "typings/main",
     "typings/main.d.ts"
-  ]
+  ]  
 }

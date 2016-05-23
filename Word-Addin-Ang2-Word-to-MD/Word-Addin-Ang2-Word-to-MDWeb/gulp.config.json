@@ -1,0 +1,15 @@
+{
+  "lib": {
+    "source": "node_modules",
+    "dest": "wwwroot\\lib"
+  },
+  "app": {
+    "source": "src",
+    "dest": "wwwroot"
+  },
+  "port": 8080,
+  "files": [
+    "./wwwroot/**/*.{html,css,js}"
+  ],
+  "server": { "baseDir": "./wwwroot" }
+}

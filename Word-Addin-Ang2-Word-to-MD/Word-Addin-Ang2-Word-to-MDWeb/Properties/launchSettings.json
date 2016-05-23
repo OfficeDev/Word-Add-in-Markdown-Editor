@@ -9,8 +9,8 @@
   },
   "profiles": {
     "node": {
-      "executablePath": "%APPDATA%\\npm\\gulp.cmd",
-      "commandLineArgs": "serve",
+      "executablePath": "%PROGRAMFILES%/nodejs/npm",
+      "commandLineArgs": "start",
       "launchUrl": "http://localhost:3000/project_readme.html",
       "environmentVariables": {
         "Hosting:Environment": "Development"

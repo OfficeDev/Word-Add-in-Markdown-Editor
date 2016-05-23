@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {WordService} from '../word/word.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {GithubService} from './gitHub.service';
-import {Router} from '@angular/router-deprecated';
+import {Router} from '@angular/router';
 import {MdFile} from '../shared/file';
 
 @Component({

@@ -60,10 +60,8 @@ class Configuration {
         '@angular/compiler',
         '@angular/core',
         '@angular/http',
-        '@angular/platform-browser',
         '@angular/platform-browser-dynamic',
         '@angular/router',
-        '@angular/router-deprecated',
         '@angular/testing',
         '@angular/upgrade',
     ];
@@ -107,7 +105,7 @@ class Configuration {
 }
 
 new Configuration()
-    .useDevelopment()
+    .useProduction()
     .registerLibraries(<IPackage[]>[
         {
             name: 'app',
@@ -120,15 +118,11 @@ new Configuration()
             production: 'https://npmcdn.com/rxjs@5.0.0-beta.6'
         },
         {
-            name: 'angular2-in-memory-web-api',
-            development: 'node_modules/angular2-in-memory-web-api',
-            production: 'https://npmcdn.com/angular2-in-memory-web-api'
-        },
-        {
             name: 'marked',
             main: 'marked.js',
             production: 'node_modules/marked/lib'
         }
     ])
     .queueImport('app/main')
+    .queueImport('marked')
     .configure();

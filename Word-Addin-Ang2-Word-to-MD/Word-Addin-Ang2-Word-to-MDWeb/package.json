@@ -1,17 +1,44 @@
 {
-  "name": "Word_Addin_Ang2_Word_to_MDWeb",
+  "name": "word-addin-ang2-word-to-md",
+  "description": "",
   "version": "1.0.0",
   "scripts": {
-    "gulp": "gulp serve",
-    "start": "npm run gulp"
+    "start": "concurrent \"npm run gulp\" \"npm run lite\"",
+    "lite": "lite-server -c gulp.config.json",
+    "gulp": "gulp",
+    "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "typings": "typings"
   },
   "license": "MIT",
   "dependencies": {
+    "@angular/common": "2.0.0-rc.1",
+    "@angular/compiler": "2.0.0-rc.1",
+    "@angular/core": "2.0.0-rc.1",
+    "@angular/http": "2.0.0-rc.1",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.1",
+    "@angular/router": "2.0.0-rc.1",
+    "systemjs": "0.19.27",
+    "es6-shim": "0.35.0",
+    "reflect-metadata": "0.1.3",
+    "rxjs": "5.0.0-beta.6",
+    "zone.js": "0.6.12",
+    "underscore": "^1.8.3",
     "jquery": "^2.2.3",
-    "office-ui-fabric": "^2.1.0"
+    "office-ui-fabric": "^2.6.0",
+    "marked": "^0.3.5"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "browser-sync": "^2.12.8"
+    "concurrently": "^2.0.0",
+    "lite-server": "^2.2.0",
+    "typings": "^0.8.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.10.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-sass": "^2.3.1",
+    "gulp-concat": "^2.6.0"
   }
 }

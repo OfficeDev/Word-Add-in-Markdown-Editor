@@ -17,9 +17,6 @@
     <TargetOfficeVersion>15.0</TargetOfficeVersion>
   </PropertyGroup>
   <ItemGroup>
-    <DnxInvisibleContent Include="bower.json" />
-    <DnxInvisibleContent Include=".bowerrc" />
-    <DnxInvisibleContent Include="package.json" />
     <DnxInvisibleContent Include="node_modules" />
     <DnxInvisibleContent Include="typings" />
   </ItemGroup>

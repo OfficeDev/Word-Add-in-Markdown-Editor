@@ -1,0 +1,11 @@
+{
+  "name": "not-so-grey",
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "systemjs": "registry:dt/systemjs#0.18.4+20160417155658",
+    "underscore": "registry:dt/underscore#1.7.0+20160505190121",
+    "marked": "registry:dt/marked#0.0.0+20160325085301"
+  }
+}
