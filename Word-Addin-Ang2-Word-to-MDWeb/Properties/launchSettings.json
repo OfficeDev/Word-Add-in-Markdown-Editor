@@ -1,15 +1,7 @@
 {
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:56887/",
-      "sslPort": 0
-    }
-  },
   "profiles": {
     "node": {
-      "executablePath": "%PROGRAMFILES%/nodejs/npm",
+      "executablePath": "C:/Program Files/nodejs/npm.cmd",
       "commandLineArgs": "start",
       "launchUrl": "http://localhost:3000/project_readme.html",
       "environmentVariables": {
