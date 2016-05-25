@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
-import {ListFilesComponent} from "../github/list-files.component";
+import {FilesComponent} from "../github/files.component";
+import {LoginComponent} from "../github/login.component";
 import {FileDetailComponent} from "../github/file-detail.component";
-import {ListRepositoriesComponent} from "../github/list-repositories.component";
+import {RepositoriesComponent} from "../github/repositories.component";
 import {WordService} from '../word/word.service';
+import {OnInit} from '@angular/core';
 
 @Component({
     selector: 'word-md-addin',
@@ -12,16 +14,20 @@ import {WordService} from '../word/word.service';
     directives: [ROUTER_DIRECTIVES]
 })
 
-@Routes([
-    { path: '/files', component: ListFilesComponent },
-    { path: '/repositories', component: ListRepositoriesComponent },
-    { path: '/files/:id', component: FileDetailComponent }
+ @Routes([
+    { path: '/login', component: LoginComponent },
+    { path: '/repos', component: RepositoriesComponent },
+    //{ path: '/repositories/:index/files', component: FilesComponent },
+    //{ path: '/repositories/:index/files/:fileindex', component: FileDetailComponent }
 ])
 
-export class HomeComponent {
-    constructor(private _wordService: WordService, private _router: Router) { }
+export class HomeComponent implements OnInit {
 
-    onClick() {
-        this._wordService.insertHtml();
+    constructor(private _router: Router) { }
+
+    ngOnInit(): any {
+        this._router.navigate(['/login']);
     }
+
+
 }
