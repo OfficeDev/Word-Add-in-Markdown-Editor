@@ -9,27 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.min.css">
-    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/2.1.0/fabric.components.min.css">
-    <link href="lib/loading/spinner.css" rel="stylesheet" />
+    <!-- 0. Basic dependencies -->
+    <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
+    <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
+    <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
 
     <!-- 1. Load libraries -->
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
-    <script src="lib/loading/fabric.spinner.js"></script>
+    <link href="lib/loading/spinner.css" rel="stylesheet" />
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
 
     <!--2. Polyfill(s) for older browsers -->
-    <script src="https://npmcdn.com/core-js/client/shim.min.js"></script>
-    <script src="https://npmcdn.com/zone.js@0.6.12?main=browser"></script>
-    <script src="https://npmcdn.com/reflect-metadata@0.1.3"></script>
-    <script src="https://npmcdn.com/systemjs@0.19.27/dist/system.src.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
     <!-- 3. Configure SystemJS -->
     <script src="system.config.js"></script>
 </head>
 
 <body>
-    <word-md-addin>
+    <word-to-github>
         <div class="ms-notification-progress-indeterminate">
             <main class="ms-notification-progress-indeterminate__main ms-bgColor-themePrimary ms-fontColor-white">
                 <img class="ms-notification-progress-indeterminate__logo" src="assets/images/logo.png" />
@@ -56,7 +57,7 @@
                 }
             </script>
         </div>
-    </word-md-addin>
+    </word-to-github>
 </body>
 
 </html>

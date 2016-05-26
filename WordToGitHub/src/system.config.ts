@@ -122,7 +122,19 @@ new Configuration()
             name: 'rxjs',
             main: 'rx.js',
             production: 'node_modules/rxjs'
+        },
+        {
+            name: 'underscore',
+            main: 'underscore.js',
+            production: 'node_modules/underscore'
+        },
+        {
+            name: 'marked',
+            main: 'marked.js',
+            production: 'node_modules/marked/lib'
         }
     ])
+    .queueImport('underscore')
+    .queueImport('marked')
     .queueImport('app/main')
     .configure();

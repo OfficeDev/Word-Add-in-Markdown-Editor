@@ -1,0 +1,6 @@
+﻿<h2>Repositories</h2>
+<ul class="ms-List">
+    <li class="ms-ListItem is-selectable" *ngFor="let item of repositories" (click)="onSelect(item)">
+        <p class="ms-ListItem-primaryText">{{item.name}}</p>
+    </li>
+</ul>

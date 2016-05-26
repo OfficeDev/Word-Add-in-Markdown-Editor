@@ -1,41 +1,27 @@
 import {Injectable} from "@angular/core";
-import {GithubService} from "../github/github.service";
+import {MarkdownService} from "./markdown.service";
+import {GithubService} from "./github.service";
 
 @Injectable()
 export class WordService {
-    constructor(private _githubService:GithubService) {
+    constructor(private _githubService: GithubService) {
 
-    }
-
-    sayHello() {
-        console.log("Hello");
     }
 
     insertHtml() {
         this._githubService
-            .getFileData()
+            .file('simple-file')
             .subscribe(
-                html => {
-                    return this._insertHtmlIntoWord(html)
-                    .then(()=> {
-                        //return this.cleanupLists();
-                        //return this.getHtmlFromWord();
-                        return this.formatTables();
-                    })
-
-                    //return this.getHtmlFromWord2();
-
-                },
-                error => {
-                    console.error(error);
-                },
-                () => {
-                    console.info('completed getting file data');
-                }
+            html => {
+                return this._insertHtmlIntoWord(html.text())
+                    .then(() => { return this.formatTables(); })
+            },
+            error => { console.error(error); },
+            () => { console.info('completed getting file data'); }
             );
     }
 
-    private _run<T>(batch:(context:Word.RequestContext) => OfficeExtension.IPromise<T>) {
+    private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>) {
         return Word.run<T>(batch)
             .catch(function (error) {
                 console.log('Error: ' + JSON.stringify(error));
@@ -45,7 +31,7 @@ export class WordService {
             });
     }
 
-    private _insertHtmlIntoWord(html:string) {
+    private _insertHtmlIntoWord(html: string) {
         if (!Word) return;
 
         return this._run((context) => {
@@ -72,49 +58,49 @@ export class WordService {
         });
     }
 
-cleanupLists() {
-    if (!Word) return;
+    cleanupLists() {
+        if (!Word) return;
 
-    return this._run((context) => {
-        var paras = context.document.body.paragraphs;
-        paras.load();
-        return context.sync().then(function () {
-            var para = paras.items[2] as any;
-            console.log(para);
-           var list = para.startNewList();
-            list.load();
+        return this._run((context) => {
+            var paras = context.document.body.paragraphs;
+            paras.load();
             return context.sync().then(function () {
-                list.insertParagraph("item1", 'start');
-                list.insertParagraph("item2", 'end');
-                list.insertParagraph("normal Paragraph before", 'before');
-                list.insertParagraph("normal Paragraph after", 'after');
+                var para = paras.items[2] as any;
+                console.log(para);
+                var list = para.startNewList();
+                list.load();
+                return context.sync().then(function () {
+                    list.insertParagraph("item1", 'start');
+                    list.insertParagraph("item2", 'end');
+                    list.insertParagraph("normal Paragraph before", 'before');
+                    list.insertParagraph("normal Paragraph after", 'after');
+                    return context.sync();
+                })
+            })
+        }).catch(function (e) {
+            console.log(e.description);
+        });
+    }
+
+    formatTables() {
+        if (!Word) return;
+
+        return this._run((context) => {
+            var body = context.document.body as any;
+            var tables = body.tables;
+            tables.load("style");
+            return context.sync().then(function () {
+                _.each(tables.items, (table: any) => {
+                    console.log(table.style);
+                    table.style = "Grid Table 4 - Accent 1";
+                });
+
                 return context.sync();
             })
-        })
-    }).catch(function (e) {
-        console.log(e.description);
-    });
-}
-
-formatTables() {
-    if (!Word) return;
-
-    return this._run((context) => {
-        var tables = context.document.body.tables;
-        tables.load("style");
-        return context.sync().then(function () {
-             for(var i=0;i<=tables.items.length;i++) {
-                 console.log(tables.items[i].style);
-                 tables.items[i].style = "Grid Table 4 - Accent 1";
-             }
-            return context.sync();
-        })
-    }).catch(function (e) {
-        console.log(e.description);
-    });
-}
-
-
+        }).catch(function (e) {
+            console.log(e.description);
+        });
+    }
 
     getHtmlFromWord2() {
         if (!Word) return;
