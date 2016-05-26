@@ -1,15 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component} from '@angular/core';
+import {OnActivate, Router, RouteSegment} from '@angular/router';
 import {Path} from '../shared/helpers/utilities';
 import {GithubService, IFile} from '../shared/services/github.service';
 
-let view = 'files-list';
+let view = 'repo-detail';
 @Component({
-    selector: view,
     templateUrl: Path.template(view)
 })
 
-export class FilesListComponent implements OnInit {
+export class RepoDetailComponent implements OnActivate {
     files: any;
 
     constructor(
@@ -18,13 +17,12 @@ export class FilesListComponent implements OnInit {
     ) { }
 
     onSelect(item: IFile) {
-        this._router.navigate(['/repositories/:repoId/files/:fileId', {
-            reposId: 0,
-            fileId: item.id
-        }]);
+        this._router.navigate(['/file', item.id]);
     }
 
-    ngOnInit(): any {
+    routerOnActivate(current: RouteSegment) {
+        let id = +current.getParam('id');
+        console.log('Showing data for repository', id);
         this.files = this._githubService.files();
     }
 }

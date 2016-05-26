@@ -11,7 +11,7 @@
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="http://localhost:3000" />
+    <SourceLocation DefaultValue="http://localhost:3000/index.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>

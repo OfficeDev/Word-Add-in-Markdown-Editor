@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 import {Path} from '../shared/helpers/utilities';
 
-import {FilesListComponent} from "../files-list/files-list.component";
-import {FilesDetailComponent} from "../files-detail/files-detail.component";
+import {RepoListComponent} from "../repo-list/repo-list.component";
+import {RepoDetailComponent} from "../repo-detail/repo-detail.component";
+import {FileDetailComponent} from "../file-detail/file-detail.component";
 import {LoginComponent} from "../login/login.component";
-import {ReposComponent} from "../repos/repos.component";
 
 let view = 'home';
 @Component({
@@ -22,15 +22,15 @@ let view = 'home';
     },
     {
         path: '/repos',
-        component: ReposComponent
+        component: RepoListComponent
     },
     {
-        path: '/repos/:repoId/files',
-        component: FilesListComponent
+        path: '/repo/:id',
+        component: RepoDetailComponent
     },
     {
-        path: '/repos/:repoId/files/:fileId',
-        component: FilesDetailComponent
+        path: '/file/:id',
+        component: FileDetailComponent
     },
     {
         path: '*',
@@ -41,5 +41,7 @@ let view = 'home';
 export class HomeComponent implements OnInit {
     constructor(private _router: Router) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log('Home loaded');
+    }
 }

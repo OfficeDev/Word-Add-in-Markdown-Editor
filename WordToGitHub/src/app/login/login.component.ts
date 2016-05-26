@@ -6,12 +6,11 @@ import {Path} from '../shared/helpers/utilities';
 
 let view = 'login';
 @Component({
-    selector: view,
     templateUrl: Path.template(view),
     styleUrls: [Path.style(view)]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit {
     constructor(
         private _githubService: GithubService,
         private _router: Router
@@ -19,5 +18,9 @@ export class LoginComponent {
 
     login() {
         this._router.navigate(['/repos']);
+    }
+
+    ngOnInit() {
+        console.log('Login loaded');
     }
 }
