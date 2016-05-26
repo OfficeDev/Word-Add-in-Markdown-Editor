@@ -5,6 +5,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: auto;
+    overflow-x: hidden;
 }
 
 body {
@@ -96,13 +97,53 @@ ul {
     .ms-progress .ms-Spinner {
         position: relative;
         bottom: 40px;
-        
         /* height of the spinner from fabric.spinner.js  */
         left: calc(50% - 20px);
-        
         /* standard padding; */
     }
 
     .ms-progress .ms-Spinner-circle {
         background-color: #FFFFFF;
     }
+
+.page-header {
+    width: 100%;
+    padding: 20px;
+}
+
+.ms-List {
+    width: 100vw;
+}
+
+.ms-ListItem {
+    cursor: pointer;
+    padding-left: 21px;
+    padding: 15px 21px;
+}
+
+    .ms-ListItem .ms-ListItem-secondaryText {
+        color: #005A9E;
+    }
+
+    .ms-ListItem .ms-ListItem-tertiaryText {
+        overflow: visible;
+        white-space: normal;
+        text-overflow: clip;
+    }
+
+    .ms-ListItem:hover {
+        background-color: #F4F4F4;
+    }
+
+    .ms-ListItem.selected {
+        border: solid 1px #005A9E;
+    }
+
+
+.jumbotron {
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+}

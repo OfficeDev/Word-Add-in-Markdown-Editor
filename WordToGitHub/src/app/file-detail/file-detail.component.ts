@@ -14,10 +14,10 @@ export class FileDetailComponent implements OnActivate {
     constructor(private _wordService: WordService) { }
 
     routerOnActivate(current: RouteSegment) {
-        let id = +current.getParam('id');
-        console.log('Loading data for file', id);
+        let name = current.getParam('id');
+        console.log('Loading data for file', name);
 
         //TODO: take file name as a parameter
-        this._wordService.insertHtml();
+        this._wordService.insertHtml(name);
     }
 }

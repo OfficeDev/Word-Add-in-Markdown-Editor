@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import {Observable} from 'rxjs';
+import 'rxjs/add/operator/map';
 import {Utils} from '../helpers/utilities';
 
 export interface IRepository {
@@ -32,18 +33,18 @@ export class GithubService {
     constructor(private _http: Http) {
     }
 
-    repos() {
+    repos(): Observable<IRepository[]> {
         let url = Utils.getMockFileUrl("json", "repository");
-        return this._http.get(url);
+        return this._http.get(url).map(response => response.json());
     }
 
-    files() {
+    files(): Observable<IFile[]> {
         let url = Utils.getMockFileUrl("json", "file");
-        return this._http.get(url);
+        return this._http.get(url).map(response => response.json());
     }
 
-    file(name: string) {
+    file(name: string): Observable<string> {
         let url = Utils.getMockFileUrl("md", name);
-        return this._http.get(url);
+        return this._http.get(url).map(response => response.text());
     }
 }

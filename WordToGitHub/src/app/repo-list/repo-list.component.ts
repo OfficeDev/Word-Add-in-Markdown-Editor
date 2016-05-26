@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Router, OnActivate} from '@angular/router';
+import {Observable} from 'rxjs';
 import {Path} from '../shared/helpers/utilities';
 import {GithubService, IRepository} from '../shared/services/github.service';
 
@@ -9,7 +10,7 @@ let view = 'repo-list';
 })
 
 export class RepoListComponent implements OnActivate {
-    repositories;
+    repositories: Observable<IRepository[]>;
 
     constructor(
         private _githubService: GithubService,
@@ -20,6 +21,6 @@ export class RepoListComponent implements OnActivate {
     }
 
     routerOnActivate() {
-        this.repositories = this._githubService.repos();
+        this.repositories = this._githubService.repos()        
     }
 }

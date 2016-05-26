@@ -1,5 +1,10 @@
-﻿<ul class="ms-List">
-    <li class="ms-ListItem is-selectable" *ngFor="let item of files" (click)="onSelect(item)">
-        <p class="ms-ListItem-primaryText">{{item.name}}</p>
+﻿<div class="page-header ms-bgColor-themeDark">
+    <h1 class="ms-font-xl ms-fontColor-themeLighter">Files</h1>
+</div>
+<ul class="ms-List">
+    <li class="ms-ListItem" *ngFor="let file of (files | async)" (click)="onSelect(file)">
+        <span class="ms-ListItem-primaryText">{{file.name}}</span>
+        <span class="ms-ListItem-secondaryText">last changed yesterday</span>
+        <span class="ms-ListItem-tertiaryText">12,064 bytes</span>
     </li>
-</ul>  
+</ul>

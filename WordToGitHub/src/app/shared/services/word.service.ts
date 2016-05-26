@@ -4,16 +4,20 @@ import {GithubService} from "./github.service";
 
 @Injectable()
 export class WordService {
-    constructor(private _githubService: GithubService) {
+    constructor(
+        private _githubService: GithubService,
+        private _markDownService: MarkdownService
+    ) {
 
     }
 
-    insertHtml() {
+    insertHtml(name: string = 'simple-file') {
         this._githubService
-            .file('simple-file')
+            .file(name)
             .subscribe(
-            html => {
-                return this._insertHtmlIntoWord(html.text())
+            md => {
+                let html = this._markDownService.convertToHtml(md);
+                this._insertHtmlIntoWord(html)
                     .then(() => { return this.formatTables(); })
             },
             error => { console.error(error); },
