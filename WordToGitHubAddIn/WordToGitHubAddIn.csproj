@@ -43,10 +43,10 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="Word-Addin-Ang2-Word-to-MDManifest\SharePointProjectItem.spdata">
+    <None Include="WordToGitHubAddInManifest\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{648ba33d-3a1b-4179-bd9c-37ad80e9b6ed}</SharePointProjectItemId>
     </None>
-    <Content Include="Word-Addin-Ang2-Word-to-MDManifest\Word-Addin-Ang2-Word-to-MD.xml">
+    <Content Include="WordToGitHubAddInManifest\WordToGitHubAddInManifest.xml">
       <OpcRelationship>manifest-oemanifest</OpcRelationship>
     </Content>
   </ItemGroup>

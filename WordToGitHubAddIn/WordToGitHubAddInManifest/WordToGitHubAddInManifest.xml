@@ -3,18 +3,15 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
   <Id>af8fa5ba-4010-4bcc-9e03-a91ddadf6dd3</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>[Provider name]</ProviderName>
+  <ProviderName>Microsoft</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Word to Markdown Addin" />
-  <Description DefaultValue="A sample word addin" />
-  <AppDomains>
-    <AppDomain>http://localhost:8080</AppDomain>
-  </AppDomains>
+  <DisplayName DefaultValue="Word to GitHub" />
+  <Description DefaultValue="A Word add-in that connects to GitHub" />
   <Hosts>
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="http://localhost:8080/index.html" />
+    <SourceLocation DefaultValue="http://localhost:3000" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>

@@ -12,7 +12,12 @@ class Configuration {
 
         System.config({
             map: this.map,
-            packages: this.packages
+            packages: this.packages,
+            meta: {
+                'app/*': {
+                    scriptLoad: true
+                }
+            }
         });
 
         return this.multiImport()
@@ -60,7 +65,7 @@ class Configuration {
         '@angular/compiler',
         '@angular/core',
         '@angular/http',
-        '@angular/platform-browser',    
+        '@angular/platform-browser',
         '@angular/platform-browser-dynamic',
         '@angular/router',
         '@angular/testing',
@@ -106,7 +111,7 @@ class Configuration {
 }
 
 new Configuration()
-    .useProduction()
+    .useDevelopment()
     .registerLibraries(<IPackage[]>[
         {
             name: 'app',
@@ -115,17 +120,9 @@ new Configuration()
         },
         {
             name: 'rxjs',
-            development: 'node_modules/rxjs',
-            production: 'https://npmcdn.com/rxjs@5.0.0-beta.6'
-        },
-        {
-            name: 'marked',
-            main: 'marked.js',
-            development: 'node_modules/marked/lib',
-            production: 'https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5'
+            main: 'rx.js',
+            production: 'node_modules/rxjs'
         }
     ])
     .queueImport('app/main')
-    .queueImport('rxjs')
-    .queueImport('marked')
     .configure();

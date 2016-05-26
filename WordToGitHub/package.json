@@ -1,12 +1,11 @@
 {
-  "name": "word-addin-ang2-word-to-md",
-  "description": "a word addin that connects to github",
+  "name": "word-to-github",
+  "description": "A Word addin that connects to GitHub",
   "repository": "",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrent \"npm run gulp\" \"npm run lite\"",
-    "lite": "lite-server -c gulp.config.json",
-    "gulp": "gulp",
+    "gulp": "gulp serve",
+    "start": "npm run gulp",
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
@@ -21,27 +20,27 @@
     "@angular/platform-browser": "2.0.0-rc.1",
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "@angular/router": "2.0.0-rc.1",
+    "@angular/router-deprecated": "2.0.0-rc.1",
+    "@angular/upgrade": "2.0.0-rc.1",
 
+    "systemjs": "0.19.29",
     "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
-    "rxjs": "^5.0.0-beta.8",
+    "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
 
+    "angular2-in-memory-web-api": "0.0.9",
     "jquery": "^2.2.3",
-    "marked": "^0.3.5",
-    "office-ui-fabric": "^2.6.0",
-    "underscore": "^1.8.3"
+    "office-ui-fabric": "^2.6.0"
   },
   "devDependencies": {
-    "concurrently": "^2.0.0",
-    "lite-server": "^2.2.0",
-    "typings": "^0.8.1",
-    "del": "^2.2.0",
-    "gulp": "^3.9.0",
+    "concurrently": "^2.1.0",
+    "browser-sync": "^2.12.8",
+    "typings": "^1.0.4",
+    "rimraf": "^2.5.2",
+    "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-typescript": "^2.10.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-sass": "^2.3.1",
-    "gulp-concat": "^2.6.0"
+    "gulp-typescript": "^2.13.4",
+    "gulp-sass": "^2.3.1"
   }
 }

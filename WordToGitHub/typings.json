@@ -1,0 +1,10 @@
+{
+  "name": "word-to-github",
+  "dependencies": { },
+  "globalDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "node": "registry:dt/node#6.0.0+20160524002506",
+    "office-js": "registry:dt/office-js#0.0.0+20160505164725",
+    "systemjs": "registry:dt/systemjs#0.18.4+20160417155658"
+  }
+}
