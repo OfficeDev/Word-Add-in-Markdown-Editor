@@ -21,7 +21,7 @@ var gulp = require('gulp'),
         },
         browserSync: {
             server: {
-                'baseDir': './wwwroot',
+                'baseDir': './',
                 'routes': {
                     '/node_modules': 'node_modules',
                     '/bower_components': 'bower_components',

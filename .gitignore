@@ -62,3 +62,6 @@ WordToGitHub/node_modules
 WordToGitHub/typings
 WordToGitHub/wwwroot
 WordToGitHub/npm-debug.log
+/GitHubProxy/obj
+/GitHubProxy/bin
+/packages/Nito.AsyncEx.3.0.1
