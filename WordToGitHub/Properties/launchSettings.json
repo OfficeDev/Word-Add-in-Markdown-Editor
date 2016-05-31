@@ -1,0 +1,33 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:52551/",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "node": {
+      "executablePath": "C:/Program Files/nodejs/npm.cmd",
+      "commandLineArgs": "start",
+      "launchUrl": "http://localhost:3000/project_readme.html",
+      "environmentVariables": {
+        "Hosting:Environment": "Development"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "Hosting:Environment": "Development"
+      }
+    },
+    "web": {
+      "commandName": "web",
+      "environmentVariables": {
+        "Hosting:Environment": "Development"
+      }
+    }
+  }
+}

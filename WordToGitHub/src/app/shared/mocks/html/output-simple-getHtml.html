@@ -1,0 +1,342 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        <!--
+        /* Font Definitions */
+        @font-face
+        {font-family:"Cambria Math";
+            panose-1:2 4 5 3 5 4 6 3 2 4;}
+        @font-face
+        {font-family:Calibri;
+            panose-1:2 15 5 2 2 2 4 3 2 4;}
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal
+        {margin-top:0in;
+            margin-right:0in;
+            margin-bottom:8.0pt;
+            margin-left:0in;
+            line-height:107%;
+            font-size:11.0pt;
+            font-family:"Calibri",sans-serif;}
+        h1
+        {mso-style-link:"Heading 1 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:24.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h2
+        {mso-style-link:"Heading 2 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:18.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h3
+        {mso-style-link:"Heading 3 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:13.5pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        h4
+        {mso-style-link:"Heading 4 Char";
+            margin-right:0in;
+            margin-left:0in;
+            font-size:12.0pt;
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        a:link, span.MsoHyperlink
+        {color:blue;
+            text-decoration:underline;}
+        a:visited, span.MsoHyperlinkFollowed
+        {color:#954F72;
+            text-decoration:underline;}
+        p
+        {margin-right:0in;
+            margin-left:0in;
+            font-size:12.0pt;
+            font-family:"Times New Roman",serif;}
+        code
+        {font-family:"Courier New";}
+        pre
+        {mso-style-link:"HTML Preformatted Char";
+            margin:0in;
+            margin-bottom:.0001pt;
+            font-size:10.0pt;
+            font-family:"Courier New";}
+        span.Heading1Char
+        {mso-style-name:"Heading 1 Char";
+            mso-style-link:"Heading 1";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading2Char
+        {mso-style-name:"Heading 2 Char";
+            mso-style-link:"Heading 2";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading3Char
+        {mso-style-name:"Heading 3 Char";
+            mso-style-link:"Heading 3";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.Heading4Char
+        {mso-style-name:"Heading 4 Char";
+            mso-style-link:"Heading 4";
+            font-family:"Times New Roman",serif;
+            font-weight:bold;}
+        span.HTMLPreformattedChar
+        {mso-style-name:"HTML Preformatted Char";
+            mso-style-link:"HTML Preformatted";
+            font-family:"Courier New";}
+        .MsoChpDefault
+        {font-family:"Calibri",sans-serif;}
+        .MsoPapDefault
+        {margin-bottom:8.0pt;
+            line-height:107%;}
+        @page WordSection1
+        {size:8.5in 11.0in;
+            margin:1.0in 1.0in 1.0in 1.0in;}
+        div.WordSection1
+        {page:WordSection1;}
+        -->
+    </style>
+
+</head>
+
+<body lang=EN-US link=blue vlink="#954F72">
+
+<div class=WordSection1>
+
+    <h1>Excel-Add-in-JS-WoodGrove-Expense-Trends</h1>
+
+    <p>The WoodGrove Bank Expense Trends add-in demonstrates how you can use the
+        new JavaScript API for Microsoft Excel 2016 to create a compelling Excel
+        add-in. With Expense Trends, you can import expense transactions into the
+        workbook, create dashboard and trackers, view and analyze trends, and track
+        special transactions such as charitable donations and follow up items. The
+        sample provides two experiences: one with task pane and another with add-in
+        commands. The following figures show the main screens of this add-in.</p>
+
+    <p>With Expense Trends, you can import expense transactions into the workbook,
+        create dashboard and trackers, view and analyze trends, and track special
+        transactions such as charitable donations and follow up items. The sample
+        provides two experiences: one with task pane and another with add-in commands.
+        The following figures show the main screens of this add-in.</p>
+
+    <p><em>Applies to: Excel 2016, Excel for iPad, Excel for Mac</em></p>
+
+    <p>![WoodGrove Bank Expense Trends Add-in - Ribbon]
+        (images/woodgrove_taskpane_ribbon.PNG)</p>
+
+    <h2 id=table-of-contents>Table of Contents</h2>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="#prerequisites">Prerequisites</a></p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="#run-the-project">Run the project</a></p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="#additional-resources">Additional resources</a></p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="http://www.bing.com/">FAQ</a></p>
+
+    <h2 id=prerequisites>Prerequisites</h2>
+
+    <p>You'll need:</p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="https://www.visualstudio.com/downloads/download-visual-studio-vs.aspx">Visual
+        Studio 2015</a></p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'><a
+            href="https://www.visualstudio.com/en-us/features/office-tools-vs.aspx">Office
+        Developer Tools for Visual Studio</a></p>
+
+    <p class=MsoNormal style='margin-left:0in;text-indent:0in;line-height:normal'>Excel
+        2016, version 6769.2011 or later</p>
+
+    <h2 id=properties>Properties</h2>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Property</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>style</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets or sets the style used for the body. This is the name
+                    of the pre-installed or custom style.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>text</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the text of the body. Use the insertText method to
+                    insert text. Read-only.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>name</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>string</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the name of the element.</p>
+            </td>
+        </tr>
+    </table>
+
+    <p><em>See property access <a href="#property-access-examples">examples.</a></em></p>
+
+    <h2 id=relationships>Relationships</h2>
+
+    <table class=MsoNormalTable border=0 cellpadding=0>
+        <thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Relationship</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Type</b></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><b>Description</b></p>
+            </td>
+        </tr>
+        </thead>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>contentControls</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="contentcontrolcollection.md">ContentControlCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of rich text content control objects
+                    that are in the body. Read-only.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>font</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="font.md">Font</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the text format of the body. Use this to get and set
+                    font name, size, color, and other properties. Read-only.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>inlinePictures</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="inlinepicturecollection.md">InlinePictureCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of inlinePicture objects that are in
+                    the body. The collection does not include floating images. Read-only.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>paragraphs</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="paragraphcollection.md">ParagraphCollection</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the collection of paragraph objects that are in the body.
+                    Read-only.</p>
+            </td>
+        </tr>
+        <tr>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>parentContentControl</p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal><a href="contentcontrol.md">ContentControl</a></p>
+            </td>
+            <td style='padding:.75pt .75pt .75pt .75pt'>
+                <p class=MsoNormal>Gets the content control that contains the body. Returns
+                    null if there isn't a parent content control. Read-only.</p>
+            </td>
+        </tr>
+    </table>
+
+    <h2 id=method-details>Method details</h2>
+
+    <h3 id=clear->clear()</h3>
+
+    <p>Clears the contents of the body object. The user can perform the undo
+        operation on the cleared content.</p>
+
+    <h4 id=syntax>Syntax</h4>
+
+    <pre><code>bodyObject.clear();</code></pre>
+
+    <h4 id=parameters>Parameters</h4>
+
+    <p>None</p>
+
+    <h4 id=returns>Returns</h4>
+
+    <p>void</p>
+
+    <h4 id=examples>Examples</h4>
+
+    <pre><code>// Run a batch operation against the Word object model.</code></pre><pre><code>Word.run(function (context) {</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Create a proxy object for the document body.</code></pre><pre><code>    var body = context.document.body;</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Queue a commmand to clear the contents of the body.</code></pre><pre><code>    body.clear();</code></pre><pre><code>&nbsp;</code></pre><pre><code>    // Synchronize the document state by executing the queued commands,</code></pre><pre><code>    // and return a promise to indicate task completion.</code></pre><pre><code>    return context.sync().then(function () {</code></pre><pre><code>        console.log('Cleared the body contents.');</code></pre><pre><code>    });</code></pre><pre><code>})</code></pre><pre><code>.catch(function (error) {</code></pre><pre><code>    console.log(&quot;Error: &quot; + JSON.stringify(error));</code></pre><pre><code>    if (error instanceof OfficeExtension.Error) {</code></pre><pre><code>        console.log(&quot;Debug info: &quot; + JSON.stringify(error.debugInfo));</code></pre><pre><code>    }</code></pre><pre><code>});</code></pre>
+
+    <p>The <a href="https://aka.ms/sillystorywordaddin">Silly stories</a> add-in
+        sample shows how the <strong>clear</strong> method can be used to clear the
+        contents of a document.</p>
+
+    <h2 id=support-details>Support details</h2>
+
+    <p>Use the <a
+            href="https://msdn.microsoft.com/EN-US/library/office/mt590206.aspx">requirement
+        set</a> in run time checks to make sure your application is supported by the
+        host version of Word. For more information about Office host application and
+        server requirements, see <a
+                href="https://msdn.microsoft.com/EN-US/library/office/dn833104.aspx">Requirements
+            for running Office Add-ins</a>.</p>
+
+    <p>&nbsp;</p>
+
+    <p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

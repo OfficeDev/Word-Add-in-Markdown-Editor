@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "office-js-docs",
+    "description": "JavaScript API for Microsoft Office"
+  },
+  {
+    "id": 2,
+    "name": "PnP-JS-Core",
+    "description": "Repository for the PnP JavaScript Core component development together with community members"
+  },
+  {
+    "id": 3,
+    "name": "PnP-Guidance ",
+    "description": "A collection of community contributed Patterns and Practices guidance that is published to MSDN. "
+  },
+  {
+    "id": 4,
+    "name": "PnP-Tools",
+    "description": "Scripts and tools for Office 365 and SharePoint - More for IT Pro's"
+  },
+  {
+    "id": 5,
+    "name": "VBA-content",
+    "description": "Office Visual Basic for Applications content"
+  },
+  {
+    "id": 6,
+    "name": "Office-UI-Fabric",
+    "description": "The front-end framework for building experiences for Office and Office 365."
+  },
+  {
+    "id": 7,
+    "name": "Word-Add-in-JS-SpecKit",
+    "description": "Create a simple boilerplate and document validation application for Microsoft Word by using JavaScript."
+  },
+  {
+    "id": 8,
+    "name": "Office-IT-Pro-Deployment-Scripts",
+    "description": "A collection of useful PowerShell scripts to make deploying Office 2016 and Office 365 ProPlus easier for IT Pros and administrators. If you have any feature requests or ideas for future scripts please add the idea to the issues list in this repository"
+  },
+  {
+    "id": 9,
+    "name": "Excel-Add-in-JS-CollegeBudgetTracker",
+    "description": "This task pane add-in shows how to create a college budget tracker using the JavaScript APIs in Excel 2016."
+  },
+  {
+    "id": 10,
+    "name": "skype-docs",
+    "description": "This repository contains the content of the Skype Web SDK documentation that is published on MSDN"
+  }
+]

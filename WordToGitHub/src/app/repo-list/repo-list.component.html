@@ -1,0 +1,10 @@
+﻿<div class="page-header ms-bgColor-themeDark">
+    <h1 class="ms-font-xl ms-fontColor-themeLighter">Repositories</h1>
+</div>
+<ul class="ms-List">
+    <li class="ms-ListItem" *ngFor="let repository of (repositories | async)" (click)="onSelect(repository)">
+        <span class="ms-ListItem-primaryText">{{repository.name}}</span>
+        <span class="ms-ListItem-secondaryText">@officedev</span>
+        <span class="ms-ListItem-tertiaryText">{{repository.description}}</span>
+    </li>
+</ul>
