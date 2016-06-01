@@ -11,7 +11,7 @@ export class WordService {
 
     }
 
-    insertHtml(name: string = 'simple-file') {
+    insertHtml(name: string) {
         this._githubService
             .file(name)
             .subscribe(

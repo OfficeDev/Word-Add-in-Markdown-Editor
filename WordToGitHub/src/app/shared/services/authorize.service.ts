@@ -59,7 +59,7 @@ class AuthorizeService {
         return Utils.isEmpty(code) ? null : code[1];
     }
 
-    private _extractToken(source) {
+    private _extractToken(source: string) {
         let params: any = {},
             regex = /([a-z_]*?)=(.*?)(?:$|&)/gmi,
             matches;
