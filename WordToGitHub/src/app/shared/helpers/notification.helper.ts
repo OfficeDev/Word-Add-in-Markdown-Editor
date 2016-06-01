@@ -8,8 +8,8 @@ export interface IProgress {
 export class NotificationHelper {
     progress: IProgress;
 
-    showProgress(promise: any, message: string) {
-        if (Utils.isNull(promise) || Utils.isNull(promise.then)) return;
+    showProgress(promise: Promise<any>, message: string) {
+        if (Utils.isNull(promise)) return;
 
         this.progress.isShown = true;
         this.progress.message = message || "Loading";
