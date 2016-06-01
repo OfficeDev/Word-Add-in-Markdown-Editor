@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable} from 'rxjs';
+import {Observable, Observer} from 'rxjs';
 import 'rxjs/add/operator/map';
 import {Utils} from '../helpers/utilities';
 import {StorageHelper} from '../helpers/storage.helper';
@@ -60,9 +60,9 @@ export class GithubService {
         return this._http.get(url).map(response => response.text());
     }
 
-    login(force: boolean = false): Observable<string> {
-        return Observable.create(observer => {
-            var token = this._tryGetCachedToken();
+    login(force?: boolean): Observable<IToken> {
+        return Observable.create((observer: Observer<IToken>) => {
+            var token = this._tryGetCachedToken("@user");
             if (force || Utils.isNull(token)) {
                 var context = Office.context as any;
                 context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
@@ -87,23 +87,26 @@ export class GithubService {
         this._storage.add(username, this._currentToken);
     }
 
-    switchProfile(username: string = "@user") {
+    switchProfile(username: string) {
+        username = username || "@user";
         this._currentToken = this._storage.get(username);
         this.loadProfile();
     }
 
-    logout(username: string = "@user") {
+    logout(username: string) {
+        username = username || "@user";
         this._storage.remove(username);
         this._currentToken = null;
     }
 
-    private _tryGetCachedToken(username: string = "@user") {
+    private _tryGetCachedToken(username: string) {
+        username = username || "@user";
         var token = this._storage.get(username);
         if (Utils.isEmpty(token)) return null;
         return token;
     }
 
-    private _onUserLoggedIn(dialog, args, observer) {
+    private _onUserLoggedIn(dialog: any, args: any, observer: Observer<string>) {
         dialog.close();
 
         if (Utils.isEmpty(args.message)) {

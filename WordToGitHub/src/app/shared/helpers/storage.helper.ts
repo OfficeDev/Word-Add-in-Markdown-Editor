@@ -9,8 +9,9 @@ export enum StorageTypes {
 export class StorageHelper<T> extends Repository<T>{
     private _storage = null;
 
-    constructor(private _container: string, type: StorageTypes = StorageTypes.LocalStorage) {
+    constructor(private _container: string, type?: StorageTypes) {
         super();
+        type = type || StorageTypes.LocalStorage;
         this.switchStorage(type);
     }
 
