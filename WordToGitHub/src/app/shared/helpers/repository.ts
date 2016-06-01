@@ -18,7 +18,6 @@ export class Repository<T> implements IRepository<T> {
     constructor(seedData?: IDictionary<T>) {
         if (Utils.isEmpty(seedData)) this.data = {};
         this.data = seedData;
-
     }
 
     all(): IDictionary<T> {

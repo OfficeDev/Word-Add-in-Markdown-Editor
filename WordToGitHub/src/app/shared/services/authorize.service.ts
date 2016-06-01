@@ -2,64 +2,43 @@
 import {StorageHelper} from '../helpers/storage.helper';
 declare var fabric: any;
 
-interface IToken {
-    accessToken: string;
-    type: string;
-    scope: string;
-}
-
 class AuthorizeService {
     private _component;
     private static CLIENT_ID = "53c1eb0d00a1ef6bf9ce";
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
     private static SCOPE = "repo";
-    private _storage: StorageHelper<IToken>;
 
     constructor(private _element) {
         this._component = new fabric['Spinner'](this._element);
         this._component.start();
-        this._storage = new StorageHelper<IToken>("GitHubTokens");
     }
 
     getToken() {
         var context = Office.context as any;
         try {
-            var token = this._tryGetCachedToken();
-            if (Utils.isNull(token)) {
-                var code = this._getCode();
-                if (code == null) {
-                    window.location.replace(this._getUrl());
-                    return;
-                };
+            var code = this._getCode();
+            if (code == null) {
+                window.location.replace(this._getUrl());
+                return;
+            };
 
-                var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
-                    ("@authCode", "ihzktpmvosba18j24p0o6m9gmj8wgdaubdtc")
-                    ("@gCode", code)
-                    ("@redirect_uri", AuthorizeService.REDIRECT_URI)
-                    ();
+            var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
+                ("@authCode", "ihzktpmvosba18j24p0o6m9gmj8wgdaubdtc")
+                ("@gCode", code)
+                ("@redirect_uri", AuthorizeService.REDIRECT_URI)
+                ();
 
-                $.get(url).then(
-                    response => {
-                        var token = this._extractToken(response) as IToken;
-                        this._storage.add(AuthorizeService.CLIENT_ID, token);
-                        context.ui.messageParent(JSON.stringify(token));
-                    },
-                    error => context.ui.messageParent(JSON.stringify(error))
-                );
-            }
-            else {
-                context.ui.messageParent(JSON.stringify(token));
-            }
+            $.get(url).then(
+                response => {
+                    var token = this._extractToken(response);
+                    context.ui.messageParent(JSON.stringify(token));
+                },
+                error => context.ui.messageParent(JSON.stringify(error))
+            );
         }
         catch (exception) {
             context.ui.messageParent(JSON.stringify(exception));
         }
-    }
-
-    private _tryGetCachedToken() {
-        var token = this._storage.get(AuthorizeService.CLIENT_ID);
-        if (Utils.isEmpty(token)) return null;
-        return token;
     }
 
     private _getUrl() {

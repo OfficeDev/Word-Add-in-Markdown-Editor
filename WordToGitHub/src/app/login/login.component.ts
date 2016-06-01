@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     ) { }
 
     login() {
+        this._githubService.logout();
         this._githubService.login()
             .subscribe(
             token => { this._router.navigate(['/repos']); },
