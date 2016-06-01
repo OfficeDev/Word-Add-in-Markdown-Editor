@@ -13,7 +13,7 @@ export interface IRepository<T> {
 }
 
 export class Repository<T> implements IRepository<T> {
-    private data: IDictionary<T> = {};
+    data: IDictionary<T> = {};
 
     constructor(seedData?: IDictionary<T>) {
         if (Utils.isEmpty(seedData)) this.data = {};

@@ -1,4 +1,4 @@
-﻿import {Repository, IRepository} from './repository';
+﻿import {Repository, IRepository, IDictionary} from './repository';
 import {Utils} from './utilities';
 
 export enum StorageTypes {
@@ -14,46 +14,36 @@ export class StorageHelper<T> extends Repository<T>{
         this.switchStorage(type);
     }
 
-    load() {
-        let count = 0;
-        super.clear();
-
-        _.each(this._storage[this._container], (value: any, item: string) => {
-            if (Utils.isNull(value)) return null;
-            super.add(item, this._deserialize<T>(value));
-            count++;
-        });
-
-        return count;
-    }
-
     switchStorage(type: StorageTypes) {
         this._storage = type === StorageTypes.LocalStorage ? localStorage : sessionStorage;
         if (!_.has(this._storage, this._container)) {
-            this._storage[this._container] = {};
+            this._storage[this._container] = "";
         }
 
-        let count = this.load();
-        console.log('Loaded ' + count + ' ' + this._container);
+        this._load();
     }
 
     add(item: string, value: T): T {
         if (Utils.isEmpty(item) || Utils.isNull(value)) return null;
-        this._storage[this._container][item] = this._serialize(value);
-        return super.add(item, value);
+        super.add(item, value);
+        this._save();
+        return value;
     }
 
-    remove(item: string): T {
-        if (Utils.isEmpty(this._storage[this._container])) return null;
-        delete this._storage[this._container][item];
-        return super.remove(item);
+    remove(item: string) {
+        if (Utils.isEmpty(item) || Utils.isEmpty(this.data)) return null;
+        super.remove(item);
+        this._save();
     }
 
-    private _serialize(data: any): string {
-        return JSON.stringify(data);
+    private _save() {
+        if (Utils.isEmpty(this.data)) return;
+        this._storage[this._container] = JSON.stringify(this.data);
     }
 
-    private _deserialize<T>(data: string): T {
-        return JSON.parse(data) as T;
+    private _load() {
+        super.clear();
+        if (Utils.isEmpty(this._storage[this._container])) return;
+        this.data = JSON.parse(this._storage[this._container]) as IDictionary<T>;
     }
 }
