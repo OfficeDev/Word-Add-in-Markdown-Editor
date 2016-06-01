@@ -7,11 +7,14 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Word to GitHub" />
   <Description DefaultValue="A Word add-in that connects to GitHub" />
+  <AppDomains>
+    <AppDomain>https://github.com</AppDomain>
+  </AppDomains>
   <Hosts>
     <Host Name="Document" />
   </Hosts>
   <DefaultSettings>
-    <SourceLocation DefaultValue="http://localhost:3000/index.html" />
+    <SourceLocation DefaultValue="https://localhost:3000/index.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
 </OfficeApp>

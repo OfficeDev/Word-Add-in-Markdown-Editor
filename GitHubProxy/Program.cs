@@ -24,13 +24,20 @@ namespace GitHubProxy
                    .FirstOrDefault(q => string.Compare(q.Key, "gCode", true) == 0)
                    .Value;
 
+                string redirect_uri = req.GetQueryNameValuePairs()
+                   .FirstOrDefault(q => string.Compare(q.Key, "redirect_uri", true) == 0)
+                   .Value;
+
+                if (redirect_uri == null)
+                    redirect_uri = "https://localhost:3000/authorize.html";
+
                 if (gCode == null)
                     return req.CreateResponse(HttpStatusCode.BadRequest, "Please pass a valid GitHub code on the query string with the key as gCode.");
 
                 Dictionary<string, string> data = new Dictionary<string, string>();
                 data.Add("client_id", "53c1eb0d00a1ef6bf9ce");
                 data.Add("client_secret", "108dd9e6d05061c0a1ffa9adc11befc5ddc59403");
-                data.Add("redirect_uri", "http://localhost:8080/authorize.html");
+                data.Add("redirect_uri", redirect_uri);
                 data.Add("code", gCode);
 
                 var jsonString = "{" + System.Environment.NewLine;
@@ -55,6 +62,8 @@ namespace GitHubProxy
 
                 var tokenResponse = await httpClient.SendAsync(tokenRequest);
                 var responseContent = await tokenResponse.Content.ReadAsStringAsync();
+
+                log.Info($"Token received={responseContent}");
                 return req.CreateResponse(HttpStatusCode.OK, responseContent);
             }
             catch (Exception ex)

@@ -20,8 +20,12 @@ var gulp = require('gulp'),
             dest: './wwwroot'
         },
         browserSync: {
+            https: {
+                key: "certificates/server.key",
+                cert: "certificates/server.crt"
+            },
             server: {
-                'baseDir': './',
+                'baseDir': './wwwroot',
                 'routes': {
                     '/node_modules': 'node_modules',
                     '/bower_components': 'bower_components',
