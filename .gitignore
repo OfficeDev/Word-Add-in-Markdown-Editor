@@ -62,3 +62,9 @@ WordToGitHub/node_modules
 WordToGitHub/typings
 WordToGitHub/wwwroot
 WordToGitHub/npm-debug.log
+/GitHubProxy/obj
+/GitHubProxy/bin
+/packages
+/WordToGitHub/certificates/server.key
+/WordToGitHub/certificates/server.csr
+/WordToGitHub/certificates/server.crt

@@ -17,7 +17,12 @@ export class LoginComponent implements OnInit {
     ) { }
 
     login() {
-        this._router.navigate(['/repos']);
+        this._githubService.logout();
+        this._githubService.login()
+            .subscribe(
+            token => { this._router.navigate(['/repos']); },
+            error => { console.log(error); }
+            );
     }
 
     ngOnInit() {
