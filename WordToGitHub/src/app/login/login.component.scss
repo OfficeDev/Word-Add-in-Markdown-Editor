@@ -1,153 +1,75 @@
 ﻿/* Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license in root of repo. */
+
 .ms-firstrun-login {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     height: 100%;
-    text-align: center;
-}
-
-.ms-firstrun-login__header {
-    padding: 20px;
-    min-height: 160px;
-    max-height: 250px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-    .ms-firstrun-login__header h1 {
-        letter-spacing: 5px;
-    }
-
-    .ms-firstrun-login__header p {
-        margin-top: 7px;
-    }
-
-.ms-firstrun-login__header--skip {
-    text-align: right;
-}
-
-.ms-firstrun-login__header--image {
-    background: transparent no-repeat center center;
-    background-image: url("../../../assets/login-placeholder.png");
-    background-size: cover;
-    margin-top: 15px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: stretch;
-    align-items: stretch;
-    flex: 0 1 0;
-    min-height: 200px;
-}
-
-.ms-firstrun-login__welcome {
     width: 100%;
+    text-align: center;
+    align-items: center;
+    background-color: black;
+}
+
+.ms-firstrun-login__brand {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
     height: 100%;
+}
+
+
+.ms-firstrun-login__brand h1 {
+    letter-spacing: 1px;
+}
+
+#ms-firstrun-login__image {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex: 0 1 0;
+}
+
+#word-github-logo {
+    background: transparent no-repeat center center;
+    background-image: url("assets/images/logo.png");
+    background-size: cover;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 40px;
+}
+
+.ms-firstrun-login__title {
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    padding: 0px;
 }
 
-    .ms-firstrun-login__welcome img {
-        height: 100px;
-    }
-
-.ms-firstrun-login__player {
-    width: 100%;
-    height: 100%;
+.ms-firstrun-login__action {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: stretch;
-    align-items: stretch;
-}
-
-    .ms-firstrun-login__player img {
-        height: 100%;
-    }
-
-.ms-firstrun-login__content {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: 100%;
-    flex: 1 1 0;
+    height: 450px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-bottom: 20px;
 }
 
 .ms-firstrun-login__content--centered {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-}
-
-.ms-firstrun-login__content--caption {
     margin-top: 5px;
 }
 
-.ms-firstrun-login__content--valuestatement {
-    padding-top: 50px;
-}
 
-.ms-firstrun-login__list {
-    list-style-type: none;
-}
-
-    .ms-firstrun-login__list li {
-        margin-bottom: 20px;
-    }
-
-        .ms-firstrun-login__list li i {
-            position: relative;
-            top: 2px;
-            margin-right: 10px;
-        }
-
-.ms-firstrun-login__action--primary.ms-Button {
-    align-self: center;
-    margin-top: 65px;
-    border: solid 2px #FFFFFF;
-    width: calc(100vw - 40px);
-    padding: 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-}
-
-    .ms-firstrun-login__action--primary.ms-Button span.ms-Button-label {
-        color: #FFFFFF;
-    }
-
-    .ms-firstrun-login__action--primary.ms-Button:active, .ms-firstrun-login__action--primary.ms-Button:hover {
-        background: #FFFFFF;
-        color: #0078d7;
-        cursor: pointer;
-    }
-
-    .ms-firstrun-login__action--primary.ms-Button:active {
-        background: #FFFFFF;
-    }
-
-    .ms-firstrun-login__action--primary.ms-Button.disabled {
-        opacity: 0.6;
-        pointer-events: none;
-        cursor: not-allowed;
-    }
-
-        .ms-firstrun-login__action--primary.ms-Button.disabled:active, .ms-firstrun-login__action--primary.ms-Button.disabled:hover {
-            background: transparent;
-        }
 
 .ms-firstrun-login__button {
     padding-top: 20px;
@@ -156,4 +78,14 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    -moz-transition: background ease 0.1s, color ease 0.1s;
+    -o-transition: background ease 0.1s, color ease 0.1s;
+    -webkit-transition: background ease 0.1s, color ease 0.1s;
+    transition: background ease 0.1s, color ease 0.1s;
 }
+
+   #buttonSignInToGitHub:active {
+        color: #33cc33;
+        cursor: pointer;
+    }
+

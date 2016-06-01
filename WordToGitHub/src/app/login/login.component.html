@@ -1,33 +1,24 @@
-﻿<main class="ms-firstrun-value">
-    <section class="ms-font-l">
-        <div class="ms-firstrun-login ms-bgColor-themePrimary">
-            <div class="ms-firstrun-login__header">
-                <div class="ms-firstrun-login__welcome">
-                    <div>
-                        <h1 class="ms-font-xl ms-fontWeight-light ms-fontColor-white">WELCOME</h1>
-                    </div>
-                    <div class="ms-font-m ms-fontWeight-light ms-fontColor-white">
-                        <p>MARKDOWN EDITOR</p>
-                        <p>for Word</p>
-                    </div>
+﻿<main class="ms-firstrun-login__page">
+    <section>
+        <div class="ms-firstrun-login">
+            <div class="ms-firstrun-login__brand">
+                <div id="word-github-logo"></div>
+                <div>
+                    <h1 class="ms-firstrun-login__title ms-font-xl ms-fontColor-white ms-fontWeight-semibold">MARKDOWN EDITOR</h1>
+                    <h2 class="ms-firstrun-login__title ms-font-l ms-fontColor-white ms-fontWeight-light">for Word</h2>
                 </div>
             </div>
-            <div id="loginimage" class="ms-firstrun-login__header--image">
-            </div>
-            <div class="ms-firstrun-login__content">
+            <div class="ms-firstrun-login__action">
                 <div>
-                    <div class="ms-font-mi ms-fontColor-white ms-firstrun-login__content--caption">
-                        <p>Watch this login to learn how to use my add-in name.</p>
-                    </div>
-                    <div class="ms-firstrun-login__content--valuestatement ms-font-m ms-fontWeight-light ms-fontColor-white">
-                        <p>Be productive at work with my add-in name.</p>
-                    </div>
                     <div class="ms-firstrun-login__button">
-                        <button id="buttonSignInToGitHub" class="ms-Button  ms-fontColor-white" disabled="true">
+                        <button id="buttonSignInToGitHub" class="ms-Button  ms-fontColor-white" (click)="login()">
                             <span class="ms-Button-label">
                                 Sign in to GitHub
                             </span>
                         </button>
+                    </div>
+                    <div class="ms-firstrun-login__content--centered ms-font-s ms-fontWeight-light ms-fontColor-white">
+                        <p>Sign in to GitHub to see your repositories in this add-in.</p>
                     </div>
                 </div>
             </div>
