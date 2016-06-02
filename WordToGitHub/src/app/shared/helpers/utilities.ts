@@ -1,4 +1,7 @@
-﻿export class Path {
+﻿import {Observable} from 'rxjs';
+import 'rxjs/add/operator/toPromise';
+
+export class Path {
     static template(view: string): string {
         return 'app/' + view + '/' + view + '.component.html';
     }
@@ -32,5 +35,26 @@ export class Utils {
             ('@source', source)
             ('@name', name + "." + source)
             ();
+    }
+
+    static error<T>(exception: any): Promise<T> | OfficeExtension.IPromise<T> {
+        console.log('Error: ' + JSON.stringify(exception));
+        if (exception instanceof OfficeExtension.Error) {
+            console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
+        }
+
+        return exception;
+    }
+
+    static text(request: Observable<any>): Promise<string> {
+        return request.toPromise()
+            .then(response => response.text() as string)
+            .catch(Utils.error);
+    }
+
+    static json<T>(request: Observable<any>): Promise<T> {
+        return request.toPromise()
+            .then(response => response.json() as T)
+            .catch(Utils.error);
     }
 }

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-import {Observable} from 'rxjs';
 import {Path} from '../shared/helpers/utilities';
 import {GithubService, IFile} from '../shared/services/github.service';
 
@@ -10,7 +9,7 @@ let view = 'repo-detail';
 })
 
 export class RepoDetailComponent implements OnActivate {
-    files: Observable<IFile[]>;
+    files: Promise<IFile[]>;
 
     constructor(
         private _githubService: GithubService,

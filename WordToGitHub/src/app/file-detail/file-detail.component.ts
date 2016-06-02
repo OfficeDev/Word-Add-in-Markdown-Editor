@@ -17,7 +17,7 @@ export class FileDetailComponent implements OnActivate {
         let name = current.getParam('id');
         console.log('Loading data for file', name);
 
-        //TODO: take file name as a parameter
-        this._wordService.insertHtml(name);
+        this._wordService.insertHtml(name)
+            .then(() => this._wordService.getHtml());
     }
 }

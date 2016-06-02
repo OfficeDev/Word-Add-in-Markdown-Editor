@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Observable, Observer} from 'rxjs';
-import 'rxjs/add/operator/map';
 import {Utils} from '../helpers/utilities';
 import {StorageHelper} from '../helpers/storage.helper';
 
@@ -45,40 +43,52 @@ export class GithubService {
         this._storage = new StorageHelper<IToken>("GitHubTokens");
     }
 
-    repos(): Observable<IRepository[]> {
+    repos(): Promise<IRepository[]> {
         let url = Utils.getMockFileUrl("json", "repository");
-        return this._http.get(url).map(response => {
-            var data = response.json();
-            return data;        
-        });
+        return Utils.json<IRepository[]>(this._http.get(url));
     }
 
-    files(): Observable<IFile[]> {
+    files(): Promise<IFile[]> {
         let url = Utils.getMockFileUrl("json", "file");
-        return this._http.get(url).map(response => response.json());
+        return Utils.json<IFile[]>(this._http.get(url));
     }
 
-    file(name: string): Observable<string> {
+    file(name: string): Promise<string> {
         let url = Utils.getMockFileUrl("md", name);
-        return this._http.get(url).map(response => response.text());
+        return Utils.text(this._http.get(url));
     }
 
-    login(force?: boolean): Observable<IToken> {
-        return Observable.create((observer: Observer<IToken>) => {
+    login(force?: boolean): Promise<IToken> {
+        return new Promise<IToken>((resolve, reject) => {
             var token = this._tryGetCachedToken("@user");
             if (force || Utils.isNull(token)) {
                 var context = Office.context as any;
                 context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
                     result => {
                         var dialog = result.value;
-                        dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => this._onUserLoggedIn(dialog, args, observer));
+                        dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
+                            dialog.close();
+
+                            if (Utils.isEmpty(args.message)) {
+                                reject("No token received");
+                            }
+                            else {
+                                try {
+                                    this._currentToken = JSON.parse(args.message);
+                                    this.loadProfile();
+                                    resolve(this._currentToken);
+                                }
+                                catch (exception) {
+                                    reject(exception);
+                                }
+                            }
+                        });
                     });
             }
             else {
                 this._currentToken = token;
                 this.loadProfile();
-                observer.next(token);
-                observer.complete();
+                resolve(token);
             }
 
             return () => { console.info('Observable disposed'); }
@@ -107,25 +117,5 @@ export class GithubService {
         var token = this._storage.get(username);
         if (Utils.isEmpty(token)) return null;
         return token;
-    }
-
-    private _onUserLoggedIn(dialog: any, args: any, observer: Observer<string>) {
-        dialog.close();
-
-        if (Utils.isEmpty(args.message)) {
-            observer.error("No token received");
-        }
-        else {
-            try {
-                this._currentToken = JSON.parse(args.message);
-                this.loadProfile();
-                observer.next(this._currentToken);
-            }
-            catch (exception) {
-                observer.error(exception);
-            }
-        }
-
-        observer.complete();
     }
 }
