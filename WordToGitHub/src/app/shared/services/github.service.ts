@@ -47,7 +47,10 @@ export class GithubService {
 
     repos(): Observable<IRepository[]> {
         let url = Utils.getMockFileUrl("json", "repository");
-        return this._http.get(url).map(response => response.json());
+        return this._http.get(url).map(response => {
+            var data = response.json();
+            return data;        
+        });
     }
 
     files(): Observable<IFile[]> {

@@ -26,7 +26,7 @@ export class Utils {
     }
 
     static getMockFileUrl(source: string, name: string): string {
-        let baseUrl = 'app/shared/mocks/@source/@name';
+        let baseUrl = window.location.protocol + "//" + window.location.host + 'app/shared/mocks/@source/@name';
 
         return Utils.replace(baseUrl)
             ('@source', source)

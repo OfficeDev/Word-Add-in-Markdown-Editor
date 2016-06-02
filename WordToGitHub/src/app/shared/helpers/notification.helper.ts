@@ -8,7 +8,7 @@ export interface IProgress {
 export class NotificationHelper {
     progress: IProgress;
 
-    showProgress(promise: Promise<any>, message: string) {
+    showProgress(promise: any, message: string) {
         if (Utils.isNull(promise)) return;
 
         this.progress.isShown = true;

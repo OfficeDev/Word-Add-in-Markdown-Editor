@@ -110,7 +110,7 @@ class Configuration {
     }
 }
 
-new Configuration()
+var conf = new Configuration()
     .useDevelopment()
     .registerLibraries(<IPackage[]>[
         {
