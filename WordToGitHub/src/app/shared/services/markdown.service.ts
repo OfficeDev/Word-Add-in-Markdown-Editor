@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Utils} from '../helpers/utilities';
 import {StorageHelper} from '../helpers/storage.helper';
 import marked from 'marked';
 
@@ -10,14 +11,18 @@ export class MarkdownService {
     private _storage: StorageHelper<string>;
 
     constructor() {
-        this._storage = new StorageHelper<string>('MarkdownPreview');    
+        this._storage = new StorageHelper<string>('MarkdownPreview');
     }
 
     convertToHtml(markdown: string) {
+        if (!Utils.isWord) return;
+
         return marked(markdown);
     }
 
     previewMarkdown(html: string) {
+        if (!Utils.isWord) return;
+
         var context = Office.context as any;
         var md = toMarkdown(html, { gfm: true });
         this._storage.add('preview', md);

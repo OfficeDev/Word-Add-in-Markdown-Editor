@@ -1,6 +1,12 @@
 ﻿import {Observable} from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 
+export enum ContextType {
+    Web,
+    Office,
+    Word
+}
+
 export class Path {
     static template(view: string): string {
         return 'app/' + view + '/' + view + '.component.html';
@@ -12,6 +18,8 @@ export class Path {
 }
 
 export class Utils {
+    private static _context: ContextType;
+
     static replace(source: string): (key: string, value: string) => any {
         return function self(key: string, value: string): any {
             if (!key) return source;
@@ -28,6 +36,18 @@ export class Utils {
         return Utils.isNull(obj) || _.isEmpty(obj);
     }
 
+    static get isWord() {
+        return this._context == ContextType.Word;
+    }
+
+    static get isWeb() {
+        return this._context == ContextType.Web;
+    }
+
+    static get isOffice() {
+        return this._context == ContextType.Office;
+    }
+
     static getMockFileUrl(source: string, name: string): string {
         let baseUrl = window.location.protocol + "//" + window.location.host + 'app/shared/mocks/@source/@name';
 
@@ -39,8 +59,11 @@ export class Utils {
 
     static error<T>(exception: any): Promise<T> | OfficeExtension.IPromise<T> {
         console.log('Error: ' + JSON.stringify(exception));
-        if (exception instanceof OfficeExtension.Error) {
-            console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
+
+        if (Utils.isOffice) {
+            if (exception instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
+            }
         }
 
         return exception;
@@ -57,4 +80,20 @@ export class Utils {
             .then(response => response.json() as T)
             .catch(Utils.error);
     }
+
+    static setContext() {
+        if (_.has(window, 'Office')) {
+            if (_.has(window, 'Word')) {
+                this._context = ContextType.Word;
+            }
+            else {
+                this._context = ContextType.Office;
+            }
+        }
+        else {
+            this._context = ContextType.Web;
+        };
+    }
 }
+
+Utils.setContext();

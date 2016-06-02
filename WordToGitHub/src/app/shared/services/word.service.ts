@@ -14,6 +14,8 @@ export class WordService {
     }
 
     insertHtml(name: string) {
+        if (!Utils.isWord) return;
+
         return this._githubService.file(name)
             .then(md => {
                 let html = this._markDownService.convertToHtml(md);
@@ -23,7 +25,7 @@ export class WordService {
     }
 
     getHtml() {
-        if (!Word) return;
+        if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
@@ -37,8 +39,6 @@ export class WordService {
     }
 
     private _insertHtmlIntoWord(html: string) {
-        if (!Word) return;
-
         return this._run((context) => {
             var body = context.document.body;
             body.insertHtml(html, 'Replace');
@@ -47,8 +47,6 @@ export class WordService {
     }
 
     private _cleanupLists() {
-        if (!Word) return;
-
         return this._run((context) => {
             var paras = context.document.body.paragraphs;
             paras.load();
@@ -70,8 +68,6 @@ export class WordService {
     }
 
     private _formatTables() {
-        if (!Word) return;
-
         return this._run((context) => {
             var body = context.document.body as any;
             var tables = body.tables;

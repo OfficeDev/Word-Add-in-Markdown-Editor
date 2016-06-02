@@ -14,6 +14,8 @@ class AuthorizeService {
     }
 
     getToken() {
+        if (!Utils.isOffice) return;
+
         var context = Office.context as any;
         try {
             var code = this._getCode();
