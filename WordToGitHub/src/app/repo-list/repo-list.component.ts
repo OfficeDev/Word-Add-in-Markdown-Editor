@@ -21,6 +21,8 @@ export class RepoListComponent implements OnActivate {
 
     routerOnActivate() {
         this._githubService.repos()
-            .then(repos => { this.repositories = repos; });
+            .then(repos => {
+                this.repositories = repos;
+            });
     }
 }

@@ -8,13 +8,10 @@ class AuthorizeService {
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
     private static SCOPE = "repo";
 
-    constructor(private _element) {
-        this._component = new fabric['Spinner'](this._element);
-        this._component.start();
-    }
+    constructor() { }
 
     getToken() {
-        if (!Utils.isOffice) return;
+        if (!Utils.isWord) return;
 
         var context = Office.context as any;
         try {
@@ -74,12 +71,4 @@ class AuthorizeService {
     }
 }
 
-$(document).ready(() => {
-    if (typeof fabric === "object") {
-        if ('Spinner' in fabric) {
-            var element = document.querySelector('.ms-Spinner');
-            var authService = new AuthorizeService(element);
-            authService.getToken();
-        }
-    }
-});
+$(document).ready(() => { new AuthorizeService().getToken(); });

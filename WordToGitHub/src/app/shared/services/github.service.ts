@@ -59,7 +59,7 @@ export class GithubService {
     }
 
     login(force?: boolean): Promise<IToken> {
-        if (!Utils.isOffice) return;
+        if (!Utils.isWord) return;
 
         return new Promise<IToken>((resolve, reject) => {
             var token = this._tryGetCachedToken("@user");

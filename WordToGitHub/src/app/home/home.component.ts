@@ -31,7 +31,11 @@ let view = 'home';
     {
         path: '/file/:id',
         component: FileDetailComponent
-    }    
+    },
+    {
+        path: '*',
+        component: LoginComponent
+    }
 ])
 
 export class HomeComponent implements OnInit {

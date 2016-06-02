@@ -1,9 +1,7 @@
-﻿import {Observable} from 'rxjs';
-import 'rxjs/add/operator/toPromise';
+﻿import {Observable} from 'rxjs/Rx';
 
 export enum ContextType {
     Web,
-    Office,
     Word
 }
 
@@ -44,12 +42,8 @@ export class Utils {
         return this._context == ContextType.Web;
     }
 
-    static get isOffice() {
-        return this._context == ContextType.Office;
-    }
-
     static getMockFileUrl(source: string, name: string): string {
-        let baseUrl = window.location.protocol + "//" + window.location.host + 'app/shared/mocks/@source/@name';
+        let baseUrl = window.location.protocol + "//" + window.location.host + '/app/shared/mocks/@source/@name';
 
         return Utils.replace(baseUrl)
             ('@source', source)
@@ -60,7 +54,7 @@ export class Utils {
     static error<T>(exception: any): Promise<T> | OfficeExtension.IPromise<T> {
         console.log('Error: ' + JSON.stringify(exception));
 
-        if (Utils.isOffice) {
+        if (Utils.isWord) {
             if (exception instanceof OfficeExtension.Error) {
                 console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
             }
@@ -82,13 +76,8 @@ export class Utils {
     }
 
     static setContext() {
-        if (_.has(window, 'Office')) {
-            if (_.has(window, 'Word')) {
-                this._context = ContextType.Word;
-            }
-            else {
-                this._context = ContextType.Office;
-            }
+        if (_.has(window, 'Office') && _.has(window, 'Word')) {
+            this._context = ContextType.Word;
         }
         else {
             this._context = ContextType.Web;

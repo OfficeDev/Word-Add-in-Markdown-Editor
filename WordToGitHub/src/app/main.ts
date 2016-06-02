@@ -1,4 +1,5 @@
 import {bootstrap} from '@angular/platform-browser-dynamic';
+import 'rxjs/Rx';
 import {provide} from '@angular/core';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {HTTP_PROVIDERS} from '@angular/http';
