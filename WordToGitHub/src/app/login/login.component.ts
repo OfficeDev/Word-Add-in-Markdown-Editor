@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
     ) { }
 
     login() {
-        this._githubService.logout("@user");
         this._githubService.login()
             .subscribe(
             token => {

@@ -3,7 +3,7 @@
 
 <head>
     <base href="/">
-    <title>Word to GitHub - Authorize</title>
+    <title>Word to GitHub - Preview</title>
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -45,7 +45,7 @@
 
         System.import('underscore')
             .then(function () {
-                return System.import('app/shared/services/authorize.service');
+                return System.import('app/shared/services/preview.service');
             });
     </script>
 </head>
@@ -60,7 +60,7 @@
             <div class="ms-progress">
                 <div class="ms-ProgressIndicator">
                     <div class="ms-Spinner large"></div>
-                    <div class="ms-ProgressIndicator-itemName">Signing in...</div>
+                    <div class="ms-ProgressIndicator-itemName">Loading preview...</div>
                 </div>
             </div>
         </footer>

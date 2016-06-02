@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {MarkdownService} from "./markdown.service";
 import {GithubService} from "./github.service";
 
+
 @Injectable()
 export class WordService {
     constructor(
@@ -17,21 +18,33 @@ export class WordService {
             .subscribe(
             md => {
                 let html = this._markDownService.convertToHtml(md);
-                this._insertHtmlIntoWord(html)
-                    .then(() => { return this.formatTables(); })
+                return this._insertHtmlIntoWord(html)
+                    .then(() => { return this._formatTables(); })
+                    .then(() => { return this.getHtml(); });
             },
-            error => { console.error(error); },
-            () => { console.info('completed getting file data'); }
+            error => { console.error(error); }
             );
     }
 
-    private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>) {
+    getHtml() {
+        if (!Word) return;
+
+        return this._run<string>((context) => {
+            var html = context.document.body.getHtml();
+            return context.sync().then(() => { return html.value; });
+        })
+            .then(html => this._markDownService.previewMarkdown((html)));
+    }
+
+    private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
         return Word.run<T>(batch)
-            .catch(function (error) {
+            .catch(error => {
                 console.log('Error: ' + JSON.stringify(error));
                 if (error instanceof OfficeExtension.Error) {
                     console.log('Debug info: ' + JSON.stringify(error.debugInfo));
                 }
+
+                return error;
             });
     }
 
@@ -45,24 +58,7 @@ export class WordService {
         })
     }
 
-    getHtmlFromWord() {
-        if (!Word) return;
-
-        return this._run((context) => {
-            var html = context.document.body.getHtml();
-            return context.sync()
-                .then(function () {
-                    console.log(html);
-                    context.document.body.insertText(html.value, Word.InsertLocation.end);
-                    return context.sync();
-                })
-                .then(function () {
-                    console.log("Inserted html using getHtml");
-                });
-        });
-    }
-
-    cleanupLists() {
+    private _cleanupLists() {
         if (!Word) return;
 
         return this._run((context) => {
@@ -86,7 +82,7 @@ export class WordService {
         });
     }
 
-    formatTables() {
+    private _formatTables() {
         if (!Word) return;
 
         return this._run((context) => {
@@ -106,57 +102,6 @@ export class WordService {
         });
     }
 
-    getHtmlFromWord2() {
-        if (!Word) return;
-
-        return this._run((context) => {
-            var body = context.document.body;
-            // Create a proxy object for the paragraphs collection.
-            var paragraphs = body.paragraphs;
-            context.load(paragraphs, 'text');
-            return context.sync()
-                .then(function () {
-                    // var paragraphContents = paragraphs.items.map((paragraph)=> {
-                    //     return {
-                    //         contents: paragraph.text
-                    //         //inlinePicture: paragraph.inlinePictures.load(),
-                    //     }
-                    // });
-                    //
-                    // return context.sync()
-                    // .then(()=> {
-                    //     paragraphContents.forEach((paragraph)=> {
-                    //     body.insertText(paragraph.contents, Word.InsertLocation.end);
-                    //
-                    //     });
-                    // });
-
-
-                });
-        });
-
+    private _showPreview() {
     }
 }
-
-//         var images = paragraphs.items.map(function (paragraph) {
-//             var inlinePictures = paragraph.inlinePictures;
-//             context.load(inlinePictures);
-//             return inlinePictures;
-//         });
-//
-//         return context.sync()
-//             .then(function () {
-//                 images.forEach(function (inlinePictures) {
-//                     if (inlinePictures.items.length > 0) {
-//                         context.document.body.insertText("[Inline picture] ", "End");
-//                     }
-//                     else {
-//                         context.document.body.insertText("[No inline picture] ", "Start");
-//                     }
-//                 })
-//             });
-//         // paragraph.insertText("[" + paragraph.style + "] ", "Start");
-//     })
-//     context.sync();
-//
-// });

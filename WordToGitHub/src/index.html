@@ -47,6 +47,16 @@
                 </div>
             </footer>
         </div>
+
+        <script type="text/javascript">
+            if (typeof fabric === "object") {
+                if ('Spinner' in fabric) {
+                    var element = document.querySelector('.ms-Spinner');
+                    var component = new fabric['Spinner'](element);
+                    component.start();
+                }
+            }
+        </script>
     </word-to-github>
 </body>
 
