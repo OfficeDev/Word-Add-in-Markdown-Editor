@@ -9,7 +9,7 @@ let view = 'repo-list';
 })
 
 export class RepoListComponent implements OnActivate {
-    repositories: Promise<IRepository[]>;
+    repositories: IRepository[];
 
     constructor(
         private _githubService: GithubService,
@@ -20,6 +20,7 @@ export class RepoListComponent implements OnActivate {
     }
 
     routerOnActivate() {
-        this.repositories = this._githubService.repos()        
+        this._githubService.repos()
+            .then(repos => { this.repositories = repos; });
     }
 }

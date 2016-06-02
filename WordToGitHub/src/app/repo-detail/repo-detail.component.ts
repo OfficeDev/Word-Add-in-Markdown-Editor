@@ -9,7 +9,7 @@ let view = 'repo-detail';
 })
 
 export class RepoDetailComponent implements OnActivate {
-    files: Promise<IFile[]>;
+    files: IFile[];
 
     constructor(
         private _githubService: GithubService,
@@ -23,6 +23,7 @@ export class RepoDetailComponent implements OnActivate {
     routerOnActivate(current: RouteSegment) {
         let id = +current.getParam('id');
         console.log('Showing data for repository', id);
-        this.files = this._githubService.files();
+        this._githubService.files()
+            .then(files => { this.files = files; });
     }
 }
