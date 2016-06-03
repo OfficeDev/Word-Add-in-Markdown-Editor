@@ -3,6 +3,7 @@ import {MarkdownService} from "./markdown.service";
 import {GithubService} from "./github.service";
 import {Utils} from "../helpers/utilities";
 
+declare var toMarkdown: any;
 
 @Injectable()
 export class WordService {
@@ -21,7 +22,7 @@ export class WordService {
                 let html = this._markDownService.convertToHtml(md);
                 return this._insertHtmlIntoWord(html);
             })
-            .then(() => this._formatTables())
+        //.then(() => this._formatTables())
     }
 
     getHtml() {
@@ -29,9 +30,12 @@ export class WordService {
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
-            return context.sync().then(() => { return html.value; });
+            return context.sync().then(() => {
+                var blah = toMarkdown(html.value, { gfm: true });
+                return html.value;
+            });
         })
-            .then(html => this._markDownService.previewMarkdown((html)));
+            //.then(html => this._markDownService.previewMarkdown((html)));
     }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
@@ -42,6 +46,14 @@ export class WordService {
         return this._run((context) => {
             var body = context.document.body;
             body.insertHtml(html, 'Replace');
+            return context.sync();
+        })
+    }
+
+    private _insertTextIntoWord(html: string) {
+        return this._run((context) => {
+            var body = context.document.body;
+            body.insertText(html, 'Replace');
             return context.sync();
         })
     }

@@ -132,11 +132,6 @@ var conf = new Configuration()
             name: 'marked',
             main: 'marked.js',
             production: 'node_modules/marked/lib'
-        },
-        {
-            name: 'to-markdown',
-            main: 'to-markdown',
-            production: 'node_modules/to-markdown/dist'
         }
     ])
     .queueImport('underscore')
