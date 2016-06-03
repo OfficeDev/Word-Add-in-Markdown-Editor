@@ -1,19 +1,8 @@
-﻿.ms-landing-page {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: 100%;
+﻿.ms-landing-page__main {
+margin-bottom: 20px;
 }
 
-.ms-landing-page__main {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    flex: 1 1 0;
-    height: 100%;
-}
-
-.ms-landing-page__header--center {
+/*.ms-landing-page__header--center {
     flex: 1 1 auto;
     display: inline-flex;
     justify-content: flex-start;
@@ -66,7 +55,7 @@
     -o-transform: none;
     -webkit-transform: none;
     transform: none;
-}
+}*/
 
 .ms-landing-page__content {
     display: flex;
@@ -78,11 +67,12 @@
     padding: 20px;
 }
 
-.ms-landing-page__content h2 {
-    margin-bottom: 20px;
+.ms-landing-page__content__title {
+    padding:20px;
 }
 
 .ms-landing-page__footer {
+    order:2;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -170,21 +160,27 @@
     flex-wrap: nowrap;
 }
 
+
 .ms-SearchBox-field {
     border: none;
+    width:100vw;
+}
+
+
+.repoIcon {
+    float: left;
+    width: 10%;
 }
 
 
 .item {
-    margin-bottom: 20px;
-    width: 100%;
+    margin-bottom: 10px;
 }
 
 .item__text {
     height: 5px;
-    background-color: #F4F4F4;
-    display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    padding-left:1px;
 }
 
 .item__img {
@@ -195,16 +191,32 @@
     margin-bottom: 10px;
 }
 
-.item__text--header {
-    width: 60%;
+
+
+hr {
+    border-color:#C8C8C8;
+    background-color:#C8C8C8;
+    border-top: 1px solid #C8C8C8;
 }
 
-.item__text--desc {
-    height: 40px;
+.ms-ListItem-actions {
+    right:50px;
 }
 
-.demo-placeholder__button {
-    width: 150px;
+.footer {
+    margin-top:20px;
+    position: fixed;
+    bottom:0;
+    width:100%;
+    height:40px;
+    display:block;
+    box-sizing:border-box;
+}
+
+
+#word-github-brandbar {
+    background: transparent no-repeat center center;
+    background-image: url("assets/images/white_brandbar.png");
+    background-size: cover;
     height: 40px;
-    margin: 0 auto;
 }
