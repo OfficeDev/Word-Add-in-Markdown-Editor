@@ -1,10 +1,51 @@
-﻿<div class="page-header ms-bgColor-themeDark">
-    <h1 class="ms-font-xl ms-fontColor-themeLighter">Repositories</h1>
-</div>
-<ul class="ms-List">
-    <li class="ms-ListItem" *ngFor="let repository of repositories" (click)="onSelect(repository)">
-        <span class="ms-ListItem-primaryText">{{repository.name}}</span>
-        <span class="ms-ListItem-secondaryText">@officedev</span>
-        <span class="ms-ListItem-tertiaryText">{{repository.description}}</span>
-    </li>
-</ul>
+﻿<main class="ms-landing-page__main">
+    <section class="ms-landing-page__header">
+        <div class="ms-landing-page__header--center ms-font-m ms-fontWeight-light">
+            <div class="ms-SearchBox">
+                <input class="ms-SearchBox-field" type="text">
+                <label class="ms-SearchBox-label"><i class="ms-SearchBox-icon ms-Icon ms-Icon--search"></i>Search</label>
+                <button class="ms-SearchBox-closeButton"><i class="ms-Icon ms-Icon--x"></i></button>
+            </div>
+        </div>
+    </section>
+    <hr />
+    <section class="ms-landing-page__content ms-font-m ms-fontColor-neutralPrimary">
+        <article class="favorites">
+            <h1 class="ms-landing-page__content__title ms-font-xl ms-fontColor-gray ms-fontWeight-semibold">Favorites</h1>
+            <ul class="ms-List">
+                <li class="ms-ListItem" *ngFor="let repository of favoriteRepositories">
+                    <div class="blah" (click)="onSelect(repository)">
+                        <span class="ms-ListItem-primaryText">{{repository.name}}</span>
+                        <span class="ms-ListItem-secondaryText">@officedev</span>
+                        <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
+                    </div>
+                    <div class="ms-ListItem-actions">
+                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinLeft" (click)="onUnpin(repository)"></i></div>
+                    </div>
+                </li>
+            </ul>
+        </article>
+        <hr />
+        <article class="my-github-repos">
+            <h1 class="ms-landing-page__content__title ms-font-xl ms-fontColor-gray ms-fontWeight-semibold">My GitHub Repositories</h1>
+            <ul class="ms-List">
+                <li class="ms-ListItem" *ngFor="let repository of repositories">
+                    <div class="blah" (click)="onSelect(repository)">
+                        <span class="ms-ListItem-primaryText">{{repository.name}}</span>
+                        <span class="ms-ListItem-secondaryText">@officedev</span>
+                        <span class="ms-ListItem-tertiaryText">{{repository.description}}</span>
+                        <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
+                    </div>
+                    <div class="ms-ListItem-actions">
+                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinLeft" (click)="onPin(repository)"></i></div>
+                    </div>
+                </li>
+            </ul>
+        </article>
+    </section>
+</main>
+<footer class="ms-landing-page__footer  ms-bgColor-themePrimary">
+    <div class="ms-landing-page__footer--left">
+        <img src="assets/images/blac_brandbar.png" />
+    </div>
+</footer>
