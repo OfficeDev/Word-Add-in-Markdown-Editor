@@ -50,6 +50,7 @@ ul {
     flex-direction: column;
     flex-wrap: nowrap;
     height: 100%;
+    background-color: #212121;
 }
 
 .ms-notification-progress-indeterminate__main {

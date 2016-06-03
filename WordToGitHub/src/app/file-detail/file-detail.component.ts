@@ -7,6 +7,7 @@ import {WordService} from '../shared/services/word.service';
 let view = 'file-detail';
 @Component({
     templateUrl: Path.template(view),
+    styleUrls: [Path.style(view)],
     providers: [MarkdownService, WordService]
 })
 
@@ -19,5 +20,14 @@ export class FileDetailComponent implements OnActivate {
 
         this._wordService.insertHtml(name)
             .then(() => this._wordService.getHtml());
+    }
+
+    onPush() {
+    }
+
+    onPull() {
+    }
+
+    onDiscard() {
     }
 }

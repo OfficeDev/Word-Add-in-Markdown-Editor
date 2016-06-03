@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
-import {Path} from '../shared/helpers/utilities';
+import {Path, Utils} from '../shared/helpers/utilities';
 
+import {IToken} from '../shared/services/github.service';
 import {RepoListComponent} from "../repo-list/repo-list.component";
-import {RepoDetailComponent} from "../repo-detail/repo-detail.component";
+import {FileListComponent} from "../file-list/file-list.component";
 import {FileDetailComponent} from "../file-detail/file-detail.component";
 import {LoginComponent} from "../login/login.component";
+import {StorageHelper} from '../shared/helpers/storage.helper';
 
 let view = 'home';
 @Component({
@@ -26,7 +28,7 @@ let view = 'home';
     },
     {
         path: '/repo/:id',
-        component: RepoDetailComponent
+        component: FileListComponent
     },
     {
         path: '/file/:id',
@@ -39,9 +41,19 @@ let view = 'home';
 ])
 
 export class HomeComponent implements OnInit {
-    constructor(private _router: Router) { }
+    private _storage: StorageHelper<IToken>;
+
+    constructor(private _router: Router) {
+        this._storage = new StorageHelper<IToken>("GitHubTokens");
+    }
 
     ngOnInit() {
-        this._router.navigate(['/login']);
+        var tokens = _.values(this._storage.all());
+        if (!Utils.isEmpty(tokens)) {
+            this._router.navigate(['/repos']);
+        }
+        else {
+            this._router.navigate(['/login']);
+        }
     }
 }

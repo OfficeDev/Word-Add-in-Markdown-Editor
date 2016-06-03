@@ -35,6 +35,7 @@ export class RepoListComponent implements OnActivate {
         this.favoriteRepositories = _.values(this._storage.all());
     }
 
+    
     routerOnActivate() {
         this.favoriteRepositories = _.values(this._storage.all());
         this._githubService.repos()

@@ -10,37 +10,42 @@
     </section>
     <hr />-->
     <section class="ms-landing-page__content ms-font-m ms-fontColor-neutralPrimary">
-        <article class="favorites" *ngIf="favoriteRepositories.length > 0">
+        <article class="branches">
+            <h1 class="ms-landing-page__content__title ms-font-xl  ms-fontColor-themeDarker ms-fontWeight-light">Branches</h1>
+            <select id="branchDropdown" [(ngModel)]="selectedBranch.name">
+                <option *ngFor="let branch of branches" value={{branch.name}}>
+                    {{branch.name}}
+                </option>
+            </select>
+        </article>
+        <article class="favorites" *ngIf="favoriteFiles.length > 0">
             <h1 class="ms-landing-page__content__title ms-font-xl  ms-fontColor-themeDarker ms-fontWeight-light">Favorites</h1>
             <ul class="ms-List">
-                <li class="ms-ListItem" *ngFor="let repository of favoriteRepositories">
+                <li class="ms-ListItem" *ngFor="let file of favoriteFiles">
                     <!--<div class="repoIcon">
                         <i class="ms-Icon ms-Icon--pinLeft"></i>
                     </div>-->
-                    <div class="item" (click)="onSelect(repository)">
-                        <span class="repoDetail ms-ListItem-primaryText ms-font-m-plus">{{repository.name}}</span>
-                        <span class="repoDetail ms-ListItem-secondaryText ms-font-s-plus">@officedev</span>
+                    <div class="item" (click)="onSelect(file)">
+                        <span class="repoDetail ms-ListItem-primaryText ms-font-m">{{file.name}}</span>
                         <div class="repoDetail ms-ListItem-selectionTarget js-toggleSelection"></div>
                     </div>
                     <div class="ms-ListItem-actions">
-                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinLeft" (click)="onUnpin(repository)"></i></div>
+                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinLeft" (click)="onUnpin(file)"></i></div>
                     </div>
                 </li>
             </ul>
         </article>
         <hr class="ms-borderColor-neutralTertiaryAlt" />
-        <article class="my-github-repos">
-            <h1 class="ms-landing-page__content__title ms-font-xl ms-fontColor-themeDarker ms-fontWeight-light">My GitHub Repositories</h1>
+        <article class="my-md-files">
+            <h1 class="ms-landing-page__content__title ms-font-xl ms-fontColor-themeDarker ms-fontWeight-light">MD files</h1>
             <ul class="ms-List">
-                <li class="ms-ListItem" *ngFor="let repository of repositories">
-                    <div class="item" (click)="onSelect(repository)">
-                        <span class="ms-ListItem-primaryText ms-font-m-plus">{{repository.name}}</span>
-                        <span class="ms-ListItem-secondaryText ms-font-s-plus">@officedev</span>
-                        <span class="ms-ListItem-tertiaryText ms-font-s-plus">{{repository.description}}</span>
+                <li class="ms-ListItem" *ngFor="let file of files">
+                    <div class="item" (click)="onSelect(file)">
+                        <span class="ms-ListItem-primaryText ms-font-m">{{file.name}}</span>
                         <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
                     </div>
                     <div class="ms-ListItem-actions">
-                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinDown" (click)="onPin(repository)"></i></div>
+                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinDown" (click)="onPin(file)"></i></div>
                     </div>
                 </li>
             </ul>

@@ -175,16 +175,6 @@
 .item {
 }
 
-.item .ms-ListItem-secondaryText {
-    margin-bottom: 4px;
-    /*padding-right: 0;*/
-}
-
-
-.item .ms-ListItem-tertiaryText {
-    /*padding-right: 0;*/
-}
-
 .item__text {
     height: 5px;
     margin-bottom: 5px;
@@ -194,15 +184,13 @@
 .item__img {
     width: 60px;
     height: 60px;
-    background-color: #ffffff;
+    background-color: #F4F4F4;
     display: block;
     margin-bottom: 10px;
 }
 
-
-
 hr {
-    margin: auto;
+    margin: 0 auto;
     width: calc(100% - 42px);
     border: none;
     border-top: 1px solid #DEDEDE;
@@ -222,6 +210,7 @@ hr {
     box-sizing: border-box;
 }
 
+
 #word-github-brandbar {
     background: transparent no-repeat center center;
     background-image: url("assets/images/black_brandbar.png");
@@ -229,6 +218,11 @@ hr {
     height: 60px;
 }
 
-.my-github-repos .ms-ListItem:last-child {
-    margin-bottom: 60px;
+#branchDropdown {
+    width: calc(100% - 42px);
+    height: 40px;
+    margin: auto;
+    padding: 7px;
+    border: solid 1px #DEDEDE;
+    margin-left: 20px; /*hack*/
 }

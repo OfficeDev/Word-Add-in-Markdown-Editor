@@ -1,5 +1,5 @@
 ﻿.ms-landing-page__main {
-    margin-bottom: 20px;
+margin-bottom: 20px;
 }
 
 /*.ms-landing-page__header--center {
@@ -64,14 +64,15 @@
     height: 100%;
     flex: 1 1 0;
     min-height: 180px;
-}
-
-.ms-landing-page__content__title {
     padding: 20px;
 }
 
+.ms-landing-page__content__title {
+    padding:20px;
+}
+
 .ms-landing-page__footer {
-    order: 2;
+    order:2;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -110,7 +111,7 @@
 
 .ms-landing-page__footer--left img {
     width: 40px;
-    height: 60px;
+    height: 40px;
 }
 
 .ms-landing-page__footer--left h1 {
@@ -162,7 +163,7 @@
 
 .ms-SearchBox-field {
     border: none;
-    width: 100vw;
+    width:100vw;
 }
 
 
@@ -173,28 +174,19 @@
 
 
 .item {
-}
-
-.item .ms-ListItem-secondaryText {
-    margin-bottom: 4px;
-    /*padding-right: 0;*/
-}
-
-
-.item .ms-ListItem-tertiaryText {
-    /*padding-right: 0;*/
+    margin-bottom: 10px;
 }
 
 .item__text {
     height: 5px;
     margin-bottom: 5px;
-    padding-left: 1px;
+    padding-left:1px;
 }
 
 .item__img {
     width: 60px;
     height: 60px;
-    background-color: #ffffff;
+    background-color: #F4F4F4;
     display: block;
     margin-bottom: 10px;
 }
@@ -202,33 +194,67 @@
 
 
 hr {
-    margin: auto;
-    width: calc(100% - 42px);
-    border: none;
-    border-top: 1px solid #DEDEDE;
+    border-color:#C8C8C8;
+    background-color:#C8C8C8;
+    border-top: 1px solid #C8C8C8;
 }
 
 .ms-ListItem-actions {
-    right: 50px;
+    right:50px;
 }
 
 .footer {
-    margin-top: 20px;
+    margin-top:20px;
     position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 60px;
-    display: block;
-    box-sizing: border-box;
+    bottom:0;
+    width:100%;
+    height:40px;
+    display:block;
+    box-sizing:border-box;
 }
+
 
 #word-github-brandbar {
     background: transparent no-repeat center center;
-    background-image: url("assets/images/black_brandbar.png");
+    background-image: url("assets/images/white_brandbar.png");
     background-size: cover;
-    height: 60px;
+    height: 40px;
 }
 
-.my-github-repos .ms-ListItem:last-child {
-    margin-bottom: 60px;
+.pushButton {
+    top: 400px;
+    left: 50px;
+    width: 80%;
+    background-color: #212121;
+    color: white;
+    padding: 20px;
+    display: block;
 }
+
+
+.discardButton, .pullButton {
+    width: 30%;
+    background-color: #212121;
+    color: white;
+    padding: 20px;
+    background-color: white;
+    border-color:  #212121;
+    color: black;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

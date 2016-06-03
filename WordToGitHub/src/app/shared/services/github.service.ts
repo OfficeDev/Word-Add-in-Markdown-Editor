@@ -15,6 +15,11 @@ export interface IRepository {
     html_url?: string;
 }
 
+export interface IBranch {
+    id: number;
+    name: string;
+}
+
 export interface IFile {
     id: number
     name: string;
@@ -51,6 +56,11 @@ export class GithubService {
     files(): Promise<IFile[]> {
         let url = Utils.getMockFileUrl("json", "file");
         return Utils.json<IFile[]>(this._http.get(url));
+    }
+
+    branches(): Promise<IBranch[]> {
+        let url = Utils.getMockFileUrl("json", "branch");
+        return Utils.json<IBranch[]>(this._http.get(url));
     }
 
     file(name: string): Promise<string> {

@@ -22,7 +22,7 @@ export class WordService {
                 let html = this._markDownService.convertToHtml(md);
                 return this._insertHtmlIntoWord(html);
             })
-        //.then(() => this._formatTables())
+        .then(() => this._formatTables())
     }
 
     getHtml() {

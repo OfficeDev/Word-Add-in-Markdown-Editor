@@ -8,7 +8,7 @@
     width: 100%;
     text-align: center;
     align-items: center;
-    background-color: black;
+    background-color: #212121;
 }
 
 .ms-firstrun-login__brand {
@@ -84,8 +84,7 @@
     transition: background ease 0.1s, color ease 0.1s;
 }
 
-   #buttonSignInToGitHub:active {
-        color: #33cc33;
-        cursor: pointer;
-    }
-
+#buttonSignInToGitHub:active {
+    color: #33cc33;
+    cursor: pointer;
+}
