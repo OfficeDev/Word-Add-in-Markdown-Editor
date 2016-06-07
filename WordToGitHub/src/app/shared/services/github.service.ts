@@ -5,7 +5,11 @@ import {StorageHelper} from '../helpers/storage.helper';
 
 declare var Microsoft: any;
 
-export interface IRepository {
+export interface IPinnable {
+    isPinned?: boolean;
+}
+
+export interface IRepository extends IPinnable {
     id: number;
     name: string;
     description: string;
@@ -20,7 +24,7 @@ export interface IBranch {
     name: string;
 }
 
-export interface IFile {
+export interface IFile extends IPinnable {
     id: number
     name: string;
     path?: string;

@@ -21,5 +21,10 @@ if (Utils.isWord) {
     };
 }
 else if (Utils.isWeb) {
-    bootstrap(HomeComponent, [HTTP_PROVIDERS, ROUTER_PROVIDERS, GithubService]);
+    bootstrap(HomeComponent, [
+        provide(LocationStrategy, { useClass: HashLocationStrategy }),
+        HTTP_PROVIDERS,
+        ROUTER_PROVIDERS,
+        GithubService
+    ]);
 }

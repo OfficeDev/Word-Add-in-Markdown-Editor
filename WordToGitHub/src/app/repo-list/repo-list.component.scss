@@ -1,234 +1,76 @@
-﻿.ms-landing-page__main {
-    margin-bottom: 20px;
-}
+﻿@import '../../styles/mixins.scss';
+@import '../../styles/theme.scss';
 
-/*.ms-landing-page__header--center {
-    flex: 1 1 auto;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.ms-landing-page__header--center p {
-    padding: 0 10px;
-    flex: 1 0 0px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    text-align: left;
-    cursor: pointer;
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-    padding: 10px;
-}
-
-.ms-landing-page__header--center p:active, .ms-landing-page__header--center p:hover {
-    background: #c7e0f4;
-    color: #000;
-    cursor: pointer;
-}
-
-.ms-landing-page__header--center p:active {
-    background: #c7e0f4;
-    -moz-transform: scale3d(0.98, 0.98, 1);
-    -ms-transform: scale3d(0.98, 0.98, 1);
-    -o-transform: scale3d(0.98, 0.98, 1);
-    -webkit-transform: scale3d(0.98, 0.98, 1);
-    transform: scale3d(0.98, 0.98, 1);
-}
-
-.ms-landing-page__header--center p.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-
-.ms-landing-page__header--center p.disabled:active, .ms-landing-page__header--center p.disabled:hover {
-    background: transparent;
-}
-
-.ms-landing-page__header--center p.disabled:active {
-    -moz-transform: none;
-    -ms-transform: none;
-    -o-transform: none;
-    -webkit-transform: none;
-    transform: none;
-}*/
-
-.ms-landing-page__content {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: 100%;
-    flex: 1 1 0;
-    min-height: 180px;
-}
-
-.ms-landing-page__content__title {
-    padding: 20px;
-}
-
-.ms-landing-page__footer {
-    order: 2;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ms-landing-page__footer--left {
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex: 1 0 0px;
-    padding: 20px;
-}
-
-.ms-landing-page__footer--left:active, .ms-landing-page__footer--left:hover {
-    background: #005ca4;
-    cursor: pointer;
-}
-
-.ms-landing-page__footer--left:active {
-    background: #005ca4;
-}
-
-.ms-landing-page__footer--left.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-
-.ms-landing-page__footer--left.disabled:active, .ms-landing-page__footer--left.disabled:hover {
-    background: transparent;
-}
-
-.ms-landing-page__footer--left img {
-    width: 40px;
-    height: 60px;
-}
-
-.ms-landing-page__footer--left h1 {
-    flex: 1 0 0px;
-    margin-left: 15px;
-    text-align: left;
-    width: auto;
-    max-width: auto;
-    overflow: hidden;
-    white-space: nowrap;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-}
-
-.ms-landing-page__footer--right {
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-    padding: 29px 20px;
-}
-
-.ms-landing-page__footer--right:active, .ms-landing-page__footer--right:hover {
-    background: #005ca4;
-    cursor: pointer;
-}
-
-.ms-landing-page__footer--right:active {
-    background: #005ca4;
-}
-
-.ms-landing-page__footer--right.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-
-.ms-landing-page__footer--right.disabled:active, .ms-landing-page__footer--right.disabled:hover {
-    background: transparent;
-}
-
-.ms-SearchBox {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-
-.ms-SearchBox-field {
-    border: none;
-    width: 100vw;
-}
-
-
-.repoIcon {
-    float: left;
-    width: 10%;
-}
-
-
-.item {
-}
-
-.item .ms-ListItem-secondaryText {
-    margin-bottom: 4px;
-    /*padding-right: 0;*/
-}
-
-
-.item .ms-ListItem-tertiaryText {
-    /*padding-right: 0;*/
-}
-
-.item__text {
-    height: 5px;
-    margin-bottom: 5px;
-    padding-left: 1px;
-}
-
-.item__img {
-    width: 60px;
-    height: 60px;
-    background-color: #ffffff;
-    display: block;
-    margin-bottom: 10px;
-}
-
-
-
-hr {
-    margin: auto;
-    width: calc(100% - 42px);
-    border: none;
-    border-top: 1px solid #DEDEDE;
-}
-
-.ms-ListItem-actions {
-    right: 50px;
-}
-
-.footer {
-    margin-top: 20px;
-    position: fixed;
-    bottom: 0;
+.repo-list-search {
     width: 100%;
-    height: 60px;
-    display: block;
-    box-sizing: border-box;
+    margin: 0;
+
+    &__input {
+        width: 100%;
+        color: $foreground-primary;
+        border: none;
+        border-bottom: solid 1px $background-light;
+
+        &:focus {
+            background-color: $background-lightest;
+        }
+    }
+
+    &__label {
+        @include ellipsis();
+        width: 100%;
+        line-height: 32px; /* height of search box */
+    }
 }
 
-#word-github-brandbar {
-    background: transparent no-repeat center center;
-    background-image: url("assets/images/black_brandbar.png");
-    background-size: cover;
-    height: 60px;
+.repo-list-component {
+    &__separator {
+        margin: 0 auto;
+        width: calc(100% - 30px);
+        border: none;
+        border-top: 1px solid $background-light;
+    }
+
+    &__title {
+        padding: $default-spacing $default-spacing;
+    }
 }
 
-.my-github-repos .ms-ListItem:last-child {
-    margin-bottom: 60px;
+.repo-list-item {
+    @include inline-flex();
+    padding: $default-spacing/2 $default-spacing;
+    width: 100%;
+    cursor: pointer;
+
+    @include focus-states($background-lightest);
+
+    &__primary-text {
+        @include ellipsis();
+        padding-right: 0;
+    }
+
+    &__secondary-text {
+        @include ellipsis();
+        padding-right: 0;
+    }
+
+    &__tertiary-text {
+        padding-right: 0;
+        word-wrap: break-word;
+        white-space: pre;
+    }
+
+    &__content {
+        flex: 1 0 0px;
+        padding-right: $default-spacing;
+    }
+
+    &__actions {
+        max-width: 80px;
+        position: static;
+    }
+
+    &__action {
+        @include focus-states(transparent);
+    }
 }

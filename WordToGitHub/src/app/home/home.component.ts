@@ -49,11 +49,11 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         var tokens = _.values(this._storage.all());
-        if (!Utils.isEmpty(tokens)) {
+        //if (!Utils.isEmpty(tokens)) {
             this._router.navigate(['/repos']);
-        }
-        else {
-            this._router.navigate(['/login']);
-        }
+        //}
+        //else {
+        //    this._router.navigate(['/login']);
+        //}
     }
 }

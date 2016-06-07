@@ -11,54 +11,41 @@
 
     <!-- 0. Basic dependencies -->
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
-
-    <!-- 1. Load libraries -->
-    <link href="lib/loading/spinner.css" rel="stylesheet" />
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
+    <link rel="stylesheet" href="common-styles.css" />
+
+    <!-- 1. 3rd party libraries -->
     <script src="node_modules/to-markdown/dist/to-markdown.js"></script>
 
-    <!--2. Polyfill(s) for older browsers -->
+    <!-- 2. Polyfill(s) for older browsers -->
     <script src="node_modules/es6-promise/dist/es6-promise.min.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/core-js/client/shim.min.js"></script>
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
 
-    <!-- 3. Configure SystemJS -->
+    <!-- 3. SystemJS Configuration -->
     <script src="system.config.js"></script>
 </head>
 
 <body>
     <word-to-github>
-        <div class="ms-notification-progress-indeterminate">
-            <main class="ms-notification-progress-indeterminate__main ms-fontColor-white">
-                <img class="ms-notification-progress-indeterminate__logo" src="assets/images/logo.png" />
+        <div class="ms-progress-component">
+            <main class="ms-progress-component__main ms-fontColor-white">
+                <img class="ms-progress-component__logo" src="assets/images/logo.png" />
                 <h1 class="ms-firstrun-value__title ms-font-xl ms-fontColor-white ms-fontWeight-light">Word to GitHub</h1>
             </main>
-            <footer class="ms-notification-progress-indeterminate__footer ms-fontColor-white">
+            <footer class="ms-progress-component__footer ms-fontColor-white">
                 <div class="ms-progress">
-                    <div class="ms-ProgressIndicator">
-                        <div class="ms-Spinner large"></div>
-                        <div class="ms-ProgressIndicator-itemName">Loading</div>
-                        <div class="ms-ProgressIndicator-itemDescription">Fetching libraries</div>
-                    </div>
+                    <div class="ms-Spinner large"></div>
+                    <div class="ms-ProgressIndicator-itemName">Loading</div>
+                    <div class="ms-ProgressIndicator-itemDescription">Fetching libraries</div>
                 </div>
             </footer>
         </div>
-
-        <script type="text/javascript">
-            if (typeof fabric === "object") {
-                if ('Spinner' in fabric) {
-                    var element = document.querySelector('.ms-Spinner');
-                    var component = new fabric['Spinner'](element);
-                    component.start();
-                }
-            }
-        </script>
     </word-to-github>
 </body>
-
 </html>

@@ -10,15 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- 0. Basic dependencies -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
+    <link rel="stylesheet" href="common-styles.css" />
 
-    <!-- 1. Load libraries -->
-    <link href="lib/loading/spinner.css" rel="stylesheet" />
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
+    <!-- 1. Load libraries & polyfill(s) -->
+    <script src="node_modules/es6-promise/dist/es6-promise.min.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+
 
     <script type="text/javascript">
         System.config({
@@ -52,28 +54,18 @@
 
 <body>
     <div class="ms-notification-progress-indeterminate">
-        <main class="ms-notification-progress-indeterminate__main ms-fontColor-white">
-            <img class="ms-notification-progress-indeterminate__logo" src="assets/images/logo.png" />
-            <h1 class="ms-firstrun-value__title ms-font-xl ms-fontColor-white ms-fontWeight-light">Word to GitHub</h1>
-        </main>
-        <footer class="ms-notification-progress-indeterminate__footer ms-fontColor-white">
-            <div class="ms-progress">
-                <div class="ms-ProgressIndicator">
+        <div class="ms-progress-component">
+            <main class="ms-progress-component__main ms-fontColor-white">
+                <img class="ms-progress-component__logo" src="assets/images/logo.png" />
+                <h1 class="ms-firstrun-value__title ms-font-xl ms-fontColor-white ms-fontWeight-light">Word to GitHub</h1>
+            </main>
+            <footer class="ms-progress-component__footer ms-fontColor-white">
+                <div class="ms-progress">
                     <div class="ms-Spinner large"></div>
                     <div class="ms-ProgressIndicator-itemName">Signing in...</div>
                 </div>
-            </div>
-        </footer>
-
-        <script type="text/javascript">
-            if (typeof fabric === "object") {
-                if ('Spinner' in fabric) {
-                    var element = document.querySelector('.ms-Spinner');
-                    var component = new fabric['Spinner'](element);
-                    component.start();
-                }
-            }
-        </script>
+            </footer>
+        </div>
     </div>
 </body>
 </html>

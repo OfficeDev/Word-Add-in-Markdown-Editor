@@ -1,24 +1,29 @@
 import {Component} from '@angular/core';
 import {Router, OnActivate} from '@angular/router';
-import {Path} from '../shared/helpers/utilities';
+import {Path, Utils} from '../shared/helpers/utilities';
 import {StorageHelper} from '../shared/helpers/storage.helper';
 import {GithubService, IRepository} from '../shared/services/github.service';
+import {PinnedPipe} from '../shared/pipes/pinned.pipe';
 
 let view = 'repo-list';
 @Component({
     templateUrl: Path.template(view),
-    styleUrls: [Path.style(view)]
+    styleUrls: [Path.style(view)],
+    pipes: [PinnedPipe]
 })
 
 export class RepoListComponent implements OnActivate {
     repositories: IRepository[];
     favoriteRepositories: IRepository[];
-    private _storage: StorageHelper<IRepository>;
+    query: string;
+
+    cache: StorageHelper<IRepository>;
 
     constructor(
         private _githubService: GithubService,
-        private _router: Router) {
-        this._storage = new StorageHelper<IRepository>("FavoriteRepositories");
+        private _router: Router
+    ) {
+        this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
     }
 
     onSelect(item: IRepository) {
@@ -26,20 +31,26 @@ export class RepoListComponent implements OnActivate {
     }
 
     onPin(item: IRepository) {
-        this._storage.add(item.id.toString(), item);
-        this.favoriteRepositories = _.values(this._storage.all());
+        item.isPinned = true;
+        this.cache.add(item.id.toString(), item);
+        this.favoriteRepositories = _.values(this.cache.all());
     }
 
     onUnpin(item: IRepository) {
-        this._storage.remove(item.id.toString());
-        this.favoriteRepositories = _.values(this._storage.all());
+        item.isPinned = false;
+        this.cache.remove(item.id.toString());
+        this.favoriteRepositories = _.values(this.cache.all());
     }
 
-    
     routerOnActivate() {
-        this.favoriteRepositories = _.values(this._storage.all());
+        var _that = this;
+        this.favoriteRepositories = _.values(this.cache.all());
         this._githubService.repos()
             .then(repos => {
+                repos.forEach(repo => {
+                    repo.isPinned = !Utils.isNull(this.cache.get(repo.id.toString()))
+                });
+
                 this.repositories = repos;
             });
     }
