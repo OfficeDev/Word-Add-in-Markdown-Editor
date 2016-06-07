@@ -9,7 +9,7 @@ import {WordService} from '../shared/services/word.service';
 let view = 'file-list';
 @Component({
     templateUrl: Path.template(view, 'file'),
-    //styleUrls: [Path.style(view, 'file')],
+    styleUrls: [Path.style(view, 'file')],
     providers: [MarkdownService, WordService]
 })
 
@@ -25,7 +25,7 @@ export class FileListComponent implements OnActivate, OnInit {
     branches: IBranch[];
 
     constructor(
-        private _githubService: GithubService, /*private _routeParams: RouteParams,*/
+        private _githubService: GithubService,
         private _wordService: WordService,
         private _router: Router) {
         this._storage = new StorageHelper<IFile>("FavoriteFiles");

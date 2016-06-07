@@ -1,58 +1,61 @@
-﻿<main class="ms-landing-page__main">
-    <!--<section class="ms-landing-page__header">
-        <div class="ms-landing-page__header--center ms-font-m ms-fontWeight-light">
-            <div class="ms-SearchBox">
-                <input class="ms-SearchBox-field" type="text">
-                <label class="ms-SearchBox-label"><i class="ms-SearchBox-icon ms-Icon ms-Icon--search"></i>Search</label>
-                <button class="ms-SearchBox-closeButton"><i class="ms-Icon ms-Icon--x"></i></button>
+﻿<section class="file-list-component__header">
+    <ul class="file-list-command-bar">
+        <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
+        <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>
+    </ul>
+</section>
+
+<section class="file-list-component__branches">
+    <h2 class="ms-font-xl ms-fontWeight-light">Repo Name</h2>
+    <select [(ngModel)]="selectedBranch.name">
+        <option *ngFor="let branch of branches" value={{branch.name}}>
+            {{branch.name}}
+        </option>
+    </select>
+</section>
+
+<section class="file-list-component__files" *ngIf="favoriteFiles.length > 0">
+    <h2 class="file-list-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-light">My favorites</h2>
+    <ul class="ms-List">
+        <li class="file-list-item ms-ListItem" *ngFor="let file of favoriteFiles">
+            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-Icon--folder"></i></div>
+            <div class="file-list-item__content" (click)="onSelect(file)">
+                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>
             </div>
-        </div>
-    </section>
-    <hr />-->
-    <section class="ms-landing-page__content ms-font-m ms-fontColor-neutralPrimary">
-        <article class="branches">
-            <h1 class="ms-landing-page__content__title ms-font-xl  ms-fontColor-themeDarker ms-fontWeight-light">Branches</h1>
-            <select id="branchDropdown" [(ngModel)]="selectedBranch.name">
-                <option *ngFor="let branch of branches" value={{branch.name}}>
-                    {{branch.name}}
-                </option>
-            </select>
-        </article>
-        <article class="favorites" *ngIf="favoriteFiles.length > 0">
-            <h1 class="ms-landing-page__content__title ms-font-xl  ms-fontColor-themeDarker ms-fontWeight-light">Favorites</h1>
-            <ul class="ms-List">
-                <li class="ms-ListItem" *ngFor="let file of favoriteFiles">
-                    <!--<div class="repoIcon">
-                        <i class="ms-Icon ms-Icon--pinLeft"></i>
-                    </div>-->
-                    <div class="item" (click)="onSelect(file)">
-                        <span class="repoDetail ms-ListItem-primaryText ms-font-m">{{file.name}}</span>
-                        <div class="repoDetail ms-ListItem-selectionTarget js-toggleSelection"></div>
-                    </div>
-                    <div class="ms-ListItem-actions">
-                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinLeft" (click)="onUnpin(file)"></i></div>
-                    </div>
-                </li>
-            </ul>
-        </article>
-        <hr class="ms-borderColor-neutralTertiaryAlt" />
-        <article class="my-md-files">
-            <h1 class="ms-landing-page__content__title ms-font-xl ms-fontColor-themeDarker ms-fontWeight-light">MD files</h1>
-            <ul class="ms-List">
-                <li class="ms-ListItem" *ngFor="let file of files">
-                    <div class="item" (click)="onSelect(file)">
-                        <span class="ms-ListItem-primaryText ms-font-m">{{file.name}}</span>
-                        <div class="ms-ListItem-selectionTarget js-toggleSelection"></div>
-                    </div>
-                    <div class="ms-ListItem-actions">
-                        <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--pinDown" (click)="onPin(file)"></i></div>
-                    </div>
-                </li>
-            </ul>
-        </article>
-    </section>
-</main>
-<footer class="footer">
-    <div id="word-github-brandbar">
-    </div>
-</footer>
+            <div class="file-list-item__actions ms-ListItem-actions">
+                <div class="file-list-item__action ms-list-item__action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onUnpin(file)"></i></div>
+            </div>
+        </li>
+    </ul>
+</section>
+
+<hr class="file-list-component__separator" *ngIf="favoriteFiles.length > 0" />
+
+<section class="file-list-component__files">
+    <h2 class="file-list-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-light">Files</h2>
+    <ul class="ms-List">
+        <li class="file-list-item ms-ListItem" *ngFor="let file of files">
+            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-Icon--document"></i></div>
+            <div class="file-list-item__content" (click)="onSelect(file)">
+                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>
+            </div>
+            <div class="file-list-item__actions ms-ListItem-actions">
+                <div class="file-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--pinDown" (click)="onPin(file)"></i></div>
+            </div>
+        </li>
+        <li class="file-list-item--separator"></li>
+        <li class="file-list-item file-list-item--alternate ms-ListItem">
+            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themeDark ms-Icon--plus"></i></div>
+            <div class="file-list-item__content">
+                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m">Add a new file</p>
+            </div>
+        </li>
+        <li class="file-list-item file-list-item--alternate ms-ListItem">
+            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themeDark ms-Icon--plus"></i></div>
+            <div class="file-list-item__content">
+                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m">Add a new folder</p>
+            </div>
+        </li>
+    </ul>
+</section>

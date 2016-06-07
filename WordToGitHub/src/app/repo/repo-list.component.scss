@@ -1,10 +1,25 @@
 ﻿@import '../../styles/mixins.scss';
 @import '../../styles/theme.scss';
 
-.repo-list-search {
-    width: 100%;
-    margin: 0;
+.repo-list-component {
+    &__search {
+        width: 100%;
+        margin: 0;
+    }
 
+    &__separator {
+        margin: 0 auto;
+        width: calc(100% - 30px);
+        border: none;
+        border-top: 1px solid $background-light;
+    }
+
+    &__repos h2 {
+        padding: $default-spacing $default-spacing;
+    }
+}
+
+.repo-list-search {
     &__input {
         width: 100%;
         color: $foreground-primary;
@@ -20,19 +35,6 @@
         @include ellipsis();
         width: 100%;
         line-height: 32px; /* height of search box */
-    }
-}
-
-.repo-list-component {
-    &__separator {
-        margin: 0 auto;
-        width: calc(100% - 30px);
-        border: none;
-        border-top: 1px solid $background-light;
-    }
-
-    &__title {
-        padding: $default-spacing $default-spacing;
     }
 }
 

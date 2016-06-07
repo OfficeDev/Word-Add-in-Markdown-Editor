@@ -11,7 +11,6 @@ import {Utils} from "./shared/helpers/utilities";
 
 if (Utils.isWord) {
     Office.initialize = (reason) => {
-        console.log('Office is initialized');
         bootstrap(HomeComponent, [
             provide(LocationStrategy, { useClass: HashLocationStrategy }),
             HTTP_PROVIDERS,

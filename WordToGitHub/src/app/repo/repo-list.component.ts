@@ -3,13 +3,11 @@ import {Router, OnActivate} from '@angular/router';
 import {Path, Utils} from '../shared/helpers/utilities';
 import {StorageHelper} from '../shared/helpers/storage.helper';
 import {GithubService, IRepository} from '../shared/services/github.service';
-import {PinnedPipe} from '../shared/pipes/pinned.pipe';
 
 let view = 'repo-list';
 @Component({
     templateUrl: Path.template(view, 'repo'),
     styleUrls: [Path.style(view, 'repo')],
-    pipes: [PinnedPipe]
 })
 
 export class RepoListComponent implements OnActivate {
@@ -47,10 +45,6 @@ export class RepoListComponent implements OnActivate {
         this.favoriteRepositories = _.values(this.cache.all());
         this._githubService.repos()
             .then(repos => {
-                repos.forEach(repo => {
-                    repo.isPinned = !Utils.isNull(this.cache.get(repo.id.toString()))
-                });
-
                 this.repositories = repos;
             });
     }

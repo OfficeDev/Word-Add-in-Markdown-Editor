@@ -33,10 +33,6 @@ let view = 'home';
     {
         path: '/file/:id',
         component: FileDetailComponent
-    },
-    {
-        path: '*',
-        component: LoginComponent
     }
 ])
 
@@ -48,12 +44,14 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        var tokens = _.values(this._storage.all());
+        //var tokens = _.values(this._storage.all());
         //if (!Utils.isEmpty(tokens)) {
-        this._router.navigate(['/repo', 0]);
+            this._router.navigate(['/repos']);
         //}
         //else {
         //    this._router.navigate(['/login']);
         //}
+
+        //this._router.navigate(['/repo', 0]);
     }
 }
