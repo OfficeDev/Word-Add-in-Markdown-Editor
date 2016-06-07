@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-//import {RouteParams} from '@angular/router-deprecated';
 import {Path} from '../shared/helpers/utilities';
 import {GithubService, IFile, IBranch} from '../shared/services/github.service';
 import {StorageHelper} from '../shared/helpers/storage.helper';
@@ -9,8 +8,8 @@ import {WordService} from '../shared/services/word.service';
 
 let view = 'file-list';
 @Component({
-    templateUrl: Path.template(view),
-    styleUrls: [Path.style(view)],
+    templateUrl: Path.template(view, 'file'),
+    //styleUrls: [Path.style(view, 'file')],
     providers: [MarkdownService, WordService]
 })
 
@@ -37,8 +36,8 @@ export class FileListComponent implements OnActivate, OnInit {
     }
 
     onSelect(item: IFile) {
-        this._wordService.insertHtml(item.name)
-            .then(() => this._wordService.getHtml());
+        //this._wordService.insertHtml(item.name)
+        //    .then(() => this._wordService.getHtml());
     }
 
     onPin(item: IFile) {

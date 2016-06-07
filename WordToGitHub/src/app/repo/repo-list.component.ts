@@ -7,8 +7,8 @@ import {PinnedPipe} from '../shared/pipes/pinned.pipe';
 
 let view = 'repo-list';
 @Component({
-    templateUrl: Path.template(view),
-    styleUrls: [Path.style(view)],
+    templateUrl: Path.template(view, 'repo'),
+    styleUrls: [Path.style(view, 'repo')],
     pipes: [PinnedPipe]
 })
 

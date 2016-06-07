@@ -3,9 +3,9 @@ import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 import {Path, Utils} from '../shared/helpers/utilities';
 
 import {IToken} from '../shared/services/github.service';
-import {RepoListComponent} from "../repo-list/repo-list.component";
-import {FileListComponent} from "../file-list/file-list.component";
-import {FileDetailComponent} from "../file-detail/file-detail.component";
+import {RepoListComponent} from "../repo/repo-list.component";
+import {FileListComponent} from "../file/file-list.component";
+import {FileDetailComponent} from "../file/file-detail.component";
 import {LoginComponent} from "../login/login.component";
 import {StorageHelper} from '../shared/helpers/storage.helper';
 
@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         var tokens = _.values(this._storage.all());
         //if (!Utils.isEmpty(tokens)) {
-            this._router.navigate(['/repos']);
+        this._router.navigate(['/repo', 0]);
         //}
         //else {
         //    this._router.navigate(['/login']);

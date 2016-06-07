@@ -6,12 +6,12 @@ export enum ContextType {
 }
 
 export class Path {
-    static template(view: string): string {
-        return 'app/' + view + '/' + view + '.component.html';
+    static template(view: string, parent?: string): string {
+        return 'app/' + (parent || view) + '/' + view + '.component.html';
     }
 
-    static style(view: string): string {
-        return 'app/' + view + '/' + view + '.component.css';
+    static style(view: string, parent?: string): string {
+        return 'app/' + (parent || view) + '/' + view + '.component.css';
     }
 }
 

@@ -6,8 +6,8 @@ import {WordService} from '../shared/services/word.service';
 
 let view = 'file-detail';
 @Component({
-    templateUrl: Path.template(view),
-    styleUrls: [Path.style(view)],
+    templateUrl: Path.template(view, 'file'),
+    //styleUrls: [Path.style(view, 'file')],
     providers: [MarkdownService, WordService]
 })
 

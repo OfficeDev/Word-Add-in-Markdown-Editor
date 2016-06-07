@@ -1,4 +1,7 @@
-﻿.ms-landing-page__main {
+﻿@import '../../styles/mixins.scss';
+@import '../../styles/theme.scss';
+
+.ms-landing-page__main {
     margin-bottom: 20px;
 }
 
