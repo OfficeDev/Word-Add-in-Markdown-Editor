@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- 0. Basic dependencies -->
+    <!-- 1. Basic dependencies -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
@@ -17,38 +17,14 @@
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
     <link rel="stylesheet" href="common-styles.css" />
 
-    <!-- 1. Load libraries & polyfill(s) -->
+    <!-- 2. Load libraries & polyfill(s) -->
     <script src="node_modules/es6-promise/dist/es6-promise.min.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-
+    <!-- 3. SystemJS Configuration -->
+    <script src="configuration.js"></script>
     <script type="text/javascript">
-        System.config({
-            map: {
-                'app': 'app',
-                'underscore': 'node_modules/underscore'
-            },
-            packages: {
-                'app': {
-                    main: 'main.js',
-                    defaultExtension: 'js'
-                },
-                'underscore': {
-                    main: 'underscore.js',
-                    defaultExtension: 'js'
-                }
-            },
-            meta: {
-                'app/*': {
-                    scriptLoad: true
-                }
-            }
-        });
-
-        System.import('underscore')
-            .then(function () {
-                return System.import('app/shared/services/authorize.service');
-            });
+        useDialogConfiguration('app/shared/services/authorize.service');
     </script>
 </head>
 

@@ -42,7 +42,7 @@ export class WordToGithubComponent implements OnInit {
     constructor(private _router: Router) { }
 
     ngOnInit() {
-        var devMode = true;
+        var devMode = false;
         this._storage = new StorageHelper<IToken>("GitHubTokens");
 
         var tokens = _.values(this._storage.all());

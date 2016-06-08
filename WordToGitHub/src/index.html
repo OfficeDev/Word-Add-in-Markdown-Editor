@@ -12,9 +12,9 @@
     <!-- 1. Basic dependencies -->
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
-    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
     <link rel="stylesheet" href="common-styles.css" />
 
 
@@ -26,7 +26,10 @@
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
 
     <!-- 3. SystemJS Configuration -->
-    <script src="system.config.js"></script>
+    <script src="configuration.js"></script>
+    <script type="text/javascript">
+        useAppConfiguration();
+    </script>
 </head>
 
 <body>
