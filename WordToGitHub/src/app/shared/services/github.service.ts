@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import {Utils, StorageHelper} from '../helpers';
+import {Repo} from './';
 
 declare var Microsoft: any;
 
@@ -49,11 +50,20 @@ export class GithubService {
 
     constructor(private _http: Http) {
         this._storage = new StorageHelper<IToken>("GitHubTokens");
+        this.switchProfile("@user");
     }
 
-    repos(): Promise<IRepository[]> {
+    repos(): Promise<Repo[]> {
+
+        var headers = new Headers({
+            "Accept": "application/json",
+            "Authorization": "Bearer " + this._currentToken.access_token
+        });
+
+        var options = new RequestOptions({ headers: headers });
+
         let url = Utils.getMockFileUrl("json", "repository");
-        return Utils.json<IRepository[]>(this._http.get(url));
+        return Utils.json<Repo[]>(this._http.get("https://api.github.com/orgs/officedev/repos", options));
     }
 
     files(): Promise<IFile[]> {

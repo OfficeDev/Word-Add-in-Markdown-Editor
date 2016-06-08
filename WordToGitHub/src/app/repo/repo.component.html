@@ -9,7 +9,7 @@
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of favoriteRepositories">
             <div class="repo-list-item__content" (click)="onSelect(repository)">
                 <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{repository.name}}</p>
-                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@officedev</p>
+                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@{{repository.owner.login}}</p>
             </div>
             <div class="repo-list-item__actions ms-ListItem-actions">
                 <div class="repo-list-item__action ms-list-item__action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onUnpin(repository)"></i></div>
@@ -26,7 +26,7 @@
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
             <div class="repo-list-item__content" (click)="onSelect(repository)">
                 <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{repository.name}}</p>
-                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@officedev</p>
+                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@{{repository.owner.login}}</p>
                 <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
             </div>
             <div class="repo-list-item__actions ms-ListItem-actions">

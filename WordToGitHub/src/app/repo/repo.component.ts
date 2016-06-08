@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, IRepository} from '../shared/services';
+import {GithubService, Repo} from '../shared/services';
 
 let view = 'repo';
 @Component({
@@ -10,31 +10,29 @@ let view = 'repo';
 })
 
 export class RepoComponent implements OnActivate {
-    repositories: IRepository[];
-    favoriteRepositories: IRepository[];
+    repositories: Repo[];
+    favoriteRepositories: Repo[];
     query: string;
 
-    cache: StorageHelper<IRepository>;
+    cache: StorageHelper<Repo>;
 
     constructor(
         private _githubService: GithubService,
         private _router: Router
     ) {
-        this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
+        this.cache = new StorageHelper<Repo>("FavoriteRepositories");
     }
 
-    onSelect(item: IRepository) {
+    onSelect(item: Repo) {
         this._router.navigate(['/repo', item.id]);
     }
 
-    onPin(item: IRepository) {
-        item.isPinned = true;
+    onPin(item: Repo) {
         this.cache.add(item.id.toString(), item);
         this.favoriteRepositories = _.values(this.cache.all());
     }
 
-    onUnpin(item: IRepository) {
-        item.isPinned = false;
+    onUnpin(item: Repo) {
         this.cache.remove(item.id.toString());
         this.favoriteRepositories = _.values(this.cache.all());
     }
