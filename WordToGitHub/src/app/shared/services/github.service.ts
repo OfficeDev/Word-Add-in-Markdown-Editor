@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
+import {Utils, StorageHelper} from '../helpers';
 
 declare var Microsoft: any;
 
@@ -46,7 +45,7 @@ export class GithubService {
     private _baseUrl: string = "";
     private _storage: StorageHelper<IToken>;
     private _currentUser;
-    private _currentToken;
+    private _currentToken: IToken;
 
     constructor(private _http: Http) {
         this._storage = new StorageHelper<IToken>("GitHubTokens");

@@ -1,6 +1,6 @@
 ﻿import {Pipe, PipeTransform} from '@angular/core';
-import {IPinnable} from '../services/github.service';
-import {Utils} from '../helpers/utilities';
+import {IPinnable} from '../services';
+import {Utils} from '../helpers';
 
 @Pipe({
     name: 'pinned'

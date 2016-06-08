@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
-import {MarkdownService} from "./markdown.service";
-import {GithubService} from "./github.service";
-import {Utils} from "../helpers/utilities";
+import {MarkdownService, GithubService} from "./";
+import {Utils} from "../helpers";
 
 declare var toMarkdown: any;
 
@@ -22,7 +21,7 @@ export class WordService {
                 let html = this._markDownService.convertToHtml(md);
                 return this._insertHtmlIntoWord(html);
             })
-        .then(() => this._formatTables())
+            .then(() => this._formatTables())
     }
 
     getHtml() {
@@ -35,7 +34,6 @@ export class WordService {
                 return html.value;
             });
         })
-            //.then(html => this._markDownService.previewMarkdown((html)));
     }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {

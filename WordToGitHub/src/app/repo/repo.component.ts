@@ -1,16 +1,15 @@
 import {Component} from '@angular/core';
 import {Router, OnActivate} from '@angular/router';
-import {Path, Utils} from '../shared/helpers/utilities';
-import {StorageHelper} from '../shared/helpers/storage.helper';
-import {GithubService, IRepository} from '../shared/services/github.service';
+import {Path, Utils, StorageHelper} from '../shared/helpers';
+import {GithubService, IRepository} from '../shared/services';
 
-let view = 'repo-list';
+let view = 'repo';
 @Component({
     templateUrl: Path.template(view, 'repo'),
     styleUrls: [Path.style(view, 'repo')],
 })
 
-export class RepoListComponent implements OnActivate {
+export class RepoComponent implements OnActivate {
     repositories: IRepository[];
     favoriteRepositories: IRepository[];
     query: string;

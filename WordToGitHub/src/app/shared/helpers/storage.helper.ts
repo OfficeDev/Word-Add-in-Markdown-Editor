@@ -1,5 +1,4 @@
-﻿import {Repository, IRepository, IDictionary} from './repository';
-import {Utils} from './utilities';
+﻿import {Repository, IRepository, IDictionary, Utils} from './';
 
 export enum StorageTypes {
     LocalStorage,

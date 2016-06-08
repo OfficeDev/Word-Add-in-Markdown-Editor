@@ -1,9 +1,14 @@
 interface IPackage {
     name: string,
-    production: string
+    production: string,
     main?: string,
     development?: string,
     defaultExtension?: string
+}
+
+interface IBarrel {
+    name: string,
+    path: string
 }
 
 class Configuration {
@@ -20,12 +25,12 @@ class Configuration {
             }
         });
 
-        return this.multiImport()
+        return Promise.all(this.imports.map(pkg => System.import(pkg)))
             .then(null, console.error.bind(console));
     }
 
-    queueImport(packageName: string) {
-        this.imports.push(packageName);
+    queueImport(pkgs: string) {
+        this.imports.push(pkgs);
         return this;
     }
 
@@ -38,6 +43,19 @@ class Configuration {
     useProduction() {
         console.info('Importing production libraries from CDNs.')
         this.devMode = false;
+        return this;
+    }
+
+    registerBarrels(barrels: IBarrel[]) {
+        barrels.forEach(barrel => {
+            this.packages[barrel.name] = {
+                main: 'index',
+                defaultExtension: 'js'
+            };
+
+            this.map[barrel.name] = barrel.path + '/' + barrel.name;
+        });
+
         return this;
     }
 
@@ -98,20 +116,28 @@ class Configuration {
 
         return this;
     }
-
-    private multiImport() {
-        var firstPackage = this.imports.splice(0, 1)[0];
-        var promise = System.import(firstPackage);
-        this.imports.forEach(pkg => {
-            promise = promise.then(() => { return System.import(pkg); });
-        });
-
-        return promise;
-    }
 }
 
 var conf = new Configuration()
     .useDevelopment()
+    .registerBarrels(<IBarrel[]>[
+        {
+            name: 'components',
+            path: 'app'
+        },
+        {
+            name: 'services',
+            path: 'app/shared'
+        },
+        {
+            name: 'helpers',
+            path: 'app/shared'
+        },
+        {
+            name: 'pipes',
+            path: 'app/shared'
+        }
+    ])
     .registerLibraries(<IPackage[]>[
         {
             name: 'app',
@@ -132,9 +158,15 @@ var conf = new Configuration()
             name: 'marked',
             main: 'marked.js',
             production: 'node_modules/marked/lib'
+        },
+        {
+            name: 'toMarkdown',
+            main: 'to-markdown',
+            production: 'node_modules/to-markdown/dist'
         }
     ])
     .queueImport('underscore')
     .queueImport('marked')
+    .queueImport('toMarkdown')
     .queueImport('app/main')
     .configure();

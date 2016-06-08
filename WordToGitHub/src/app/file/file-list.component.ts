@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-import {Path} from '../shared/helpers/utilities';
-import {GithubService, IFile, IBranch} from '../shared/services/github.service';
-import {StorageHelper} from '../shared/helpers/storage.helper';
-import {MarkdownService} from '../shared/services/markdown.service';
-import {WordService} from '../shared/services/word.service';
+import {GithubService, MarkdownService, WordService, IFile, IBranch} from '../shared/services';
+import {Path, StorageHelper} from '../shared/helpers';
 
 let view = 'file-list';
 @Component({

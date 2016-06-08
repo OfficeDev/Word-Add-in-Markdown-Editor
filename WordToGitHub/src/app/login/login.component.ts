@@ -1,7 +1,7 @@
 ﻿import {Component} from '@angular/core';
-import {GithubService, IRepository} from '../shared/services/github.service';
+import {GithubService, IRepository} from '../shared/services';
 import {Router} from '@angular/router';
-import {Path} from '../shared/helpers/utilities';
+import {Path} from '../shared/helpers';
 
 let view = 'login';
 @Component({

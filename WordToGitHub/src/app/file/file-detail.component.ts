@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {Router, OnActivate, RouteSegment} from '@angular/router';
-import {Path} from '../shared/helpers/utilities';
-import {MarkdownService} from '../shared/services/markdown.service';
-import {WordService} from '../shared/services/word.service';
+import {Path} from '../shared/helpers';
+import {MarkdownService, WordService} from '../shared/services';
 
 let view = 'file-detail';
 @Component({

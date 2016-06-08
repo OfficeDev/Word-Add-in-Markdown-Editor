@@ -1,5 +1,4 @@
-﻿import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
+﻿import {Utils, StorageHelper} from '../helpers';
 declare var fabric: any;
 
 class AuthorizeService {

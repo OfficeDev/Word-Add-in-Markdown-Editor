@@ -1,6 +1,4 @@
-﻿import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
-declare var fabric: any;
+﻿import {Utils, StorageHelper} from '../helpers';
 
 class PreviewService {
     private _component: any;

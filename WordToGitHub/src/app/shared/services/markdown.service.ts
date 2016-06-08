@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
+import {Utils, StorageHelper} from '../helpers';
 import marked from 'marked';
 
 declare var toMarkdown: any;
