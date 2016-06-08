@@ -89,9 +89,15 @@ export class GithubService {
                             }
                             else {
                                 try {
-                                    this._currentToken = JSON.parse(args.message);
-                                    this.loadProfile();
-                                    resolve(this._currentToken);
+                                    if (args.message.indexOf('access_token') != -1) {
+                                        this._currentToken = JSON.parse(args.message);
+                                        this.loadProfile();
+
+                                        resolve(this._currentToken);
+                                    }
+                                    else {
+                                        reject(JSON.parse(args.message));
+                                    }
                                 }
                                 catch (exception) {
                                     reject(exception);
