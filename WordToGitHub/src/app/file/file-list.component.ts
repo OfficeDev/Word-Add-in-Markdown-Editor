@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-import {GithubService, MarkdownService, WordService, IFile, IBranch} from '../shared/services';
+import {GithubService, MarkdownService, WordService, IContents, IBranch} from '../shared/services';
 import {Path, StorageHelper} from '../shared/helpers';
 
 let view = 'file-list';
@@ -12,46 +12,48 @@ let view = 'file-list';
 
 export class FileListComponent implements OnActivate, OnInit {
     repo: string;
-    selectedBranch: IBranch = <IBranch>{
-        id: 2,
+    selectedBranch: IBranch = {
         name: "bhargav-dev"
     };
-    files: IFile[];
-    favoriteFiles: IFile[];
-    private _storage: StorageHelper<IFile>;
+    files: IContents[];
+    favoriteFiles: IContents[];
+    private _storage: StorageHelper<IContents>;
     branches: IBranch[];
 
     constructor(
         private _githubService: GithubService,
         private _wordService: WordService,
         private _router: Router) {
-        this._storage = new StorageHelper<IFile>("FavoriteFiles");
+        this._storage = new StorageHelper<IContents>("FavoriteFiles");
     }
 
     ngOnInit(): any {
         this.favoriteFiles = _.values(this._storage.all());
     }
 
-    onSelect(item: IFile) {
+    onSelect(item: IContents) {
         //this._wordService.insertHtml(item.name)
         //    .then(() => this._wordService.getHtml());
     }
 
-    onPin(item: IFile) {
-        this._storage.add(item.id.toString(), item);
+    onPin(item: IContents) {
+        this._storage.add(item.name.toString(), item);
         this.favoriteFiles = _.values(this._storage.all());
     }
 
-    onUnpin(item: IFile) {
-        this._storage.remove(item.id.toString());
+    onUnpin(item: IContents) {
+        this._storage.remove(item.name.toString());
         this.favoriteFiles = _.values(this._storage.all());
     }
 
     routerOnActivate(current: RouteSegment) {
         let id = +current.getParam('id');
         console.log('Showing data for repository', id);
+
         this._githubService.files()
             .then(files => { this.files = files; });
+
+
         this._githubService.branches()
             .then(branches => { this.branches = branches; });
     }

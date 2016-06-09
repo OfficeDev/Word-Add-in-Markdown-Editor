@@ -1,59 +1,24 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, RequestOptions, Headers} from '@angular/http';
 import {Utils, StorageHelper} from '../helpers';
-import {Repo} from './';
+import {IRepository, IBranch, IToken, IContents, IUserProfile} from './';
 
 declare var Microsoft: any;
-
-export interface IPinnable {
-    isPinned?: boolean;
-}
-
-export interface IRepository extends IPinnable {
-    id: number;
-    name: string;
-    description: string;
-    full_name?: string;
-    owner_login?: string;
-    private?: boolean;
-    html_url?: string;
-}
-
-export interface IBranch {
-    id: number;
-    name: string;
-}
-
-export interface IFile extends IPinnable {
-    id: number
-    name: string;
-    path?: string;
-    url?: string;
-    content?: string;
-    branch?: string;
-    authorName?: string;
-    authorEmail?: string;
-}
-
-export interface IToken {
-    access_token: string;
-    token_type: string;
-    scope: string;
-}
 
 @Injectable()
 export class GithubService {
     private _baseUrl: string = "";
     private _storage: StorageHelper<IToken>;
-    private _currentUser;
+    private _currentUser: IUserProfile;
     private _currentToken: IToken;
+    private _username = "@user";
 
     constructor(private _http: Http) {
         this._storage = new StorageHelper<IToken>("GitHubTokens");
-        this.switchProfile("@user");
+        this.loadProfile();
     }
 
-    repos(): Promise<Repo[]> {
+    repos(): Promise<IRepository[]> {
 
         var headers = new Headers({
             "Accept": "application/json",
@@ -63,12 +28,12 @@ export class GithubService {
         var options = new RequestOptions({ headers: headers });
 
         let url = Utils.getMockFileUrl("json", "repository");
-        return Utils.json<Repo[]>(this._http.get("https://api.github.com/orgs/officedev/repos", options));
+        return Utils.json<IRepository[]>(this._http.get("https://api.github.com/orgs/officedev/repos", options));
     }
 
-    files(): Promise<IFile[]> {
+    files(): Promise<IContents[]> {
         let url = Utils.getMockFileUrl("json", "file");
-        return Utils.json<IFile[]>(this._http.get(url));
+        return Utils.json<IContents[]>(this._http.get(url));
     }
 
     branches(): Promise<IBranch[]> {
@@ -85,7 +50,7 @@ export class GithubService {
         if (!Utils.isWord) return;
 
         return new Promise<IToken>((resolve, reject) => {
-            var token = this._tryGetCachedToken("@user");
+            var token = this._tryGetCachedToken();
             if (force || Utils.isNull(token)) {
                 var context = Office.context as any;
                 context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
@@ -121,31 +86,20 @@ export class GithubService {
                 this.loadProfile();
                 resolve(token);
             }
-
-            return () => { console.info('Observable disposed'); }
         });
     }
 
     loadProfile() {
-        var username = "@user";
-        this._storage.add(username, this._currentToken);
+        if (this._currentToken) {
+            this._storage.add(this._username, this._currentToken);
+        }
+        else {
+            this._currentToken = this._storage.get(this._username);
+        }
     }
 
-    switchProfile(username: string) {
-        username = username || "@user";
-        this._currentToken = this._storage.get(username);
-        this.loadProfile();
-    }
-
-    logout(username: string) {
-        username = username || "@user";
-        this._storage.remove(username);
-        this._currentToken = null;
-    }
-
-    private _tryGetCachedToken(username: string) {
-        username = username || "@user";
-        var token = this._storage.get(username);
+    private _tryGetCachedToken() {
+        var token = this._storage.get(this._username);
         if (Utils.isEmpty(token)) return null;
         return token;
     }

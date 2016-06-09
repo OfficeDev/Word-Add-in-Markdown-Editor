@@ -23,7 +23,7 @@
 <section class="repo-list-component__repos">
     <h2 class="ms-font-l ms-fontColor-themeDarker ms-fontWeight-light">Repositories</h2>
     <ul class="ms-List">
-        <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
+        <li class="repo-list-item ms-ListItem" *ngFor="let repository of (repositories | async)">
             <div class="repo-list-item__content" (click)="onSelect(repository)">
                 <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{repository.name}}</p>
                 <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@{{repository.owner.login}}</p>

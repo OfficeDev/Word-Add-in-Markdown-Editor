@@ -1,37 +1,4 @@
-﻿export interface User {
-    login?: string,
-    id?: number,
-    avatar_url?: string,
-    gravatar_id?: string,
-    url?: string,
-    html_url?: string,
-    followers_url?: string,
-    following_url?: string,
-    gists_url?: string,
-    starred_url?: string,
-    subscriptions_url?: string,
-    organizations_url?: string,
-    repos_url?: string,
-    events_url?: string,
-    received_events_url?: string,
-    type?: string,
-    site_admin?: boolean,
-    name?: string,
-    company?: string,
-    blog?: string,
-    location?: string,
-    email?: string,
-    hireable?: string,
-    bio?: string,
-    public_repos?: number,
-    public_gists?: number,
-    followers?: number,
-    following?: number,
-    created_at?: string,
-    updated_at?: string
-}
-
-export interface IOwner {
+﻿export interface IUser {
     login?: string,
     id?: number,
     avatar_url?: string,
@@ -51,11 +18,27 @@ export interface IOwner {
     site_admin?: boolean
 }
 
-export interface Repo {
+export interface IUserProfile extends IUser {
+    name?: string,
+    company?: string,
+    blog?: string,
+    location?: string,
+    email?: string,
+    hireable?: string,
+    bio?: string,
+    public_repos?: number,
+    public_gists?: number,
+    followers?: number,
+    following?: number,
+    created_at?: Date,
+    updated_at?: Date
+}
+
+export interface IRepository {
     id?: number,
     name?: string,
     full_name?: string,
-    owner: IOwner,
+    owner: IUser,
     private?: boolean,
     html_url?: string,
     description?: string,
@@ -97,9 +80,9 @@ export interface Repo {
     labels_url?: string,
     releases_url?: string,
     deployments_url?: string,
-    created_at?: string,
-    updated_at?: string,
-    pushed_at?: string,
+    created_at?: Date,
+    updated_at?: Date,
+    pushed_at?: Date,
     git_url?: string,
     ssh_url?: string,
     clone_url?: string,
@@ -120,9 +103,105 @@ export interface Repo {
     open_issues?: number,
     watchers?: number,
     default_branch?: string,
-    permissions: {
+    permissions?: {
         admin?: boolean,
         push?: boolean,
         pull: boolean
     }
+}
+
+export interface IOwnerRepository extends IRepository {
+    organization?: IUser,
+    parent?: IRepository,
+    source?: IRepository
+}
+
+export interface IBranch {
+    name?: string,
+    protection?: {
+        enabled?: boolean,
+        required_status_checks?: {
+            enforcement_level?: string,
+            contexts: any[]
+        }
+    },
+    commit?: ICommit,
+    _links?: {
+        html?: string,
+        self?: string
+    }
+}
+
+export interface ICommit {
+    sha?: string,
+    commit?: {
+        author?: {
+            name?: string,
+            date?: Date,
+            email?: string
+        },
+        url?: string,
+        message?: string,
+        tree?: {
+            sha?: string,
+            url?: string
+        },
+        committer?: {
+            name?: string,
+            date?: Date,
+            email?: string
+        }
+    },
+    author?: {
+        gravatar_id?: string,
+        avatar_url?: string,
+        url?: string,
+        id?: number,
+        login?: string
+    },
+    parents?: [
+        {
+            sha?: string,
+            url?: string
+        },
+        {
+            sha?: string,
+            url?: string
+        }
+    ],
+    url?: string,
+    committer?: {
+        gravatar_id?: string,
+        avatar_url?: string,
+        url?: string,
+        id?: number,
+        login?: string
+    }
+}
+
+export interface IContents {
+    type?: string,
+    size?: number,
+    name?: string,
+    path?: string,
+    sha?: string,
+    url?: string,
+    git_url?: string,
+    html_url?: string,
+    download_url?: string,
+    _links?: {
+        self?: string,
+        git?: string,
+        html?: string
+    }
+}
+
+export interface IToken {
+    access_token: string;
+    token_type: string;
+    scope: string;
+}
+
+export interface IPinnable {
+    isPinned?: boolean;
 }
