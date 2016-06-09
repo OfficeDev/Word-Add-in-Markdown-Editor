@@ -104,6 +104,11 @@
     }
 
     &--alternate {
-        @include focus-states($background-lightest, $accent-background-primary);
+        @include focus-states($accent-background-primary, $accent-foreground-primary);
+
+        &:hover p,
+        &:hover i {
+            color: $accent-foreground-primary;
+        }
     }
 }

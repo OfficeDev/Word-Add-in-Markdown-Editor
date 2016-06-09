@@ -32,8 +32,8 @@ export class FileListComponent implements OnActivate, OnInit {
     }
 
     onSelect(item: IContents) {
-        //this._wordService.insertHtml(item.name)
-        //    .then(() => this._wordService.getHtml());
+        this._wordService.insertHtml(item.name)
+            .then(() => this._wordService.getHtml());
     }
 
     onPin(item: IContents) {
