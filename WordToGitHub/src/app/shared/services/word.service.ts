@@ -13,15 +13,12 @@ export class WordService {
 
     }
 
-    insertHtml(name: string) {
-        if (!Utils.isWord) return;
+    insertHtml(md: string) {
+        if (Utils.isEmpty(md)) return Promise.reject(null);
 
-        return this._githubService.file(name)
-            .then(md => {
-                let html = this._markDownService.convertToHtml(md);
-                return this._insertHtmlIntoWord(html);
-            })
-            .then(() => this._formatTables())
+        let html = this._markDownService.convertToHtml(md);
+        return Promise.resolve(this._insertHtmlIntoWord(html))
+            .then(() => this._formatTables());
     }
 
     getHtml() {

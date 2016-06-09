@@ -71,7 +71,9 @@ export class Utils {
 
     static json<T>(request: Observable<any>): Promise<T> {
         return request.toPromise()
-            .then(response => response.json() as T)
+            .then(response => {
+                return response.json() as T
+            })
             .catch(Utils.error);
     }
 

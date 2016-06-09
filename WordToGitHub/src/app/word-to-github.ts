@@ -27,11 +27,11 @@ import {RepoComponent, FileListComponent, FileDetailComponent, LoginComponent} f
         component: RepoComponent
     },
     {
-        path: '/repo/:id',
+        path: '/repo/:name',
         component: FileListComponent
     },
     {
-        path: '/file/:id',
+        path: '/file/:path',
         component: FileDetailComponent
     }
 ])

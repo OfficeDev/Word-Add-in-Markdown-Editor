@@ -188,6 +188,7 @@ export interface IContents {
     url?: string,
     git_url?: string,
     html_url?: string,
+    content?: string,
     download_url?: string,
     _links?: {
         self?: string,

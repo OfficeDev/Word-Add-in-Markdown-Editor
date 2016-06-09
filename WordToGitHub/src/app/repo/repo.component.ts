@@ -13,6 +13,7 @@ export class RepoComponent implements OnActivate {
     repositories: Promise<IRepository[]>;
     favoriteRepositories: IRepository[];
     query: string;
+    selectedOrg: string;
 
     cache: StorageHelper<IRepository>;
 
@@ -24,7 +25,7 @@ export class RepoComponent implements OnActivate {
     }
 
     onSelect(item: IRepository) {
-        this._router.navigate(['/repo', item.id]);
+        this._router.navigate(['/repo', item.name]);
     }
 
     onPin(item: IRepository) {
@@ -38,8 +39,9 @@ export class RepoComponent implements OnActivate {
     }
 
     routerOnActivate() {
+        this.selectedOrg = "OfficeDev";
         var _that = this;
         this.favoriteRepositories = _.values(this.cache.all());
-        this.repositories = this._githubService.repos();
+        this.repositories = this._githubService.repos(this.selectedOrg);
     }
 }
