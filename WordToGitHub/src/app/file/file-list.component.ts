@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-import {GithubService, MarkdownService, WordService, IContents, IBranch} from '../shared/services';
-import {Path, StorageHelper} from '../shared/helpers';
+import {GithubService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
+import {Path, Utils, StorageHelper} from '../shared/helpers';
 
 let view = 'file-list';
 @Component({
@@ -11,50 +11,47 @@ let view = 'file-list';
 })
 
 export class FileListComponent implements OnActivate, OnInit {
-    repo: string;
+    selectedOrg: string;
+    selectedRepoName: string;
     selectedBranch: IBranch = {
-        name: "bhargav-dev"
+        name: "master"
     };
-    files: IContents[];
-    favoriteFiles: IContents[];
-    private _storage: StorageHelper<IContents>;
-    branches: IBranch[];
+    files: Promise<IContents[]>;
+    branches: Promise<IBranch[]>;
+    fileContent: IContents;
 
     constructor(
         private _githubService: GithubService,
         private _wordService: WordService,
         private _router: Router) {
-        this._storage = new StorageHelper<IContents>("FavoriteFiles");
     }
 
     ngOnInit(): any {
-        this.favoriteFiles = _.values(this._storage.all());
+    }
+
+    onSelectBranch(item: IBranch) {
+        this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name);
+
     }
 
     onSelect(item: IContents) {
-        //this._wordService.insertHtml(item.name)
-        //    .then(() => this._wordService.getHtml());
-    }
-
-    onPin(item: IContents) {
-        this._storage.add(item.name.toString(), item);
-        this.favoriteFiles = _.values(this._storage.all());
-    }
-
-    onUnpin(item: IContents) {
-        this._storage.remove(item.name.toString());
-        this.favoriteFiles = _.values(this._storage.all());
+        this.fileContent = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, item.path)
+            .then(md => {
+                if (Utils.isEmpty(md)) return;
+                this._wordService.insertHtml(md);
+            });
     }
 
     routerOnActivate(current: RouteSegment) {
-        let id = +current.getParam('id');
-        console.log('Showing data for repository', id);
-
-        this._githubService.files()
-            .then(files => { this.files = files; });
+        this.selectedOrg = "OfficeDev";
+        this.selectedRepoName = current.getParam('name');
+        console.log('Showing data for repository', this.selectedRepoName);
 
 
-        this._githubService.branches()
-            .then(branches => { this.branches = branches; });
+        this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name)
+
+
+
+        this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
     }
 }

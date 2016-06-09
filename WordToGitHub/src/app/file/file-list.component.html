@@ -7,36 +7,19 @@
 </section>
 
 <section class="file-list-component__branches">
-    <h2 class="ms-font-xl ms-fontWeight-light">Repo Name</h2>
-    <select [(ngModel)]="selectedBranch.name">
-        <option *ngFor="let branch of branches" value={{branch.name}}>
+    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker" >{{selectedRepoName}}</h2>
+    <select [(ngModel)]="selectedBranch.name" (change)="onSelectBranch()">
+        <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
             {{branch.name}}
         </option>
     </select>
 </section>
 
-<section class="file-list-component__files" *ngIf="favoriteFiles.length > 0">
-    <h2 class="file-list-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-light">My favorites</h2>
-    <ul class="ms-List">
-        <li class="file-list-item ms-ListItem" *ngFor="let file of favoriteFiles">
-            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-Icon--folder"></i></div>
-            <div class="file-list-item__content" (click)="onSelect(file)">
-                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>
-            </div>
-            <div class="file-list-item__actions ms-ListItem-actions">
-                <div class="file-list-item__action ms-list-item__action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onUnpin(file)"></i></div>
-            </div>
-        </li>
-    </ul>
-</section>
-
-<hr class="file-list-component__separator" *ngIf="favoriteFiles.length > 0" />
-
 <section class="file-list-component__files">
-    <h2 class="file-list-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-light">Files</h2>
+    <h2 class="file-list-component__title ms-font-l ms-fontWeight-light">Files</h2>
     <ul class="ms-List">
-        <li class="file-list-item ms-ListItem" *ngFor="let file of files">
-            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-Icon--document"></i></div>
+        <li class="file-list-item ms-ListItem" *ngFor="let file of (files | async)">
+            <div class="file-list-item__icon"><i class="ms-Icon" [ngClass]="file.type === 'dir' ? 'ms-Icon-large ms-Icon--folder' : 'ms-Icon-large ms-Icon--document'"></i></div>
             <div class="file-list-item__content" (click)="onSelect(file)">
                 <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>
             </div>
