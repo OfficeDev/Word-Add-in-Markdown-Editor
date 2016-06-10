@@ -51,7 +51,7 @@ export class Utils {
             ();
     }
 
-    static error<T>(exception: any): Promise<T> | OfficeExtension.IPromise<T> {
+    static error<T>(exception?: any): OfficeExtension.IPromise<T> {
         console.log('Error: ' + JSON.stringify(exception));
 
         if (Utils.isWord) {
@@ -63,17 +63,15 @@ export class Utils {
         return exception;
     }
 
-    static text(request: Observable<any>): Promise<string> {
-        return request.toPromise()
-            .then(response => response.text() as string)
+    static text(request: Observable<any>): Observable<string> {
+        return request
+            .map(response => response.text() as string)
             .catch(Utils.error);
     }
 
-    static json<T>(request: Observable<any>): Promise<T> {
-        return request.toPromise()
-            .then(response => {
-                return response.json() as T
-            })
+    static json<T>(request: Observable<any>): Observable<T> {
+        return request
+            .map(response => response.json() as T)
             .catch(Utils.error);
     }
 

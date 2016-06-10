@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import {Router, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {GithubService, IRepository} from '../shared/services';
@@ -10,7 +11,7 @@ let view = 'repo';
 })
 
 export class RepoComponent implements OnActivate {
-    repositories: Promise<IRepository[]>;
+    repositories: Observable<IRepository[]>;
     favoriteRepositories: IRepository[];
     query: string;
     selectedOrg: string;

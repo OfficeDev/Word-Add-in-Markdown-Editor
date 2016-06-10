@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
 import {GithubService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
@@ -16,9 +17,8 @@ export class FileListComponent implements OnActivate, OnInit {
     selectedBranch: IBranch = {
         name: "master"
     };
-    files: Promise<IContents[]>;
-    branches: Promise<IBranch[]>;
-    fileContent: IContents;
+    files: Observable<IContents[]>;
+    branches: Observable<IBranch[]>;
 
     constructor(
         private _githubService: GithubService,
@@ -35,8 +35,8 @@ export class FileListComponent implements OnActivate, OnInit {
     }
 
     onSelect(item: IContents) {
-        this.fileContent = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, item.path)
-            .then(md => {
+        this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, item.path)
+            .subscribe(md => {
                 if (Utils.isEmpty(md)) return;
                 this._wordService.insertHtml(md);
             });
