@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Utils, RequestHelper} from '../helpers';
-import {IRepository, IBranch, IToken, IContents, IUserProfile} from './';
+import {IRepository, IBranch, IToken, IContents, IUserProfile, IUser} from './';
 
 declare var Microsoft: any;
 
@@ -11,6 +11,16 @@ export class GithubService {
     private _currentUser: IUserProfile;
 
     constructor(private _request: RequestHelper) { }
+
+    user(): Observable<IUserProfile> {
+        let url = "https://api.github.com/user";
+        return Utils.json<IUserProfile>(this._request.get(url));
+    }
+
+    orgs(username: string): Observable<IUserProfile> {
+        let url = "https://api.github.com/users/" + username + "/orgs";
+        return Utils.json<IUser>(this._request.get(url));
+    }
 
     repos(orgName: string): Observable<IRepository[]> {
         let url = Utils.getMockFileUrl("json", "repository");
@@ -43,10 +53,6 @@ export class GithubService {
 
             this._showAuthDialog(observer);
         });
-    }
-
-    loadProfile() {
-        // get user profile here
     }
 
     private _showAuthDialog(observer) {

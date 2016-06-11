@@ -1,0 +1,126 @@
+﻿@import '../../../styles/mixins.scss';
+@import '../../../styles/theme.scss';
+
+.hamburger-menu {
+    position: absolute;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    max-width: 330px;
+    top: 0;
+    left: 0;
+    background-color: $background-primary;
+    @include flex();
+    transform: translate3d(-100%, 0, 0);
+    transition: transform 0.4s cubic-bezier(0,1.13,.4,1);
+
+    &__close {
+        width: 20px;
+        padding: $default-spacing;
+        color: $foreground-light;
+        @include focus-states($foreground-primary, $accent-background-primary);
+
+        i {
+            top: 0;
+        }
+    }
+
+    &__profile {
+        @include center-flex();
+        padding: $default-spacing;
+    }
+
+    &__container {
+        flex: 1 1 0px;
+        height: 100%;
+        overflow: auto;
+        overflow-x: hidden;
+    }
+
+    &--shown {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.profile {
+    &__image {
+        @include background-fill() {
+            @include background-image-circle(120px);
+        }
+
+        margin-bottom: $default-spacing;
+    }
+
+    &__name {
+        color: $background-lightest;
+    }
+
+    &__handle {
+        color: rgba($background-lightest, 0.6);
+        margin-bottom: $default-spacing;
+    }
+}
+
+.menu-list {
+    list-style-type: none;
+    margin-bottom: 2 * $default-spacing;
+
+    &__title {
+        color: $foreground-light;
+        padding: 0 $default-spacing;
+        margin-bottom: $default-spacing/2;
+
+        i {
+            margin-right: $default-spacing * 0.75;
+            top: 2px;
+        }
+    }
+
+    &__item {
+        padding: $default-spacing $default-spacing;
+        color: $foreground-lightest;
+        @include focus-states($foreground-primary, $accent-background-primary);
+
+        p:first-child {
+            color: $background-lighter;
+            margin-bottom: 4px;
+        }
+
+        p:last-child {
+            color: $background-lighter;
+        }
+
+        &--subtle {
+            color: $foreground-light;
+        }
+
+        &--inline-image {
+            width: 100%;
+            @include inline-flex(null, center);
+
+            p {
+                color: $background-lighter;
+            }
+        }
+    }
+
+    &__thumb {
+        @include background-fill() {
+            @include background-image-square(24px);
+        }
+
+        margin-right: $default-spacing;
+    }
+
+    &__overflow {
+        padding: 0 $default-spacing;
+        margin-top: $default-spacing / 2;
+        color: $foreground-light;
+
+        @include focus-states(transparent, $accent-background-primary);
+    }
+
+    &--footer {
+        margin-bottom: 0;
+    }
+}

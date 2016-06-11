@@ -1,18 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
-import {GithubService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
+import {GithubService, HamburgerService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 
 let view = 'file-list';
 @Component({
     templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')],
     providers: [MarkdownService, WordService]
 })
 
 export class FileListComponent implements OnActivate, OnInit {
-    selectedOrg: string;
+    selectedOrg: string = "OfficeDev";
     selectedRepoName: string;
     selectedBranch: IBranch = {
         name: "master"
@@ -23,6 +22,7 @@ export class FileListComponent implements OnActivate, OnInit {
     constructor(
         private _githubService: GithubService,
         private _wordService: WordService,
+        private _hamburgerService: HamburgerService,
         private _router: Router) {
     }
 
@@ -43,7 +43,6 @@ export class FileListComponent implements OnActivate, OnInit {
     }
 
     routerOnActivate(current: RouteSegment) {
-        this.selectedOrg = "OfficeDev";
         this.selectedRepoName = current.getParam('name');
         console.log('Showing data for repository', this.selectedRepoName);
 
@@ -53,5 +52,9 @@ export class FileListComponent implements OnActivate, OnInit {
 
 
         this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
+    }
+
+    onMenuClicked() {
+        this._hamburgerService.showMenu();
     }
 }

@@ -1,13 +1,13 @@
 ﻿<section class="file-list-component__header">
     <ul class="file-list-command-bar">
-        <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <li class="file-list-command-bar__command" (click)="onMenuClicked()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
         <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
         <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>
     </ul>
 </section>
 
 <section class="file-list-component__branches">
-    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker" >{{selectedRepoName}}</h2>
+    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName}}</h2>
     <select [(ngModel)]="selectedBranch.name" (change)="onSelectBranch()">
         <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
             {{branch.name}}
