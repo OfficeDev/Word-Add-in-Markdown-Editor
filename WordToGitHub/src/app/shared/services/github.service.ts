@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {Utils, RequestHelper} from '../helpers';
-import {IRepository, IRepositoryCollection, IBranch, IToken, IContents, IUserProfile} from './';
+import {IRepository, IBranch, IToken, IContents, IUserProfile, IUser} from './';
 
 declare var Microsoft: any;
 
@@ -13,26 +12,19 @@ export class GithubService {
 
     constructor(private _request: RequestHelper) { }
 
-    repos(orgName: string): Observable<IRepositoryCollection> {
-        //let page_no = 1;
-        let url = "https://api.github.com/orgs/" + orgName + "/repos?page=1&per_page=2";
-        //let morePages: boolean = true;
+    user(): Observable<IUserProfile> {
+        let url = "https://api.github.com/user";
+        return Utils.json<IUserProfile>(this._request.get(url));
+    }
 
-        return this._request.get(url)
-            .map((response: Response) => {
-                var pageCount = +response.headers.get('total_count');
-                var data = response.json() as IRepository[];
-                return <IRepositoryCollection>{
-                    data: data,
-                    page_count: pageCount,
-                    next_link: "blah"
-                };
-            });
+    orgs(username: string): Observable<IUserProfile> {
+        let url = "https://api.github.com/users/" + username + "/orgs";
+        return Utils.json<IUser>(this._request.get(url));
+    }
 
-        //while (morePages) {
-        //    return this._request.get(url).map;
-        //    page_no = 
-        //}
+    repos(orgName: string): Observable<IRepository[]> {
+        let url = Utils.getMockFileUrl("json", "repository");
+        return Utils.json<IRepository[]>(this._request.get("https://api.github.com/orgs/" + orgName + "/repos"));
     }
 
     files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
@@ -59,37 +51,31 @@ export class GithubService {
                 return;
             }
 
-            var context = Office.context as any;
-            context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
-                result => {
-                    var dialog = result.value;
-                    dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
-                        dialog.close();
-
-                        if (Utils.isEmpty(args.message)) {
-                            observer.onError("No token received");
-                            return;
-                        }
-
-                        if (args.message.indexOf('access_token') == -1) {
-                            observer.onError(JSON.parse(args.message));
-                            return;
-                        }
-
-                        let token = this._request.token(JSON.parse(args.message));
-                        observer.onNext(token);
-                    });
-                });
-
-            return () => { };
+            this._showAuthDialog(observer);
         });
     }
 
-    loadProfile() {
-        // get user profile here
-    }
-
     private _showAuthDialog(observer) {
+        var context = Office.context as any;
+        context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
+            result => {
+                var dialog = result.value;
+                dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
+                    dialog.close();
 
+                    if (Utils.isEmpty(args.message)) {
+                        observer.onError("No token received");
+                        return;
+                    }
+
+                    if (args.message.indexOf('access_token') == -1) {
+                        observer.onError(JSON.parse(args.message));
+                        return;
+                    }
+
+                    let token = this._request.token(JSON.parse(args.message));
+                    observer.onNext(token);
+                });
+            });
     }
 }

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {Router, OnActivate} from '@angular/router';
+import {Router, RouteSegment, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {GithubService, IRepository, IRepositoryCollection} from '../shared/services';
 
@@ -39,7 +39,7 @@ export class RepoComponent implements OnActivate {
         this.favoriteRepositories = _.values(this.cache.all());
     }
 
-    routerOnActivate() {
+    routerOnActivate(current: RouteSegment) {
         this.selectedOrg = "OfficeDev";
         var _that = this;
         this.favoriteRepositories = _.values(this.cache.all());
