@@ -212,6 +212,7 @@ function useDialogConfiguration(initialScript: string) {
                 production: 'node_modules/underscore'
             }
         ])
+        .registerAngular2Packages()
         .queueImport('underscore')
         .configure(initialScript);
 }

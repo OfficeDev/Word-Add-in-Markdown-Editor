@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, IRepository} from '../shared/services';
+import {GithubService, IRepository, IRepositoryCollection} from '../shared/services';
 
 let view = 'repo';
 @Component({
@@ -11,7 +11,7 @@ let view = 'repo';
 })
 
 export class RepoComponent implements OnActivate {
-    repositories: Observable<IRepository[]>;
+    repositories: Observable<IRepositoryCollection>;
     favoriteRepositories: IRepository[];
     query: string;
     selectedOrg: string;

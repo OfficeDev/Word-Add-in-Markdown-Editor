@@ -110,6 +110,12 @@ export interface IRepository {
     }
 }
 
+export interface IRepositoryCollection {
+    data: IRepository[],
+    page_count?: number,
+    next_link?: string
+}
+
 export interface IOwnerRepository extends IRepository {
     organization?: IUser,
     parent?: IRepository,
