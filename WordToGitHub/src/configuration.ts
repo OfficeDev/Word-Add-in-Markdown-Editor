@@ -143,7 +143,7 @@ function useAppConfiguration() {
         .registerLibraries(<IPackage[]>[
             {
                 name: 'app',
-                main: 'main.js',
+                main: 'bootstrap.js',
                 production: 'app'
             },
             {
@@ -171,40 +171,17 @@ function useAppConfiguration() {
         .queueImport('underscore')
         .queueImport('marked')
         .queueImport('toMarkdown')
-        .configure('app/bootstrap');
+        .configure('app');
 }
 
 function useDialogConfiguration(initialScript: string) {
     var conf = new Configuration()
         .useDevelopment()
-        .registerBarrels(<IBarrel[]>[
-            {
-                name: 'components',
-                path: 'app'
-            },
-            {
-                name: 'services',
-                path: 'app/shared'
-            },
-            {
-                name: 'helpers',
-                path: 'app/shared'
-            },
-            {
-                name: 'pipes',
-                path: 'app/shared'
-            }
-        ])
         .registerLibraries(<IPackage[]>[
             {
                 name: 'app',
-                main: 'main.js',
+                main: 'bootstrap.js',
                 production: 'app'
-            },
-            {
-                name: 'rxjs',
-                main: 'rx.js',
-                production: 'node_modules/rxjs'
             },
             {
                 name: 'underscore',
@@ -212,7 +189,6 @@ function useDialogConfiguration(initialScript: string) {
                 production: 'node_modules/underscore'
             }
         ])
-        .registerAngular2Packages()
         .queueImport('underscore')
         .configure(initialScript);
 }

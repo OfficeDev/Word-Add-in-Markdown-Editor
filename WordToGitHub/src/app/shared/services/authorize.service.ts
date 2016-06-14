@@ -1,4 +1,4 @@
-﻿import {Utils, StorageHelper} from '../helpers';
+﻿import {Utils} from '../helpers/utilities';
 declare var fabric: any;
 
 class AuthorizeService {
@@ -6,6 +6,8 @@ class AuthorizeService {
     private static CLIENT_ID = "53c1eb0d00a1ef6bf9ce";
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
     private static SCOPE = "repo";
+
+    status = $('#status');
 
     constructor() { }
 
@@ -16,10 +18,12 @@ class AuthorizeService {
         try {
             var code = this._getCode();
             if (code == null) {
+                this.status.text('Redirecting to Github');
                 window.location.replace(this._getUrl());
                 return;
             };
 
+            this.status.text('Getting token');
             var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
                 ("@authCode", "ihzktpmvosba18j24p0o6m9gmj8wgdaubdtc")
                 ("@gCode", code)
@@ -28,6 +32,7 @@ class AuthorizeService {
 
             $.get(url).then(
                 response => {
+                    this.status.text('Loading profile');
                     var token = this._extractToken(response);
                     context.ui.messageParent(JSON.stringify(token));
                 },
@@ -35,6 +40,7 @@ class AuthorizeService {
             );
         }
         catch (exception) {
+            this.status.text('Oops! Something went wrong.');
             context.ui.messageParent(JSON.stringify(exception));
         }
     }
