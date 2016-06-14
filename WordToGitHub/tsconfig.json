@@ -9,7 +9,8 @@
     "removeComments": false,
     "noImplicitAny": false,
     "rootDir": "./src",
-    "outDir": "./wwwroot"
+    "outDir": "./wwwroot",
+    "noEmitOnError": true
   },
   "exclude": [
     "node_modules"

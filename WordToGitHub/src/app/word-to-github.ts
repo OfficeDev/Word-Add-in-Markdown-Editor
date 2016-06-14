@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 
-import {GithubService, IProfileMetadata} from './shared/services';
+import {GithubService} from './shared/services';
 import {Utils} from './shared/helpers';
 
 import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponent, LoginComponent} from "./components";
@@ -49,11 +49,7 @@ export class WordToGithubComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
-        if (!Utils.isNull(this._githubService.profile)) {
-            this._router.navigate(['/profile']);
-        }
-        else {
+        if (Utils.isNull(this._githubService.profile)) {
             this._router.navigate(['/login']);
         }
     }
