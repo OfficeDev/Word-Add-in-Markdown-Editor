@@ -66,7 +66,7 @@
     margin-bottom: 2 * $default-spacing;
 
     &__title {
-        color: $foreground-light;
+        color: rgba($foreground-lighter, 0.8);
         padding: 0 $default-spacing;
         margin-bottom: $default-spacing/2;
 
@@ -84,19 +84,25 @@
     &__item {
         padding: $default-spacing $default-spacing;
         color: $foreground-lightest;
+        position: relative;
         @include focus-states($foreground-primary, $accent-background-primary);
 
-        p:first-child {
-            color: $background-lighter;
-            margin-bottom: 4px;
-        }
+        p {
+            &:first-child {
+                margin-bottom: 4px;
+            }
 
-        p:last-child {
+            padding-right: 30px;
             color: $background-lighter;
         }
 
         &--subtle {
-            color: $foreground-light;
+            color: rgba($foreground-lighter, 0.8);
+
+            i {
+                top: 2px;
+                padding-right: $default-spacing * 0.75;
+            }
         }
 
         &--inline-image {
@@ -105,6 +111,17 @@
 
             p {
                 color: $background-lighter;
+            }
+        }
+
+        &--action {
+            display: block;
+            position: absolute;
+            top: 17px;
+            right: 20px;
+
+            i {
+                top: 0;
             }
         }
     }

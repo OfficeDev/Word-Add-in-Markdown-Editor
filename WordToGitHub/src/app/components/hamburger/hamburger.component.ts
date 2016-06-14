@@ -1,32 +1,36 @@
 ﻿import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, OnActivate} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Path, Utils, StorageHelper} from '../../shared/helpers';
-import {GithubService, HamburgerService, IUserProfile, IRepository} from '../../shared/services';
+import {GithubService, HamburgerService, IUserProfile, IProfile, IRepository} from '../../shared/services';
+import {SafeNamesPipe} from '../../shared/pipes';
 
 let view = 'hamburger';
 @Component({
     selector: view,
     templateUrl: Path.template(view, 'components/' + view),
     styleUrls: [Path.style(view, 'components/' + view)],
+    pipes: [SafeNamesPipe]
 })
 
-export class HamburgerComponent {
-    private _favouritesCache = new StorageHelper<IRepository>('FavouriteRepositories')
+export class HamburgerComponent implements OnActivate {
+    cache: StorageHelper<IRepository>;
 
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
+    isViewModeSet: boolean;
 
     constructor(
         private _githubService: GithubService,
         private _hamburgerService: HamburgerService,
         private _router: Router
     ) {
+        this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
     }
 
     ngOnInit() {
         this.isShown = this._hamburgerService.hamburgerMenuShown$;
-        this.favoriteRepositories = _.values(this._favouritesCache.all());
+        this.favoriteRepositories = _.values(this.cache.all());
     }
 
     get profile(): IUserProfile {
@@ -39,5 +43,31 @@ export class HamburgerComponent {
 
     selectRepository(item: IRepository) {
         this._router.navigate(['/repo', item.name]);
+        this.closeMenu();
     }
+
+    selectOrg(item: IProfile) {
+        if (Utils.isNull(item)) {
+
+        }
+        else {
+            this._router.navigate(['/repos', item.login]);
+        }
+        this.closeMenu();
+    }
+
+    unpin(item: IRepository) {
+        this.cache.remove(item.id.toString());
+        this.favoriteRepositories = _.values(this.cache.all());
+    }
+
+    signOut() {
+        this._githubService.logout();
+        this._router.navigate(['/login']);
+        this.closeMenu();
+    }
+
+    routerOnActivate() {
+        this.isViewModeSet = true;
+    }    
 }

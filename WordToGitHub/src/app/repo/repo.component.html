@@ -1,36 +1,27 @@
-﻿<div class="repo-list-component__search ms-SearchBox">
+﻿<!--<div class="repo-list-component__search ms-SearchBox">
     <input class="repo-list-search__input ms-SearchBox-field ms-font-s-plus" type="search" [(ngModel)]="query">
     <label class="repo-list-search__label ms-SearchBox-label ms-font-s-plus" [hidden]="query"><i class="ms-SearchBox-icon ms-Icon ms-Icon--search"></i>Search for repositories by name or url.</label>
-</div>
+</div>-->
 
-<section class="repo-list-component__repos" *ngIf="favoriteRepositories.length > 0">
-    <h2 class="ms-font-xl ms-fontWeight-light">My favorites</h2>
-    <ul class="ms-List">
-        <li class="repo-list-item ms-ListItem" *ngFor="let repository of favoriteRepositories">
-            <div class="repo-list-item__content" (click)="onSelect(repository)">
-                <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{repository.name}}</p>
-                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-fontColor-themeDark ms-font-s-plus">@{{repository.owner.login}}</p>
-            </div>
-            <div class="repo-list-item__actions ms-ListItem-actions">
-                <div class="repo-list-item__action ms-list-item__action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onUnpin(repository)"></i></div>
-            </div>
-        </li>
+<section class="repo-list-component__header">
+    <ul class="repo-list-command-bar">
+        <li class="repo-list-command-bar__command" (click)="onMenuClicked()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
+        <li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>
     </ul>
 </section>
-
-<hr class="repo-list-component__separator" *ngIf="favoriteRepositories.length > 0" />
 
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
     <ul class="ms-List">
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of (repositories | async)">
             <div class="repo-list-item__content" (click)="onSelect(repository)">
-                <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name}}</p>
+                <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
                 <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
                 <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
             </div>
             <div class="repo-list-item__actions ms-ListItem-actions">
-                <div class="repo-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--pinDown" (click)="onPin(repository)"></i></div>
+                <div class="repo-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onPin(repository)"></i></div>
             </div>
         </li>
     </ul>

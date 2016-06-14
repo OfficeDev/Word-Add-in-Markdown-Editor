@@ -51,7 +51,9 @@ export class RequestHelper {
 
     private _json<T>(request: Observable<any>): Observable<T> {
         return request
-            .map(response => response.json() as T)
+            .map(response => {
+                return response.json() as T
+            })
             .catch(Utils.error);
     }
 }

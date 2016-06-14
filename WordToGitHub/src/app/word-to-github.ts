@@ -25,7 +25,11 @@ import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponen
         component: LoginComponent
     },
     {
-        path: '/repos',
+        path: '/profile',
+        component: HamburgerComponent
+    },
+    {
+        path: '/repos/:org',
         component: RepoComponent
     },
     {
@@ -47,7 +51,7 @@ export class WordToGithubComponent implements OnInit {
     ngOnInit() {
 
         if (!Utils.isNull(this._githubService.profile)) {
-            this._router.navigate(['/repos']);
+            this._router.navigate(['/profile']);
         }
         else {
             this._router.navigate(['/login']);

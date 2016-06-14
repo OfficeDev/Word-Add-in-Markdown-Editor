@@ -2,24 +2,24 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, RouteSegment, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, IRepository, IRepositoryCollection} from '../shared/services';
+import {GithubService, HamburgerService, IRepository, IRepositoryCollection} from '../shared/services';
+import {SafeNamesPipe} from '../shared/pipes';
 
 let view = 'repo';
 @Component({
     templateUrl: Path.template(view, 'repo'),
     styleUrls: [Path.style(view, 'repo')],
+    pipes: [SafeNamesPipe]
 })
 
 export class RepoComponent implements OnActivate {
-    repositories: Observable<IRepositoryCollection>;
-    favoriteRepositories: IRepository[];
+    repositories: Observable<IRepository[]>;
     query: string;
     selectedOrg: string;
-
     cache: StorageHelper<IRepository>;
-
     constructor(
         private _githubService: GithubService,
+        private _hamburgerService: HamburgerService,
         private _router: Router
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
@@ -29,20 +29,16 @@ export class RepoComponent implements OnActivate {
         this._router.navigate(['/repo', item.name]);
     }
 
+    routerOnActivate(current: RouteSegment) {
+        this.selectedOrg = current.getParam('org');
+        this.repositories = this._githubService.repos(this.selectedOrg);
+    }
+
     onPin(item: IRepository) {
         this.cache.add(item.id.toString(), item);
-        this.favoriteRepositories = _.values(this.cache.all());
     }
 
-    onUnpin(item: IRepository) {
-        this.cache.remove(item.id.toString());
-        this.favoriteRepositories = _.values(this.cache.all());
-    }
-
-    routerOnActivate(current: RouteSegment) {
-        this.selectedOrg = "OfficeDev";
-        var _that = this;
-        this.favoriteRepositories = _.values(this.cache.all());
-        this.repositories = this._githubService.repos(this.selectedOrg);
+    onMenuClicked() {
+        this._hamburgerService.showMenu();
     }
 }

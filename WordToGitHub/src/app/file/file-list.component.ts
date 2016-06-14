@@ -3,12 +3,14 @@ import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
 import {GithubService, HamburgerService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
+import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-list';
 @Component({
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
-    providers: [MarkdownService, WordService]
+    providers: [MarkdownService, WordService],
+    pipes: [SafeNamesPipe, MDFilterPipe]
 })
 
 export class FileListComponent implements OnActivate, OnInit {

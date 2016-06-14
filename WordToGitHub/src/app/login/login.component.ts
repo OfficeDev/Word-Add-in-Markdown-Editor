@@ -19,6 +19,6 @@ export class LoginComponent {
 
     login() {
         this._githubService.login()
-            .subscribe(profile => this._router.navigate(['/repos']));
+            .subscribe(profile => { this._router.navigate(['/profile']) });
     }
 }

@@ -7,7 +7,7 @@
 </section>
 
 <section class="file-list-component__branches">
-    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName}}</h2>
+    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName | safenames}}</h2>
     <select [(ngModel)]="selectedBranch.name" (change)="onSelectBranch()">
         <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
             {{branch.name}}
@@ -18,7 +18,7 @@
 <section class="file-list-component__files">
     <h2 class="file-list-component__title ms-font-l ms-fontWeight-light">Files</h2>
     <ul class="ms-List">
-        <li class="file-list-item ms-ListItem" *ngFor="let file of (files | async)">
+        <li class="file-list-item ms-ListItem" *ngFor="let file of (files | async | mdfilter)">
             <div class="file-list-item__icon"><i class="ms-Icon" [ngClass]="file.type === 'dir' ? 'ms-Icon-large ms-Icon--folder' : 'ms-Icon-large ms-Icon--document'"></i></div>
             <div class="file-list-item__content" (click)="onSelect(file)">
                 <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>

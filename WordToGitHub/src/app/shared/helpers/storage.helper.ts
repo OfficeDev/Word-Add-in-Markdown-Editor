@@ -36,6 +36,11 @@ export class StorageHelper<T> extends Repository<T>{
         this._save();
     }
 
+    clear() {
+        super.clear();
+        delete this._storage[this._container];
+    }
+
     private _save() {
         if (Utils.isEmpty(this.data)) return;
         this._storage[this._container] = JSON.stringify(this.data);

@@ -47,6 +47,10 @@ export class GithubService {
         });
     }
 
+    logout() {
+        this._profileStorage.clear();
+    }
+
     get profile(): IUserProfile {
         if (Utils.isEmpty(this._profile)) {
             this._profile = this._profileStorage.first();
@@ -88,16 +92,15 @@ export class GithubService {
                             observer.error("Unable to parse token");
                         }
 
-                        let _that = this;
-                        _that.user().subscribe(userMetadata => {
-                            _that.orgs(userMetadata.login).subscribe(orgs => {
-                                _that.profile = <IUserProfile>{
+                        this.user().subscribe(userMetadata => {
+                            this.orgs(userMetadata.login).subscribe(orgs => {
+                                this.profile = <IUserProfile>{
                                     user: userMetadata,
                                     orgs: orgs,
                                     token: token
                                 };
 
-                                observer.next(_that.profile);
+                                observer.next(this.profile);
                                 observer.complete();
                             }, error => Utils.error(error));
                         }, error => Utils.error(error));
