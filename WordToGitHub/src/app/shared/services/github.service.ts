@@ -1,61 +1,72 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
-import {Utils, RequestHelper} from '../helpers';
-import {IRepository, IBranch, IToken, IContents, IUserProfile, IUser} from './';
+import {Observable, Observer} from 'rxjs/Rx';
+import {Utils, RequestHelper, StorageHelper} from '../helpers';
+import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile} from './';
 
 declare var Microsoft: any;
 
 @Injectable()
 export class GithubService {
     private _baseUrl: string = "";
-    private _currentUser: IUserProfile;
+    private _profile: IUserProfile;
+    private _profileStorage: StorageHelper<IUserProfile>;
 
-    constructor(private _request: RequestHelper) { }
-
-    user(): Observable<IUserProfile> {
-        let url = "https://api.github.com/user";
-        return Utils.json<IUserProfile>(this._request.get(url));
+    constructor(private _request: RequestHelper) {
+        this._profileStorage = new StorageHelper<IUserProfile>('Profile');
     }
 
-    orgs(username: string): Observable<IUserProfile> {
-        let url = "https://api.github.com/users/" + username + "/orgs";
-        return Utils.json<IUser>(this._request.get(url));
+    user(): Observable<IProfileMetadata> {
+        return this._request.get<IProfileMetadata>("https://api.github.com/user") as Observable<IProfileMetadata>;
+    }
+
+    orgs(username: string): Observable<IProfileMetadata> {
+        return this._request.get<IProfileMetadata>("https://api.github.com/users/" + username + "/orgs") as Observable<IProfileMetadata>;
     }
 
     repos(orgName: string): Observable<IRepository[]> {
-        let url = Utils.getMockFileUrl("json", "repository");
-        return Utils.json<IRepository[]>(this._request.get("https://api.github.com/orgs/" + orgName + "/repos"));
+        return this._request.get<IRepository[]>("https://api.github.com/orgs/" + orgName + "/repos") as Observable<IRepository[]>;
     }
 
     files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
-        let url = Utils.getMockFileUrl("json", "file");
-        return Utils.json<IContents[]>(this._request.get("https://api.github.com/repos/OfficeDev" + "/" + repoName + "/contents?ref=" + branchName));
+        return this._request.get<IContents[]>("https://api.github.com/repos/OfficeDev" + "/" + repoName + "/contents?ref=" + branchName) as Observable<IContents[]>;
     }
 
     branches(orgName: string, repoName: string): Observable<IBranch[]> {
-        let url = Utils.getMockFileUrl("json", "branch");
-        return Utils.json<IBranch[]>(this._request.get("https://api.github.com/repos/" + orgName + "/" + repoName + "/branches"));
+        return this._request.get<IBranch[]>("https://api.github.com/repos/" + orgName + "/" + repoName + "/branches") as Observable<IBranch[]>;
     }
 
     file(orgName: string, repoName: string, branchName: string, filePath: string): Observable<string> {
-        return Utils.text(this._request.raw("https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + filePath));
+        return this._request.raw("https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + filePath) as Observable<string>;
     }
 
-    login(force?: boolean): Observable<IToken> {
+    login(): Observable<IUserProfile> {
         if (!Utils.isWord) return;
 
-        return new Observable<IToken>(observer => {
-            var token = this._request.token();
-            if (!(force || Utils.isNull(token))) {
-                observer.onNext(token);
-                return;
-            }
-
+        return Observable.create((observer: Observer<IUserProfile>) => {
             this._showAuthDialog(observer);
         });
     }
 
-    private _showAuthDialog(observer) {
+    get profile(): IUserProfile {
+        if (Utils.isEmpty(this._profile)) {
+            this._profile = this._profileStorage.first();
+
+            if (!Utils.isEmpty(this._profile)) {
+                this._request.token(this._profile.token);
+            }
+        }
+
+        return this._profile;
+    }
+
+    set profile(value: IUserProfile) {
+        if (!Utils.isEmpty(value)) {
+            this._profile = value;
+            this._profileStorage.add(value.user.login, value);
+        }
+    }
+
+    private _showAuthDialog(observer: Observer<IUserProfile>) {
         var context = Office.context as any;
         context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
             result => {
@@ -63,18 +74,37 @@ export class GithubService {
                 dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
                     dialog.close();
 
-                    if (Utils.isEmpty(args.message)) {
-                        observer.onError("No token received");
-                        return;
-                    }
+                    try {
+                        if (Utils.isEmpty(args.message)) {
+                            observer.error("No token received");
+                        }
 
-                    if (args.message.indexOf('access_token') == -1) {
-                        observer.onError(JSON.parse(args.message));
-                        return;
-                    }
+                        if (args.message.indexOf('access_token') == -1) {
+                            observer.error(JSON.parse(args.message));
+                        }
 
-                    let token = this._request.token(JSON.parse(args.message));
-                    observer.onNext(token);
+                        let token = this._request.token(JSON.parse(args.message));
+                        if (Utils.isNull(token)) {
+                            observer.error("Unable to parse token");
+                        }
+
+                        let _that = this;
+                        _that.user().subscribe(userMetadata => {
+                            _that.orgs(userMetadata.login).subscribe(orgs => {
+                                _that.profile = <IUserProfile>{
+                                    user: userMetadata,
+                                    orgs: orgs,
+                                    token: token
+                                };
+
+                                observer.next(_that.profile);
+                                observer.complete();
+                            }, error => Utils.error(error));
+                        }, error => Utils.error(error));
+                    }
+                    catch (exception) {
+                        Utils.error(exception);
+                    }
                 });
             });
     }

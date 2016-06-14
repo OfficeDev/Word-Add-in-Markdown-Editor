@@ -7,6 +7,7 @@ import {Path, Utils, StorageHelper} from '../shared/helpers';
 let view = 'file-list';
 @Component({
     templateUrl: Path.template(view, 'file'),
+    styleUrls: [Path.style(view, 'file')],
     providers: [MarkdownService, WordService]
 })
 

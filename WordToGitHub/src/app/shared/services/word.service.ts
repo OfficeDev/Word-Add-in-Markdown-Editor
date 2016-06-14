@@ -34,7 +34,7 @@ export class WordService {
     }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
-        return Word.run<T>(batch).catch(Utils.error);
+        return Word.run<T>(batch).catch(exception => Utils.error<T>(exception));
     }
 
     private _insertHtmlIntoWord(html: string) {

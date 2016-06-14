@@ -25,6 +25,11 @@ export class Repository<T> implements IRepository<T> {
         return this.data;
     }
 
+    first(): T {
+        if (Utils.isEmpty(this.data)) return null;
+        return _.first(_.values(this.data));
+    }
+
     get(item: string): T {
         if (Utils.isEmpty(this.data)) return null;
         return _.has(this.data, item) ? this.data[item] : null;

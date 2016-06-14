@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 
-import {IToken} from './shared/services';
-import {Utils, StorageHelper} from './shared/helpers';
+import {GithubService, IProfileMetadata} from './shared/services';
+import {Utils} from './shared/helpers';
+
 import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponent, LoginComponent} from "./components";
 
 @Component({
@@ -38,17 +39,15 @@ import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponen
 ])
 
 export class WordToGithubComponent implements OnInit {
-    private _storage: StorageHelper<IToken>;
-
-    constructor(private _router: Router) { }
+    constructor(
+        private _router: Router,
+        private _githubService: GithubService
+    ) { }
 
     ngOnInit() {
-        var devMode = false;
-        this._storage = new StorageHelper<IToken>("GitHubTokens");
 
-        var tokens = _.values(this._storage.all());
-        if (devMode || !Utils.isEmpty(tokens)) {
-            this._router.navigate(['/repo/Office-Apps']);
+        if (!Utils.isNull(this._githubService.profile)) {
+            this._router.navigate(['/repos']);
         }
         else {
             this._router.navigate(['/login']);

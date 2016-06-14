@@ -76,6 +76,11 @@
         }
     }
 
+    &__message {
+        color: $foreground-light;
+        padding: 0 $default-spacing;
+    }
+
     &__item {
         padding: $default-spacing $default-spacing;
         color: $foreground-lightest;

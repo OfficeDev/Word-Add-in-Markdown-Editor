@@ -171,7 +171,7 @@ function useAppConfiguration() {
         .queueImport('underscore')
         .queueImport('marked')
         .queueImport('toMarkdown')
-        .configure('app/main');
+        .configure('app/bootstrap');
 }
 
 function useDialogConfiguration(initialScript: string) {
@@ -212,6 +212,7 @@ function useDialogConfiguration(initialScript: string) {
                 production: 'node_modules/underscore'
             }
         ])
+        .registerAngular2Packages()
         .queueImport('underscore')
         .configure(initialScript);
 }
