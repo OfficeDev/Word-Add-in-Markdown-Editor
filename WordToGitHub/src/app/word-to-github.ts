@@ -29,6 +29,10 @@ import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponen
         component: HamburgerComponent
     },
     {
+        path: '*',
+        component: HamburgerComponent
+    },
+    {
         path: '/repos/:org',
         component: RepoComponent
     },
