@@ -39,6 +39,10 @@ export class GithubService {
         return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
     }
 
+    updateFile(orgName: string, repoName: string, branchName: string, filePath: string, body: string): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName, body) as Observable<string>;
+    }
+
     login(): Observable<IUserProfile> {
         if (!Utils.isWord) return;
 

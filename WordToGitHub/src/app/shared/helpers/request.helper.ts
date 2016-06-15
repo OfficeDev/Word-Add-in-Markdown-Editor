@@ -22,6 +22,12 @@ export class RequestHelper {
         return unformatted ? xhr : this._text(xhr);
     }
 
+    put<T>(url: string, body: string, options?: RequestOptions, unformatted?: boolean) {
+        let requestOptions = options || this._generateHeaders();
+        let xhr = Utils.isNull(requestOptions) ? this._http.put(url, body) : this._http.put(url, body, requestOptions);
+        return unformatted ? xhr : this._json<T>(xhr);
+    }
+
     raw(url: string, options?: RequestOptions, unformatted?: boolean) {
         let xhr = Utils.isNull(options) ? this._http.get(url) : this._http.get(url, options);
         return unformatted ? xhr : this._text(xhr);

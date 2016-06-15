@@ -18,7 +18,18 @@ export class WordService {
 
         //let html = this._markDownService.convertToHtml(md);
         return Promise.resolve(this._insertHtmlIntoWord(html))
-            .then(() => this._formatTables());
+            .then(() => this._formatTables())
+            .then(() => this._insertGeneratedHtmlIntoWord());
+    }
+
+    private _insertGeneratedHtmlIntoWord() {
+        return this._run((context) => {
+            var html = context.document.body.getHtml().value;
+            return context.sync().then(() => {
+                context.document.body.insertText(html, Word.InsertLocation.end);
+                return context.sync();
+            })
+        })
     }
 
     getHtml() {
