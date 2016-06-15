@@ -13,10 +13,10 @@ export class WordService {
 
     }
 
-    insertHtml(md: string) {
-        if (Utils.isEmpty(md)) return Promise.reject(null);
+    insertHtml(html: string) {
+        if (Utils.isEmpty(html)) return Promise.reject(null);
 
-        let html = this._markDownService.convertToHtml(md);
+        //let html = this._markDownService.convertToHtml(md);
         return Promise.resolve(this._insertHtmlIntoWord(html))
             .then(() => this._formatTables());
     }

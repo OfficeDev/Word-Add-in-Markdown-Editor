@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment} from '@angular/router';
 import {GithubService, HamburgerService, MarkdownService, WordService, IRepository, IContents, IBranch} from '../shared/services';
-import {Path, Utils, StorageHelper} from '../shared/helpers';
+import {Path, Utils, StorageHelper, Base64} from '../shared/helpers';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-list';
@@ -21,6 +21,7 @@ export class FileListComponent implements OnActivate, OnInit {
     };
     files: Observable<IContents[]>;
     branches: Observable<IBranch[]>;
+    base64: Base64;
 
     constructor(
         private _githubService: GithubService,
@@ -39,9 +40,9 @@ export class FileListComponent implements OnActivate, OnInit {
 
     onSelect(item: IContents) {
         this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, item.path)
-            .subscribe(md => {
-                if (Utils.isEmpty(md)) return;
-                this._wordService.insertHtml(md);
+            .subscribe(html => {
+                if (Utils.isEmpty(html)) return;
+                this._wordService.insertHtml(html);
             });
     }
 
@@ -60,4 +61,6 @@ export class FileListComponent implements OnActivate, OnInit {
     onMenuClicked() {
         this._hamburgerService.showMenu();
     }
+
+  
 }

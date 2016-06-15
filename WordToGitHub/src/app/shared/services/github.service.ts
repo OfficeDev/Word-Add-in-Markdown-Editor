@@ -28,7 +28,7 @@ export class GithubService {
     }
 
     files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
-        return this._request.get<IContents[]>("https://api.github.com/repos/OfficeDev" + "/" + repoName + "/contents?ref=" + branchName) as Observable<IContents[]>;
+        return this._request.get<IContents[]>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents?ref=" + branchName) as Observable<IContents[]>;
     }
 
     branches(orgName: string, repoName: string): Observable<IBranch[]> {
@@ -36,7 +36,7 @@ export class GithubService {
     }
 
     file(orgName: string, repoName: string, branchName: string, filePath: string): Observable<string> {
-        return this._request.raw("https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + filePath) as Observable<string>;
+        return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
     }
 
     login(): Observable<IUserProfile> {
