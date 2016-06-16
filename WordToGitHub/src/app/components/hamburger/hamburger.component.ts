@@ -48,7 +48,7 @@ export class HamburgerComponent implements OnActivate {
 
     selectOrg(item: IProfile) {
         if (Utils.isNull(item)) {
-
+            this._router.navigate(['/repos', this.profile.user.login]);
         }
         else {
             this._router.navigate(['/repos', item.login]);

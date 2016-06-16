@@ -17,10 +17,9 @@ export class Path {
 
 export class Base64 {
 
-    _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
-
-    encode(input: any) {
+    static encode(input: any) {
+        var _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
@@ -44,7 +43,7 @@ export class Base64 {
                 enc4 = 64;
             }
 
-            output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+            output = output + _keyStr.charAt(enc1) + _keyStr.charAt(enc2) + _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
 
         }
 
@@ -52,7 +51,10 @@ export class Base64 {
     };
 
 
-   decode(input) {
+    static decode(input) {
+
+       var _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
             var output = "";
             var chr1, chr2, chr3;
             var enc1, enc2, enc3, enc4;
@@ -62,10 +64,10 @@ export class Base64 {
 
             while (i < input.length) {
 
-                enc1 = this._keyStr.indexOf(input.charAt(i++));
-                enc2 = this._keyStr.indexOf(input.charAt(i++));
-                enc3 = this._keyStr.indexOf(input.charAt(i++));
-                enc4 = this._keyStr.indexOf(input.charAt(i++));
+                enc1 = _keyStr.indexOf(input.charAt(i++));
+                enc2 = _keyStr.indexOf(input.charAt(i++));
+                enc3 = _keyStr.indexOf(input.charAt(i++));
+                enc4 = _keyStr.indexOf(input.charAt(i++));
 
                 chr1 = (enc1 << 2) | (enc2 >> 4);
                 chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
@@ -88,7 +90,7 @@ export class Base64 {
 
     };
 
-        _utf8_encode(string) {
+        static _utf8_encode(string) {
             string = string.replace(/\r\n/g, "\n");
             var utftext = "";
 
@@ -114,7 +116,7 @@ export class Base64 {
             return utftext;
     };
 
-        _utf8_decode(utftext) {
+       static  _utf8_decode(utftext) {
             var string = "";
             var i = 0;
             var c = 0;

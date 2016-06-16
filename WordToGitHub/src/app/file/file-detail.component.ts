@@ -42,11 +42,11 @@ export class FileDetailComponent implements OnActivate {
                             }
                 };
 
-               this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedFilePath, JSON.stringify(body))
-                    .subscribe(response => {
-                        if (Utils.isEmpty(response)) return;
-                        console.log(response);
-                    });
+               //this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedFilePath, JSON.stringify(body))
+               //     .subscribe(response => {
+               //         if (Utils.isEmpty(response)) return;
+               //         console.log(response);
+               //     });
         });       
     }
 

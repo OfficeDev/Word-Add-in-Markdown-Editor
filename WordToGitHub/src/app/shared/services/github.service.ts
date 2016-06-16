@@ -23,8 +23,13 @@ export class GithubService {
         return this._request.get<IProfileMetadata>("https://api.github.com/users/" + username + "/orgs") as Observable<IProfileMetadata>;
     }
 
-    repos(orgName: string): Observable<IRepository[]> {
-        return this._request.get<IRepository[]>("https://api.github.com/orgs/" + orgName + "/repos") as Observable<IRepository[]>;
+    repos(orgName: string, personal?: boolean): Observable<IRepository[]> {
+        if (personal) { 
+            return this._request.get<IRepository[]>("https://api.github.com/user/repos") as Observable<IRepository[]>;
+        }
+        else {
+            return this._request.get<IRepository[]>("https://api.github.com/orgs/" + orgName + "/repos") as Observable<IRepository[]>;
+        }
     }
 
     files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
@@ -39,8 +44,8 @@ export class GithubService {
         return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
     }
 
-    updateFile(orgName: string, repoName: string, branchName: string, filePath: string, body: string): Observable<string> {
-        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName, body) as Observable<string>;
+    updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
     }
 
     login(): Observable<IUserProfile> {

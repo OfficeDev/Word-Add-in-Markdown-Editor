@@ -31,7 +31,7 @@ export class RepoComponent implements OnActivate {
 
     routerOnActivate(current: RouteSegment) {
         this.selectedOrg = current.getParam('org');
-        this.repositories = this._githubService.repos(this.selectedOrg);
+        this.repositories = this._githubService.repos(this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login);
     }
 
     onPin(item: IRepository) {

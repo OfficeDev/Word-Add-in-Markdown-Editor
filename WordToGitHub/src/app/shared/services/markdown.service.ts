@@ -24,7 +24,8 @@ export class MarkdownService {
 
         var context = Office.context as any;
         var md = toMarkdown(html, { gfm: true });
+        return md;
         //this._storage.add('preview', md);
-        context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/preview.html", { height: 40, width: 30 });
+        //context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/preview.html", { height: 40, width: 30 });
     }
 }
