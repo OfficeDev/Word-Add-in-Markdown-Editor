@@ -1,5 +1,4 @@
-﻿import {Repository, IRepository, IDictionary} from './repository';
-import {Utils} from './utilities';
+﻿import {Repository, IRepository, IDictionary, Utils} from './';
 
 export enum StorageTypes {
     LocalStorage,
@@ -35,6 +34,11 @@ export class StorageHelper<T> extends Repository<T>{
         if (Utils.isEmpty(item) || Utils.isEmpty(this.data)) return null;
         super.remove(item);
         this._save();
+    }
+
+    clear() {
+        super.clear();
+        delete this._storage[this._container];
     }
 
     private _save() {

@@ -1,5 +1,4 @@
 ﻿import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
 declare var fabric: any;
 
 class AuthorizeService {
@@ -8,20 +7,23 @@ class AuthorizeService {
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
     private static SCOPE = "repo";
 
-    constructor(private _element) {
-        this._component = new fabric['Spinner'](this._element);
-        this._component.start();
-    }
+    status = $('#status');
+
+    constructor() { }
 
     getToken() {
+        if (!Utils.isWord) return;
+
         var context = Office.context as any;
         try {
             var code = this._getCode();
             if (code == null) {
+                this.status.text('Redirecting to Github');
                 window.location.replace(this._getUrl());
                 return;
             };
 
+            this.status.text('Getting token');
             var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
                 ("@authCode", "ihzktpmvosba18j24p0o6m9gmj8wgdaubdtc")
                 ("@gCode", code)
@@ -30,6 +32,7 @@ class AuthorizeService {
 
             $.get(url).then(
                 response => {
+                    this.status.text('Loading profile');
                     var token = this._extractToken(response);
                     context.ui.messageParent(JSON.stringify(token));
                 },
@@ -37,6 +40,7 @@ class AuthorizeService {
             );
         }
         catch (exception) {
+            this.status.text('Oops! Something went wrong.');
             context.ui.messageParent(JSON.stringify(exception));
         }
     }
@@ -72,12 +76,4 @@ class AuthorizeService {
     }
 }
 
-$(document).ready(() => {
-    if (typeof fabric === "object") {
-        if ('Spinner' in fabric) {
-            var element = document.querySelector('.ms-Spinner');
-            var authService = new AuthorizeService(element);
-            authService.getToken();
-        }
-    }
-});
+$(document).ready(() => { new AuthorizeService().getToken(); });

@@ -1,4 +1,4 @@
-﻿import {Utils} from './utilities';
+﻿import {Utils} from './';
 
 export interface IProgress {
     isShown: boolean;

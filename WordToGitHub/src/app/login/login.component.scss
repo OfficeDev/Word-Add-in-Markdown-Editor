@@ -1,6 +1,8 @@
 ﻿/* Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See full license in root of repo. */
 
 .ms-firstrun-login {
+    position: absolute;
+    z-index: 999;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -8,7 +10,7 @@
     width: 100%;
     text-align: center;
     align-items: center;
-    background-color: black;
+    background-color: #212121;
 }
 
 .ms-firstrun-login__brand {
@@ -84,8 +86,7 @@
     transition: background ease 0.1s, color ease 0.1s;
 }
 
-   #buttonSignInToGitHub:active {
-        color: #33cc33;
-        cursor: pointer;
-    }
-
+#buttonSignInToGitHub:active {
+    color: #33cc33;
+    cursor: pointer;
+}

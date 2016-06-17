@@ -9,71 +9,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- 0. Basic dependencies -->
+    <!-- 1. Basic dependencies -->
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
+    <link rel="stylesheet" href="common-styles.css" />
 
-    <!-- 1. Load libraries -->
-    <link href="lib/loading/spinner.css" rel="stylesheet" />
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
+    <!-- 2. Polyfill(s) for older browsers -->
+    <script src="node_modules/es6-promise/dist/es6-promise.min.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
+    <!-- 3. SystemJS Configuration -->
+    <script src="configuration.js"></script>
     <script type="text/javascript">
-        System.config({
-            map: {
-                'app': 'app',
-                'underscore': 'node_modules/underscore'
-            },
-            packages: {
-                'app': {
-                    main: 'main.js',
-                    defaultExtension: 'js'
-                },
-                'underscore': {                    
-                    main: 'underscore.js',
-                    defaultExtension: 'js'
-                }
-            },
-            meta: {
-                'app/*': {
-                    scriptLoad: true
-                }
-            }
-        });
-
-        System.import('underscore')
-            .then(function () { 
-                return System.import('app/shared/services/authorize.service');
-            });
+        useDialogConfiguration('app/shared/services/authorize.service');
     </script>
 </head>
 
 <body>
     <div class="ms-notification-progress-indeterminate">
-        <main class="ms-notification-progress-indeterminate__main ms-bgColor-themePrimary ms-fontColor-white">
-            <img class="ms-notification-progress-indeterminate__logo" src="assets/images/logo.png" />
-            <h1 class="ms-firstrun-value__title ms-font-xl ms-fontColor-white ms-fontWeight-light">Word to GitHub</h1>
-        </main>
-        <footer class="ms-notification-progress-indeterminate__footer ms-bgColor-themePrimary ms-fontColor-white">
-            <div class="ms-progress">
-                <div class="ms-ProgressIndicator">
+        <div class="ms-progress-component">
+            <main class="ms-progress-component__main ms-fontColor-white">
+                <img class="ms-progress-component__logo" src="assets/images/logo.png" />
+                <h1 class="ms-firstrun-value__title ms-font-xl ms-fontColor-white ms-fontWeight-light">Word to GitHub</h1>
+            </main>
+            <footer class="ms-progress-component__footer ms-fontColor-white">
+                <div class="ms-progress">
                     <div class="ms-Spinner large"></div>
-                    <div class="ms-ProgressIndicator-itemName">Signing in...</div>
+                    <div id="status" class="ms-ProgressIndicator-itemName">Signing in...</div>
                 </div>
-            </div>
-        </footer>
-
-        <script type="text/javascript">
-            if (typeof fabric === "object") {
-                if ('Spinner' in fabric) {
-                    var element = document.querySelector('.ms-Spinner');
-                    var component = new fabric['Spinner'](element);
-                    component.start();
-                }
-            }
-        </script>
+            </footer>
+        </div>
     </div>
 </body>
 </html>

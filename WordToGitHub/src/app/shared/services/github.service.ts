@@ -1,131 +1,117 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
-import {Observable, Observer} from 'rxjs';
-import 'rxjs/add/operator/map';
-import {Utils} from '../helpers/utilities';
-import {StorageHelper} from '../helpers/storage.helper';
+import {Observable, Observer} from 'rxjs/Rx';
+import {Utils, RequestHelper, StorageHelper} from '../helpers';
+import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile} from './';
 
 declare var Microsoft: any;
-
-export interface IRepository {
-    id: number;
-    name: string;
-    description: string;
-    full_name?: string;
-    owner_login?: string;
-    private?: boolean;
-    html_url?: string;
-}
-
-export interface IFile {
-    id: number
-    name: string;
-    path?: string;
-    url?: string;
-    content?: string;
-    branch?: string;
-    authorName?: string;
-    authorEmail?: string;
-}
-
-export interface IToken {
-    access_token: string;
-    token_type: string;
-    scope: string;
-}
 
 @Injectable()
 export class GithubService {
     private _baseUrl: string = "";
-    private _storage: StorageHelper<IToken>;
-    private _currentUser;
-    private _currentToken;
+    private _profile: IUserProfile;
+    private _profileStorage: StorageHelper<IUserProfile>;
 
-    constructor(private _http: Http) {
-        this._storage = new StorageHelper<IToken>("GitHubTokens");
+    constructor(private _request: RequestHelper) {
+        this._profileStorage = new StorageHelper<IUserProfile>('Profile');
     }
 
-    repos(): Observable<IRepository[]> {
-        let url = Utils.getMockFileUrl("json", "repository");
-        return this._http.get(url).map(response => {
-            var data = response.json();
-            return data;        
+    user(): Observable<IProfileMetadata> {
+        return this._request.get<IProfileMetadata>("https://api.github.com/user") as Observable<IProfileMetadata>;
+    }
+
+    orgs(username: string): Observable<IProfileMetadata> {
+        return this._request.get<IProfileMetadata>("https://api.github.com/users/" + username + "/orgs") as Observable<IProfileMetadata>;
+    }
+
+    repos(orgName: string, personal: boolean): Observable<IRepository[]> {
+        var url = personal ? "https://api.github.com/user/repos" : "https://api.github.com/orgs/" + orgName + "/repos";
+        return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
+    }
+
+    files(orgName: string, repoName: string, branchName: string, path?: string): Observable<IContents[]> {
+        var url = "https://api.github.com/repos/" + orgName + "/" + repoName + "/contents";
+        if (!Utils.isNull(path)) { url += "/" + path; }
+        return this._request.get<IContents[]>(url + "?ref=" + branchName) as Observable<IContents[]>;
+    }
+
+    branches(orgName: string, repoName: string): Observable<IBranch[]> {
+        return this._request.get<IBranch[]>("https://api.github.com/repos/" + orgName + "/" + repoName + "/branches") as Observable<IBranch[]>;
+    }
+
+    file(orgName: string, repoName: string, branchName: string, filePath: string): Observable<string> {
+        return this._request.raw("https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + filePath) as Observable<string>;
+    }
+
+    login(): Observable<IUserProfile> {
+        if (!Utils.isWord) return;
+
+        return Observable.create((observer: Observer<IUserProfile>) => {
+            this._showAuthDialog(observer);
         });
     }
 
-    files(): Observable<IFile[]> {
-        let url = Utils.getMockFileUrl("json", "file");
-        return this._http.get(url).map(response => response.json());
+    logout() {
+        this._profileStorage.clear();
     }
 
-    file(name: string): Observable<string> {
-        let url = Utils.getMockFileUrl("md", name);
-        return this._http.get(url).map(response => response.text());
-    }
+    get profile(): IUserProfile {
+        if (Utils.isEmpty(this._profile)) {
+            this._profile = this._profileStorage.first();
 
-    login(force?: boolean): Observable<IToken> {
-        return Observable.create((observer: Observer<IToken>) => {
-            var token = this._tryGetCachedToken("@user");
-            if (force || Utils.isNull(token)) {
-                var context = Office.context as any;
-                context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
-                    result => {
-                        var dialog = result.value;
-                        dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => this._onUserLoggedIn(dialog, args, observer));
-                    });
-            }
-            else {
-                this._currentToken = token;
-                this.loadProfile();
-                observer.next(token);
-                observer.complete();
-            }
-
-            return () => { console.info('Observable disposed'); }
-        });
-    }
-
-    loadProfile() {
-        var username = "@user";
-        this._storage.add(username, this._currentToken);
-    }
-
-    switchProfile(username: string) {
-        username = username || "@user";
-        this._currentToken = this._storage.get(username);
-        this.loadProfile();
-    }
-
-    logout(username: string) {
-        username = username || "@user";
-        this._storage.remove(username);
-        this._currentToken = null;
-    }
-
-    private _tryGetCachedToken(username: string) {
-        username = username || "@user";
-        var token = this._storage.get(username);
-        if (Utils.isEmpty(token)) return null;
-        return token;
-    }
-
-    private _onUserLoggedIn(dialog: any, args: any, observer: Observer<string>) {
-        dialog.close();
-
-        if (Utils.isEmpty(args.message)) {
-            observer.error("No token received");
-        }
-        else {
-            try {
-                this._currentToken = JSON.parse(args.message);
-                this.loadProfile();
-                observer.next(this._currentToken);
-            }
-            catch (exception) {
-                observer.error(exception);
+            if (!Utils.isEmpty(this._profile)) {
+                this._request.token(this._profile.token);
             }
         }
 
-        observer.complete();
+        return this._profile;
+    }
+
+    set profile(value: IUserProfile) {
+        if (!Utils.isEmpty(value)) {
+            this._profile = value;
+            this._profileStorage.add(value.user.login, value);
+        }
+    }
+
+    private _showAuthDialog(observer: Observer<IUserProfile>) {
+        var context = Office.context as any;
+        context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
+            result => {
+                var dialog = result.value;
+                dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
+                    dialog.close();
+
+                    try {
+                        if (Utils.isEmpty(args.message)) {
+                            observer.error("No token received");
+                        }
+
+                        if (args.message.indexOf('access_token') == -1) {
+                            observer.error(JSON.parse(args.message));
+                        }
+
+                        let token = this._request.token(JSON.parse(args.message));
+                        if (Utils.isNull(token)) {
+                            observer.error("Unable to parse token");
+                        }
+
+                        this.user().subscribe(userMetadata => {
+                            this.orgs(userMetadata.login).subscribe(orgs => {
+                                this.profile = <IUserProfile>{
+                                    user: userMetadata,
+                                    orgs: orgs,
+                                    token: token
+                                };
+
+                                observer.next(this.profile);
+                                observer.complete();
+                            }, error => Utils.error(error));
+                        }, error => Utils.error(error));
+                    }
+                    catch (exception) {
+                        Utils.error(exception);
+                    }
+                });
+            });
     }
 }

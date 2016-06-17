@@ -1,4 +1,4 @@
-﻿import {Utils} from './utilities';
+﻿import {Utils} from './';
 
 export interface IDictionary<T> {
     [index: string]: T
@@ -23,6 +23,11 @@ export class Repository<T> implements IRepository<T> {
     all(): IDictionary<T> {
         if (Utils.isEmpty(this.data)) return null;
         return this.data;
+    }
+
+    first(): T {
+        if (Utils.isEmpty(this.data)) return null;
+        return _.first(_.values(this.data));
     }
 
     get(item: string): T {
