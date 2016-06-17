@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
+import marked from 'marked'; 
 
 declare var toMarkdown: any;
 
@@ -13,12 +14,21 @@ export class WordService {
 
     }
 
-    insertHtml(md: string) {
-        if (Utils.isEmpty(md)) return Promise.reject(null);
+    insertHtml(html: string) {
+        if (Utils.isEmpty(html)) return Promise.reject(null);
 
-        let html = this._markDownService.convertToHtml(md);
         return Promise.resolve(this._insertHtmlIntoWord(html))
-            .then(() => this._formatTables());
+            .then(() => this._formatTables())
+    }
+
+    private _insertGeneratedHtmlIntoWord() {
+        return this._run((context) => {
+            var html = context.document.body.getHtml().value;
+            return context.sync().then(() => {
+                context.document.body.insertText(html, Word.InsertLocation.end);
+                return context.sync();
+            })
+        })
     }
 
     getHtml() {
@@ -27,8 +37,20 @@ export class WordService {
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
-                var blah = toMarkdown(html.value, { gfm: true });
-                return html.value;
+                var md = toMarkdown(html.value, { gfm: true });
+                return md;
+            });
+        })
+    }
+
+    getMarkdown() {
+        if (!Utils.isWord) return;
+
+        return this._run<string>((context) => {
+            var html = context.document.body.getHtml();
+            return context.sync().then(() => {
+                var md = this._markDownService.previewMarkdown(html.value);
+                return md;
             });
         })
     }
@@ -40,7 +62,7 @@ export class WordService {
     private _insertHtmlIntoWord(html: string) {
         return this._run((context) => {
             var body = context.document.body;
-            body.insertHtml(html, 'Replace');
+            body.insertHtml(html, Word.InsertLocation.replace);
             return context.sync();
         })
     }
@@ -84,7 +106,6 @@ export class WordService {
                     console.log(table.style);
                     table.style = "Grid Table 4 - Accent 1";
                 });
-
                 return context.sync();
             })
         });

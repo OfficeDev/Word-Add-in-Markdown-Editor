@@ -68,3 +68,4 @@ WordToGitHub/npm-debug.log
 /WordToGitHub/certificates/server.key
 /WordToGitHub/certificates/server.csr
 /WordToGitHub/certificates/server.crt
+/WordToGitHub/certificates/server.pass.key

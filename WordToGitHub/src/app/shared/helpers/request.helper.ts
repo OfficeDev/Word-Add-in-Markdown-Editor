@@ -16,6 +16,18 @@ export class RequestHelper {
         return unformatted ? xhr : this._json<T>(xhr);
     }
 
+    getWithMediaHeaders<T>(url: string, options?: RequestOptions, unformatted?: boolean) {
+        let requestOptions = options || this._generateWithMediaHeaders();
+        let xhr = Utils.isNull(requestOptions) ? this._http.get(url) : this._http.get(url, requestOptions);
+        return unformatted ? xhr : this._text(xhr);
+    }
+
+    put<T>(url: string, body: any, options?: RequestOptions, unformatted?: boolean) {
+        let requestOptions = options || this._generateHeaders();
+        let xhr = Utils.isNull(requestOptions) ? this._http.put(url, JSON.stringify(body)) : this._http.put(url, JSON.stringify(body), requestOptions);
+        return unformatted ? xhr : this._json<T>(xhr);
+    }
+
     raw(url: string, options?: RequestOptions, unformatted?: boolean) {
         let xhr = Utils.isNull(options) ? this._http.get(url) : this._http.get(url, options);
         return unformatted ? xhr : this._text(xhr);
@@ -37,6 +49,19 @@ export class RequestHelper {
 
         var headers = new Headers({
             "Accept": "application/json",
+            "Authorization": "Bearer " + this._token.access_token
+        });
+
+        return new RequestOptions({ headers: headers });
+    }
+
+    private _generateWithMediaHeaders(): RequestOptions {
+        if (Utils.isNull(this._token)) {
+            throw new Error('Token is null! Please authenticate first.');
+        }
+
+        var headers = new Headers({
+            "Accept": "application/vnd.github.VERSION.html",
             "Authorization": "Bearer " + this._token.access_token
         });
 

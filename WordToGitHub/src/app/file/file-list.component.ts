@@ -7,9 +7,10 @@ import {FileDetailComponent} from './file-detail.component';
 import {Path, Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
 
+let view = 'file-list';
 @Component({
-    templateUrl: Path.template('file-list', 'file'),
-    styleUrls: [Path.style('file-list', 'file')],
+    templateUrl: Path.template(view, 'file'),
+    styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES]
 })
@@ -52,5 +53,5 @@ export class FileListComponent implements OnActivate {
 
     showMenu() {
         this._hamburgerService.showMenu();
-    }
+    }    
 }

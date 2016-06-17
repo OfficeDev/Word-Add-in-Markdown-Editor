@@ -3,6 +3,7 @@ import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
 import {GithubService, WordService, MarkdownService} from '../shared/services';
 
+declare var StringView: any;
 let view = 'file-detail';
 @Component({
     templateUrl: Path.template(view, 'file'),
@@ -15,7 +16,7 @@ export class FileDetailComponent implements OnActivate {
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
-    selectedFile: string;
+    selectedFile: string;    
 
     constructor(
         private _router: Router,
@@ -32,5 +33,31 @@ export class FileDetailComponent implements OnActivate {
         this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
             this._wordService.insertHtml(file);                
         });          
+    }
+
+    push() {
+        this._wordService.getMarkdown()
+            .then((md) => {
+                var mdView = new StringView(md, "UTF-8");
+                var b64md = mdView.toBase64();
+                b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
+
+                var body = {
+                    message: "Initial commit",
+                    content: b64md,
+                    branch: this.selectedBranch,
+                    sha: "",
+                    committer: {
+                        name: this._githubService.profile.user.name,
+                        email: 'umas@microsoft.com'
+                    }
+                };
+
+                return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedFile.path, body)
+                    .subscribe(response => {
+                        if (Utils.isEmpty(response)) return;
+                        console.log(response);
+                    });
+            });
     }
 }

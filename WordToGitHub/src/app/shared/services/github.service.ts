@@ -39,7 +39,11 @@ export class GithubService {
     }
 
     file(orgName: string, repoName: string, branchName: string, filePath: string): Observable<string> {
-        return this._request.raw("https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + filePath) as Observable<string>;
+        return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
+    }
+
+    updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
     }
 
     login(): Observable<IUserProfile> {
