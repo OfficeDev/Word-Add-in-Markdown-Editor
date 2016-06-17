@@ -1,6 +1,6 @@
 ﻿<section class="file-list-component__header">
     <ul class="file-list-command-bar">
-        <li class="file-list-command-bar__command" (click)="onMenuClicked()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <li class="file-list-command-bar__command" (click)="showMenu()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
         <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
         <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>
     </ul>
@@ -8,37 +8,13 @@
 
 <section class="file-list-component__branches">
     <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName | safenames}}</h2>
-    <select [(ngModel)]="selectedBranch.name" (change)="onSelectBranch()">
+    <select [(ngModel)]="selectedBranch.name" (change)="selectBranch()">
         <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
             {{branch.name}}
         </option>
     </select>
 </section>
 
-<section class="file-list-component__files">
-    <h2 class="file-list-component__title ms-font-l ms-fontWeight-light">Files</h2>
-    <ul class="ms-List">
-        <li class="file-list-item ms-ListItem" *ngFor="let file of (files | async | mdfilter)">
-            <div class="file-list-item__icon"><i class="ms-Icon" [ngClass]="file.type === 'dir' ? 'ms-Icon-large ms-Icon--folder' : 'ms-Icon-large ms-Icon--document'"></i></div>
-            <div class="file-list-item__content" (click)="onSelect(file)">
-                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-font-m">{{file.name}}</p>
-            </div>
-            <div class="file-list-item__actions ms-ListItem-actions">
-                <div class="file-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--pinDown" (click)="onPin(file)"></i></div>
-            </div>
-        </li>
-        <li class="file-list-item--separator"></li>
-        <li class="file-list-item file-list-item--alternate ms-ListItem">
-            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themePrimary ms-Icon--plus"></i></div>
-            <div class="file-list-item__content">
-                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themePrimary ms-font-m">Add a new file</p>
-            </div>
-        </li>
-        <li class="file-list-item file-list-item--alternate ms-ListItem">
-            <div class="file-list-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themePrimary ms-Icon--plus"></i></div>
-            <div class="file-list-item__content">
-                <p class="file-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themePrimary ms-font-m">Add a new folder</p>
-            </div>
-        </li>
-    </ul>
+<section class="file-tree-component__files">
+    <router-outlet></router-outlet>
 </section>

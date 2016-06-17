@@ -1,5 +1,6 @@
 import 'rxjs/Rx';
 import {bootstrap} from '@angular/platform-browser-dynamic';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import {provide, ExceptionHandler} from '@angular/core';
 import {HTTP_PROVIDERS, RequestOptions} from '@angular/http';
 import {ROUTER_PROVIDERS} from '@angular/router';
@@ -13,6 +14,7 @@ if (Utils.isWord) {
         bootstrap(WordToGithubComponent, [
             HTTP_PROVIDERS,
             ROUTER_PROVIDERS,
+            provide(LocationStrategy, { useClass: HashLocationStrategy }),
             provide(ExceptionHandler, { useClass: ExceptionHelper }),
             GithubService,
             HamburgerService,
@@ -24,6 +26,7 @@ else if (Utils.isWeb) {
     bootstrap(WordToGithubComponent, [
         HTTP_PROVIDERS,
         ROUTER_PROVIDERS,
+        provide(LocationStrategy, { useClass: HashLocationStrategy }),
         provide(ExceptionHandler, { useClass: ExceptionHelper }),
         GithubService,
         HamburgerService,

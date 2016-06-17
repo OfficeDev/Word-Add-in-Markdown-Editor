@@ -41,23 +41,23 @@ export class HamburgerComponent implements OnActivate {
         this._hamburgerService.hideMenu();
     }
 
-    selectRepository(item: IRepository) {
-        this._router.navigate(['/repo', item.name]);
+    selectRepository(repository: IRepository) {
+        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
         this.closeMenu();
     }
 
-    selectOrg(item: IProfile) {
-        if (Utils.isNull(item)) {
-
+    selectOrg(org: IProfile) {
+        if (Utils.isNull(org)) {
+            this._router.navigate(['/repos', this.profile.user.login]);
         }
         else {
-            this._router.navigate(['/repos', item.login]);
+            this._router.navigate(['/repos', org.login]);
         }
         this.closeMenu();
     }
 
-    unpin(item: IRepository) {
-        this.cache.remove(item.id.toString());
+    unpin(repository: IRepository) {
+        this.cache.remove(repository.id.toString());
         this.favoriteRepositories = _.values(this.cache.all());
     }
 
@@ -69,5 +69,5 @@ export class HamburgerComponent implements OnActivate {
 
     routerOnActivate() {
         this.isViewModeSet = true;
-    }    
+    }
 }
