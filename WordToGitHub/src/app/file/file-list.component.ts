@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, Routes, ROUTER_DIRECTIVES} from '@angular/router';
 import {GithubService, HamburgerService, IRepository, IBranch} from '../shared/services';
-import {FileTreeComponent, FileDetailComponent} from '../components';
+import {FileTreeComponent} from './file-tree.component';
+import {FileDetailComponent} from './file-detail.component';
 import {Path, Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
 
@@ -14,10 +15,6 @@ import {SafeNamesPipe} from '../shared/pipes';
 })
 
 @Routes([
-    {
-        path: '/tree',
-        component: FileTreeComponent
-    },
     {
         path: '/tree/:path',
         component: FileTreeComponent
@@ -41,7 +38,7 @@ export class FileListComponent implements OnActivate {
     }
 
     selectBranch() {
-        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree']);
+        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', null]);
     }
 
     routerOnActivate(current: RouteSegment) {

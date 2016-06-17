@@ -42,7 +42,7 @@ export class HamburgerComponent implements OnActivate {
     }
 
     selectRepository(repository: IRepository) {
-        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree']);
+        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
         this.closeMenu();
     }
 

@@ -39,8 +39,10 @@ export class FileTreeComponent implements OnActivate {
         this.selectedRepoName = parent.getParam('repo');
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = decodeURIComponent(current.getParam('path'));
-        console.log('Showing for: ' + this.selectedPath);
-        this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch);
+        this.selectedPath = current.getParam('path');
+
+        if (!Utils.isNull(this.selectedPath)) this.selectedPath = decodeURIComponent(this.selectedPath);
+
+        this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
     }
 }

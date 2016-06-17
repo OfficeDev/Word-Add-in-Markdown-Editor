@@ -8,7 +8,7 @@
     <div class="hamburger-menu__container">
         <ul class="menu-list">
             <li><h3 class="menu-list__title ms-font-l"><i class="ms-Icon ms-Icon-large ms-Icon--teamwork"></i>My Organizations</h3></li>
-            <li class="menu-list__item menu-list__item--inline-image" (click)="onSelectOrg()">
+            <li class="menu-list__item menu-list__item--inline-image" (click)="selectOrg()">
                 <div class="menu-list__thumb" [ngStyle]="{'background-image': 'url('+ profile?.user?.avatar_url +')'}"></div>
                 <p class="ms-font-m-plus">Personal</p>
             </li>

@@ -2,7 +2,11 @@
 @import '../../styles/theme.scss';
 
 .file-tree-component {
-    &__files h2 {
+    &__title {
+        padding: $default-spacing;
+    }
+
+    &__message {
         padding: $default-spacing;
     }
 }

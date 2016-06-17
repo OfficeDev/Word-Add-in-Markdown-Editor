@@ -26,7 +26,7 @@ export class RepoComponent implements OnActivate {
     }
 
     selectRepo(repository: IRepository) {
-        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree']);
+        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
     }
 
     routerOnActivate(current: RouteSegment) {

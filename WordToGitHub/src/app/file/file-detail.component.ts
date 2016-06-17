@@ -1,13 +1,13 @@
 import {Component} from '@angular/core';
 import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
-import {GithubService, WordService} from '../shared/services';
+import {GithubService, WordService, MarkdownService} from '../shared/services';
 
 let view = 'file-detail';
 @Component({
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
-    providers: [WordService]
+    providers: [WordService, MarkdownService]
 })
 
 export class FileDetailComponent implements OnActivate {
@@ -29,7 +29,8 @@ export class FileDetailComponent implements OnActivate {
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
         this.selectedPath = decodeURIComponent(current.getParam('path'));
-        console.log('Showing for: ' + this.selectedPath);
-        //this.selectedFile = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch);
+        this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
+            this._wordService.insertHtml(file);                
+        });          
     }
 }

@@ -28,8 +28,10 @@ export class GithubService {
         return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
     }
 
-    files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
-        return this._request.get<IContents[]>("https://api.github.com/repos/OfficeDev" + "/" + repoName + "/contents?ref=" + branchName) as Observable<IContents[]>;
+    files(orgName: string, repoName: string, branchName: string, path?: string): Observable<IContents[]> {
+        var url = "https://api.github.com/repos/" + orgName + "/" + repoName + "/contents";
+        if (!Utils.isNull(path)) { url += "/" + path; }
+        return this._request.get<IContents[]>(url + "?ref=" + branchName) as Observable<IContents[]>;
     }
 
     branches(orgName: string, repoName: string): Observable<IBranch[]> {
