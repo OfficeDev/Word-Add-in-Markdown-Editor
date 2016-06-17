@@ -23,7 +23,7 @@
             <li class="menu-list__item" *ngFor="let repository of favoriteRepositories" (click)="selectRepository(repository)">
                 <p class="ms-font-m">{{repository.name | safenames}}</p>
                 <p class="ms-font-s">@{{repository.owner.login}}</p>
-                <div class="menu-list__item--action"><i class="ms-Icon ms-Icon-large ms-Icon--pinDown" (click)="unpin(repository)"></i></div>
+                <div class="menu-list__item--action"><i class="ms-Icon ms-Icon-large ms-Icon--star" (click)="unpin(repository)"></i></div>
             </li>
             <!--<li class="menu-list__overflow ms-font-s">See all repositories</li>-->
         </ul>

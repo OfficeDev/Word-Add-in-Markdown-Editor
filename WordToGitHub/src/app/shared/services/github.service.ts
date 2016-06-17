@@ -23,8 +23,9 @@ export class GithubService {
         return this._request.get<IProfileMetadata>("https://api.github.com/users/" + username + "/orgs") as Observable<IProfileMetadata>;
     }
 
-    repos(orgName: string): Observable<IRepository[]> {
-        return this._request.get<IRepository[]>("https://api.github.com/orgs/" + orgName + "/repos") as Observable<IRepository[]>;
+    repos(orgName: string, personal: boolean): Observable<IRepository[]> {
+        var url = personal ? "https://api.github.com/user/repos" : "https://api.github.com/orgs/" + orgName + "/repos";
+        return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
     }
 
     files(orgName: string, repoName: string, branchName: string): Observable<IContents[]> {
