@@ -4,7 +4,7 @@ import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 import {GithubService} from './shared/services';
 import {Utils} from './shared/helpers';
 
-import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponent, LoginComponent} from "./components";
+import {RepoComponent, HamburgerComponent, FileListComponent, LoginComponent} from "./components";
 
 @Component({
     selector: 'word-to-github',
@@ -21,24 +21,20 @@ import {RepoComponent, HamburgerComponent, FileListComponent, FileDetailComponen
 
 @Routes([
     {
-        path: '/login',
-        component: LoginComponent
-    },
-    {
         path: '/profile',
         component: HamburgerComponent
+    },
+    {
+        path: '/login',
+        component: LoginComponent
     },
     {
         path: '/repos/:org',
         component: RepoComponent
     },
     {
-        path: '/repo/:name',
+        path: '/files/:org/:repo/:branch',
         component: FileListComponent
-    },
-    {
-        path: '/file/:path',
-        component: FileDetailComponent
     }
 ])
 
@@ -53,7 +49,7 @@ export class WordToGithubComponent implements OnInit {
             this._router.navigate(['/login']);
         }
         else {
-            this._router.navigate(['/profile']);
+            this._router.navigate(['/profile']);    
         }
     }
 }

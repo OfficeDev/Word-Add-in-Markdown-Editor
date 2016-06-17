@@ -25,20 +25,20 @@ export class RepoComponent implements OnActivate {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
     }
 
-    onSelect(item: IRepository) {
-        this._router.navigate(['/repo', item.name]);
+    selectRepo(repository: IRepository) {
+        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree']);
     }
 
     routerOnActivate(current: RouteSegment) {
         this.selectedOrg = current.getParam('org');
-        this.repositories = this._githubService.repos(this.selectedOrg);
+        this.repositories = this._githubService.repos(this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login);
     }
 
-    onPin(item: IRepository) {
+    pin(item: IRepository) {
         this.cache.add(item.id.toString(), item);
     }
 
-    onMenuClicked() {
+    showMenu() {
         this._hamburgerService.showMenu();
     }
 }

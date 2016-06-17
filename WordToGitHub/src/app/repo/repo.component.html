@@ -5,7 +5,7 @@
 
 <section class="repo-list-component__header">
     <ul class="repo-list-command-bar">
-        <li class="repo-list-command-bar__command" (click)="onMenuClicked()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <li class="repo-list-command-bar__command" (click)="showMenu()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
         <li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
         <li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>
     </ul>
@@ -15,13 +15,13 @@
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
     <ul class="ms-List">
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of (repositories | async)">
-            <div class="repo-list-item__content" (click)="onSelect(repository)">
+            <div class="repo-list-item__content" (click)="selectRepo(repository)">
                 <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
                 <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
                 <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
             </div>
             <div class="repo-list-item__actions ms-ListItem-actions">
-                <div class="repo-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--pinLeft" (click)="onPin(repository)"></i></div>
+                <div class="repo-list-item__action ms-ListItem-action"><i class="ms-Icon ms-Icon-large ms-Icon--starEmpty" (click)="pin(repository)"></i></div>
             </div>
         </li>
     </ul>

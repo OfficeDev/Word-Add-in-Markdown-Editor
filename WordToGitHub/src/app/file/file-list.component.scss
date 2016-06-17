@@ -9,10 +9,6 @@
         border-top: 1px solid $background-light;
     }
 
-    &__files h2 {
-        padding: $default-spacing;
-    }
-
     &__branches {
         padding: $default-spacing;
 
@@ -49,66 +45,6 @@
             i {
                 padding-right: $default-spacing/2;
             }
-        }
-    }
-}
-
-.file-list-item {
-    @include inline-flex();
-    padding: $default-spacing;
-    width: 100%;
-    cursor: pointer;
-    box-shadow: none;
-
-    @include focus-states($background-lightest);
-
-    &__primary-text {
-        @include ellipsis();
-        position: static;
-        padding: 0;
-    }
-
-    &__content {
-        flex: 1 0 0px;
-        padding-right: $default-spacing;
-    }
-
-    &__icon {
-        position: static;
-        padding-right: $default-spacing;
-        color: rgba($foreground-primary, 0.8);
-
-        i {
-            top: 2px;
-        }
-    }
-
-    &__actions {
-        max-width: 80px;
-        position: static;
-    }
-
-    &__action {
-        position: static;
-        @include focus-states(transparent);
-
-        i {
-            top: 2px;
-        }
-    }
-
-
-    &--separator {
-        padding: 0;
-        border-bottom: 1px solid $background-light;
-    }
-
-    &--alternate {
-        @include focus-states($accent-background-primary, $accent-foreground-primary);
-
-        &:hover p,
-        &:hover i {
-            color: $accent-foreground-primary;
         }
     }
 }
