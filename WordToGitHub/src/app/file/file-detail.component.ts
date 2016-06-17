@@ -16,7 +16,6 @@ export class FileDetailComponent implements OnActivate {
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
-    selectedFile: string;    
 
     constructor(
         private _router: Router,
@@ -53,7 +52,7 @@ export class FileDetailComponent implements OnActivate {
                     }
                 };
 
-                return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedFile.path, body)
+                return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
                     .subscribe(response => {
                         if (Utils.isEmpty(response)) return;
                         console.log(response);
