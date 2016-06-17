@@ -5,7 +5,7 @@ export class ExceptionHelper extends ExceptionHandler {
 
         var invalidException = /TypeError: Object expected$/g;
 
-        if (invalidException.test(exception.description)) return;
+        if (invalidException.test(exception.description || exception.message)) return;
 
         console.group(exception.description);
         console.error(exception);
