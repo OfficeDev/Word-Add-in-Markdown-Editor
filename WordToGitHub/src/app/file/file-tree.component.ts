@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, AfterViewInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
-import {GithubService, IContents} from '../shared/services';
+import {GithubService, BreadcrumbService, IBreadcrumb, IContents} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
@@ -12,7 +12,7 @@ let view = 'file-tree';
     pipes: [SafeNamesPipe, MDFilterPipe]
 })
 
-export class FileTreeComponent implements OnActivate {
+export class FileTreeComponent implements OnActivate, AfterViewInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -21,6 +21,7 @@ export class FileTreeComponent implements OnActivate {
 
     constructor(
         private _githubService: GithubService,
+        private _breadcrumbService: BreadcrumbService,
         private _router: Router
     ) {
     }
@@ -39,9 +40,12 @@ export class FileTreeComponent implements OnActivate {
         this.selectedRepoName = parent.getParam('repo');
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = current.getParam('path');
+        this.selectedPath = current.getParam('path');        
+    }
 
-        if (!Utils.isNull(this.selectedPath)) this.selectedPath = decodeURIComponent(this.selectedPath);
+    ngAfterViewInit() {
+        if (!Utils.isNull(this.selectedPath)) { this.selectedPath = decodeURIComponent(this.selectedPath); }
+        this._breadcrumbService.push(this.selectedPath);
 
         this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
     }

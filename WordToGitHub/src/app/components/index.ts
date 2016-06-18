@@ -2,3 +2,4 @@
 export * from '../repo/repo.component';
 export * from '../file/file-list.component';
 export * from './hamburger/hamburger.component';
+export * from './breadcrumb/breadcrumb.component';
