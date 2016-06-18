@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\shared\helpers\request.helper.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\shared\helpers\request.helper.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">74.19</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">78</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">39.91</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.16</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;@angular/core&#039;, &#039;@angular/http&#039;, &#039;./&#039;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c &lt; 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.decorate === &quot;function&quot;) r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i &gt;= 0; i--) if (d = decorators[i]) r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;
+        return c &gt; 3 &amp;&amp; r &amp;&amp; Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.metadata === &quot;function&quot;) return Reflect.metadata(k, v);
+    };
+    var core_1, http_1, _1;
+    var RequestHelper;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (_1_1) {
+                _1 = _1_1;
+            }],
+        execute: function() {
+            RequestHelper = (function () {
+                function RequestHelper(_http) {
+                    this._http = _http;
+                }
+                RequestHelper.prototype.get = function (url, options, unformatted) {
+                    var requestOptions = options || this._generateHeaders();
+                    var xhr = _1.Utils.isNull(requestOptions) ? this._http.get(url) : this._http.get(url, requestOptions);
+                    return unformatted ? xhr : this._json(xhr);
+                };
+                RequestHelper.prototype.raw = function (url, options, unformatted) {
+                    var xhr = _1.Utils.isNull(options) ? this._http.get(url) : this._http.get(url, options);
+                    return unformatted ? xhr : this._text(xhr);
+                };
+                RequestHelper.prototype.token = function (value) {
+                    if (_1.Utils.isNull(value)) {
+                        throw new Error(&#039;Token cannot be null!&#039;);
+                    }
+                    this._token = value;
+                    return this._token;
+                };
+                RequestHelper.prototype._generateHeaders = function () {
+                    if (_1.Utils.isNull(this._token)) {
+                        throw new Error(&#039;Token is null! Please authenticate first.&#039;);
+                    }
+                    var headers = new http_1.Headers({
+                        &quot;Accept&quot;: &quot;application/json&quot;,
+                        &quot;Authorization&quot;: &quot;Bearer &quot; + this._token.access_token
+                    });
+                    return new http_1.RequestOptions({ headers: headers });
+                };
+                RequestHelper.prototype._text = function (request) {
+                    return request
+                        .map(function (response) { return response.text(); })
+                        .catch(function (err, caught) { return _1.Utils.error(err); });
+                };
+                RequestHelper.prototype._json = function (request) {
+                    return request
+                        .map(function (response) {
+                        return response.json();
+                    })
+                        .catch(function (err, caught) { return _1.Utils.error(err); });
+                };
+                RequestHelper = __decorate([
+                    core_1.Injectable(), 
+                    __metadata(&#039;design:paramtypes&#039;, [http_1.Http])
+                ], RequestHelper);
+                return RequestHelper;
+            }());
+            exports_1(&quot;RequestHelper&quot;, RequestHelper);
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9zaGFyZWQvaGVscGVycy9yZXF1ZXN0LmhlbHBlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztZQU9BO2dCQUdJLHVCQUFvQixLQUFXO29CQUFYLFVBQUssR0FBTCxLQUFLLENBQU07Z0JBQUksQ0FBQztnQkFFcEMsMkJBQUcsR0FBSCxVQUFPLEdBQVcsRUFBRSxPQUF3QixFQUFFLFdBQXFCO29CQUMvRCxJQUFJLGNBQWMsR0FBRyxPQUFPLElBQUksSUFBSSxDQUFDLGdCQUFnQixFQUFFLENBQUM7b0JBQ3hELElBQUksR0FBRyxHQUFHLFFBQUssQ0FBQyxNQUFNLENBQUMsY0FBYyxDQUFDLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUMsR0FBRyxDQUFDLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxHQUFHLENBQUMsR0FBRyxFQUFFLGNBQWMsQ0FBQyxDQUFDO29CQUNuRyxNQUFNLENBQUMsV0FBVyxHQUFHLEdBQUcsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFJLEdBQUcsQ0FBQyxDQUFDO2dCQUNsRCxDQUFDO2dCQUVELDJCQUFHLEdBQUgsVUFBSSxHQUFXLEVBQUUsT0FBd0IsRUFBRSxXQUFxQjtvQkFDNUQsSUFBSSxHQUFHLEdBQUcsUUFBSyxDQUFDLE1BQU0sQ0FBQyxPQUFPLENBQUMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxHQUFHLENBQUMsR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLEdBQUcsQ0FBQyxHQUFHLEVBQUUsT0FBTyxDQUFDLENBQUM7b0JBQ3JGLE1BQU0sQ0FBQyxXQUFXLEdBQUcsR0FBRyxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsR0FBRyxDQUFDLENBQUM7Z0JBQy9DLENBQUM7Z0JBRUQsNkJBQUssR0FBTCxVQUFNLEtBQWE7b0JBQ2YsRUFBRSxDQUFDLENBQUMsUUFBSyxDQUFDLE1BQU0sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUM7d0JBQ3RCLE1BQU0sSUFBSSxLQUFLLENBQUMsdUJBQXVCLENBQUMsQ0FBQztvQkFDN0MsQ0FBQztvQkFFRCxJQUFJLENBQUMsTUFBTSxHQUFHLEtBQUssQ0FBQztvQkFDcEIsTUFBTSxDQUFDLElBQUksQ0FBQyxNQUFNLENBQUM7Z0JBQ3ZCLENBQUM7Z0JBRU8sd0NBQWdCLEdBQXhCO29CQUNJLEVBQUUsQ0FBQyxDQUFDLFFBQUssQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUMsQ0FBQzt3QkFDNUIsTUFBTSxJQUFJLEtBQUssQ0FBQywyQ0FBMkMsQ0FBQyxDQUFDO29CQUNqRSxDQUFDO29CQUVELElBQUksT0FBTyxHQUFHLElBQUksY0FBTyxDQUFDO3dCQUN0QixRQUFRLEVBQUUsa0JBQWtCO3dCQUM1QixlQUFlLEVBQUUsU0FBUyxHQUFHLElBQUksQ0FBQyxNQUFNLENBQUMsWUFBWTtxQkFDeEQsQ0FBQyxDQUFDO29CQUVILE1BQU0sQ0FBQyxJQUFJLHFCQUFjLENBQUMsRUFBRSxPQUFPLEVBQUUsT0FBTyxFQUFFLENBQUMsQ0FBQztnQkFDcEQsQ0FBQztnQkFFTyw2QkFBSyxHQUFiLFVBQWMsT0FBd0I7b0JBQ2xDLE1BQU0sQ0FBQyxPQUFPO3lCQUNULEdBQUcsQ0FBQyxVQUFBLFFBQVEsSUFBSSxPQUFBLFFBQVEsQ0FBQyxJQUFJLEVBQVksRUFBekIsQ0FBeUIsQ0FBQzt5QkFDMUMsS0FBSyxDQUFDLFVBQUMsR0FBUSxFQUFFLE1BQTBCLElBQUssT0FBQSxRQUFLLENBQUMsS0FBSyxDQUFTLEdBQUcsQ0FBdUIsRUFBOUMsQ0FBOEMsQ0FBQyxDQUFDO2dCQUN6RyxDQUFDO2dCQUVPLDZCQUFLLEdBQWIsVUFBaUIsT0FBd0I7b0JBQ3JDLE1BQU0sQ0FBQyxPQUFPO3lCQUNULEdBQUcsQ0FBQyxVQUFBLFFBQVE7d0JBQ1QsTUFBTSxDQUFDLFFBQVEsQ0FBQyxJQUFJLEVBQU8sQ0FBQTtvQkFDL0IsQ0FBQyxDQUFDO3lCQUNELEtBQUssQ0FBQyxVQUFDLEdBQVEsRUFBRSxNQUFxQixJQUFLLE9BQUEsUUFBSyxDQUFDLEtBQUssQ0FBSSxHQUFHLENBQWtCLEVBQXBDLENBQW9DLENBQUMsQ0FBQztnQkFDMUYsQ0FBQztnQkFuREw7b0JBQUMsaUJBQVUsRUFBRTs7aUNBQUE7Z0JBb0RiLG9CQUFDO1lBQUQsQ0FuREEsQUFtREMsSUFBQTtZQW5ERCx5Q0FtREMsQ0FBQSIsImZpbGUiOiJhcHAvc2hhcmVkL2hlbHBlcnMvcmVxdWVzdC5oZWxwZXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0luamVjdGFibGV9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5pbXBvcnQge0h0dHAsIEhlYWRlcnMsIFJlcXVlc3RPcHRpb25zfSBmcm9tICdAYW5ndWxhci9odHRwJztcclxuaW1wb3J0IHtPYnNlcnZhYmxlfSBmcm9tICdyeGpzL1J4JztcclxuaW1wb3J0IHtVdGlscywgU3RvcmFnZUhlbHBlcn0gZnJvbSAnLi8nO1xyXG5pbXBvcnQge0lUb2tlbn0gZnJvbSAnLi4vc2VydmljZXMnO1xyXG5cclxuQEluamVjdGFibGUoKVxyXG5leHBvcnQgY2xhc3MgUmVxdWVzdEhlbHBlciB7XHJcbiAgICBwcml2YXRlIF90b2tlbjogSVRva2VuO1xyXG5cclxuICAgIGNvbnN0cnVjdG9yKHByaXZhdGUgX2h0dHA6IEh0dHApIHsgfVxyXG5cclxuICAgIGdldDxUPih1cmw6IHN0cmluZywgb3B0aW9ucz86IFJlcXVlc3RPcHRpb25zLCB1bmZvcm1hdHRlZD86IGJvb2xlYW4pIHtcclxuICAgICAgICBsZXQgcmVxdWVzdE9wdGlvbnMgPSBvcHRpb25zIHx8IHRoaXMuX2dlbmVyYXRlSGVhZGVycygpO1xyXG4gICAgICAgIGxldCB4aHIgPSBVdGlscy5pc051bGwocmVxdWVzdE9wdGlvbnMpID8gdGhpcy5faHR0cC5nZXQodXJsKSA6IHRoaXMuX2h0dHAuZ2V0KHVybCwgcmVxdWVzdE9wdGlvbnMpO1xyXG4gICAgICAgIHJldHVybiB1bmZvcm1hdHRlZCA/IHhociA6IHRoaXMuX2pzb248VD4oeGhyKTtcclxuICAgIH1cclxuXHJcbiAgICByYXcodXJsOiBzdHJpbmcsIG9wdGlvbnM/OiBSZXF1ZXN0T3B0aW9ucywgdW5mb3JtYXR0ZWQ/OiBib29sZWFuKSB7XHJcbiAgICAgICAgbGV0IHhociA9IFV0aWxzLmlzTnVsbChvcHRpb25zKSA/IHRoaXMuX2h0dHAuZ2V0KHVybCkgOiB0aGlzLl9odHRwLmdldCh1cmwsIG9wdGlvbnMpO1xyXG4gICAgICAgIHJldHVybiB1bmZvcm1hdHRlZCA/IHhociA6IHRoaXMuX3RleHQoeGhyKTtcclxuICAgIH1cclxuXHJcbiAgICB0b2tlbih2YWx1ZTogSVRva2VuKTogSVRva2VuIHtcclxuICAgICAgICBpZiAoVXRpbHMuaXNOdWxsKHZhbHVlKSkge1xyXG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ1Rva2VuIGNhbm5vdCBiZSBudWxsIScpO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgdGhpcy5fdG9rZW4gPSB2YWx1ZTtcclxuICAgICAgICByZXR1cm4gdGhpcy5fdG9rZW47XHJcbiAgICB9XHJcblxyXG4gICAgcHJpdmF0ZSBfZ2VuZXJhdGVIZWFkZXJzKCk6IFJlcXVlc3RPcHRpb25zIHtcclxuICAgICAgICBpZiAoVXRpbHMuaXNOdWxsKHRoaXMuX3Rva2VuKSkge1xyXG4gICAgICAgICAgICB0aHJvdyBuZXcgRXJyb3IoJ1Rva2VuIGlzIG51bGwhIFBsZWFzZSBhdXRoZW50aWNhdGUgZmlyc3QuJyk7XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICB2YXIgaGVhZGVycyA9IG5ldyBIZWFkZXJzKHtcclxuICAgICAgICAgICAgXCJBY2NlcHRcIjogXCJhcHBsaWNhdGlvbi9qc29uXCIsXHJcbiAgICAgICAgICAgIFwiQXV0aG9yaXphdGlvblwiOiBcIkJlYXJlciBcIiArIHRoaXMuX3Rva2VuLmFjY2Vzc190b2tlblxyXG4gICAgICAgIH0pO1xyXG5cclxuICAgICAgICByZXR1cm4gbmV3IFJlcXVlc3RPcHRpb25zKHsgaGVhZGVyczogaGVhZGVycyB9KTtcclxuICAgIH1cclxuXHJcbiAgICBwcml2YXRlIF90ZXh0KHJlcXVlc3Q6IE9ic2VydmFibGU8YW55Pik6IE9ic2VydmFibGU8c3RyaW5nPiB7XHJcbiAgICAgICAgcmV0dXJuIHJlcXVlc3RcclxuICAgICAgICAgICAgLm1hcChyZXNwb25zZSA9PiByZXNwb25zZS50ZXh0KCkgYXMgc3RyaW5nKVxyXG4gICAgICAgICAgICAuY2F0Y2goKGVycjogYW55LCBjYXVnaHQ6IE9ic2VydmFibGU8c3RyaW5nPikgPT4gVXRpbHMuZXJyb3I8c3RyaW5nPihlcnIpIGFzIE9ic2VydmFibGU8c3RyaW5nPik7XHJcbiAgICB9XHJcblxyXG4gICAgcHJpdmF0ZSBfanNvbjxUPihyZXF1ZXN0OiBPYnNlcnZhYmxlPGFueT4pOiBPYnNlcnZhYmxlPFQ+IHtcclxuICAgICAgICByZXR1cm4gcmVxdWVzdFxyXG4gICAgICAgICAgICAubWFwKHJlc3BvbnNlID0+IHtcclxuICAgICAgICAgICAgICAgIHJldHVybiByZXNwb25zZS5qc29uKCkgYXMgVFxyXG4gICAgICAgICAgICB9KVxyXG4gICAgICAgICAgICAuY2F0Y2goKGVycjogYW55LCBjYXVnaHQ6IE9ic2VydmFibGU8VD4pID0+IFV0aWxzLmVycm9yPFQ+KGVycikgYXMgT2JzZXJ2YWJsZTxUPik7XHJcbiAgICB9XHJcbn0iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

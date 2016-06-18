@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\file\file-detail.component.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\file\file-detail.component.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.77</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">61</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">29.29</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.92</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;@angular/core&#039;, &#039;@angular/router&#039;, &#039;../shared/helpers&#039;, &#039;../shared/services&#039;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c &lt; 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.decorate === &quot;function&quot;) r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i &gt;= 0; i--) if (d = decorators[i]) r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;
+        return c &gt; 3 &amp;&amp; r &amp;&amp; Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.metadata === &quot;function&quot;) return Reflect.metadata(k, v);
+    };
+    var core_1, router_1, helpers_1, services_1;
+    var view, FileDetailComponent;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (helpers_1_1) {
+                helpers_1 = helpers_1_1;
+            },
+            function (services_1_1) {
+                services_1 = services_1_1;
+            }],
+        execute: function() {
+            view = &#039;file-detail&#039;;
+            FileDetailComponent = (function () {
+                function FileDetailComponent(_router, _githubService, _wordService) {
+                    this._router = _router;
+                    this._githubService = _githubService;
+                    this._wordService = _wordService;
+                }
+                FileDetailComponent.prototype.routerOnActivate = function (current, previous, tree) {
+                    var _this = this;
+                    var parent = tree.parent(current);
+                    this.selectedRepoName = parent.getParam(&#039;repo&#039;);
+                    this.selectedOrg = parent.getParam(&#039;org&#039;);
+                    this.selectedBranch = parent.getParam(&#039;branch&#039;);
+                    this.selectedPath = decodeURIComponent(current.getParam(&#039;path&#039;));
+                    this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(function (file) {
+                        _this._wordService.insertHtml(file);
+                    });
+                };
+                FileDetailComponent = __decorate([
+                    core_1.Component({
+                        templateUrl: helpers_1.Path.template(view, &#039;file&#039;),
+                        styleUrls: [helpers_1.Path.style(view, &#039;file&#039;)],
+                        providers: [services_1.WordService, services_1.MarkdownService]
+                    }), 
+                    __metadata(&#039;design:paramtypes&#039;, [router_1.Router, services_1.GithubService, services_1.WordService])
+                ], FileDetailComponent);
+                return FileDetailComponent;
+            }());
+            exports_1(&quot;FileDetailComponent&quot;, FileDetailComponent);
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9maWxlL2ZpbGUtZGV0YWlsLmNvbXBvbmVudC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O1FBS0ksSUFBSTs7Ozs7Ozs7Ozs7Ozs7OztZQUFKLElBQUksR0FBRyxhQUFhLENBQUM7WUFPekI7Z0JBT0ksNkJBQ1ksT0FBZSxFQUNmLGNBQTZCLEVBQzdCLFlBQXlCO29CQUZ6QixZQUFPLEdBQVAsT0FBTyxDQUFRO29CQUNmLG1CQUFjLEdBQWQsY0FBYyxDQUFlO29CQUM3QixpQkFBWSxHQUFaLFlBQVksQ0FBYTtnQkFDakMsQ0FBQztnQkFFTCw4Q0FBZ0IsR0FBaEIsVUFBaUIsT0FBcUIsRUFBRSxRQUFzQixFQUFFLElBQWU7b0JBQS9FLGlCQVNDO29CQVJHLElBQUksTUFBTSxHQUFHLElBQUksQ0FBQyxNQUFNLENBQUMsT0FBTyxDQUFDLENBQUM7b0JBQ2xDLElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxNQUFNLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxDQUFDO29CQUNoRCxJQUFJLENBQUMsV0FBVyxHQUFHLE1BQU0sQ0FBQyxRQUFRLENBQUMsS0FBSyxDQUFDLENBQUM7b0JBQzFDLElBQUksQ0FBQyxjQUFjLEdBQUcsTUFBTSxDQUFDLFFBQVEsQ0FBQyxRQUFRLENBQUMsQ0FBQztvQkFDaEQsSUFBSSxDQUFDLFlBQVksR0FBRyxrQkFBa0IsQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLE1BQU0sQ0FBQyxDQUFDLENBQUM7b0JBQ2pFLElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxXQUFXLEVBQUUsSUFBSSxDQUFDLGdCQUFnQixFQUFFLElBQUksQ0FBQyxjQUFjLEVBQUUsSUFBSSxDQUFDLFlBQVksQ0FBQyxDQUFDLFNBQVMsQ0FBQyxVQUFBLElBQUk7d0JBQ3BILEtBQUksQ0FBQyxZQUFZLENBQUMsVUFBVSxDQUFDLElBQUksQ0FBQyxDQUFDO29CQUN2QyxDQUFDLENBQUMsQ0FBQztnQkFDUCxDQUFDO2dCQTVCTDtvQkFBQyxnQkFBUyxDQUFDO3dCQUNQLFdBQVcsRUFBRSxjQUFJLENBQUMsUUFBUSxDQUFDLElBQUksRUFBRSxNQUFNLENBQUM7d0JBQ3hDLFNBQVMsRUFBRSxDQUFDLGNBQUksQ0FBQyxLQUFLLENBQUMsSUFBSSxFQUFFLE1BQU0sQ0FBQyxDQUFDO3dCQUNyQyxTQUFTLEVBQUUsQ0FBQyxzQkFBVyxFQUFFLDBCQUFlLENBQUM7cUJBQzVDLENBQUM7O3VDQUFBO2dCQXlCRiwwQkFBQztZQUFELENBdkJBLEFBdUJDLElBQUE7WUF2QkQscURBdUJDLENBQUEiLCJmaWxlIjoiYXBwL2ZpbGUvZmlsZS1kZXRhaWwuY29tcG9uZW50LmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtDb21wb25lbnR9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5pbXBvcnQge1JvdXRlciwgUm91dGVUcmVlLCBPbkFjdGl2YXRlLCBSb3V0ZVNlZ21lbnR9IGZyb20gJ0Bhbmd1bGFyL3JvdXRlcic7XHJcbmltcG9ydCB7UGF0aCwgVXRpbHN9IGZyb20gJy4uL3NoYXJlZC9oZWxwZXJzJztcclxuaW1wb3J0IHtHaXRodWJTZXJ2aWNlLCBXb3JkU2VydmljZSwgTWFya2Rvd25TZXJ2aWNlfSBmcm9tICcuLi9zaGFyZWQvc2VydmljZXMnO1xyXG5cclxubGV0IHZpZXcgPSAnZmlsZS1kZXRhaWwnO1xyXG5AQ29tcG9uZW50KHtcclxuICAgIHRlbXBsYXRlVXJsOiBQYXRoLnRlbXBsYXRlKHZpZXcsICdmaWxlJyksXHJcbiAgICBzdHlsZVVybHM6IFtQYXRoLnN0eWxlKHZpZXcsICdmaWxlJyldLFxyXG4gICAgcHJvdmlkZXJzOiBbV29yZFNlcnZpY2UsIE1hcmtkb3duU2VydmljZV1cclxufSlcclxuXHJcbmV4cG9ydCBjbGFzcyBGaWxlRGV0YWlsQ29tcG9uZW50IGltcGxlbWVudHMgT25BY3RpdmF0ZSB7XHJcbiAgICBzZWxlY3RlZE9yZzogc3RyaW5nO1xyXG4gICAgc2VsZWN0ZWRSZXBvTmFtZTogc3RyaW5nO1xyXG4gICAgc2VsZWN0ZWRCcmFuY2g6IHN0cmluZztcclxuICAgIHNlbGVjdGVkUGF0aDogc3RyaW5nO1xyXG4gICAgc2VsZWN0ZWRGaWxlOiBzdHJpbmc7XHJcblxyXG4gICAgY29uc3RydWN0b3IoXHJcbiAgICAgICAgcHJpdmF0ZSBfcm91dGVyOiBSb3V0ZXIsXHJcbiAgICAgICAgcHJpdmF0ZSBfZ2l0aHViU2VydmljZTogR2l0aHViU2VydmljZSxcclxuICAgICAgICBwcml2YXRlIF93b3JkU2VydmljZTogV29yZFNlcnZpY2VcclxuICAgICkgeyB9XHJcblxyXG4gICAgcm91dGVyT25BY3RpdmF0ZShjdXJyZW50OiBSb3V0ZVNlZ21lbnQsIHByZXZpb3VzOiBSb3V0ZVNlZ21lbnQsIHRyZWU6IFJvdXRlVHJlZSkge1xyXG4gICAgICAgIHZhciBwYXJlbnQgPSB0cmVlLnBhcmVudChjdXJyZW50KTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkUmVwb05hbWUgPSBwYXJlbnQuZ2V0UGFyYW0oJ3JlcG8nKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkT3JnID0gcGFyZW50LmdldFBhcmFtKCdvcmcnKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkQnJhbmNoID0gcGFyZW50LmdldFBhcmFtKCdicmFuY2gnKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkUGF0aCA9IGRlY29kZVVSSUNvbXBvbmVudChjdXJyZW50LmdldFBhcmFtKCdwYXRoJykpO1xyXG4gICAgICAgIHRoaXMuX2dpdGh1YlNlcnZpY2UuZmlsZSh0aGlzLnNlbGVjdGVkT3JnLCB0aGlzLnNlbGVjdGVkUmVwb05hbWUsIHRoaXMuc2VsZWN0ZWRCcmFuY2gsIHRoaXMuc2VsZWN0ZWRQYXRoKS5zdWJzY3JpYmUoZmlsZSA9PiB7XHJcbiAgICAgICAgICAgIHRoaXMuX3dvcmRTZXJ2aWNlLmluc2VydEh0bWwoZmlsZSk7ICAgICAgICAgICAgICAgIFxyXG4gICAgICAgIH0pOyAgICAgICAgICBcclxuICAgIH1cclxufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

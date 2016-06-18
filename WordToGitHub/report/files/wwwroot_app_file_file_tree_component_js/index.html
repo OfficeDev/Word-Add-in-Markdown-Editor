@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\file\file-tree.component.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\file\file-tree.component.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.82</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">75</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">32.29</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.17</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;@angular/core&#039;, &#039;@angular/router&#039;, &#039;../shared/services&#039;, &#039;../shared/helpers&#039;, &#039;../shared/pipes&#039;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c &lt; 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.decorate === &quot;function&quot;) r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i &gt;= 0; i--) if (d = decorators[i]) r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;
+        return c &gt; 3 &amp;&amp; r &amp;&amp; Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.metadata === &quot;function&quot;) return Reflect.metadata(k, v);
+    };
+    var core_1, router_1, services_1, helpers_1, pipes_1;
+    var view, FileTreeComponent;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (services_1_1) {
+                services_1 = services_1_1;
+            },
+            function (helpers_1_1) {
+                helpers_1 = helpers_1_1;
+            },
+            function (pipes_1_1) {
+                pipes_1 = pipes_1_1;
+            }],
+        execute: function() {
+            view = &#039;file-tree&#039;;
+            FileTreeComponent = (function () {
+                function FileTreeComponent(_githubService, _breadcrumbService, _router) {
+                    this._githubService = _githubService;
+                    this._breadcrumbService = _breadcrumbService;
+                    this._router = _router;
+                }
+                FileTreeComponent.prototype.select = function (item) {
+                    if (item.type === &#039;dir&#039;) {
+                        this._router.navigate([&#039;/files&#039;, this.selectedOrg, this.selectedRepoName, this.selectedBranch, &#039;tree&#039;, encodeURIComponent(item.path)]);
+                    }
+                    else {
+                        this._router.navigate([&#039;/files&#039;, this.selectedOrg, this.selectedRepoName, this.selectedBranch, &#039;detail&#039;, encodeURIComponent(item.path)]);
+                    }
+                };
+                FileTreeComponent.prototype.routerOnActivate = function (current, previous, tree) {
+                    var parent = tree.parent(current);
+                    this.selectedRepoName = parent.getParam(&#039;repo&#039;);
+                    this.selectedOrg = parent.getParam(&#039;org&#039;);
+                    this.selectedBranch = parent.getParam(&#039;branch&#039;);
+                    this.selectedPath = current.getParam(&#039;path&#039;);
+                };
+                FileTreeComponent.prototype.ngAfterViewInit = function () {
+                    if (!helpers_1.Utils.isNull(this.selectedPath)) {
+                        this.selectedPath = decodeURIComponent(this.selectedPath);
+                    }
+                    this._breadcrumbService.push(this.selectedPath);
+                    this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
+                };
+                FileTreeComponent = __decorate([
+                    core_1.Component({
+                        templateUrl: helpers_1.Path.template(view, &#039;file&#039;),
+                        styleUrls: [helpers_1.Path.style(view, &#039;file&#039;)],
+                        pipes: [pipes_1.SafeNamesPipe, pipes_1.MDFilterPipe]
+                    }), 
+                    __metadata(&#039;design:paramtypes&#039;, [services_1.GithubService, services_1.BreadcrumbService, router_1.Router])
+                ], FileTreeComponent);
+                return FileTreeComponent;
+            }());
+            exports_1(&quot;FileTreeComponent&quot;, FileTreeComponent);
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9maWxlL2ZpbGUtdHJlZS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OztRQU9JLElBQUk7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7WUFBSixJQUFJLEdBQUcsV0FBVyxDQUFDO1lBT3ZCO2dCQU9JLDJCQUNZLGNBQTZCLEVBQzdCLGtCQUFxQyxFQUNyQyxPQUFlO29CQUZmLG1CQUFjLEdBQWQsY0FBYyxDQUFlO29CQUM3Qix1QkFBa0IsR0FBbEIsa0JBQWtCLENBQW1CO29CQUNyQyxZQUFPLEdBQVAsT0FBTyxDQUFRO2dCQUUzQixDQUFDO2dCQUVELGtDQUFNLEdBQU4sVUFBTyxJQUFlO29CQUNsQixFQUFFLENBQUMsQ0FBQyxJQUFJLENBQUMsSUFBSSxLQUFLLEtBQUssQ0FBQyxDQUFDLENBQUM7d0JBQ3RCLElBQUksQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDLENBQUMsUUFBUSxFQUFFLElBQUksQ0FBQyxXQUFXLEVBQUUsSUFBSSxDQUFDLGdCQUFnQixFQUFFLElBQUksQ0FBQyxjQUFjLEVBQUUsTUFBTSxFQUFFLGtCQUFrQixDQUFDLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUM7b0JBQzNJLENBQUM7b0JBQ0QsSUFBSSxDQUFDLENBQUM7d0JBQ0YsSUFBSSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQyxRQUFRLEVBQUUsSUFBSSxDQUFDLFdBQVcsRUFBRSxJQUFJLENBQUMsZ0JBQWdCLEVBQUUsSUFBSSxDQUFDLGNBQWMsRUFBRSxRQUFRLEVBQUUsa0JBQWtCLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQztvQkFDN0ksQ0FBQztnQkFDTCxDQUFDO2dCQUVELDRDQUFnQixHQUFoQixVQUFpQixPQUFxQixFQUFFLFFBQXNCLEVBQUUsSUFBZTtvQkFDM0UsSUFBSSxNQUFNLEdBQUcsSUFBSSxDQUFDLE1BQU0sQ0FBQyxPQUFPLENBQUMsQ0FBQztvQkFDbEMsSUFBSSxDQUFDLGdCQUFnQixHQUFHLE1BQU0sQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUM7b0JBQ2hELElBQUksQ0FBQyxXQUFXLEdBQUcsTUFBTSxDQUFDLFFBQVEsQ0FBQyxLQUFLLENBQUMsQ0FBQztvQkFDMUMsSUFBSSxDQUFDLGNBQWMsR0FBRyxNQUFNLENBQUMsUUFBUSxDQUFDLFFBQVEsQ0FBQyxDQUFDO29CQUNoRCxJQUFJLENBQUMsWUFBWSxHQUFHLE9BQU8sQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLENBQUM7Z0JBQ2pELENBQUM7Z0JBRUQsMkNBQWUsR0FBZjtvQkFDSSxFQUFFLENBQUMsQ0FBQyxDQUFDLGVBQUssQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLFlBQVksQ0FBQyxDQUFDLENBQUMsQ0FBQzt3QkFBQyxJQUFJLENBQUMsWUFBWSxHQUFHLGtCQUFrQixDQUFDLElBQUksQ0FBQyxZQUFZLENBQUMsQ0FBQztvQkFBQyxDQUFDO29CQUNwRyxJQUFJLENBQUMsa0JBQWtCLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxZQUFZLENBQUMsQ0FBQztvQkFFaEQsSUFBSSxDQUFDLEtBQUssR0FBRyxJQUFJLENBQUMsY0FBYyxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFLElBQUksQ0FBQyxnQkFBZ0IsRUFBRSxJQUFJLENBQUMsY0FBYyxFQUFFLElBQUksQ0FBQyxZQUFZLENBQUMsQ0FBQztnQkFDNUgsQ0FBQztnQkExQ0w7b0JBQUMsZ0JBQVMsQ0FBQzt3QkFDUCxXQUFXLEVBQUUsY0FBSSxDQUFDLFFBQVEsQ0FBQyxJQUFJLEVBQUUsTUFBTSxDQUFDO3dCQUN4QyxTQUFTLEVBQUUsQ0FBQyxjQUFJLENBQUMsS0FBSyxDQUFDLElBQUksRUFBRSxNQUFNLENBQUMsQ0FBQzt3QkFDckMsS0FBSyxFQUFFLENBQUMscUJBQWEsRUFBRSxvQkFBWSxDQUFDO3FCQUN2QyxDQUFDOztxQ0FBQTtnQkF1Q0Ysd0JBQUM7WUFBRCxDQXJDQSxBQXFDQyxJQUFBO1lBckNELGlEQXFDQyxDQUFBIiwiZmlsZSI6ImFwcC9maWxlL2ZpbGUtdHJlZS5jb21wb25lbnQuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge0NvbXBvbmVudCwgQWZ0ZXJWaWV3SW5pdH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7T2JzZXJ2YWJsZX0gZnJvbSAncnhqcy9SeCc7XHJcbmltcG9ydCB7T25BY3RpdmF0ZSwgUm91dGVyLCBSb3V0ZVNlZ21lbnQsIFJvdXRlVHJlZX0gZnJvbSAnQGFuZ3VsYXIvcm91dGVyJztcclxuaW1wb3J0IHtHaXRodWJTZXJ2aWNlLCBCcmVhZGNydW1iU2VydmljZSwgSUJyZWFkY3J1bWIsIElDb250ZW50c30gZnJvbSAnLi4vc2hhcmVkL3NlcnZpY2VzJztcclxuaW1wb3J0IHtQYXRoLCBVdGlscywgU3RvcmFnZUhlbHBlcn0gZnJvbSAnLi4vc2hhcmVkL2hlbHBlcnMnO1xyXG5pbXBvcnQge1NhZmVOYW1lc1BpcGUsIE1ERmlsdGVyUGlwZX0gZnJvbSAnLi4vc2hhcmVkL3BpcGVzJztcclxuXHJcbmxldCB2aWV3ID0gJ2ZpbGUtdHJlZSc7XHJcbkBDb21wb25lbnQoe1xyXG4gICAgdGVtcGxhdGVVcmw6IFBhdGgudGVtcGxhdGUodmlldywgJ2ZpbGUnKSxcclxuICAgIHN0eWxlVXJsczogW1BhdGguc3R5bGUodmlldywgJ2ZpbGUnKV0sXHJcbiAgICBwaXBlczogW1NhZmVOYW1lc1BpcGUsIE1ERmlsdGVyUGlwZV1cclxufSlcclxuXHJcbmV4cG9ydCBjbGFzcyBGaWxlVHJlZUNvbXBvbmVudCBpbXBsZW1lbnRzIE9uQWN0aXZhdGUsIEFmdGVyVmlld0luaXQge1xyXG4gICAgc2VsZWN0ZWRPcmc6IHN0cmluZztcclxuICAgIHNlbGVjdGVkUmVwb05hbWU6IHN0cmluZztcclxuICAgIHNlbGVjdGVkQnJhbmNoOiBzdHJpbmc7XHJcbiAgICBzZWxlY3RlZFBhdGg6IHN0cmluZztcclxuICAgIGZpbGVzOiBPYnNlcnZhYmxlPElDb250ZW50c1tdPjtcclxuXHJcbiAgICBjb25zdHJ1Y3RvcihcclxuICAgICAgICBwcml2YXRlIF9naXRodWJTZXJ2aWNlOiBHaXRodWJTZXJ2aWNlLFxyXG4gICAgICAgIHByaXZhdGUgX2JyZWFkY3J1bWJTZXJ2aWNlOiBCcmVhZGNydW1iU2VydmljZSxcclxuICAgICAgICBwcml2YXRlIF9yb3V0ZXI6IFJvdXRlclxyXG4gICAgKSB7XHJcbiAgICB9XHJcblxyXG4gICAgc2VsZWN0KGl0ZW06IElDb250ZW50cykge1xyXG4gICAgICAgIGlmIChpdGVtLnR5cGUgPT09ICdkaXInKSB7XHJcbiAgICAgICAgICAgIHRoaXMuX3JvdXRlci5uYXZpZ2F0ZShbJy9maWxlcycsIHRoaXMuc2VsZWN0ZWRPcmcsIHRoaXMuc2VsZWN0ZWRSZXBvTmFtZSwgdGhpcy5zZWxlY3RlZEJyYW5jaCwgJ3RyZWUnLCBlbmNvZGVVUklDb21wb25lbnQoaXRlbS5wYXRoKV0pO1xyXG4gICAgICAgIH1cclxuICAgICAgICBlbHNlIHtcclxuICAgICAgICAgICAgdGhpcy5fcm91dGVyLm5hdmlnYXRlKFsnL2ZpbGVzJywgdGhpcy5zZWxlY3RlZE9yZywgdGhpcy5zZWxlY3RlZFJlcG9OYW1lLCB0aGlzLnNlbGVjdGVkQnJhbmNoLCAnZGV0YWlsJywgZW5jb2RlVVJJQ29tcG9uZW50KGl0ZW0ucGF0aCldKTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgcm91dGVyT25BY3RpdmF0ZShjdXJyZW50OiBSb3V0ZVNlZ21lbnQsIHByZXZpb3VzOiBSb3V0ZVNlZ21lbnQsIHRyZWU6IFJvdXRlVHJlZSkge1xyXG4gICAgICAgIHZhciBwYXJlbnQgPSB0cmVlLnBhcmVudChjdXJyZW50KTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkUmVwb05hbWUgPSBwYXJlbnQuZ2V0UGFyYW0oJ3JlcG8nKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkT3JnID0gcGFyZW50LmdldFBhcmFtKCdvcmcnKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkQnJhbmNoID0gcGFyZW50LmdldFBhcmFtKCdicmFuY2gnKTtcclxuICAgICAgICB0aGlzLnNlbGVjdGVkUGF0aCA9IGN1cnJlbnQuZ2V0UGFyYW0oJ3BhdGgnKTsgICAgICAgIFxyXG4gICAgfVxyXG5cclxuICAgIG5nQWZ0ZXJWaWV3SW5pdCgpIHtcclxuICAgICAgICBpZiAoIVV0aWxzLmlzTnVsbCh0aGlzLnNlbGVjdGVkUGF0aCkpIHsgdGhpcy5zZWxlY3RlZFBhdGggPSBkZWNvZGVVUklDb21wb25lbnQodGhpcy5zZWxlY3RlZFBhdGgpOyB9XHJcbiAgICAgICAgdGhpcy5fYnJlYWRjcnVtYlNlcnZpY2UucHVzaCh0aGlzLnNlbGVjdGVkUGF0aCk7XHJcblxyXG4gICAgICAgIHRoaXMuZmlsZXMgPSB0aGlzLl9naXRodWJTZXJ2aWNlLmZpbGVzKHRoaXMuc2VsZWN0ZWRPcmcsIHRoaXMuc2VsZWN0ZWRSZXBvTmFtZSwgdGhpcy5zZWxlY3RlZEJyYW5jaCwgdGhpcy5zZWxlY3RlZFBhdGgpO1xyXG4gICAgfVxyXG59Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
