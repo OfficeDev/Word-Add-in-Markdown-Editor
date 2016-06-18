@@ -1,17 +1,19 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, Routes, ROUTER_DIRECTIVES} from '@angular/router';
-import {GithubService, HamburgerService, IRepository, IBranch} from '../shared/services';
+import {GithubService, BreadcrumbService, HamburgerService, IRepository, IBranch, IBreadcrumb} from '../shared/services';
 import {FileTreeComponent} from './file-tree.component';
 import {FileDetailComponent} from './file-detail.component';
 import {Path, Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
+import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component';
 
 @Component({
     templateUrl: Path.template('file-list', 'file'),
     styleUrls: [Path.style('file-list', 'file')],
     pipes: [SafeNamesPipe],
-    directives: [ROUTER_DIRECTIVES]
+    directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
+    providers: [BreadcrumbService]
 })
 
 @Routes([
@@ -34,7 +36,9 @@ export class FileListComponent implements OnActivate {
     constructor(
         private _githubService: GithubService,
         private _hamburgerService: HamburgerService,
-        private _router: Router) {
+        private _router: Router
+    ) {
+        
     }
 
     selectBranch() {
@@ -48,6 +52,11 @@ export class FileListComponent implements OnActivate {
             name: current.getParam('branch') || 'master'
         }
         this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
+    }
+
+    navigate(breadcrumb: IBreadcrumb) {
+        var path = Utils.isNull(breadcrumb.href) ? null : encodeURIComponent(breadcrumb.href);
+        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', path]);
     }
 
     showMenu() {

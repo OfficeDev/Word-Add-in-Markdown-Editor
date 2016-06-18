@@ -22,7 +22,7 @@ var gulp = require('gulp'),
             dest: './wwwroot'
         },
         autoprefixer: {
-            browsers: ['> 1%']
+            browsers: ['safari 8']
         },
         browserSync: {
             https: {
