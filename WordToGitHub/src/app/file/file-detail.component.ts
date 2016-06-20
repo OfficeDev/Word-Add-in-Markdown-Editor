@@ -30,32 +30,40 @@ export class FileDetailComponent implements OnActivate {
         this.selectedBranch = parent.getParam('branch');
         this.selectedPath = decodeURIComponent(current.getParam('path'));
         this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
-            this._wordService.insertHtml(file);                
-        });          
+            this._wordService.insertHtml(file);
+        });
     }
 
     push() {
-        this._wordService.getMarkdown()
-            .then((md) => {
-                var mdView = new StringView(md, "UTF-8");
-                var b64md = mdView.toBase64();
-                b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
+         this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+            .subscribe((file) => {
+                this._wordService.getMarkdown()
+                    .then((md) => {
 
-                var body = {
-                    message: "Initial commit",
-                    content: b64md,
-                    branch: this.selectedBranch,
-                    sha: "",
-                    committer: {
-                        name: this._githubService.profile.user.name,
-                        email: 'umas@microsoft.com'
-                    }
-                };
+                        md = md.replace(/(<div class="WordSection1">\n)/gmi, '');
 
-                return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
-                    .subscribe(response => {
-                        if (Utils.isEmpty(response)) return;
-                        console.log(response);
+                        md = md.replace(/(\n<\/div>)/gmi, '');
+
+                        var mdView = new StringView(md, "UTF-8");
+                        var b64md = mdView.toBase64();
+                        b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
+
+                        var body = {
+                            message: "Initial commit",
+                            content: b64md,
+                            branch: this.selectedBranch,
+                            sha: file.sha,
+                            committer: {
+                                name: this._githubService.profile.user.name,
+                                email: 'umas@microsoft.com'
+                            }
+                        };
+
+                        return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
+                            .subscribe(response => {
+                                if (Utils.isEmpty(response)) return;
+                                console.log(response);
+                            });
                     });
             });
     }

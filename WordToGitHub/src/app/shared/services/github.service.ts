@@ -42,6 +42,12 @@ export class GithubService {
         return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
     }
 
+    getSha(orgName: string, repoName: string, branchName: string, path?: string): Observable<IContents> {
+        var url = "https://api.github.com/repos/" + orgName + "/" + repoName + "/contents";
+        if (!Utils.isNull(path)) { url += "/" + path; }
+        return this._request.get<IContents>(url + "?ref=" + branchName) as Observable<IContents>;
+    }
+
     updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
         return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
     }
