@@ -44,13 +44,21 @@ export class WordService {
     }
 
     getMarkdown() {
+        var markdown;
         if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
-                var md = this._markDownService.previewMarkdown(html.value);
-                return md;
+                markdown = this._markDownService.previewMarkdown(html.value)
+                    //.subscribe((md) => {
+                    //    var pattern1 = new RegExp('(<div class="WordSection1">\n)');
+                    //    md.replace(pattern1, '');
+                    //    var pattern2 = new RegExp('(\n<\/div>)');
+                    //    md.replace(pattern2, '');
+                    //    markdown = md; 
+                    //});
+                return markdown;
             });
         })
     }
