@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
-import marked from 'marked'; 
+import marked from 'marked';
+import {Observable} from 'rxjs';
 
 declare var toMarkdown: any;
 
@@ -12,6 +13,23 @@ export class WordService {
         private _markDownService: MarkdownService
     ) {
 
+    }
+
+    insertTemplate(type: string) {
+        this._githubService
+            .getFileData(type)
+            .subscribe(
+            md => {
+                var html = this._markDownService.convertToHtml(md);
+                return this.insertHtml(html)
+            },
+            error => {
+                console.error(error);
+            },
+            () => {
+                console.info('completed inserting tempte');
+            }
+            );
     }
 
     insertHtml(html: string) {
@@ -51,13 +69,6 @@ export class WordService {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
                 markdown = this._markDownService.previewMarkdown(html.value)
-                    //.subscribe((md) => {
-                    //    var pattern1 = new RegExp('(<div class="WordSection1">\n)');
-                    //    md.replace(pattern1, '');
-                    //    var pattern2 = new RegExp('(\n<\/div>)');
-                    //    md.replace(pattern2, '');
-                    //    markdown = md; 
-                    //});
                 return markdown;
             });
         })

@@ -24,7 +24,7 @@ export class GithubService {
     }
 
     repos(orgName: string, personal: boolean): Observable<IRepository[]> {
-        var url = personal ? "https://api.github.com/user/repos" : "https://api.github.com/orgs/" + orgName + "/repos";
+        var url = personal ? "https://api.github.com/user/repos?affiliation=owner,collaborator&sort=updated" : "https://api.github.com/orgs/" + orgName + "/repos";
         return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
     }
 
@@ -48,8 +48,29 @@ export class GithubService {
         return this._request.get<IContents>(url + "?ref=" + branchName) as Observable<IContents>;
     }
 
+    createFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
+    }
+
     updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
         return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
+    }
+
+    getFileData(type: string): Observable<string> {
+        var url;
+        switch (type) {
+            case 'Code sample readme':
+                url = 'assets/templates/readme-code-sample.md';
+                break;
+            case 'API spec':
+                url = 'assets/templates/object-definition.md';
+                break;
+            case 'Conceptual article':
+                url = 'assets/templates/conceptual-article.md';
+                break;
+
+        }
+         return this._request.raw(url) as Observable<string>;
     }
 
     login(): Observable<IUserProfile> {
