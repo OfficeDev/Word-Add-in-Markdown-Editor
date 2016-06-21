@@ -48,9 +48,18 @@ export class WordService {
         if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
-            var html = context.document.body.getHtml();
+            var htmlObj = context.document.body.getHtml();
             return context.sync().then(() => {
-                markdown = this._markDownService.previewMarkdown(html.value)
+                var html = htmlObj.value;
+                html = html.replace(/<table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0\\n.style='border-collapse:collapse;border:none'>/, '<table><thead>');
+                html = html.replace(/(<td valign=top style='border:solid #5B9BD5 1.0pt;border-right:none;\n..background:#5B9BD5;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;\nmargin-bottom:.0001pt;line-height:\n..normal'><span style='color:white'>)/gmi, '<th align="left">');
+                html = html.replace(/<th align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</th>');
+                html = html.replace(/(<td valign=top style='border:solid #9CC2E5 1.0pt;border-top:none;background:\n..#DEEAF6;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:\n..normal'><b>)/gmi, '<td align="left">');
+                html = html.replace(/<td align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</td>');
+                html = html.replace(/(<\/th>\n.<\/tr>\n.<tr>\n..<td)/gmi, '</th></tr></thead><tbody><tr><td');
+                html = html.replace(/<\/tr>\n<\/table>/gmi, '</tr></tbody></table>');
+
+                markdown = this._markDownService.previewMarkdown(html)
                     //.subscribe((md) => {
                     //    var pattern1 = new RegExp('(<div class="WordSection1">\n)');
                     //    md.replace(pattern1, '');
