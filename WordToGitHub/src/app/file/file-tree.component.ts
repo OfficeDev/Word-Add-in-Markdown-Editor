@@ -1,11 +1,12 @@
 import {Component, AfterViewInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
-import {GithubService, BreadcrumbService, IBreadcrumb, IContents} from '../shared/services';
+import {GithubService, BreadcrumbService, IBreadcrumb, IContents, WordService} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
+
 @Component({
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
@@ -19,9 +20,11 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
     selectedPath: string;
     files: Observable<IContents[]>;
 
+
     constructor(
         private _githubService: GithubService,
         private _breadcrumbService: BreadcrumbService,
+        private _wordService: WordService,
         private _router: Router
     ) {
     }
@@ -35,12 +38,42 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         }
     }
 
+    createFile() {
+        var path;
+        var fileName = "TestFileFromCreate.md";
+        var templateType = 'Code sample readme';
+
+        if (Utils.isNull(this.selectedPath)) {
+            path = fileName;
+        }
+        else {
+            path = this.selectedPath + "/"+ fileName;
+        }
+
+        var body = {
+            message: "Initial commit",
+            content: "",
+            branch: this.selectedBranch,
+            committer: {
+                name: this._githubService.profile.user.name,
+                email: 'umas@microsoft.com'
+            }
+        };
+        return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
+            .subscribe(response => {
+                this._wordService.insertTemplate(templateType);
+                if (Utils.isEmpty(response)) return;
+                console.log(response);
+            });   
+                      
+    }
+
     routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
         var parent = tree.parent(current);
         this.selectedRepoName = parent.getParam('repo');
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = current.getParam('path');        
+        this.selectedPath = current.getParam('path');       
     }
 
     ngAfterViewInit() {

@@ -1,14 +1,13 @@
 import {Component} from '@angular/core';
 import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
-import {GithubService, WordService, MarkdownService} from '../shared/services';
+import {GithubService, WordService} from '../shared/services';
 
 declare var StringView: any;
 let view = 'file-detail';
 @Component({
     templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')],
-    providers: [WordService, MarkdownService]
+    styleUrls: [Path.style(view, 'file')]
 })
 
 export class FileDetailComponent implements OnActivate {
