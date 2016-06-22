@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs/Rx';
 import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
 import {GithubService, WordService} from '../shared/services';
@@ -10,11 +11,12 @@ let view = 'file-detail';
     styleUrls: [Path.style(view, 'file')]
 })
 
-export class FileDetailComponent implements OnActivate {
+export class FileDetailComponent implements OnActivate, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
+    subscriptions: Subscription[];
 
     constructor(
         private _router: Router,
@@ -22,19 +24,26 @@ export class FileDetailComponent implements OnActivate {
         private _wordService: WordService
     ) { }
 
+    ngOnDestroy() {
+        _.each(this.subscriptions, subscription => subscription.unsubscribe());
+    }
+
     routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
         var parent = tree.parent(current);
         this.selectedRepoName = parent.getParam('repo');
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
         this.selectedPath = decodeURIComponent(current.getParam('path'));
-        this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
+
+        var subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
             this._wordService.insertHtml(file);
         });
+
+        this.subscriptions.push(subscription);
     }
 
     push() {
-        this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+        var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
                     .then((md) => {
@@ -60,5 +69,7 @@ export class FileDetailComponent implements OnActivate {
                             });
                     });
             });
+
+        this.subscriptions.push(subscription);
     }
 }
