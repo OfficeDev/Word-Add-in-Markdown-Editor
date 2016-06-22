@@ -73,7 +73,7 @@ export class GithubService {
          return this._request.raw(url) as Observable<string>;
     }
 
-    login(): Observable<IUserProfile> {
+    login(): Promise<IUserProfile> {
         if (!Utils.isWord) return;
 
         return new Promise(this._showAuthDialog.bind(this));
