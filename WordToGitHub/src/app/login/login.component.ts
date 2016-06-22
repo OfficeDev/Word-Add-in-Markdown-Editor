@@ -1,7 +1,7 @@
 ﻿import {Component} from '@angular/core';
 import {GithubService, IRepository} from '../shared/services';
 import {Router} from '@angular/router';
-import {Path} from '../shared/helpers';
+import {Path, Utils} from '../shared/helpers';
 
 let view = 'login';
 @Component({
@@ -19,6 +19,9 @@ export class LoginComponent {
 
     login() {
         this._githubService.login()
-            .subscribe(profile => { this._router.navigate(['/profile']) });
+            .then(profile => {
+                this._router.navigate(['/profile']);
+            })
+            .catch(Utils.error);
     }
 }

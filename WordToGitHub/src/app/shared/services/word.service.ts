@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
 import marked from 'marked';
-import {Observable} from 'rxjs';
 
 declare var toMarkdown: any;
 
@@ -62,14 +61,12 @@ export class WordService {
     }
 
     getMarkdown() {
-        var markdown;
         if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
-                markdown = this._markDownService.previewMarkdown(html.value)
-                return markdown;
+                return this._markDownService.previewMarkdown(html.value);
             });
         })
     }
@@ -101,7 +98,6 @@ export class WordService {
             return context.sync()
                 .then(() => {
                     var para = paras.items[2] as any;
-                    console.log(para);
                     var list = para.startNewList();
                     list.load();
                     return context.sync().then(() => {
@@ -122,7 +118,6 @@ export class WordService {
             tables.load("style");
             return context.sync().then(() => {
                 _.each(tables.items, (table: any) => {
-                    console.log(table.style);
                     table.style = "Grid Table 4 - Accent 1";
                 });
                 return context.sync();

@@ -26,6 +26,14 @@ export class Utils {
         };
     }
 
+    static regex(source: string): (key: RegExp, value: string) => any {
+        return function self(key: RegExp, value: string): any {
+            if (!key) return source;
+            source = source.replace(key, value);
+            return self;
+        };
+    }
+
     static isNull(obj: any): boolean {
         return _.isUndefined(obj) || _.isNull(obj);
     }
