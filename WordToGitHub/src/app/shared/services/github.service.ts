@@ -24,7 +24,7 @@ export class GithubService {
     }
 
     repos(orgName: string, personal: boolean): Observable<IRepository[]> {
-        var url = personal ? "https://api.github.com/user/repos" : "https://api.github.com/orgs/" + orgName + "/repos";
+        var url = personal ? "https://api.github.com/user/repos?affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos";
         return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
     }
 
@@ -52,12 +52,10 @@ export class GithubService {
         return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
     }
 
-    login(): Observable<IUserProfile> {
+    login(): Promise<IUserProfile> {
         if (!Utils.isWord) return;
 
-        return Observable.create((observer: Observer<IUserProfile>) => {
-            this._showAuthDialog(observer);
-        });
+        return new Promise(this._showAuthDialog.bind(this));
     }
 
     logout() {
@@ -83,7 +81,7 @@ export class GithubService {
         }
     }
 
-    private _showAuthDialog(observer: Observer<IUserProfile>) {
+    private _showAuthDialog(resolve, reject) {
         var context = Office.context as any;
         context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
             result => {
@@ -93,33 +91,33 @@ export class GithubService {
 
                     try {
                         if (Utils.isEmpty(args.message)) {
-                            observer.error("No token received");
+                            reject("No token received");
                         }
 
                         if (args.message.indexOf('access_token') == -1) {
-                            observer.error(JSON.parse(args.message));
+                            reject(JSON.parse(args.message));
                         }
 
                         let token = this._request.token(JSON.parse(args.message));
                         if (Utils.isNull(token)) {
-                            observer.error("Unable to parse token");
+                            reject("Unable to parse token");
                         }
 
-                        this.user().subscribe(userMetadata => {
-                            this.orgs(userMetadata.login).subscribe(orgs => {
-                                this.profile = <IUserProfile>{
-                                    user: userMetadata,
-                                    orgs: orgs,
-                                    token: token
-                                };
+                        this.user().toPromise().then(userMetadata => {
+                            this.orgs(userMetadata.login).toPromise()
+                                .then(orgs => {
+                                    this.profile = <IUserProfile>{
+                                        user: userMetadata,
+                                        orgs: orgs,
+                                        token: token
+                                    };
 
-                                observer.next(this.profile);
-                                observer.complete();
-                            }, error => Utils.error(error));
-                        }, error => Utils.error(error));
+                                    resolve(this.profile);
+                                }, error => reject);
+                        }, error => reject);
                     }
                     catch (exception) {
-                        Utils.error(exception);
+                        reject(exception);
                     }
                 });
             });

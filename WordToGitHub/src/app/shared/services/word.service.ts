@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
-import marked from 'marked'; 
+import marked from 'marked';
 
 declare var toMarkdown: any;
 
@@ -44,29 +44,12 @@ export class WordService {
     }
 
     getMarkdown() {
-        var markdown;
         if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
             var htmlObj = context.document.body.getHtml();
-            return context.sync().then(() => {
-                var html = htmlObj.value;
-                html = html.replace(/<table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0\\n.style='border-collapse:collapse;border:none'>/, '<table><thead>');
-                html = html.replace(/(<td valign=top style='border:solid #5B9BD5 1.0pt;border-right:none;\n..background:#5B9BD5;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;\nmargin-bottom:.0001pt;line-height:\n..normal'><span style='color:white'>)/gmi, '<th align="left">');
-                html = html.replace(/<th align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</th>');
-                html = html.replace(/(<td valign=top style='border:solid #9CC2E5 1.0pt;border-top:none;background:\n..#DEEAF6;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:\n..normal'><b>)/gmi, '<td align="left">');
-                html = html.replace(/<td align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</td>');
-                html = html.replace(/(<\/th>\n.<\/tr>\n.<tr>\n..<td)/gmi, '</th></tr></thead><tbody><tr><td');
-                html = html.replace(/<\/tr>\n<\/table>/gmi, '</tr></tbody></table>');
-
-                markdown = this._markDownService.previewMarkdown(html)
-                    //.subscribe((md) => {
-                    //    var pattern1 = new RegExp('(<div class="WordSection1">\n)');
-                    //    md.replace(pattern1, '');
-                    //    var pattern2 = new RegExp('(\n<\/div>)');
-                    //    md.replace(pattern2, '');
-                    //    markdown = md; 
-                    //});
+            return context.sync().then(() => {                
+                var markdown = this._markDownService.previewMarkdown(htmlObj.value)                
                 return markdown;
             });
         })
@@ -99,7 +82,6 @@ export class WordService {
             return context.sync()
                 .then(() => {
                     var para = paras.items[2] as any;
-                    console.log(para);
                     var list = para.startNewList();
                     list.load();
                     return context.sync().then(() => {
@@ -120,7 +102,6 @@ export class WordService {
             tables.load("style");
             return context.sync().then(() => {
                 _.each(tables.items, (table: any) => {
-                    console.log(table.style);
                     table.style = "Grid Table 4 - Accent 1";
                 });
                 return context.sync();
