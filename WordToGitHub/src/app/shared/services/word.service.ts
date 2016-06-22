@@ -14,6 +14,23 @@ export class WordService {
 
     }
 
+    insertTemplate(type: string) {
+        this._githubService
+            .getFileData(type)
+            .subscribe(
+            md => {
+                var html = this._markDownService.convertToHtml(md);
+                return this.insertHtml(html)
+            },
+            error => {
+                console.error(error);
+            },
+            () => {
+                console.info('completed inserting tempte');
+            }
+            );
+    }
+
     insertHtml(html: string) {
         if (Utils.isEmpty(html)) return Promise.reject(null);
 
@@ -47,10 +64,9 @@ export class WordService {
         if (!Utils.isWord) return;
 
         return this._run<string>((context) => {
-            var htmlObj = context.document.body.getHtml();
-            return context.sync().then(() => {                
-                var markdown = this._markDownService.previewMarkdown(htmlObj.value)                
-                return markdown;
+            var html = context.document.body.getHtml();
+            return context.sync().then(() => {
+                return this._markDownService.previewMarkdown(html.value);
             });
         })
     }

@@ -1,5 +1,4 @@
-﻿<h2 class="file-tree-component__title ms-font-l ms-fontWeight-light">{{selectedPath || '/'}}</h2>
-<ul class="ms-List">
+﻿<ul class="ms-List">
     <li class="file-tree-component__message ms-font-m" *ngIf="(files| async| mdfilter)?.length == 0">Seems like there are no 'Markdown' files in this repository. You could either create one or choose a different repository.</li>
     <li class="file-tree-item ms-ListItem" *ngFor="let file of (files | async | mdfilter)">
         <div class="file-tree-item__icon"><i class="ms-Icon" [ngClass]="file.type === 'dir' ? 'ms-Icon-large ms-Icon--folder' : 'ms-Icon-large ms-Icon--document'"></i></div>
@@ -8,16 +7,16 @@
         </div>
     </li>
     <li class="file-tree-item--separator"></li>
-    <li class="file-tree-item file-tree-item--alternate ms-ListItem">
+    <li class="file-tree-item file-tree-item--alternate ms-ListItem" (click)="createFile()" >
         <div class="file-tree-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themePrimary ms-Icon--plus"></i></div>
         <div class="file-tree-item__content">
-            <p class="file-tree-item__primary-text ms-ListItem-primaryText ms-fontColor-themePrimary ms-font-m">Add a new file</p>
+            <p class="file-tree-item__primary-text ms-ListItem-primaryText ms-fontColor-themePrimary ms-font-m" >Add a new file</p>
         </div>
     </li>
-    <li class="file-tree-item file-tree-item--alternate ms-ListItem">
+    <!--<li class="file-tree-item file-tree-item--alternate ms-ListItem">
         <div class="file-tree-item__icon"><i class="ms-Icon ms-Icon-large ms-fontColor-themePrimary ms-Icon--plus"></i></div>
         <div class="file-tree-item__content">
             <p class="file-tree-item__primary-text ms-ListItem-primaryText ms-fontColor-themePrimary ms-font-m">Add a new folder</p>
         </div>
-    </li>
+    </li>-->
 </ul>

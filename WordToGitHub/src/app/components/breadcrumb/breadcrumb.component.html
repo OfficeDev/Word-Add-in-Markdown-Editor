@@ -1,0 +1,11 @@
+﻿<section class="breadcrumb-component">
+    <ul class="breadcrumb-component__list">
+        <li tabindex="1" class="breadcrumb-component__list-item breadcrumb-component__list-item--ellipsis-container ms-font-m" *ngIf="overflownBreadcrumbs?.length>0">
+            <i class="breadcrumb-component__ellipsis ms-Icon ms-Icon--ellipsis" ></i>
+            <ul class="breadcrumb-component__list breadcrumb-component__list--overflow">
+                <li tabindex="1" class="breadcrumb-component__list-item ms-font-m" *ngFor="let breadcrumb of overflownBreadcrumbs" (click)="click(breadcrumb)">{{breadcrumb.text}}</li>
+            </ul>   
+        </li>
+        <li tabindex="1" class="breadcrumb-component__list-item ms-font-m" *ngFor="let breadcrumb of breadcrumbs" (click)="click(breadcrumb)">{{breadcrumb.text}}</li>
+    </ul>
+</section>

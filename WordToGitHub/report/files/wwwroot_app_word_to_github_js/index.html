@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\word-to-github.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\word-to-github.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.23</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">77</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">29.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.85</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;@angular/core&#039;, &#039;@angular/router&#039;, &#039;./shared/services&#039;, &#039;./shared/helpers&#039;, &quot;./components&quot;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c &lt; 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.decorate === &quot;function&quot;) r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i &gt;= 0; i--) if (d = decorators[i]) r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;
+        return c &gt; 3 &amp;&amp; r &amp;&amp; Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.metadata === &quot;function&quot;) return Reflect.metadata(k, v);
+    };
+    var core_1, router_1, services_1, helpers_1, components_1;
+    var WordToGithubComponent;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (services_1_1) {
+                services_1 = services_1_1;
+            },
+            function (helpers_1_1) {
+                helpers_1 = helpers_1_1;
+            },
+            function (components_1_1) {
+                components_1 = components_1_1;
+            }],
+        execute: function() {
+            WordToGithubComponent = (function () {
+                function WordToGithubComponent(_router, _githubService) {
+                    this._router = _router;
+                    this._githubService = _githubService;
+                }
+                WordToGithubComponent.prototype.ngOnInit = function () {
+                    if (helpers_1.Utils.isNull(this._githubService.profile)) {
+                        this._router.navigate([&#039;/login&#039;]);
+                    }
+                    else {
+                        this._router.navigate([&#039;/profile&#039;]);
+                    }
+                };
+                WordToGithubComponent = __decorate([
+                    core_1.Component({
+                        selector: &#039;word-to-github&#039;,
+                        template: &quot;&lt;div class=\&quot;wg-container\&quot;&gt;\n        &lt;hamburger&gt;&lt;/hamburger&gt;\n        &lt;main class=\&quot;wg-container__main ms-font-m ms-fontColor-neutralPrimary\&quot;&gt;\n            &lt;router-outlet&gt;&lt;/router-outlet&gt;\n        &lt;/main&gt;\n        &lt;footer class=\&quot;wg-container__footer\&quot;&gt;&lt;/footer&gt;\n     &lt;/div&gt;&quot;,
+                        directives: [components_1.HamburgerComponent, router_1.ROUTER_DIRECTIVES]
+                    }),
+                    router_1.Routes([
+                        {
+                            path: &#039;/profile&#039;,
+                            component: components_1.HamburgerComponent
+                        },
+                        {
+                            path: &#039;/login&#039;,
+                            component: components_1.LoginComponent
+                        },
+                        {
+                            path: &#039;/repos/:org&#039;,
+                            component: components_1.RepoComponent
+                        },
+                        {
+                            path: &#039;/files/:org/:repo/:branch&#039;,
+                            component: components_1.FileListComponent
+                        }
+                    ]), 
+                    __metadata(&#039;design:paramtypes&#039;, [router_1.Router, services_1.GithubService])
+                ], WordToGithubComponent);
+                return WordToGithubComponent;
+            }());
+            exports_1(&quot;WordToGithubComponent&quot;, WordToGithubComponent);
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC93b3JkLXRvLWdpdGh1Yi50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztZQXdDQTtnQkFDSSwrQkFDWSxPQUFlLEVBQ2YsY0FBNkI7b0JBRDdCLFlBQU8sR0FBUCxPQUFPLENBQVE7b0JBQ2YsbUJBQWMsR0FBZCxjQUFjLENBQWU7Z0JBQ3JDLENBQUM7Z0JBRUwsd0NBQVEsR0FBUjtvQkFDSSxFQUFFLENBQUMsQ0FBQyxlQUFLLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxjQUFjLENBQUMsT0FBTyxDQUFDLENBQUMsQ0FBQyxDQUFDO3dCQUM1QyxJQUFJLENBQUMsT0FBTyxDQUFDLFFBQVEsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUM7b0JBQ3RDLENBQUM7b0JBQ0QsSUFBSSxDQUFDLENBQUM7d0JBQ0YsSUFBSSxDQUFDLE9BQU8sQ0FBQyxRQUFRLENBQUMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDO29CQUN4QyxDQUFDO2dCQUNMLENBQUM7Z0JBN0NMO29CQUFDLGdCQUFTLENBQUM7d0JBQ1AsUUFBUSxFQUFFLGdCQUFnQjt3QkFDMUIsUUFBUSxFQUNSLHVSQU1RO3dCQUNSLFVBQVUsRUFBRSxDQUFDLCtCQUFrQixFQUFFLDBCQUFpQixDQUFDO3FCQUN0RCxDQUFDO29CQUVELGVBQU0sQ0FBQzt3QkFDSjs0QkFDSSxJQUFJLEVBQUUsVUFBVTs0QkFDaEIsU0FBUyxFQUFFLCtCQUFrQjt5QkFDaEM7d0JBQ0Q7NEJBQ0ksSUFBSSxFQUFFLFFBQVE7NEJBQ2QsU0FBUyxFQUFFLDJCQUFjO3lCQUM1Qjt3QkFDRDs0QkFDSSxJQUFJLEVBQUUsYUFBYTs0QkFDbkIsU0FBUyxFQUFFLDBCQUFhO3lCQUMzQjt3QkFDRDs0QkFDSSxJQUFJLEVBQUUsMkJBQTJCOzRCQUNqQyxTQUFTLEVBQUUsOEJBQWlCO3lCQUMvQjtxQkFDSixDQUFDOzt5Q0FBQTtnQkFnQkYsNEJBQUM7WUFBRCxDQWRBLEFBY0MsSUFBQTtZQWRELHlEQWNDLENBQUEiLCJmaWxlIjoiYXBwL3dvcmQtdG8tZ2l0aHViLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtDb21wb25lbnQsIE9uSW5pdH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7Uk9VVEVSX0RJUkVDVElWRVMsIFJvdXRlciwgUm91dGVzfSBmcm9tICdAYW5ndWxhci9yb3V0ZXInO1xyXG5cclxuaW1wb3J0IHtHaXRodWJTZXJ2aWNlfSBmcm9tICcuL3NoYXJlZC9zZXJ2aWNlcyc7XHJcbmltcG9ydCB7VXRpbHN9IGZyb20gJy4vc2hhcmVkL2hlbHBlcnMnO1xyXG5cclxuaW1wb3J0IHtSZXBvQ29tcG9uZW50LCBIYW1idXJnZXJDb21wb25lbnQsIEZpbGVMaXN0Q29tcG9uZW50LCBMb2dpbkNvbXBvbmVudH0gZnJvbSBcIi4vY29tcG9uZW50c1wiO1xyXG5cclxuQENvbXBvbmVudCh7XHJcbiAgICBzZWxlY3RvcjogJ3dvcmQtdG8tZ2l0aHViJyxcclxuICAgIHRlbXBsYXRlOlxyXG4gICAgYDxkaXYgY2xhc3M9XCJ3Zy1jb250YWluZXJcIj5cclxuICAgICAgICA8aGFtYnVyZ2VyPjwvaGFtYnVyZ2VyPlxyXG4gICAgICAgIDxtYWluIGNsYXNzPVwid2ctY29udGFpbmVyX19tYWluIG1zLWZvbnQtbSBtcy1mb250Q29sb3ItbmV1dHJhbFByaW1hcnlcIj5cclxuICAgICAgICAgICAgPHJvdXRlci1vdXRsZXQ+PC9yb3V0ZXItb3V0bGV0PlxyXG4gICAgICAgIDwvbWFpbj5cclxuICAgICAgICA8Zm9vdGVyIGNsYXNzPVwid2ctY29udGFpbmVyX19mb290ZXJcIj48L2Zvb3Rlcj5cclxuICAgICA8L2Rpdj5gLFxyXG4gICAgZGlyZWN0aXZlczogW0hhbWJ1cmdlckNvbXBvbmVudCwgUk9VVEVSX0RJUkVDVElWRVNdXHJcbn0pXHJcblxyXG5AUm91dGVzKFtcclxuICAgIHtcclxuICAgICAgICBwYXRoOiAnL3Byb2ZpbGUnLFxyXG4gICAgICAgIGNvbXBvbmVudDogSGFtYnVyZ2VyQ29tcG9uZW50XHJcbiAgICB9LFxyXG4gICAge1xyXG4gICAgICAgIHBhdGg6ICcvbG9naW4nLFxyXG4gICAgICAgIGNvbXBvbmVudDogTG9naW5Db21wb25lbnRcclxuICAgIH0sXHJcbiAgICB7XHJcbiAgICAgICAgcGF0aDogJy9yZXBvcy86b3JnJyxcclxuICAgICAgICBjb21wb25lbnQ6IFJlcG9Db21wb25lbnRcclxuICAgIH0sXHJcbiAgICB7XHJcbiAgICAgICAgcGF0aDogJy9maWxlcy86b3JnLzpyZXBvLzpicmFuY2gnLFxyXG4gICAgICAgIGNvbXBvbmVudDogRmlsZUxpc3RDb21wb25lbnRcclxuICAgIH1cclxuXSlcclxuXHJcbmV4cG9ydCBjbGFzcyBXb3JkVG9HaXRodWJDb21wb25lbnQgaW1wbGVtZW50cyBPbkluaXQge1xyXG4gICAgY29uc3RydWN0b3IoXHJcbiAgICAgICAgcHJpdmF0ZSBfcm91dGVyOiBSb3V0ZXIsXHJcbiAgICAgICAgcHJpdmF0ZSBfZ2l0aHViU2VydmljZTogR2l0aHViU2VydmljZVxyXG4gICAgKSB7IH1cclxuXHJcbiAgICBuZ09uSW5pdCgpIHtcclxuICAgICAgICBpZiAoVXRpbHMuaXNOdWxsKHRoaXMuX2dpdGh1YlNlcnZpY2UucHJvZmlsZSkpIHtcclxuICAgICAgICAgICAgdGhpcy5fcm91dGVyLm5hdmlnYXRlKFsnL2xvZ2luJ10pO1xyXG4gICAgICAgIH1cclxuICAgICAgICBlbHNlIHtcclxuICAgICAgICAgICAgdGhpcy5fcm91dGVyLm5hdmlnYXRlKFsnL3Byb2ZpbGUnXSk7ICAgIFxyXG4gICAgICAgIH1cclxuICAgIH1cclxufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

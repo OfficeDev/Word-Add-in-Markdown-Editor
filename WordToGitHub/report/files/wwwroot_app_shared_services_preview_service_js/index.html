@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\shared\services\preview.service.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\shared\services\preview.service.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">77.57</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">32</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">11.51</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.23</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;../helpers&#039;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var helpers_1;
+    var PreviewService;
+    return {
+        setters:[
+            function (helpers_1_1) {
+                helpers_1 = helpers_1_1;
+            }],
+        execute: function() {
+            PreviewService = (function () {
+                function PreviewService() {
+                    this._storage = new helpers_1.StorageHelper(&#039;MarkdownPreview&#039;);
+                }
+                PreviewService.prototype.showPreview = function () {
+                    if (!helpers_1.Utils.isWord)
+                        return;
+                    var md = this._storage.get(&#039;preview&#039;);
+                    $(&#039;#spinnerContainer&#039;).hide();
+                    $(&#039;#previewContainer&#039;).show();
+                    $(&#039;#preview&#039;).text(md);
+                };
+                return PreviewService;
+            }());
+            $(document).ready(function () {
+                var previewService = new PreviewService();
+                previewService.showPreview();
+            });
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9zaGFyZWQvc2VydmljZXMvcHJldmlldy5zZXJ2aWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O1lBRUE7Z0JBSUk7b0JBQ0ksSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLHVCQUFhLENBQVMsaUJBQWlCLENBQUMsQ0FBQztnQkFDakUsQ0FBQztnQkFFRCxvQ0FBVyxHQUFYO29CQUNJLEVBQUUsQ0FBQyxDQUFDLENBQUMsZUFBSyxDQUFDLE1BQU0sQ0FBQzt3QkFBQyxNQUFNLENBQUM7b0JBQzFCLElBQUksRUFBRSxHQUFHLElBQUksQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFDLFNBQVMsQ0FBQyxDQUFDO29CQUN0QyxDQUFDLENBQUMsbUJBQW1CLENBQUMsQ0FBQyxJQUFJLEVBQUUsQ0FBQztvQkFDOUIsQ0FBQyxDQUFDLG1CQUFtQixDQUFDLENBQUMsSUFBSSxFQUFFLENBQUM7b0JBQzlCLENBQUMsQ0FBQyxVQUFVLENBQUMsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUM7Z0JBQzNCLENBQUM7Z0JBQ0wscUJBQUM7WUFBRCxDQWZBLEFBZUMsSUFBQTtZQUVELENBQUMsQ0FBQyxRQUFRLENBQUMsQ0FBQyxLQUFLLENBQUM7Z0JBQ2QsSUFBSSxjQUFjLEdBQUcsSUFBSSxjQUFjLEVBQUUsQ0FBQztnQkFDMUMsY0FBYyxDQUFDLFdBQVcsRUFBRSxDQUFDO1lBQ2pDLENBQUMsQ0FBQyxDQUFDIiwiZmlsZSI6ImFwcC9zaGFyZWQvc2VydmljZXMvcHJldmlldy5zZXJ2aWNlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtVdGlscywgU3RvcmFnZUhlbHBlcn0gZnJvbSAnLi4vaGVscGVycyc7XHJcblxyXG5jbGFzcyBQcmV2aWV3U2VydmljZSB7XHJcbiAgICBwcml2YXRlIF9jb21wb25lbnQ6IGFueTtcclxuICAgIHByaXZhdGUgX3N0b3JhZ2U6IFN0b3JhZ2VIZWxwZXI8c3RyaW5nPjtcclxuXHJcbiAgICBjb25zdHJ1Y3RvcigpIHtcclxuICAgICAgICB0aGlzLl9zdG9yYWdlID0gbmV3IFN0b3JhZ2VIZWxwZXI8c3RyaW5nPignTWFya2Rvd25QcmV2aWV3Jyk7XHJcbiAgICB9XHJcblxyXG4gICAgc2hvd1ByZXZpZXcoKSB7XHJcbiAgICAgICAgaWYgKCFVdGlscy5pc1dvcmQpIHJldHVybjtcclxuICAgICAgICB2YXIgbWQgPSB0aGlzLl9zdG9yYWdlLmdldCgncHJldmlldycpO1xyXG4gICAgICAgICQoJyNzcGlubmVyQ29udGFpbmVyJykuaGlkZSgpO1xyXG4gICAgICAgICQoJyNwcmV2aWV3Q29udGFpbmVyJykuc2hvdygpO1xyXG4gICAgICAgICQoJyNwcmV2aWV3JykudGV4dChtZCk7XHJcbiAgICB9XHJcbn1cclxuXHJcbiQoZG9jdW1lbnQpLnJlYWR5KCgpID0+IHtcclxuICAgIHZhciBwcmV2aWV3U2VydmljZSA9IG5ldyBQcmV2aWV3U2VydmljZSgpO1xyXG4gICAgcHJldmlld1NlcnZpY2Uuc2hvd1ByZXZpZXcoKTtcclxufSk7Il0sInNvdXJjZVJvb3QiOiIvc291cmNlLyJ9</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

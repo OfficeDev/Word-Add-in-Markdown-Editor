@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - wwwroot\app\shared\services\github.service.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>wwwroot\app\shared\services\github.service.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">131</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">44.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.01</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">System.register([&#039;@angular/core&#039;, &#039;rxjs/Rx&#039;, &#039;../helpers&#039;], function(exports_1, context_1) {
+    &quot;use strict&quot;;
+    var __moduleName = context_1 &amp;&amp; context_1.id;
+    var __decorate = (this &amp;&amp; this.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c &lt; 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.decorate === &quot;function&quot;) r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i &gt;= 0; i--) if (d = decorators[i]) r = (c &lt; 3 ? d(r) : c &gt; 3 ? d(target, key, r) : d(target, key)) || r;
+        return c &gt; 3 &amp;&amp; r &amp;&amp; Object.defineProperty(target, key, r), r;
+    };
+    var __metadata = (this &amp;&amp; this.__metadata) || function (k, v) {
+        if (typeof Reflect === &quot;object&quot; &amp;&amp; typeof Reflect.metadata === &quot;function&quot;) return Reflect.metadata(k, v);
+    };
+    var core_1, Rx_1, helpers_1;
+    var GithubService;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (Rx_1_1) {
+                Rx_1 = Rx_1_1;
+            },
+            function (helpers_1_1) {
+                helpers_1 = helpers_1_1;
+            }],
+        execute: function() {
+            GithubService = (function () {
+                function GithubService(_request) {
+                    this._request = _request;
+                    this._baseUrl = &quot;&quot;;
+                    this._profileStorage = new helpers_1.StorageHelper(&#039;Profile&#039;);
+                }
+                GithubService.prototype.user = function () {
+                    return this._request.get(&quot;https://api.github.com/user&quot;);
+                };
+                GithubService.prototype.orgs = function (username) {
+                    return this._request.get(&quot;https://api.github.com/users/&quot; + username + &quot;/orgs&quot;);
+                };
+                GithubService.prototype.repos = function (orgName, personal) {
+                    var url = personal ? &quot;https://api.github.com/user/repos&quot; : &quot;https://api.github.com/orgs/&quot; + orgName + &quot;/repos&quot;;
+                    return this._request.get(url);
+                };
+                GithubService.prototype.files = function (orgName, repoName, branchName, path) {
+                    var url = &quot;https://api.github.com/repos/&quot; + orgName + &quot;/&quot; + repoName + &quot;/contents&quot;;
+                    if (!helpers_1.Utils.isNull(path)) {
+                        url += &quot;/&quot; + path;
+                    }
+                    return this._request.get(url + &quot;?ref=&quot; + branchName);
+                };
+                GithubService.prototype.branches = function (orgName, repoName) {
+                    return this._request.get(&quot;https://api.github.com/repos/&quot; + orgName + &quot;/&quot; + repoName + &quot;/branches&quot;);
+                };
+                GithubService.prototype.file = function (orgName, repoName, branchName, filePath) {
+                    return this._request.raw(&quot;https://raw.githubusercontent.com/&quot; + orgName + &quot;/&quot; + repoName + &quot;/&quot; + branchName + &quot;/&quot; + filePath);
+                };
+                GithubService.prototype.login = function () {
+                    var _this = this;
+                    if (!helpers_1.Utils.isWord)
+                        return;
+                    return Rx_1.Observable.create(function (observer) {
+                        _this._showAuthDialog(observer);
+                    });
+                };
+                GithubService.prototype.logout = function () {
+                    this._profileStorage.clear();
+                };
+                Object.defineProperty(GithubService.prototype, &quot;profile&quot;, {
+                    get: function () {
+                        if (helpers_1.Utils.isEmpty(this._profile)) {
+                            this._profile = this._profileStorage.first();
+                            if (!helpers_1.Utils.isEmpty(this._profile)) {
+                                this._request.token(this._profile.token);
+                            }
+                        }
+                        return this._profile;
+                    },
+                    set: function (value) {
+                        if (!helpers_1.Utils.isEmpty(value)) {
+                            this._profile = value;
+                            this._profileStorage.add(value.user.login, value);
+                        }
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                GithubService.prototype._showAuthDialog = function (observer) {
+                    var _this = this;
+                    var context = Office.context;
+                    context.ui.displayDialogAsync(window.location.protocol + &quot;//&quot; + window.location.host + &quot;/authorize.html&quot;, { height: 35, width: 30 }, function (result) {
+                        var dialog = result.value;
+                        dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, function (args) {
+                            dialog.close();
+                            try {
+                                if (helpers_1.Utils.isEmpty(args.message)) {
+                                    observer.error(&quot;No token received&quot;);
+                                }
+                                if (args.message.indexOf(&#039;access_token&#039;) == -1) {
+                                    observer.error(JSON.parse(args.message));
+                                }
+                                var token_1 = _this._request.token(JSON.parse(args.message));
+                                if (helpers_1.Utils.isNull(token_1)) {
+                                    observer.error(&quot;Unable to parse token&quot;);
+                                }
+                                _this.user().subscribe(function (userMetadata) {
+                                    _this.orgs(userMetadata.login).subscribe(function (orgs) {
+                                        _this.profile = {
+                                            user: userMetadata,
+                                            orgs: orgs,
+                                            token: token_1
+                                        };
+                                        observer.next(_this.profile);
+                                        observer.complete();
+                                    }, function (error) { return helpers_1.Utils.error(error); });
+                                }, function (error) { return helpers_1.Utils.error(error); });
+                            }
+                            catch (exception) {
+                                helpers_1.Utils.error(exception);
+                            }
+                        });
+                    });
+                };
+                GithubService = __decorate([
+                    core_1.Injectable(), 
+                    __metadata(&#039;design:paramtypes&#039;, [helpers_1.RequestHelper])
+                ], GithubService);
+                return GithubService;
+            }());
+            exports_1(&quot;GithubService&quot;, GithubService);
+        }
+    }
+});
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9zaGFyZWQvc2VydmljZXMvZ2l0aHViLnNlcnZpY2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7WUFRQTtnQkFLSSx1QkFBb0IsUUFBdUI7b0JBQXZCLGFBQVEsR0FBUixRQUFRLENBQWU7b0JBSm5DLGFBQVEsR0FBVyxFQUFFLENBQUM7b0JBSzFCLElBQUksQ0FBQyxlQUFlLEdBQUcsSUFBSSx1QkFBYSxDQUFlLFNBQVMsQ0FBQyxDQUFDO2dCQUN0RSxDQUFDO2dCQUVELDRCQUFJLEdBQUo7b0JBQ0ksTUFBTSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFtQiw2QkFBNkIsQ0FBaUMsQ0FBQztnQkFDOUcsQ0FBQztnQkFFRCw0QkFBSSxHQUFKLFVBQUssUUFBZ0I7b0JBQ2pCLE1BQU0sQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLEdBQUcsQ0FBbUIsK0JBQStCLEdBQUcsUUFBUSxHQUFHLE9BQU8sQ0FBaUMsQ0FBQztnQkFDckksQ0FBQztnQkFFRCw2QkFBSyxHQUFMLFVBQU0sT0FBZSxFQUFFLFFBQWlCO29CQUNwQyxJQUFJLEdBQUcsR0FBRyxRQUFRLEdBQUcsbUNBQW1DLEdBQUcsOEJBQThCLEdBQUcsT0FBTyxHQUFHLFFBQVEsQ0FBQztvQkFDL0csTUFBTSxDQUFDLElBQUksQ0FBQyxRQUFRLENBQUMsR0FBRyxDQUFnQixHQUFHLENBQThCLENBQUM7Z0JBQzlFLENBQUM7Z0JBRUQsNkJBQUssR0FBTCxVQUFNLE9BQWUsRUFBRSxRQUFnQixFQUFFLFVBQWtCLEVBQUUsSUFBYTtvQkFDdEUsSUFBSSxHQUFHLEdBQUcsK0JBQStCLEdBQUcsT0FBTyxHQUFHLEdBQUcsR0FBRyxRQUFRLEdBQUcsV0FBVyxDQUFDO29CQUNuRixFQUFFLENBQUMsQ0FBQyxDQUFDLGVBQUssQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFDO3dCQUFDLEdBQUcsSUFBSSxHQUFHLEdB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VUFBQSxLQUFLLElBQUksT0FBQSxlQUFLLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxFQUFsQixDQUFrQixDQUFDLENBQUM7Z0NBQ3BDLENBQUMsRUFBRSxVQUFBLEtBQUssSUFBSSxPQUFBLGVBQUssQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLEVBQWxCLENBQWtCLENBQUMsQ0FBQzs0QkFDcEMsQ0FDQTs0QkFBQSxLQUFLLENBQUMsQ0FBQyxTQUFTLENBQUMsQ0FBQyxDQUFDO2dDQUNmLGVBQUssQ0FBQyxLQUFLLENBQUMsU0FBUyxDQUFDLENBQUM7NEJBQzNCLENBQUM7d0JBQ0wsQ0FBQyxDQUFDLENBQUM7b0JBQ1AsQ0FBQyxDQUFDLENBQUM7Z0JBQ1gsQ0FBQztnQkE1R0w7b0JBQUMsaUJBQVUsRUFBRTs7aUNBQUE7Z0JBNkdiLG9CQUFDO1lBQUQsQ0E1R0EsQUE0R0MsSUFBQTtZQTVHRCx5Q0E0R0MsQ0FBQSIsImZpbGUiOiJhcHAvc2hhcmVkL3NlcnZpY2VzL2dpdGh1Yi5zZXJ2aWNlLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtJbmplY3RhYmxlfSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHtPYnNlcnZhYmxlLCBPYnNlcnZlcn0gZnJvbSAncnhqcy9SeCc7XHJcbmltcG9ydCB7VXRpbHMsIFJlcXVlc3RIZWxwZXIsIFN0b3JhZ2VIZWxwZXJ9IGZyb20gJy4uL2hlbHBlcnMnO1xyXG5pbXBvcnQge0lSZXBvc2l0b3J5LCBJQnJhbmNoLCBJVG9rZW4sIElDb250ZW50cywgSVByb2ZpbGVNZXRhZGF0YSwgSVVzZXJQcm9maWxlfSBmcm9tICcuLyc7XHJcblxyXG5kZWNsYXJlIHZhciBNaWNyb3NvZnQ6IGFueTtcclxuXHJcbkBJbmplY3RhYmxlKClcclxuZXhwb3J0IGNsYXNzIEdpdGh1YlNlcnZpY2Uge1xyXG4gICAgcHJpdmF0ZSBfYmFzZVVybDogc3RyaW5nID0gXCJcIjtcclxuICAgIHByaXZhdGUgX3Byb2ZpbGU6IElVc2VyUHJvZmlsZTtcclxuICAgIHByaXZhdGUgX3Byb2ZpbGVTdG9yYWdlOiBTdG9yYWdlSGVscGVyPElVc2VyUHJvZmlsZT47XHJcblxyXG4gICAgY29uc3RydWN0b3IocHJpdmF0ZSBfcmVxdWVzdDogUmVxdWVzdEhlbHBlcikge1xyXG4gICAgICAgIHRoaXMuX3Byb2ZpbGVTdG9yYWdlID0gbmV3IFN0b3JhZ2VIZWxwZXI8SVVzZXJQcm9maWxlPignUHJvZmlsZScpO1xyXG4gICAgfVxyXG5cclxuICAgIHVzZXIoKTogT2JzZXJ2YWJsZTxJUHJvZmlsZU1ldGFkYXRhPiB7XHJcbiAgICAgICAgcmV0dXJuIHRoaXMuX3JlcXVlc3QuZ2V0PElQcm9maWxlTWV0YWRhdGE+KFwiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2VyXCIpIGFzIE9ic2VydmFibGU8SVByb2ZpbGVNZXRhZGF0YT47XHJcbiAgICB9XHJcblxyXG4gICAgb3Jncyh1c2VybmFtZTogc3RyaW5nKTogT2JzZXJ2YWJsZTxJUHJvZmlsZU1ldGFkYXRhPiB7XHJcbiAgICAgICAgcmV0dXJuIHRoaXMuX3JlcXVlc3QuZ2V0PElQcm9maWxlTWV0YWRhdGE+KFwiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS91c2Vycy9cIiArIHVzZXJuYW1lICsgXCIvb3Jnc1wiKSBhcyBPYnNlcnZhYmxlPElQcm9maWxlTWV0YWRhdGE+O1xyXG4gICAgfVxyXG5cclxuICAgIHJlcG9zKG9yZ05hbWU6IHN0cmluZywgcGVyc29uYWw6IGJvb2xlYW4pOiBPYnNlcnZhYmxlPElSZXBvc2l0b3J5W10+IHtcclxuICAgICAgICB2YXIgdXJsID0gcGVyc29uYWwgPyBcImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vdXNlci9yZXBvc1wiIDogXCJodHRwczovL2FwaS5naXRodWIuY29tL29yZ3MvXCIgKyBvcmdOYW1lICsgXCIvcmVwb3NcIjtcclxuICAgICAgICByZXR1cm4gdGhpcy5fcmVxdWVzdC5nZXQ8SVJlcG9zaXRvcnlbXT4odXJsKSBhcyBPYnNlcnZhYmxlPElSZXBvc2l0b3J5W10+O1xyXG4gICAgfVxyXG5cclxuICAgIGZpbGVzKG9yZ05hbWU6IHN0cmluZywgcmVwb05hbWU6IHN0cmluZywgYnJhbmNoTmFtZTogc3RyaW5nLCBwYXRoPzogc3RyaW5nKTogT2JzZXJ2YWJsZTxJQ29udGVudHNbXT4ge1xyXG4gICAgICAgIHZhciB1cmwgPSBcImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvXCIgKyBvcmdOYW1lICsgXCIvXCIgKyByZXBvTmFtZSArIFwiL2NvbnRlbnRzXCI7XHJcbiAgICAgICAgaWYgKCFVdGlscy5pc051bGwocGF0aCkpIHsgdXJsICs9IFwiL1wiICsgcGF0aDsgfVxyXG4gICAgICAgIHJldHVybiB0aGlzLl9yZXF1ZXN0LmdldDxJQ29udGVudHNbXT4odXJsICsgXCI/cmVmPVwiICsgYnJhbmNoTmFtZSkgYXMgT2JzZXJ2YWJsZTxJQ29udGVudHNbXT47XHJcbiAgICB9XHJcblxyXG4gICAgYnJhbmNoZXMob3JnTmFtZTogc3RyaW5nLCByZXBvTmFtZTogc3RyaW5nKTogT2JzZXJ2YWJsZTxJQnJhbmNoW10+IHtcclxuICAgICAgICByZXR1cm4gdGhpcy5fcmVxdWVzdC5nZXQ8SUJyYW5jaFtdPihcImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvXCIgKyBvcmdOYW1lICsgXCIvXCIgKyByZXBvTmFtZSArIFwiL2JyYW5jaGVzXCIpIGFzIE9ic2VydmFibGU8SUJyYW5jaFtdPjtcclxuICAgIH1cclxuXHJcbiAgICBmaWxlKG9yZ05hbWU6IHN0cmluZywgcmVwb05hbWU6IHN0cmluZywgYnJhbmNoTmFtZTogc3RyaW5nLCBmaWxlUGF0aDogc3RyaW5nKTogT2JzZXJ2YWJsZTxzdHJpbmc+IHtcclxuICAgICAgICByZXR1cm4gdGhpcy5fcmVxdWVzdC5yYXcoXCJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vXCIgKyBvcmdOYW1lICsgXCIvXCIgKyByZXBvTmFtZSArIFwiL1wiICsgYnJhbmNoTmFtZSArIFwiL1wiICsgZmlsZVBhdGgpIGFzIE9ic2VydmFibGU8c3RyaW5nPjtcclxuICAgIH1cclxuXHJcbiAgICBsb2dpbigpOiBPYnNlcnZhYmxlPElVc2VyUHJvZmlsZT4ge1xyXG4gICAgICAgIGlmICghVXRpbHMuaXNXb3JkKSByZXR1cm47XHJcblxyXG4gICAgICAgIHJldHVybiBPYnNlcnZhYmxlLmNyZWF0ZSgob2JzZXJ2ZXI6IE9ic2VydmVyPElVc2VyUHJvZmlsZT4pID0+IHtcclxuICAgICAgICAgICAgdGhpcy5fc2hvd0F1dGhEaWFsb2cob2JzZXJ2ZXIpO1xyXG4gICAgICAgIH0pO1xyXG4gICAgfVxyXG5cclxuICAgIGxvZ291dCgpIHtcclxuICAgICAgICB0aGlzLl9wcm9maWxlU3RvcmFnZS5jbGVhcigpO1xyXG4gICAgfVxyXG5cclxuICAgIGdldCBwcm9maWxlKCk6IElVc2VyUHJvZmlsZSB7XHJcbiAgICAgICAgaWYgKFV0aWxzLmlzRW1wdHkodGhpcy5fcHJvZmlsZSkpIHtcclxuICAgICAgICAgICAgdGhpcy5fcHJvZmlsZSA9IHRoaXMuX3Byb2ZpbGVTdG9yYWdlLmZpcnN0KCk7XHJcblxyXG4gICAgICAgICAgICBpZiAoIVV0aWxzLmlzRW1wdHkodGhpcy5fcHJvZmlsZSkpIHtcclxuICAgICAgICAgICAgICAgIHRoaXMuX3JlcXVlc3QudG9rZW4odGhpcy5fcHJvZmlsZS50b2tlbik7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIHJldHVybiB0aGlzLl9wcm9maWxlO1xyXG4gICAgfVxyXG5cclxuICAgIHNldCBwcm9maWxlKHZhbHVlOiBJVXNlclByb2ZpbGUpIHtcclxuICAgICAgICBpZiAoIVV0aWxzLmlzRW1wdHkodmFsdWUpKSB7XHJcbiAgICAgICAgICAgIHRoaXMuX3Byb2ZpbGUgPSB2YWx1ZTtcclxuICAgICAgICAgICAgdGhpcy5fcHJvZmlsZVN0b3JhZ2UuYWRkKHZhbHVlLnVzZXIubG9naW4sIHZhbHVlKTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcblxyXG4gICAgcHJpdmF0ZSBfc2hvd0F1dGhEaWFsb2cob2JzZXJ2ZXI6IE9ic2VydmVyPElVc2VyUHJvZmlsZT4pIHtcclxuICAgICAgICB2YXIgY29udGV4dCA9IE9mZmljZS5jb250ZXh0IGFzIGFueTtcclxuICAgICAgICBjb250ZXh0LnVpLmRpc3BsYXlEaWFsb2dBc3luYyh3aW5kb3cubG9jYXRpb24ucHJvdG9jb2wgKyBcIi8vXCIgKyB3aW5kb3cubG9jYXRpb24uaG9zdCArIFwiL2F1dGhvcml6ZS5odG1sXCIsIHsgaGVpZ2h0OiAzNSwgd2lkdGg6IDMwIH0sXHJcbiAgICAgICAgICAgIHJlc3VsdCA9PiB7XHJcbiAgICAgICAgICAgICAgICB2YXIgZGlhbG9nID0gcmVzdWx0LnZhbHVlO1xyXG4gICAgICAgICAgICAgICAgZGlhbG9nLmFkZEV2ZW50SGFuZGxlcihNaWNyb3NvZnQuT2ZmaWNlLldlYkV4dGVuc2lvbi5FdmVudFR5cGUuRGlhbG9nTWVzc2FnZVJlY2VpdmVkLCBhcmdzID0+IHtcclxuICAgICAgICAgICAgICAgICAgICBkaWFsb2cuY2xvc2UoKTtcclxuXHJcbiAgICAgICAgICAgICAgICAgICAgdHJ5IHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKFV0aWxzLmlzRW1wdHkoYXJncy5tZXNzYWdlKSkge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgb2JzZXJ2ZXIuZXJyb3IoXCJObyB0b2tlbiByZWNlaXZlZFwiKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGFyZ3MubWVzc2FnZS5pbmRleE9mKCdhY2Nlc3NfdG9rZW4nKSA9PSAtMSkge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgb2JzZXJ2ZXIuZXJyb3IoSlNPTi5wYXJzZShhcmdzLm1lc3NhZ2UpKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgICAgICAgICAgbGV0IHRva2VuID0gdGhpcy5fcmVxdWVzdC50b2tlbihKU09OLnBhcnNlKGFyZ3MubWVzc2FnZSkpO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBpZiAoVXRpbHMuaXNOdWxsKHRva2VuKSkge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgb2JzZXJ2ZXIuZXJyb3IoXCJVbmFibGUgdG8gcGFyc2UgdG9rZW5cIik7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMudXNlcigpLnN1YnNjcmliZSh1c2VyTWV0YWRhdGEgPT4ge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcy5vcmdzKHVzZXJNZXRhZGF0YS5sb2dpbikuc3Vic2NyaWJlKG9yZ3MgPT4ge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRoaXMucHJvZmlsZSA9IDxJVXNlclByb2ZpbGU+e1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1c2VyOiB1c2VyTWV0YWRhdGEsXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9yZ3M6IG9yZ3MsXHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRva2VuOiB0b2tlblxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH07XHJcblxyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG9ic2VydmVyLm5leHQodGhpcy5wcm9maWxlKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvYnNlcnZlci5jb21wbGV0ZSgpO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgfSwgZXJyb3IgPT4gVXRpbHMuZXJyb3IoZXJyb3IpKTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgfSwgZXJyb3IgPT4gVXRpbHMuZXJyb3IoZXJyb3IpKTtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgY2F0Y2ggKGV4Y2VwdGlvbikge1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBVdGlscy5lcnJvcihleGNlcHRpb24pO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH0pO1xyXG4gICAgICAgICAgICB9KTtcclxuICAgIH1cclxufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
