@@ -37,6 +37,9 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
         var index = _.findIndex(this._breadcrumbs, item => item.key === breadcrumb.key);
         if (index === -1) throw 'Breadcrumb path couldn\'t be found';
 
+        if (index === this.breadcrumbs.length) return;        
+
+
         this._breadcrumbs = _.first(this._breadcrumbs, index);
         this._recompute();
         this.navigate.emit(breadcrumb);
