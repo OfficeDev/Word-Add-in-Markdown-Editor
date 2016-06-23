@@ -1,188 +1,86 @@
-﻿.ms-landing-page__main {
-    margin-bottom: 20px;
-}
+﻿@import '../../styles/mixins.scss';
+@import '../../styles/theme.scss';
 
-.ms-landing-page__content {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    height: 100%;
-    flex: 1 1 0;
-    min-height: 180px;
-    padding: 20px;
-}
+.file-detail {
+    &__content {
+        padding: 0 $default-spacing;
+        height: calc(100% - 325px);
+    }
 
-.ms-landing-page__content__title {
-    padding: 20px;
-}
+    &__subtitle {
+        margin-top: $default-spacing/2;
+        margin-bottom: $default-spacing;
+    }
 
-.ms-landing-page__footer {
-    order: 2;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
+    &__actions {
+        @include flex();
+        padding: 0 $default-spacing;
 
-.ms-landing-page__footer--left {
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-    display: inline-flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex: 1 0 0px;
-    padding: 20px;
-}
+        &--row {
+            @include inline-flex();
+        }
+    }
 
-.ms-landing-page__footer--left:active, .ms-landing-page__footer--left:hover {
-    background: #005ca4;
-    cursor: pointer;
-}
+    &__action {
+        border: solid 1px $foreground-primary;
+        outline: none;
+        color: $foreground-primary;
+        text-align: center;
+        @include focus-states($foreground-primary, $background-light);
+        margin-bottom: $default-spacing/2;
 
-.ms-landing-page__footer--left:active {
-    background: #005ca4;
-}
+        &--link {
+            border: none;
+            outline: none;
+            background: transparent;
+            @include focus-states(transparent, $accent-background-primary);
+        }
 
-.ms-landing-page__footer--left.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-}
+        &--primary {
+            background-color: $accent-background-primary;
+            color: $accent-foreground-primary;
+            border-color: $accent-background-primary;
+        }
 
-.ms-landing-page__footer--left.disabled:active, .ms-landing-page__footer--left.disabled:hover {
-    background: transparent;
-}
+        &--secondary {
+            background-color: $foreground-white;
+            color: $foreground-primary;
+            flex: 1 0 auto;
+            margin-right: $default-spacing/2;
 
-.ms-landing-page__footer--left img {
-    width: 40px;
-    height: 40px;
-}
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
 
-.ms-landing-page__footer--left h1 {
-    flex: 1 0 0px;
-    margin-left: 15px;
-    text-align: left;
-    width: auto;
-    max-width: auto;
-    overflow: hidden;
-    white-space: nowrap;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-}
+    &__commits {
+        @include flex();
+        margin-top: $default-spacing;
+    }
 
-.ms-landing-page__footer--right {
-    -moz-transition: background ease 0.1s, color ease 0.1s;
-    -o-transition: background ease 0.1s, color ease 0.1s;
-    -webkit-transition: background ease 0.1s, color ease 0.1s;
-    transition: background ease 0.1s, color ease 0.1s;
-    padding: 29px 20px;
-}
+    &-commit {
+        @include inline-flex(null, center);
+        margin-bottom: $default-spacing;
 
-.ms-landing-page__footer--right:active, .ms-landing-page__footer--right:hover {
-    background: #005ca4;
-    cursor: pointer;
-}
+        &__avatar {
+            @include background-fill() {
+                @include background-image-circle(30px);
+            }
 
-.ms-landing-page__footer--right:active {
-    background: #005ca4;
-}
+            margin-right: $default-spacing;
+        }
 
-.ms-landing-page__footer--right.disabled {
-    opacity: 0.6;
-    pointer-events: none;
-    cursor: not-allowed;
-}
+        &__details {
+            flex: 1 0 auto;            
+        }
 
-.ms-landing-page__footer--right.disabled:active, .ms-landing-page__footer--right.disabled:hover {
-    background: transparent;
-}
+        &__message {
+            @include ellipsis();
+        }
 
-.ms-SearchBox {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-
-
-.ms-SearchBox-field {
-    border: none;
-    width: 100vw;
-}
-
-
-.repoIcon {
-    float: left;
-    width: 10%;
-}
-
-
-.item {
-    margin-bottom: 10px;
-}
-
-.item__text {
-    height: 5px;
-    margin-bottom: 5px;
-    padding-left: 1px;
-}
-
-.item__img {
-    width: 60px;
-    height: 60px;
-    background-color: #F4F4F4;
-    display: block;
-    margin-bottom: 10px;
-}
-
-
-
-hr {
-    border-color: #C8C8C8;
-    background-color: #C8C8C8;
-    border-top: 1px solid #C8C8C8;
-}
-
-.ms-ListItem-actions {
-    right: 50px;
-}
-
-.footer {
-    margin-top: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 40px;
-    display: block;
-    box-sizing: border-box;
-}
-
-
-#word-github-brandbar {
-    background: transparent no-repeat center center;
-    background-image: url("assets/images/white_brandbar.png");
-    background-size: cover;
-    height: 40px;
-}
-
-.pushButton {
-    top: 400px;
-    left: 50px;
-    width: 80%;
-    background-color: #212121;
-    color: white;
-    padding: 20px;
-    display: block;
-}
-
-
-.discardButton, .pullButton {
-    width: 30%;
-    background-color: #212121;
-    color: white;
-    padding: 20px;
-    background-color: white;
-    border-color: #212121;
-    color: black;
+        &__name {
+            color: $foreground-light;
+        }
+    }
 }

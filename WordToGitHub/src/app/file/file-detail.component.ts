@@ -1,8 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Subscription} from 'rxjs/Rx';
+import {Observable, Subscription} from 'rxjs/Rx';
 import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
-import {GithubService, WordService} from '../shared/services';
+import {GithubService, WordService, ICommit} from '../shared/services';
 
 declare var StringView: any;
 let view = 'file-detail';
@@ -16,7 +16,9 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
+    selectedFile: string;
     subscriptions: Subscription[];
+    commits: Observable<ICommit[]>
 
     constructor(
         private _router: Router,
@@ -34,10 +36,13 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
         this.selectedPath = decodeURIComponent(current.getParam('path'));
+        this.selectedFile = _.last(this.selectedPath.split('/'));
 
         var subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
             this._wordService.insertHtml(file);
         });
+
+        //this.commits = this._githubService.commits(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
 
         this.subscriptions.push(subscription);
     }

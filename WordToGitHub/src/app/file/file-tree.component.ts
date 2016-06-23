@@ -56,12 +56,13 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
             branch: this.selectedBranch,
             committer: {
                 name: this._githubService.profile.user.name,
-                email: 'umas@microsoft.com'
+                email: this._githubService.profile.user.email || ''
             }
         };
         return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
             .subscribe(response => {
                 this._wordService.insertTemplate(templateType);
+                this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
                 if (Utils.isEmpty(response)) return;
                 console.log(response);
             });   
