@@ -23,9 +23,39 @@ export class GithubService {
         return this._request.get<IProfileMetadata>("https://api.github.com/users/" + username + "/orgs") as Observable<IProfileMetadata>;
     }
 
-    repos(orgName: string, personal: boolean): Observable<IRepository[]> {
-        var url = personal ? "https://api.github.com/user/repos?affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos";
+    repos(page: number, orgName: string, personal: boolean): Observable<IRepository[]> {
+        var url = personal ? "https://api.github.com/user/repos?page="+ page + "&affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos?page="+page;
         return this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
+
+        //var completed = false;
+        //var nextRepos = new Observable<IRepository[]>();
+
+        //var url = personal ? "https://api.github.com/user/repos?page=" + page + "&affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos?page=" + page;
+        //var repos = this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
+        //do {
+        //    page = page + 1;
+        //    var url = personal ? "https://api.github.com/user/repos?page=" + page + "&affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos?page=" + page;
+        //    nextRepos = this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
+
+        //    if (Utils.isEmpty(nextRepos) || Utils.isNull(nextRepos)) {
+        //        page = 1;
+        //        completed = true;
+        //    }
+
+        //    repos.concat(nextRepos).subscribe(res => repos.push(res));
+        //} while (completed === false);
+
+        //return repos;
+
+        //var url = personal ? "https://api.github.com/user/repos?page=" + page.toString() + "&affiliation=owner,collaborator&sort=updated&direction=desc" : "https://api.github.com/orgs/" + orgName + "/repos?page=" + page.toString();
+        //var repos: Observable<IRepository[]> = this._request.get<IRepository[]>(url) as Observable<IRepository[]>;
+        //repos.switchMap(repos => {
+        //    if (!Utils.isNull(repos)) {
+        //        page = page + 1;
+        //        return repos(page, orgName, personal) as Observable<IRepository[]>;
+        //    }
+        //    return repos as Observable<IRepository[]>;     
+        //});
     }
 
     files(orgName: string, repoName: string, branchName: string, path?: string): Observable<IContents[]> {

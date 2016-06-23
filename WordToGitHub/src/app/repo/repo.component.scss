@@ -101,3 +101,12 @@
         @include focus-states(transparent);
     }
 }
+
+.page-nav {
+    cursor:pointer;
+    padding: 20px;
+}
+
+#next {
+    padding-left: 209px;
+}

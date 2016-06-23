@@ -13,8 +13,10 @@
 
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
+    <i id="prev" class="page-nav ms-Icon ms-Icon-large ms-Icon--chevronThinLeft" (click)="showPrevious()"></i>
+    <i id="next" class="page-nav ms-Icon ms-Icon-large ms-Icon--chevronThinRight" (click)="showNext()"></i>
     <ul class="ms-List">
-        <li class="repo-list-item ms-ListItem" *ngFor="let repository of (repositories | async)">
+        <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
             <div class="repo-list-item__content" (click)="selectRepo(repository)">
                 <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
                 <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
@@ -26,3 +28,4 @@
         </li>
     </ul>
 </section>
+
