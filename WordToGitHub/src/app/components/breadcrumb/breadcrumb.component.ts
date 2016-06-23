@@ -37,7 +37,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
         var index = _.findIndex(this._breadcrumbs, item => item.key === breadcrumb.key);
         if (index === -1) throw 'Breadcrumb path couldn\'t be found';
 
-        if (index === this.breadcrumbs.length) return;        
+        //if (index === this._breadcrumbs.length) return;        
 
 
         this._breadcrumbs = _.first(this._breadcrumbs, index);
@@ -48,6 +48,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.breadcrumbSubscription = this._breadcrumbService.breadcrumb$.subscribe(breadcrumb => {
             this._breadcrumbs.push(breadcrumb);
+            this.breadcrumbs = [];                
             this._recompute();
         });
     }
@@ -61,7 +62,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
 
         if (this._breadcrumbs.length > this.max) {
             this.overflownBreadcrumbs = _.first(this._breadcrumbs, this._breadcrumbs.length - this.max);
-            this.breadcrumbs = _.last(this._breadcrumbs, this.max);
+            this.breadcrumbs = _.last(this._breadcrumbs, this.max);            
         }
         else {
             this.breadcrumbs = this._breadcrumbs;

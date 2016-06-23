@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Observer} from 'rxjs/Rx';
 import {Utils, RequestHelper, StorageHelper} from '../helpers';
-import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile} from './';
+import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile, ICommit} from './';
 
 declare var Microsoft: any;
 
@@ -40,6 +40,10 @@ export class GithubService {
 
     file(orgName: string, repoName: string, branchName: string, filePath: string): Observable<string> {
         return this._request.getWithMediaHeaders<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath + "?ref=" + branchName) as Observable<string>;
+    }
+
+    commits(orgName: string, repoName: string, branchName: string, filePath: string): Observable<ICommit[]> {
+        return this._request.get<ICommit[]>("https://api.github.com/repos/" + orgName + "/" + repoName + "/commits?path=" + filePath + "&sha=" + branchName + "&until=" + (new Date().toISOString())) as Observable<ICommit[]>;
     }
 
     getSha(orgName: string, repoName: string, branchName: string, path?: string): Observable<IContents> {
