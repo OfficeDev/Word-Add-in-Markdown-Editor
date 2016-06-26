@@ -114,7 +114,7 @@ export class GithubService {
     }
 
     logout() {
-        this._profileStorage.clear();
+        StorageHelper.clear();
     }
 
     get profile(): IUserProfile {
