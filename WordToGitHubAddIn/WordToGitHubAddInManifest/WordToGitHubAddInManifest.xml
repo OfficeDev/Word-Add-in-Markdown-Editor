@@ -5,8 +5,8 @@
   <Version>1.0.0.0</Version>
   <ProviderName>Microsoft</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Word to GitHub" />
-  <Description DefaultValue="A Word add-in that connects to GitHub" />
+  <DisplayName DefaultValue="Markdown Editor for Word" />
+  <Description DefaultValue="Author your markdown files and push your changes to GitHub directly from Word - your favourite document editor." />
   <AppDomains>
     <AppDomain>https://github.com</AppDomain>
   </AppDomains>
