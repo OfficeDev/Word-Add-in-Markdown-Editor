@@ -53,11 +53,11 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         var body = {
             message: "Initial commit",
             content: "",
-            branch: this.selectedBranch,
-            committer: {
-                name: this._githubService.profile.user.name,
-                email: this._githubService.profile.user.email || ''
-            }
+            branch: this.selectedBranch
+            //committer: {
+            //    name: this._githubService.profile.user.name,
+            //    email: this._githubService.profile.user.email || 'umas@microsoft.com'
+            //}
         };
         return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
             .subscribe(response => {

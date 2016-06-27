@@ -60,11 +60,11 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
                             message: "Update: " + new Date().toISOString() + " from Word to GitHub Add-in",
                             content: b64md,
                             branch: this.selectedBranch,
-                            sha: file.sha,
-                            committer: {
-                                name: this._githubService.profile.user.name,
-                                email: this._githubService.profile.user.email || ''
-                            }
+                            sha: file.sha
+                            //committer: {
+                            //    name: this._githubService.profile.user.name,
+                            //    email: 'umas@microsoft.com'
+                            //}
                         };
 
                         return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
