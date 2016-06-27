@@ -1,5 +1,5 @@
 ﻿<ul class="ms-List">
-    <li class="file-tree-component__message ms-font-m" *ngIf="(files| async| mdfilter)?.length == 0">Seems like there are no 'Markdown' files in this repository. You could either create one or choose a different repository.</li>
+    <li class="file-tree-component__message ms-font-m" *ngIf="(files| async| mdfilter)?.length == 0">Seems like there are no 'Markdown' files in this folder. You could either create one or choose a different folder.</li>
     <li class="file-tree-item ms-ListItem" *ngFor="let file of (files | async | mdfilter)" (click)="select(file)">
         <div class="file-tree-item__icon"><i class="ms-Icon" [ngClass]="file.type === 'dir' ? 'ms-Icon-large ms-Icon--folder' : 'ms-Icon-large ms-Icon--document'"></i></div>
         <div class="file-tree-item__content">

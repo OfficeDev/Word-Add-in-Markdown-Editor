@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, Routes, ROUTER_DIRECTIVES} from '@angular/router';
-import {GithubService, BreadcrumbService, HamburgerService, IRepository, IBranch, IBreadcrumb, WordService, MarkdownService} from '../shared/services';
+import {GithubService, HamburgerService, WordService, MarkdownService, IRepository, IBreadcrumb, IBranch} from '../shared/services';
 import {FileTreeComponent} from './file-tree.component';
 import {FileDetailComponent} from './file-detail.component';
 import {Path, Utils} from '../shared/helpers';
@@ -14,7 +14,7 @@ let view = 'file-list';
     styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
-    providers: [BreadcrumbService, WordService, MarkdownService]
+    providers: [WordService, MarkdownService]
 })
 
 @Routes([

@@ -36,9 +36,14 @@ export class StorageHelper<T> extends Repository<T>{
         this._save();
     }
 
-    clear(soft?: boolean) {
+    clear() {
         super.clear();
-        soft ? delete this._storage[this._container] : window.localStorage.clear();
+        delete this._storage[this._container];
+    }
+
+    static clear() {
+        window.localStorage.clear();
+        window.sessionStorage.clear();
     }
 
     private _save() {

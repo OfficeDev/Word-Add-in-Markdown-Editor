@@ -4,5 +4,5 @@ export * from './markdown.service';
 export * from './preview.service';
 export * from './word.service';
 export * from './hamburger.service';
-export * from './breadcrumb.service';
+export * from './mediator.service';
 export * from './github.models';
