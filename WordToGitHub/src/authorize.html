@@ -3,7 +3,7 @@
 
 <head>
     <base href="/">
-    <title>Word to GitHub</title>
+    <title>Authorize</title>
 
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
@@ -12,28 +12,23 @@
     <!-- 1. Basic dependencies -->
     <script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/office-ui-fabric/dist/js/jquery.fabric.min.js"></script>
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
     <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
-    <link rel="stylesheet" href="common-styles.css" />    
+    <link rel="stylesheet" href="common-styles.css" />
 
     <!-- 2. Polyfill(s) for older browsers -->
-    <script src="node_modules/to-markdown/dist/to-markdown.js"></script>
-    <script src="assets/stringview.js"></script>
     <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
 
     <!-- 3. SystemJS Configuration -->
     <script src="configuration.js"></script>
     <script type="text/javascript">
-        useAppConfiguration();
+        useDialogConfiguration('app/shared/services/authorize.service');
     </script>
 </head>
 
 <body>
-    <word-to-github>
+    <div class="ms-notification-progress-indeterminate">
         <div class="ms-progress-component">
             <main class="ms-progress-component__main ms-fontColor-white">
                 <img class="ms-progress-component__logo" src="assets/images/logo.png" />
@@ -43,11 +38,10 @@
             <footer class="ms-progress-component__footer ms-fontColor-white">
                 <div class="ms-progress">
                     <div class="ms-Spinner large"></div>
-                    <div class="ms-ProgressIndicator-itemName">Loading</div>
-                    <div class="ms-ProgressIndicator-itemDescription">Fetching libraries</div>
+                    <div id="status" class="ms-ProgressIndicator-itemName">Signing in...</div>
                 </div>
             </footer>
         </div>
-    </word-to-github>
+    </div>
 </body>
 </html>

@@ -20,7 +20,7 @@ class Configuration {
                 'app/*': {
                     scriptLoad: true
                 }
-            }
+            }         
         });
 
         return Promise.all(this.imports.map(pkg => System.import(pkg)))
@@ -100,8 +100,8 @@ class Configuration {
     }
 
 
-    private map = {};
-    private packages = {};
+    private map: SystemJSLoader.Config = {};
+    private packages: SystemJSLoader.Config = {};
     private ngVersion = '@2.0.0-rc.1';
     private devMode = false;
     private imports = [];
@@ -114,8 +114,7 @@ class Configuration {
         '@angular/platform-browser',
         '@angular/platform-browser-dynamic',
         '@angular/router',
-        '@angular/testing',
-        '@angular/upgrade',
+        '@angular/testing'
     ];
 }
 
