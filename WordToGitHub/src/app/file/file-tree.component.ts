@@ -47,7 +47,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
             path = fileName;
         }
         else {
-            path = this.selectedPath + "/"+ fileName;
+            path = this.selectedPath + "/" + fileName;
         }
 
         var body = {
@@ -65,8 +65,8 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
                 this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
                 if (Utils.isEmpty(response)) return;
                 console.log(response);
-            });   
-                      
+            });
+
     }
 
     routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
@@ -74,7 +74,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         this.selectedRepoName = parent.getParam('repo');
         this.selectedOrg = parent.getParam('org');
         this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = current.getParam('path');       
+        this.selectedPath = current.getParam('path') === "null" ? null : current.getParam('path');
     }
 
     ngAfterViewInit() {

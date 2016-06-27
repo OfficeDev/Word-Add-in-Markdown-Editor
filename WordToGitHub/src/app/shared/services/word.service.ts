@@ -32,7 +32,7 @@ export class WordService {
     }
 
     insertHtml(html: string) {
-        if (Utils.isEmpty(html)) return Promise.reject(null);
+        if (Utils.isEmpty(html)) return Promise.reject<string>(null);
 
         return Promise.resolve(this._insertHtmlIntoWord(html))
             .then(() => this._formatTables())
