@@ -1,6 +1,6 @@
 ﻿import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {BreadcrumbService, IBreadcrumb} from '../../shared/services';
+import {MediatorService, IBreadcrumb, IChannel} from '../../shared/services';
 import {Path, Utils} from '../../shared/helpers';
 
 let view = 'breadcrumb';
@@ -13,13 +13,15 @@ let view = 'breadcrumb';
 export class BreadcrumbComponent implements OnInit, OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;
-    breadcrumbs: IBreadcrumb[];
+
+    channel: IChannel
     isOverflown: boolean;
+    breadcrumbs: IBreadcrumb[];
     overflownBreadcrumbs: IBreadcrumb[];
     breadcrumbSubscription: Subscription;
 
-    constructor(private _breadcrumbService: BreadcrumbService) {
-       
+    constructor(private _mediatorService: MediatorService) {
+        this.channel = _mediatorService.createSubject('breadcrumbs');
     }
 
     @Output() navigate: EventEmitter<IBreadcrumb> = new EventEmitter<IBreadcrumb>();
@@ -35,20 +37,20 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
 
     click(breadcrumb: IBreadcrumb) {
         var index = _.findIndex(this._breadcrumbs, item => item.key === breadcrumb.key);
+
         if (index === -1) throw 'Breadcrumb path couldn\'t be found';
 
-        //if (index === this._breadcrumbs.length) return;        
-
+        if (index === this._breadcrumbs.length - 1) return;
 
         this._breadcrumbs = _.first(this._breadcrumbs, index);
         this._recompute();
+
         this.navigate.emit(breadcrumb);
     }
 
     ngOnInit() {
-        this.breadcrumbSubscription = this._breadcrumbService.breadcrumb$.subscribe(breadcrumb => {
+        this.breadcrumbSubscription = this.channel.source$.subscribe(breadcrumb => {
             this._breadcrumbs.push(breadcrumb);
-            this.breadcrumbs = [];                
             this._recompute();
         });
     }
@@ -58,11 +60,15 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     }
 
     private _recompute() {
-        if (Utils.isEmpty(this._breadcrumbs)) return;
+        if (Utils.isEmpty(this._breadcrumbs)) {
+            this.breadcrumbs = null;
+            this.overflownBreadcrumbs = null;
+            return;
+        };
 
         if (this._breadcrumbs.length > this.max) {
             this.overflownBreadcrumbs = _.first(this._breadcrumbs, this._breadcrumbs.length - this.max);
-            this.breadcrumbs = _.last(this._breadcrumbs, this.max);            
+            this.breadcrumbs = _.last(this._breadcrumbs, this.max);
         }
         else {
             this.breadcrumbs = this._breadcrumbs;

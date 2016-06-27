@@ -165,6 +165,8 @@ export interface IToken {
     scope: string;
 }
 
-export interface IPinnable {
-    isPinned?: boolean;
+export interface IBreadcrumb {
+    text: string;
+    key: number;
+    href?: string;
 }
