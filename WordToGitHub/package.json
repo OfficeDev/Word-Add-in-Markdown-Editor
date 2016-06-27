@@ -1,14 +1,12 @@
 {
-  "name": "word-to-github",
-  "description": "A Word addin that connects to GitHub",
+  "name": "markdown-editor-for-word",
+  "description": "Author your markdown files and push your changes to GitHub directly from Word - your favourite document editor.",
   "repository": "",
   "version": "1.0.0",
   "scripts": {
     "gulp": "gulp serve",
     "start": "npm run gulp",
     "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
     "typings": "typings"
   },
   "license": "MIT",
@@ -20,17 +18,13 @@
     "@angular/platform-browser": "2.0.0-rc.1",
     "@angular/platform-browser-dynamic": "2.0.0-rc.1",
     "@angular/router": "2.0.0-rc.1",
-    "@angular/router-deprecated": "2.0.0-rc.1",
-    "@angular/upgrade": "2.0.0-rc.1",
 
     "systemjs": "^0.19.31",
     "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
     "zone.js": "^0.6.12",
-    "es6-promise": "^3.2.1",
 
-    "angular2-in-memory-web-api": "^0.0.12",
     "jquery": "^3.0.0",
     "underscore": "^1.8.3",
     "marked": "^0.3.5",
@@ -39,12 +33,12 @@
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
-    "typings": "^1.1.0",
+    "typings": "^1.3.0",
     "rimraf": "^2.5.2",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.6",
-    "gulp-sass": "^2.3.1",
+    "gulp-sass": "^2.3.2",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0"
   }
