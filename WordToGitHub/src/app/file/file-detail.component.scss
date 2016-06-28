@@ -4,7 +4,7 @@
 .file-detail {
     &__content {
         padding: 0 $default-spacing;
-        height: calc(100% - 325px);
+        flex: 1 1 auto;
     }
 
     &__subtitle {
@@ -14,7 +14,7 @@
 
     &__actions {
         @include flex();
-        padding: 0 $default-spacing;
+        padding: $default-spacing;
 
         &--row {
             @include inline-flex();

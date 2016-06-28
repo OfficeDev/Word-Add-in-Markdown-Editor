@@ -8,6 +8,7 @@ import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 let view = 'file-tree';
 
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe, MDFilterPipe]
@@ -29,7 +30,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         private _wordService: WordService,
         private _router: Router
     ) {
-        this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs')  as ISubjectChannel;
+        this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs') as ISubjectChannel;
     }
 
     select(item: IContents) {
@@ -37,36 +38,9 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
             this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'tree', encodeURIComponent(item.path)]);
         }
         else {
-            this.addBreadcrumb(item.path);    
+            this.addBreadcrumb(item.path);
             this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(item.path)]);
         }
-    }
-
-    createFile() {
-        var path;
-        var fileName = "TestFileFromCreate.md";
-        var templateType = 'Code sample readme';
-
-        if (Utils.isNull(this.selectedPath)) {
-            path = fileName;
-        }
-        else {
-            path = this.selectedPath + "/" + fileName;
-        }
-
-        var body = {
-            message: "Initial commit",
-            content: "",
-            branch: this.selectedBranch            
-        };
-        return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
-            .subscribe(response => {
-                this._wordService.insertTemplate(templateType);
-                this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
-                if (Utils.isEmpty(response)) return;
-                console.log(response);
-            });
-
     }
 
     routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {

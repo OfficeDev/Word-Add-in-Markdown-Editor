@@ -10,6 +10,7 @@ import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component
 
 let view = 'file-list';
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe],

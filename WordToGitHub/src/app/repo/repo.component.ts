@@ -7,6 +7,7 @@ import {SafeNamesPipe} from '../shared/pipes';
 
 let view = 'repo';
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'repo'),
     styleUrls: [Path.style(view, 'repo')],
     pipes: [SafeNamesPipe]

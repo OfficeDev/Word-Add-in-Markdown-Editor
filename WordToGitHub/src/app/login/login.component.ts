@@ -5,6 +5,7 @@ import {Path, Utils} from '../shared/helpers';
 
 let view = 'login';
 @Component({
+    selector: view,
     templateUrl: Path.template(view),
     styleUrls: [Path.style(view)]
 })
