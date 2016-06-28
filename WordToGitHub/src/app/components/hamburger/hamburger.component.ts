@@ -2,7 +2,7 @@
 import {Router, OnActivate} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Path, Utils, StorageHelper} from '../../shared/helpers';
-import {GithubService, HamburgerService, IUserProfile, IProfile, IRepository} from '../../shared/services';
+import {GithubService, MediatorService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
 let view = 'hamburger';
@@ -15,21 +15,22 @@ let view = 'hamburger';
 
 export class HamburgerComponent implements OnActivate {
     cache: StorageHelper<IRepository>;
-
+    channel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
     isViewModeSet: boolean;
 
     constructor(
         private _githubService: GithubService,
-        private _hamburgerService: HamburgerService,
+        private _mediatorService: MediatorService,
         private _router: Router
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
+        this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
     }
 
     ngOnInit() {
-        this.isShown = this._hamburgerService.hamburgerMenuShown$;
+        this.isShown = this.channel.source$;        
         this.favoriteRepositories = _.values(this.cache.all());
     }
 
@@ -38,7 +39,7 @@ export class HamburgerComponent implements OnActivate {
     }
 
     closeMenu() {
-        this._hamburgerService.hideMenu();
+        this.channel.event.next(false);
     }
 
     selectRepository(repository: IRepository) {

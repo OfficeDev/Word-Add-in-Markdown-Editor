@@ -1,7 +1,7 @@
 import {Component, AfterViewInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
-import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, IChannel} from '../shared/services';
+import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, ISubjectChannel} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
@@ -19,7 +19,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
     selectedBranch: string;
     selectedPath: string;
     files: Observable<IContents[]>;
-    channel: IChannel;
+    channel: ISubjectChannel;
 
     static id: number = 1;
 
@@ -29,7 +29,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         private _wordService: WordService,
         private _router: Router
     ) {
-        this.channel = _mediatorService.createSubject('breadcrumbs');
+        this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs')  as ISubjectChannel;
     }
 
     select(item: IContents) {
@@ -57,11 +57,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         var body = {
             message: "Initial commit",
             content: "",
-            branch: this.selectedBranch
-            //committer: {
-            //    name: this._githubService.profile.user.name,
-            //    email: this._githubService.profile.user.email || 'umas@microsoft.com'
-            //}
+            branch: this.selectedBranch            
         };
         return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
             .subscribe(response => {

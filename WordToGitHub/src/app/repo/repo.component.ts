@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, RouteSegment, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, HamburgerService, IRepository, IRepositoryCollection} from '../shared/services';
+import {GithubService, MediatorService, IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
 let view = 'repo';
@@ -17,16 +17,19 @@ export class RepoComponent implements OnActivate {
     query: string;
     selectedOrg: string;
     cache: StorageHelper<IRepository>;
+    channel: IEventChannel;
+
     page: number = 1;
     pages = new Subject();
 
 
     constructor(
         private _githubService: GithubService,
-        private _hamburgerService: HamburgerService,
+        private _mediatorService: MediatorService,
         private _router: Router
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
+        this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
     }
 
     selectRepo(repository: IRepository) {
@@ -50,7 +53,7 @@ export class RepoComponent implements OnActivate {
     }
 
     showMenu() {
-        this._hamburgerService.showMenu();
+        this.channel.event.next(true);
     }
 
     showNext() {
