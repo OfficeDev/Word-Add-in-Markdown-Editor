@@ -1,6 +1,67 @@
 ﻿<section class="file-create-component__header">
     <ul class="file-create-command-bar">
         <li class="file-create-command-bar__command"><i class="ms-Icon ms-Icon--chevronThinLeft"></i></li>
-        <li class="file-create-command-bar__command file-create-command-bar__command--text"><h1>New File</h1></li>        
+        <li class="file-create-command-bar__text"><h1 class="ms-font-l ms-fontweight-light">New File</h1></li>
     </ul>
+</section>
+
+<section class="file-create-component__form">
+    <form class="file-create-form" name="newfile">
+        <section class="file-create-form__section">
+            <label class="file-create-form__label ms-font-s" for="filename">What's the file name?</label>
+            <input class="file-create-form__text" type="text" name="filename" [(ngModel)]="selectedFile" />
+        </section>
+
+        <section class="file-create-form__section">
+            <input class="file-create-form__checkbox" type="checkbox" name="newfolder" [(ngModel)]="newFolder"/>
+            <label class="file-create-form__label ms-font-s" for="newfolder">Create a new folder?</label>
+        </section>
+
+        <section class="file-create-form__section" [hidden]="!newFolder">
+            <label class="file-create-form__label ms-font-s" for="foldername">What's the folder name?</label>
+            <input class="file-create-form__text ms-font-m" type="text" name="foldername" [(ngModel)]="selectedFolder" />
+        </section>
+
+        <section class="file-create-form__section">
+            <p class="file-create-form__label ms-font-s">Your file will be created at:</p>
+            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath==null">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="selectedFolder?.length <= 0">{{selectedFolder}}</span><span [hidden]="selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}</span></pre>
+        </section>
+
+        <section class="file-create-form__section">
+
+            <h2 class="file-create-form__title ms-font-l ms-fontweight-light">Templates</h2>
+            <p class="file-create-form__label ms-font-s ms-fontweight-light">Click on a template to load it in Word.</p>
+        </section>
+
+        <ul class="file-create-form__templates">
+            <li class="file-template-item file-template-item--selected">
+                <p class="file-template-item__title ms-font-m">Empty</p>
+                <p class="file-template-item__description ms-font-s">Creates a new empty markdown file</p>
+            </li>
+            <li class="file-template-item">
+                <p class="file-template-item__title ms-font-m">Basic</p>
+                <p class="file-template-item__description ms-font-s">Creates a basic markdown file</p>
+            </li>
+            <li class="file-template-item">
+                <p class="file-template-item__title ms-font-m">Readme</p>
+                <p class="file-template-item__description ms-font-s">Creates a new readme markdown file with all the required sections</p>
+            </li>
+            <li class="file-template-item">
+                <p class="file-template-item__title ms-font-m">API Documentation</p>
+                <p class="file-template-item__description ms-font-s">Creates a new api documentation markdown file with all the required sections</p>
+            </li>
+            <li class="file-template-item">
+                <p class="file-template-item__title ms-font-m">License</p>
+                <p class="file-template-item__description ms-font-s">Creates a new license markdown file</p>
+            </li>
+            <li class="file-template-item">
+                <p class="file-template-item__title ms-font-m">Contribution</p>
+                <p class="file-template-item__description ms-font-s">Creates a new contribution markdown file</p>
+            </li>
+        </ul>
+
+        <section class="file-create-form__section">
+            <input class="file-create-form__submit ms-font-m" type="submit" value="Create" />
+        </section>
+    </form>
 </section>

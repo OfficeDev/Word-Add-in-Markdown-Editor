@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
+import {Router, OnActivate, RouteSegment} from '@angular/router';
 import {Path, Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
 
@@ -22,8 +22,7 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
     templateType: string = 'Code sample readme';
     templateContent: string;
     
-    newFolder: string;
-    commitMessage: string;
+    selectedFolder: string;
     subscriptions: Subscription[];
 
     constructor(
@@ -36,11 +35,10 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
         _.each(this.subscriptions, subscription => subscription.unsubscribe());
     }
 
-    routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
-        var parent = tree.parent(current);
-        this.selectedRepoName = parent.getParam('repo');
-        this.selectedOrg = parent.getParam('org');
-        this.selectedBranch = parent.getParam('branch');
+    routerOnActivate(current: RouteSegment) {
+        this.selectedRepoName = current.getParam('repo');
+        this.selectedOrg = current.getParam('org');
+        this.selectedBranch = current.getParam('branch');
         this.selectedPath = decodeURIComponent(current.getParam('path'));
     }
 
@@ -51,11 +49,11 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
             path = this.selectedFile;
         }
         else {
-            path = this.selectedPath + '/' + (this.newFolder ? this.newFolder + '/' : '') + this.selectedFile;
+            path = this.selectedPath + '/' + (this.selectedFolder ? this.selectedFolder + '/' : '') + this.selectedFile;
         }
 
         var body = {
-            message: this.commitMessage || 'Updated ' + this.selectedFile,
+            message: 'Creating ' + this.selectedFile,
             content: this.templateContent || '',
             branch: this.selectedBranch
         };

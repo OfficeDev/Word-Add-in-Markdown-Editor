@@ -69,11 +69,7 @@ ul {
     }
 }
 
-/* 
-    DIV created by Angular2 Router. Its marked as flex by default
-    and takes maximum available space 
-*/
-undefined {
+repo, file-list, file-tree, file-create, file-detail {
     @include flex();
     flex: 1 1 100%;
 }
