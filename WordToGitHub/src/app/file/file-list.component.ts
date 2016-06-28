@@ -42,11 +42,13 @@ export class FileListComponent implements OnActivate {
         
     }
 
-    selectBranch() {
-        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', null]);
+    selectBranch(branchName: string) {
+        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, branchName, 'tree', null]);
+        this.selectedBranch.name = branchName;
     }
 
     routerOnActivate(current: RouteSegment) {
+        var stringMy = current.getParam('repo');
         this.selectedRepoName = current.getParam('repo');
         this.selectedOrg = current.getParam('org');
         this.selectedBranch = <IBranch>{

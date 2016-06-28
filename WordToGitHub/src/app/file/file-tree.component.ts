@@ -1,3 +1,4 @@
+/// <reference path="file-detail.component.ts" />
 import {Component, AfterViewInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
