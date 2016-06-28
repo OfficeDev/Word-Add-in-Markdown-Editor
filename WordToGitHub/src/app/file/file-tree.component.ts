@@ -66,4 +66,8 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
 
         this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
     }
+
+    createFile() {
+        this._router.navigate(['/create', this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(this.selectedPath)]);
+    }
 }

@@ -1,0 +1,36 @@
+﻿@import '../../styles/mixins.scss';
+@import '../../styles/theme.scss';
+
+.file-create-component {
+    &__separator {
+        margin: 0 auto;
+        width: calc(100% - 30px);
+        border: none;
+        border-top: 1px solid $background-light;
+    }   
+}
+
+.file-create-command-bar {
+    @include inline-flex();
+    list-style-type: none;
+    width: 100%;
+    border-bottom: 1px solid $background-light;
+
+    &__command {
+        padding: (40px - $default-spacing)/2 $default-spacing;
+        @include focus-states($accent-background-primary, $accent-foreground-primary);
+
+        &:hover i {
+            color: $accent-foreground-primary;
+        }
+
+        &--text {
+            flex: 1 1 0px;
+            @include ellipsis();
+
+            i {
+                padding-right: $default-spacing/2;
+            }
+        }
+    }
+}

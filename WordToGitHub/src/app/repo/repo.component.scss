@@ -84,21 +84,27 @@
     &__tertiary-text {
         padding-right: 0;
         word-wrap: break-word;
-        white-space: pre;
+        white-space: pre-wrap;
     }
 
     &__content {
-        flex: 1 0 0px;
-        padding-right: $default-spacing;
+        flex: 1 0 calc(100% - 15px);
     }
 
     &__actions {
-        max-width: 80px;
+        width: 20px;        
         position: static;
     }
 
     &__action {
+        width: auto;
+        height: auto;
+        position: static;
         @include focus-states(transparent);
+
+        i {
+            position: static;
+        }
     }
 }
 

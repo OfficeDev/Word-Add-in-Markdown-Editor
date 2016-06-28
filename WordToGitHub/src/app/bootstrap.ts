@@ -6,7 +6,7 @@ import {HTTP_PROVIDERS, RequestOptions} from '@angular/http';
 import {ROUTER_PROVIDERS} from '@angular/router';
 
 import {WordToGithubComponent} from "./word-to-github";
-import {GithubService, MediatorService, HamburgerService} from "./shared/services";
+import {GithubService, WordService, MediatorService, MarkdownService} from "./shared/services";
 import {Utils, ExceptionHelper, RequestHelper} from "./shared/helpers";
 
 if (Utils.isWord) {
@@ -17,7 +17,8 @@ if (Utils.isWord) {
             provide(LocationStrategy, { useClass: HashLocationStrategy }),
             provide(ExceptionHandler, { useClass: ExceptionHelper }),
             GithubService,
-            HamburgerService,
+            WordService,
+            MarkdownService,
             MediatorService,
             RequestHelper
         ]);
@@ -32,7 +33,8 @@ else if (Utils.isWeb) {
         provide(LocationStrategy, { useClass: HashLocationStrategy }),
         provide(ExceptionHandler, { useClass: ExceptionHelper }),
         GithubService,
-        HamburgerService,
+        WordService,
+        MarkdownService,
         MediatorService,
         RequestHelper
     ]);
