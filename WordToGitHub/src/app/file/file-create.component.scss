@@ -59,6 +59,12 @@
     &__section {
         margin-bottom: $default-spacing;
         padding: 0 $default-spacing;
+
+        &--menu {
+            padding: 0;
+            flex: 1 0 auto;
+            position: relative;
+        }
     }
 
     &__label {
@@ -108,9 +114,23 @@
     &__templates {
         list-style-type: none;
         flex: 1 0 auto;
+        position: absolute;
+        top: 0;
+        background-color: darken($background-primary, 10%);
+        display: none;
+        width: 100%;
+        max-height: 300px;
+        overflow: auto;
+
+        &:hover,
+        &:active,
+        &:focus {
+            display: block;
+        }
     }
 
     &__title {
+        margin-top: $default-spacing;
         color: $foreground-lightest;
     }
 
@@ -130,13 +150,8 @@
     padding: $default-spacing;
     @include focus-states($accent-background-primary, $accent-foreground-primary);
 
-    &--selected {
-        background-color: $accent-background-primary;
-    }
-
     &:hover,
-    &:active,
-    &--selected {
+    &:active {
         .file-template-item__title {
             color: $accent-foreground-primary;
         }
@@ -144,6 +159,33 @@
         .file-template-item__description {
             color: rgba($accent-foreground-primary, 0.6);
         }
+    }
+
+    &--selected {
+        background-color: $background-primary;
+        @include inline-flex(null, center);
+        width: calc(100% - 30px);
+
+        .file-template-item__title {
+            color: $foreground-white;
+        }
+
+        .file-template-item__description {
+            color: $foreground-lighter;
+        }
+
+        &:focus + .file-create-form__templates,
+        &:active + .file-create-form__templates {
+            display: block;
+        }
+    }
+
+    &__left {
+        flex: 1 0 auto;
+    }
+
+    &__right {
+        color: $foreground-white;
     }
 
     &__title {
