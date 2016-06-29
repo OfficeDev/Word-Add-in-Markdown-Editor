@@ -47,6 +47,25 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
         this.subscriptions.push(subscription);
     }
 
+    uploadImages() {
+        this._wordService.getBase64EncodedStringsOfImages()
+            .then((base64Strings) => {
+                for (var i = 0; i < base64Strings.length; i++) {
+                    this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+                        .subscribe((file) => {
+                            var fileName = "test.jpg";
+                            var body = {
+                                message: "Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
+                                content: base64Strings[i],
+                                branch: this.selectedBranch,
+                                sha: file.sha
+                            };
+                            this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, fileName, body);
+                        });        
+                }
+            });
+    }
+
     push() {
         var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {

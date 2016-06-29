@@ -90,6 +90,14 @@ export class GithubService {
         return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
     }
 
+    uploadImage(orgName: string, repoName: string, fileName: string, body: any): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + "images/" + fileName, body) as Observable<string>;
+    }
+
+    updateImage(orgName: string, repoName: string, fileName: string, body: any): Observable<string> {
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + "images/" + fileName, body) as Observable<string>;
+    }
+
     getFileData(type: string): Observable<string> {
         var url;
         switch (type) {

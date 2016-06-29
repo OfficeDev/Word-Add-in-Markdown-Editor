@@ -124,4 +124,19 @@ export class WordService {
             })
         });
     }
+
+    getBase64EncodedStringsOfImages() {
+        var base64EncodedStringsOfImages = [];
+        return this._run((context) => {
+            var imageRange = context.document.body.getRange('Whole');
+            context.load(imageRange, 'inlinePictures');
+            return context.sync().then(() => {
+                if (imageRange.inlinePictures.items.length === 1) {
+                    var imageBase64String = imageRange.inlinePictures.items[0].getBase64ImageSrc();
+                    base64EncodedStringsOfImages.push(imageBase64String);
+                }
+                return base64EncodedStringsOfImages;
+            });
+        });
+    }
 }
