@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
 import marked from 'marked';
+import {IImage} from './';
 
 declare var toMarkdown: any;
 
@@ -65,6 +66,7 @@ export class WordService {
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
+            var ooxml = context.document.body.getOoxml();
             return context.sync().then(() => {
                 return this._markDownService.previewMarkdown(html.value);
             });
@@ -125,17 +127,28 @@ export class WordService {
         });
     }
 
-    getBase64EncodedStringsOfImages() {
-        var base64EncodedStringsOfImages = [];
+    getBase64EncodedStringsOfImages(): OfficeExtension.IPromise<IImage[]> {
+        var imagesArray: IImage[] = [];
         return this._run((context) => {
-            var imageRange = context.document.body.getRange('Whole');
-            context.load(imageRange, 'inlinePictures');
+            var images = context.document.body.inlinePictures;
+            images.load();
             return context.sync().then(() => {
-                if (imageRange.inlinePictures.items.length === 1) {
-                    var imageBase64String = imageRange.inlinePictures.items[0].getBase64ImageSrc();
-                    base64EncodedStringsOfImages.push(imageBase64String);
+                for (var i = 0; i < images.items.length; i++) {
+                    var image = <IImage>{
+                        imageFormat: images.items[i].imageFormat,
+                        altTextTitle: images.items[i].altTextTitle,
+                        altTextDescription: images.items[i].altTextDescription,
+                        height: images.items[i].height,
+                        width: images.items[i].width,
+                        hyperlink: images.items[i].hyperlink,
+                        base64ImageSrc: images.items[i].getBase64ImageSrc()
+
+                    }
+
+                    imagesArray.push(image);
                 }
-                return base64EncodedStringsOfImages;
+
+                return context.sync().then(() => imagesArray);
             });
         });
     }
