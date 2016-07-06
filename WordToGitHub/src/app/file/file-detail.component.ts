@@ -53,9 +53,10 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
                 base64Strings.forEach(base64String => {
                     this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                         .subscribe((file) => {
-                            var fileName = "test.jpg";
+                            var uniqueNumber = new Date().getTime(); 
+                            var fileName = "image" + uniqueNumber + "." + base64String.imageFormat;
                             var body = {
-                                message: "Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
+                                message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
                                 content: base64String.base64ImageSrc.value,
                                 branch: this.selectedBranch,
                                 sha: file.sha
@@ -66,6 +67,7 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
                                     console.log(response);
                                 });
                         });
+
                 });
             });
 
