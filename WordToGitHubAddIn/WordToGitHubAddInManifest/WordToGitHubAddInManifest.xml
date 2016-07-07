@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--Created:cb85b80c-f585-40ff-8bfc-12ff4d0e34a9-->
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+           xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+           xsi:type="TaskPaneApp">
+
   <Id>af8fa5ba-4010-4bcc-9e03-a91ddadf6dd3</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Microsoft</ProviderName>
@@ -19,4 +24,67 @@
     <SourceLocation DefaultValue="https://localhost:3000/index.html" />
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="W2G.GetStarted.Title"/>
+            <Description resid="W2G.GetStarted.Description"/>
+            <LearnMoreUrl resid="W2G.GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="W2G.Group1">
+                <Label resid="W2G.Group1Label" />
+                <Icon>
+                  <bt:Image size="16" resid="W2G.tpicon_16x16" />
+                  <bt:Image size="32" resid="W2G.tpicon_32x32" />
+                  <bt:Image size="80" resid="W2G.tpicon_80x80" />
+                </Icon>
+                <Control xsi:type="Button" id="W2G.TaskpaneButton">
+                  <Label resid="W2G.TaskpaneButton.Label" />
+                  <Supertip>
+                    <Title resid="W2G.TaskpaneButton.Label" />
+                    <Description resid="W2G.TaskpaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="W2G.tpicon_16x16" />
+                    <bt:Image size="32" resid="W2G.tpicon_32x32" />
+                    <bt:Image size="80" resid="W2G.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="W2G.Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="W2G.tpicon_16x16" DefaultValue="https://localhost:3000/assets/images/logo_16.png" />
+        <bt:Image id="W2G.tpicon_32x32" DefaultValue="https://localhost:3000/assets/images/logo_32.png" />
+        <bt:Image id="W2G.tpicon_80x80" DefaultValue="https://localhost:3000/assets/images/logo_80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="W2G.Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
+        <bt:Url id="W2G.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="W2G.TaskpaneButton.Label" DefaultValue="Show" />
+        <bt:String id="W2G.Group1Label" DefaultValue="Markdown Writer" />
+        <bt:String id="W2G.GetStarted.Title" DefaultValue="Author Markdown files in Word" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="W2G.TaskpaneButton.Tooltip" DefaultValue="Click to launch Markdown Writer" />
+        <bt:String id="W2G.GetStarted.Description" DefaultValue="Markdown Writer was installed successfully. Go to the HOME tab and click the 'Show app' button to get started." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
 </OfficeApp>
