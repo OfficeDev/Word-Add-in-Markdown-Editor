@@ -47,24 +47,23 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
         this.subscriptions.push(subscription);
     }
 
-    uploadImages() {
+    push() {
         var subscription = Observable.fromPromise(this._wordService.getBase64EncodedStringsOfImages())
             .subscribe(base64Strings => {
                 base64Strings.forEach(base64String => {
                     this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                         .subscribe((file) => {
-                            var uniqueNumber = new Date().getTime(); 
-                            var fileName = "image" + uniqueNumber + "." + base64String.imageFormat;
                             var body = {
                                 message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
                                 content: base64String.base64ImageSrc.value,
                                 branch: this.selectedBranch,
                                 sha: file.sha
                             };
-                            return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, fileName, body)
+                            return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, base64String.hyperlink, body)
                                 .subscribe(response => {
                                     if (Utils.isEmpty(response)) return;
                                     console.log(response);
+                                    this.updateFile();
                                 });
                         });
 
@@ -75,8 +74,8 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
     }
 
 
-    push() {
-        var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+    updateFile() {
+             var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
                     .then((md) => {
@@ -89,10 +88,6 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
                             content: b64md,
                             branch: this.selectedBranch,
                             sha: file.sha
-                            //committer: {
-                            //    name: this._githubService.profile.user.name,
-                            //    email: 'umas@microsoft.com'
-                            //}
                         };
 
                         return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)

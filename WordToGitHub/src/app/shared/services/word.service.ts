@@ -80,6 +80,9 @@ export class WordService {
     private _insertHtmlIntoWord(html: string) {
         return this._run((context) => {
             var body = context.document.body;
+            html = Utils.regex(html)
+                (/<img src="(.*?)" alt="" style="max-width:100%;">/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" alt="" style="max-width:100%;">')
+                ();
             body.insertHtml(html, Word.InsertLocation.replace);
             return context.sync();
         })
@@ -144,8 +147,12 @@ export class WordService {
                         base64ImageSrc: images.items[i].getBase64ImageSrc()
 
                     }
-
-                    imagesArray.push(image);
+                    if (Utils.isEmpty(image.hyperlink)) {
+                        var uniqueNumber = new Date().getTime();
+                        var fileName = "image" + uniqueNumber + "." + image.imageFormat;
+                        image.hyperlink = "images/"+fileName;
+                        imagesArray.push(image);
+                    }
                 }
 
                 return context.sync().then(() => imagesArray);

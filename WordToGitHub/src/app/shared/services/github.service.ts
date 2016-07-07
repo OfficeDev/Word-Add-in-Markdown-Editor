@@ -95,7 +95,7 @@ export class GithubService {
     }
 
     updateImage(orgName: string, repoName: string, fileName: string, body: any): Observable<string> {
-        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + "images/" + fileName, body) as Observable<string>;
+        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + fileName, body) as Observable<string>;
     }
 
     getFileData(type: string): Observable<string> {
