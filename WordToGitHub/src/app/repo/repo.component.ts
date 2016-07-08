@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
+import {GithubService, MediatorService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, MediatorService, IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
+import {BaseComponent} from '../components';
+import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
 @Component(Utils.component('repo', {
     pipes: [SafeNamesPipe]
 }))
-export class RepoComponent implements OnInit {
+export class RepoComponent extends BaseComponent {
     repositories: IRepository[];
     query: string;
     selectedOrg: string;
@@ -23,6 +25,7 @@ export class RepoComponent implements OnInit {
         private _router: Router,
         private _route: ActivatedRoute
     ) {
+        super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
     }
@@ -33,7 +36,7 @@ export class RepoComponent implements OnInit {
 
     ngOnInit() {
         this.page = 1;
-        this._route.params.subscribe(params => {
+        var subscription = this._route.params.subscribe(params => {
             this.selectedOrg = params['org'];
             this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
                 .subscribe(repos => {
@@ -41,6 +44,8 @@ export class RepoComponent implements OnInit {
                     this.repositories = repos;
                 });
         });
+
+        this.markDispose(subscription);
     }
 
     pin(item: IRepository) {
@@ -53,7 +58,7 @@ export class RepoComponent implements OnInit {
 
     showNext() {
         this.page = this.page + 1;
-        this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
+        var subscription = this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
             .subscribe(repos => {
                 if (Utils.isEmpty(repos)) {
                     this.page = 1;
@@ -61,15 +66,20 @@ export class RepoComponent implements OnInit {
                 }
                 this.repositories = repos;
             });
+
+        this.markDispose(subscription);
     }
 
     showPrevious() {
         if (this.page > 1) {
             this.page = this.page - 1;
         }
-        this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
+
+        var subscription = this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
             .subscribe(repos => {
                 this.repositories = repos;
             });
+
+        this.markDispose(subscription);
     }
 }
