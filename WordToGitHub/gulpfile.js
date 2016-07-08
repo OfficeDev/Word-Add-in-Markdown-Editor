@@ -68,7 +68,7 @@ gulp.task('compile:ts', function () {
         .pipe(typescript(tsProject))
 
     tsResult.js
-        .pipe(sourcemaps.write('./'))
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.app.dest))
         .pipe(browserSync.stream());
 });

@@ -122,7 +122,6 @@ class Configuration {
 function useAppConfiguration() {
     var conf = new Configuration()
         .useDevelopment()
-        .registerAngular2Packages()
         .registerBarrels(<IBarrel[]>[
             {
                 name: 'components',
@@ -141,6 +140,7 @@ function useAppConfiguration() {
                 path: 'app/shared'
             }
         ])
+        .registerAngular2Packages()
         .registerLibraries(<IPackage[]>[
             {
                 name: 'app',
