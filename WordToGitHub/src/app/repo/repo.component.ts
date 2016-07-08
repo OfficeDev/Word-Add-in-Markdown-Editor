@@ -28,6 +28,7 @@ export class RepoComponent extends BaseComponent {
         super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
+        this.markDispose(this.channel);
     }
 
     selectRepo(repository: IRepository) {

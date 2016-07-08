@@ -1,7 +1,7 @@
 import {provideRouter, RouterConfig} from '@angular/router';
-import {RepoComponent, HamburgerComponent, FileListComponent, FileCreateComponent, LoginComponent} from "./components";
+import {FileRoutes, HamburgerComponent, LoginComponent, RepoComponent} from "./components";
 
-export const routes: RouterConfig = [
+export const BaseRoutes: RouterConfig = [
     {
         path: '',
         redirectTo: 'profile',
@@ -18,15 +18,12 @@ export const routes: RouterConfig = [
     {
         path: 'repos/:org',
         component: RepoComponent
-    },
-    {
-        path: 'files/:org/:repo/:branch',
-        component: FileListComponent
-    },
-    {
-        path: 'create/:org/:repo/:branch/:path',
-        component: FileCreateComponent
     }
+];
+
+export const routes: RouterConfig = [
+    ...BaseRoutes,
+    ...FileRoutes
 ];
 
 export const APP_ROUTER_PROVIDERS = [

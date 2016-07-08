@@ -1,34 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {Router, ActivatedRoute, Routes, ROUTER_DIRECTIVES} from '@angular/router';
+import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {GithubService, MediatorService, IRepository, IBreadcrumb, IBranch, IEventChannel} from '../shared/services';
-import {FileTreeComponent} from './file-tree.component';
-import {FileDetailComponent} from './file-detail.component';
-import {Path, Utils} from '../shared/helpers';
+import {Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
-import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component';
+import {BreadcrumbComponent, BaseComponent} from '../components';
 
-let view = 'file-list';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')],
+@Component(Utils.component('file-list', {
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
-})
-
-@Routes([
-    {
-        path: '/tree/:path',
-        component: FileTreeComponent
-    },
-    {
-        path: '/detail/:path',
-        component: FileDetailComponent
-    }
-])
-
-export class FileListComponent implements OnActivate {
+}, 'file'))
+export class FileListComponent extends BaseComponent {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: IBranch;
@@ -38,22 +20,30 @@ export class FileListComponent implements OnActivate {
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
-        private _router: Router
+        private _router: Router,
+        private _route: ActivatedRoute
+
     ) {
+        super();
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
+        this.markDispose(this.channel);
     }
 
     selectBranch() {
         this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', null]);
     }
 
-    routerOnActivate(current: RouteSegment) {
-        this.selectedRepoName = current.getParam('repo');
-        this.selectedOrg = current.getParam('org');
-        this.selectedBranch = <IBranch>{
-            name: current.getParam('branch') || 'master'
-        }
-        this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
+    ngOnInit() {
+        var subscription = this._route.params.subscribe(params => {
+            this.selectedRepoName = params['repo'];
+            this.selectedOrg = params['org'];
+            this.selectedBranch = <IBranch>{
+                name: params['branch'] || 'master'
+            }
+            this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
+        });
+
+        this.markDispose(subscription);
     }
 
     navigate(breadcrumb: IBreadcrumb) {
@@ -63,5 +53,5 @@ export class FileListComponent implements OnActivate {
 
     showMenu() {
         this.channel.event.next(true);
-    }    
+    }
 }
