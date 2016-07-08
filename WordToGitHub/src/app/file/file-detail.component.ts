@@ -50,6 +50,9 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
     push() {
         var subscription = Observable.fromPromise(this._wordService.getBase64EncodedStringsOfImages())
             .subscribe(base64Strings => {
+                if (Utils.isEmpty(base64Strings) || Utils.isNull(base64Strings)) {
+                    this.updateFile();
+                }
                 base64Strings.forEach(base64String => {
                     this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                         .subscribe((file) => {

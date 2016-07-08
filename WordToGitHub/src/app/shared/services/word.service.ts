@@ -66,7 +66,20 @@ export class WordService {
 
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
-            var ooxml = context.document.body.getOoxml();
+
+            var div = document.createElement('tempHtmlDiv');
+            div.innerHTML = html.value;
+
+            var images = div.getElementsByTagName('img');
+            var srcValue, max, i;
+
+            for (i = 0, max = images.length; i < max; i++) {
+                srcValue = images[i].getAttribute('alt');
+                if (!srcValue.toLowerCase().startsWith("~wrs")) {
+                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + srcValue);
+                }
+            }
+
             return context.sync().then(() => {
                 return this._markDownService.previewMarkdown(html.value);
             });
@@ -79,11 +92,49 @@ export class WordService {
 
     private _insertHtmlIntoWord(html: string) {
         return this._run((context) => {
+
             var body = context.document.body;
-            html = Utils.regex(html)
-                (/<img src="(.*?)" alt="" style="max-width:100%;">/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" alt="" style="max-width:100%;">')
-                ();
+
+
+            var div = document.createElement('tempHtmlDiv');
+            div.innerHTML = html;
+
+            var images = div.getElementsByTagName('img');
+            var altValue, toRemove, max, i;
+
+            for (i = 0, max = images.length; i < max; i++) {
+                altValue = images[i].getAttribute('alt');
+                toRemove = 'Title: ';
+                images[i].setAttribute('alt', altValue.replace(toRemove, ''));
+                altValue = images[i].getAttribute('alt');
+                if (!altValue.toLowerCase().startsWith("http")) {
+                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                }
+            }
+
+            //var regex = new RegExp('<img src="(.*?)" (.*?)>', 'g');
+            //regex.exec(html).forEach(match => {
+            //    if (!Utils.isEmpty(match)) {
+                    
+            //    }
+            //});
+            
+            //html = Utils.regex(html)
+            //    (/<img src="(.*?)" (.*?)>/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>')
+            //    ();
+
+            html = div.innerHTML;
+
             body.insertHtml(html, Word.InsertLocation.replace);
+
+
+            //var re = /<img src="(.*?)" (.*?)>/g;
+            //var newHtml = html.replace(re, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>');
+
+            ////html = Utils.regex(html)
+            ////    (/<img src="(.*?)" alt.*?>/g, 'https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1')
+            ////    ();
+            //body.insertHtml(newHtml, Word.InsertLocation.replace);
             return context.sync();
         })
     }
@@ -150,7 +201,9 @@ export class WordService {
                     if (Utils.isEmpty(image.hyperlink)) {
                         var uniqueNumber = new Date().getTime();
                         var fileName = "image" + uniqueNumber + "." + image.imageFormat;
-                        image.hyperlink = "images/"+fileName;
+                        image.hyperlink = "images/" + fileName;
+                        images.items[i].hyperlink = image.hyperlink;
+                        images.items[i].altTextTitle = "images/" + fileName;
                         imagesArray.push(image);
                     }
                 }
