@@ -16,7 +16,7 @@ if (Utils.isWord) {
         bootstrap(WordToGithubComponent, [
             HTTP_PROVIDERS,
             ROUTER_PROVIDERS,
-            provide(LocationStrategy, { useClass: HashLocationStrategy }),
+            // provide(LocationStrategy, { useClass: HashLocationStrategy }),
             provide(ExceptionHandler, { useClass: ExceptionHelper }),
             GithubService,
             WordService,
@@ -30,7 +30,7 @@ else if (Utils.isWeb) {
     bootstrap(WordToGithubComponent, [
         HTTP_PROVIDERS,
         ROUTER_PROVIDERS,
-        provide(LocationStrategy, { useClass: HashLocationStrategy }),
+        // provide(LocationStrategy, { useClass: HashLocationStrategy }),
         provide(ExceptionHandler, { useClass: ExceptionHelper }),
         GithubService,
         WordService,

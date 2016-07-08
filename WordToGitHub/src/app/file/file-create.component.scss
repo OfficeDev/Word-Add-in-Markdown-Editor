@@ -157,7 +157,7 @@
         }
 
         .file-template-item__description {
-            color: rgba($accent-foreground-primary, 0.6);
+            color: $accent-foreground-primary;
         }
     }
 
@@ -167,13 +167,14 @@
         width: calc(100% - 30px);
 
         .file-template-item__title {
-            color: $foreground-white;
+            color: $foreground-lightest;
         }
 
         .file-template-item__description {
             color: $foreground-lighter;
         }
 
+        &:hover + .file-create-form__templates,
         &:focus + .file-create-form__templates,
         &:active + .file-create-form__templates {
             display: block;
@@ -181,7 +182,7 @@
     }
 
     &__left {
-        flex: 1 0 auto;
+        flex: 1 0 0px;
     }
 
     &__right {
@@ -191,9 +192,11 @@
     &__title {
         color: $foreground-lightest;
         margin-bottom: $default-spacing * 0.25;
+        pointer-events: none;
     }
 
     &__description {
-        color: $foreground-light;
+        color: $foreground-lighter;
+        pointer-events: none;        
     }
 }

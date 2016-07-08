@@ -24,7 +24,7 @@
 
         <section class="file-create-form__section">
             <p class="file-create-form__label ms-font-s">Your file will be created at:</p>
-            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath==null">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="selectedFolder?.length <= 0">{{selectedFolder}}</span><span [hidden]="selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}</span></pre>
+            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath == 'null'">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="!newFolder || selectedFolder?.length <= 0">{{selectedFolder}}</span><span [hidden]="!newFolder || selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}</span></pre>
         </section>
 
         <section class="file-create-form__section">
@@ -35,38 +35,18 @@
         <section class="file-create-form__section file-create-form__section--menu">
             <article class="file-template-item file-template-item--selected">
                 <div class="file-template-item__left">
-                    <p class="file-template-item__title ms-font-m">Empty</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new empty markdown file</p>
+                    <p class="file-template-item__title ms-font-m">{{selectedTemplate?.title}}</p>
+                    <p class="file-template-item__description ms-font-s">{{selectedTemplate?.description}}</p>
                 </div>
                 <div class="file-template-item__right">
                     <i class="ms-Icon ms-Icon-large ms-Icon--chevronThinDown"></i>
                 </div>
             </article>
             <ul class="file-create-form__templates">
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">Empty</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new empty markdown file</p>
-                </li>
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">Basic</p>
-                    <p class="file-template-item__description ms-font-s">Creates a basic markdown file</p>
-                </li>
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">Readme</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new readme markdown file with all the required sections</p>
-                </li>
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">API Documentation</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new api documentation markdown file with all the required sections</p>
-                </li>
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">License</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new license markdown file</p>
-                </li>
-                <li class="file-template-item">
-                    <p class="file-template-item__title ms-font-m">Contribution</p>
-                    <p class="file-template-item__description ms-font-s">Creates a new contribution markdown file</p>
-                </li>
+                <li class="file-template-item" *ngFor="let template of templates" (click)="selectedTemplate = template">
+                    <p class="file-template-item__title ms-font-m">{{template.title}}</p>
+                    <p class="file-template-item__description ms-font-s">{{template.description}}</p>
+                </li>                
             </ul>
         </section>
 

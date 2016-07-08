@@ -6,6 +6,13 @@ import {GithubService, WordService, ICommit} from '../shared/services';
 
 declare var StringView: any;
 let view = 'file-create';
+
+export interface ITemplate {
+    path: string,
+    title: string,
+    description: string
+}
+
 @Component({
     selector: view,
     templateUrl: Path.template(view, 'file'),
@@ -19,7 +26,8 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
     selectedPath: string;
     selectedFile: string;
 
-    templateType: string = 'Code sample readme';
+    templates: ITemplate[];    
+    selectedTemplate: ITemplate;
     templateContent: string;
     
     selectedFolder: string;
@@ -29,7 +37,42 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
         private _router: Router,
         private _githubService: GithubService,
         private _wordService: WordService
-    ) { }
+    ) {
+        this.templates = [
+            {
+                path: '',
+                title: 'Empty',
+                description: 'Creates a new empty markdown file',
+            },
+            {
+                path: '',
+                title: 'Basic',
+                description: 'Creates a basic markdown file',
+            },
+            {
+                path: '',
+                title: 'Readme',
+                description: 'Creates a new readme markdown file with all the required sections',
+            },
+            {
+                path: '',
+                title: 'API Documentation',
+                description: 'Creates a new api documentation markdown file with all the required sections',
+            },
+            {
+                path: '',
+                title: 'License',
+                description: 'Creates a new license markdown file',
+            },
+            {
+                path: '',
+                title: 'Contribution',
+                description: 'Creates a new contribution markdown file',
+            }
+        ];
+
+        this.selectedTemplate = _.first(this.templates);
+     }
 
     ngOnDestroy() {
         _.each(this.subscriptions, subscription => subscription.unsubscribe());
@@ -60,7 +103,7 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
 
         return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
             .subscribe(response => {
-                this._wordService.insertTemplate(this.templateType);
+                this._wordService.insertTemplate(this.selectedTemplate.path);
                 this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
             });
     }
