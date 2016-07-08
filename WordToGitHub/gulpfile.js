@@ -14,7 +14,7 @@ var gulp = require('gulp'),
         app: {
             source: './src',
             dest: './wwwroot',
-            exclusions: '(*.scss|*.js|*.ts|*.css|*.map)'
+            exclusions: '(*.scss|*.ts)'
         },
         autoprefixer: {
             browsers: ['Safari >= 8', 'last 2 versions']
@@ -68,7 +68,7 @@ gulp.task('compile:ts', function () {
         .pipe(typescript(tsProject))
 
     tsResult.js
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.app.dest))
         .pipe(browserSync.stream());
 });

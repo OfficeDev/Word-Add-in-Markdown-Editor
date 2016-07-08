@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-import {BaseComponent} from '../components';
+//import {BaseComponent} from '../components';
 declare var StringView: any;
 
 @Component(Utils.component('file-detail', null, 'file'))
-export class FileDetailComponent extends BaseComponent {
+export class FileDetailComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -21,7 +21,7 @@ export class FileDetailComponent extends BaseComponent {
         private _githubService: GithubService,
         private _wordService: WordService
     ) {
-        super();
+        //super();
     }
 
     ngOnInit() {
@@ -36,10 +36,10 @@ export class FileDetailComponent extends BaseComponent {
                 this._wordService.insertHtml(file);
             });
 
-            this.markDispose(subscription);
+            //this.markDispose(subscription);
         });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
         //this.commits = this._githubService.commits(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
     }
 
@@ -67,6 +67,6 @@ export class FileDetailComponent extends BaseComponent {
                     });
             });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 }

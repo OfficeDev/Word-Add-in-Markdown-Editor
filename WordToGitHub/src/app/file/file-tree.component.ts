@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, ISubjectChannel} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
-import {BaseComponent} from '../components';
+//import {BaseComponent} from '../components';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
@@ -11,7 +11,7 @@ let view = 'file-tree';
 @Component(Utils.component('file-tree', {
     pipes: [SafeNamesPipe, MDFilterPipe]
 }, 'file'))
-export class FileTreeComponent extends BaseComponent {
+export class FileTreeComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -28,9 +28,9 @@ export class FileTreeComponent extends BaseComponent {
         private _router: Router,
         private _route: ActivatedRoute
     ) {
-        super();
+        //super();
         this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs') as ISubjectChannel;
-        this.markDispose(this.channel);
+        //this.markDispose(this.channel);
     }
 
     select(item: IContents) {
@@ -51,7 +51,7 @@ export class FileTreeComponent extends BaseComponent {
             this.selectedPath = decodeURIComponent(params['path']);
         });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 
     private addBreadcrumb(path: string) {

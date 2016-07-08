@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-import {BaseComponent} from '../components';
+//import {BaseComponent} from '../components';
 declare var StringView: any;
 
 interface ITemplate {
@@ -13,7 +13,7 @@ interface ITemplate {
 }
 
 @Component(Utils.component('file-create', null, 'file'))
-export class FileCreateComponent extends BaseComponent {
+export class FileCreateComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -32,7 +32,7 @@ export class FileCreateComponent extends BaseComponent {
         private _githubService: GithubService,
         private _wordService: WordService
     ) {
-        super();
+        //super();
 
         this.templates = [
             {
@@ -78,7 +78,7 @@ export class FileCreateComponent extends BaseComponent {
             this.selectedPath = decodeURIComponent(params['path']);
         });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 
     createFile() {

@@ -176,14 +176,9 @@ function useAppConfiguration() {
                 name: 'jquery',
                 main: 'jquery.min.js',
                 development: 'node_modules/jquery/dist'
-            },
-            {
-                name: 'office',
-                main: 'office.js',
-                production: 'https://oep.azurewebsites.net/preview/aprfork'
-            }
+            }            
         ])
-        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview', 'office'])
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
         .configure('app');
 }
 

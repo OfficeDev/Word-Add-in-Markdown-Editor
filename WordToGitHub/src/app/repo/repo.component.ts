@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
-import {BaseComponent} from '../components';
+//import {BaseComponent} from '../components';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
 @Component(Utils.component('repo', {
     pipes: [SafeNamesPipe]
 }))
-export class RepoComponent extends BaseComponent {
+export class RepoComponent implements OnInit {
     repositories: IRepository[];
     query: string;
     selectedOrg: string;
@@ -25,10 +25,10 @@ export class RepoComponent extends BaseComponent {
         private _router: Router,
         private _route: ActivatedRoute
     ) {
-        super();
+        //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
-        this.markDispose(this.channel);
+        //this.markDispose(this.channel);
     }
 
     selectRepo(repository: IRepository) {
@@ -46,7 +46,7 @@ export class RepoComponent extends BaseComponent {
                 });
         });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 
     pin(item: IRepository) {
@@ -68,7 +68,7 @@ export class RepoComponent extends BaseComponent {
                 this.repositories = repos;
             });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 
     showPrevious() {
@@ -81,6 +81,6 @@ export class RepoComponent extends BaseComponent {
                 this.repositories = repos;
             });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 }

@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {GithubService, MediatorService, IRepository, IBreadcrumb, IBranch, IEventChannel} from '../shared/services';
 import {Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
-import {BreadcrumbComponent, BaseComponent} from '../components';
+import {BreadcrumbComponent} from '../components';
 
 @Component(Utils.component('file-list', {
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
 }, 'file'))
-export class FileListComponent extends BaseComponent {
+export class FileListComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: IBranch;
@@ -24,9 +24,9 @@ export class FileListComponent extends BaseComponent {
         private _route: ActivatedRoute
 
     ) {
-        super();
+        //super();
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
-        this.markDispose(this.channel);
+        //this.markDispose(this.channel);
     }
 
     selectBranch() {
@@ -43,7 +43,7 @@ export class FileListComponent extends BaseComponent {
             this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
         });
 
-        this.markDispose(subscription);
+        //this.markDispose(subscription);
     }
 
     navigate(breadcrumb: IBreadcrumb) {

@@ -36,4 +36,4 @@ export class AppComponent {
     }
 }
 
-Utils.isWord ? Office.initialize = launch : launch();
+Utils.isWord ? Office.initialize = function () { launch(); } : launch();

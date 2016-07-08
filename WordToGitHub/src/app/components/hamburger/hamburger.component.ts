@@ -1,16 +1,14 @@
-﻿import {Component} from '@angular/core';
+﻿import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-import {BaseComponent} from '../../components';
+//import {BaseComponent} from '../../components';
 import {Utils, StorageHelper} from '../../shared/helpers';
 import {GithubService, MediatorService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
-@Component(Utils.component('hamburger', {
-    pipes: [SafeNamesPipe]
-}, 'components/hamburger'))
+@Component(Utils.component('hamburger', { pipes: [SafeNamesPipe] }, 'components/hamburger'))
 
-export class HamburgerComponent extends BaseComponent {
+export class HamburgerComponent implements OnInit {
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
     isShown: Observable<boolean>;
@@ -22,10 +20,10 @@ export class HamburgerComponent extends BaseComponent {
         private _mediatorService: MediatorService,
         private _router: Router
     ) {
-        super();
+        //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
-        this.markDispose(this.channel);
+        //this.markDispose(this.channel);
     }
 
     ngOnInit() {

@@ -7,4 +7,4 @@ export * from '../file/file-tree.component';
 export * from '../file/file.routes';
 export * from './hamburger/hamburger.component';
 export * from './breadcrumb/breadcrumb.component';
-export * from './base.component';
+//export * from './base.component';
