@@ -3,6 +3,11 @@ import {RepoComponent, HamburgerComponent, FileListComponent, FileCreateComponen
 
 export const routes: RouterConfig = [
     {
+        path: '',
+        redirectTo: 'profile',
+        pathMatch: 'full'
+    },
+    {
         path: 'profile',
         component: HamburgerComponent
     },
