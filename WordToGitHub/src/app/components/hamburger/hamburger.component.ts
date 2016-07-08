@@ -1,19 +1,16 @@
 ﻿import {Component} from '@angular/core';
-import {Router, OnActivate} from '@angular/router';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-import {Path, Utils, StorageHelper} from '../../shared/helpers';
+import {BaseComponent} from '../../components';
+import {Utils, StorageHelper} from '../../shared/helpers';
 import {GithubService, MediatorService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
-let view = 'hamburger';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'components/' + view),
-    styleUrls: [Path.style(view, 'components/' + view)],
+@Component(Utils.component('hamburger', {
     pipes: [SafeNamesPipe]
-})
+}, 'components/hamburger'))
 
-export class HamburgerComponent implements OnActivate {
+export class HamburgerComponent extends BaseComponent {
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
     isShown: Observable<boolean>;
@@ -25,12 +22,15 @@ export class HamburgerComponent implements OnActivate {
         private _mediatorService: MediatorService,
         private _router: Router
     ) {
+        super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
+        this.markDispose(this.channel);
     }
 
     ngOnInit() {
-        this.isShown = this.channel.source$;        
+        this.isViewModeSet = true;
+        this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
     }
 
@@ -66,9 +66,5 @@ export class HamburgerComponent implements OnActivate {
         this._githubService.logout();
         this._router.navigate(['/login']);
         this.closeMenu();
-    }
-
-    routerOnActivate() {
-        this.isViewModeSet = true;
     }
 }

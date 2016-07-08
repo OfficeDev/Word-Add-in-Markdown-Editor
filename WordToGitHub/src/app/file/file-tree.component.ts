@@ -1,20 +1,17 @@
-import {Component, AfterViewInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, ISubjectChannel} from '../shared/services';
-import {Path, Utils, StorageHelper} from '../shared/helpers';
+import {Utils, StorageHelper} from '../shared/helpers';
+import {BaseComponent} from '../components';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
 
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')],
+@Component(Utils.component('file-tree', {
     pipes: [SafeNamesPipe, MDFilterPipe]
-})
-
-export class FileTreeComponent implements OnActivate, AfterViewInit {
+}, 'file'))
+export class FileTreeComponent extends BaseComponent {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -28,9 +25,12 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
         private _wordService: WordService,
-        private _router: Router
+        private _router: Router,
+        private _route: ActivatedRoute
     ) {
+        super();
         this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs') as ISubjectChannel;
+        this.markDispose(this.channel);
     }
 
     select(item: IContents) {
@@ -43,12 +43,15 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         }
     }
 
-    routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
-        var parent = tree.parent(current);
-        this.selectedRepoName = parent.getParam('repo');
-        this.selectedOrg = parent.getParam('org');
-        this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = current.getParam('path');
+    ngOnInit() {
+        var subscription = this._route.params.subscribe(params => {
+            this.selectedRepoName = params['repo'];
+            this.selectedOrg = params['org'];
+            this.selectedBranch = params['branch']
+            this.selectedPath = decodeURIComponent(params['path']);
+        });
+
+        this.markDispose(subscription);
     }
 
     private addBreadcrumb(path: string) {
