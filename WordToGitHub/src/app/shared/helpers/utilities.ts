@@ -8,7 +8,7 @@ export enum ContextType {
 export class Utils {
     private static _context: ContextType;
 
-    static component(view: string, parent?: string, overrides?: any) {
+    static component(view: string, overrides?: any, parent?: string) {
         var defaults = {
             selector: view,
             templateUrl: 'app/' + (parent || view) + '/' + view + '.component.html',

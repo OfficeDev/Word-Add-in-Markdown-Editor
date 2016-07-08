@@ -1,33 +1,27 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
-import {Router, RouteSegment, OnActivate} from '@angular/router';
-import {Path, Utils, StorageHelper} from '../shared/helpers';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Utils, StorageHelper} from '../shared/helpers';
 import {GithubService, MediatorService, IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
-let view = 'repo';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'repo'),
-    styleUrls: [Path.style(view, 'repo')],
+@Component(Utils.component('repo', {
     pipes: [SafeNamesPipe]
-})
-
-export class RepoComponent implements OnActivate {
+}))
+export class RepoComponent implements OnInit {
     repositories: IRepository[];
     query: string;
     selectedOrg: string;
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
-
     page: number = 1;
     pages = new Subject();
-
 
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
-        private _router: Router
+        private _router: Router,
+        private _route: ActivatedRoute
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
@@ -37,16 +31,16 @@ export class RepoComponent implements OnActivate {
         this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
     }
 
-    routerOnActivate(current: RouteSegment) {
+    ngOnInit() {
         this.page = 1;
-        this.selectedOrg = current.getParam('org');
-        this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
-            .subscribe(repos => {
-                if (Utils.isEmpty(repos)) {
-                    return;
-                }
-                this.repositories = repos;
-            });
+        this._route.params.subscribe(params => {
+            this.selectedOrg = params['org'];
+            this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
+                .subscribe(repos => {
+                    if (Utils.isEmpty(repos)) { return; }
+                    this.repositories = repos;
+                });
+        });
     }
 
     pin(item: IRepository) {
