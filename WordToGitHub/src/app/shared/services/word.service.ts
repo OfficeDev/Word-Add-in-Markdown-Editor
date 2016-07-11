@@ -100,15 +100,13 @@ export class WordService {
             div.innerHTML = html;
 
             var images = div.getElementsByTagName('img');
-            var altValue, toRemove, max, i;
+            var hrefValue, srcValue, max, i;
 
             for (i = 0, max = images.length; i < max; i++) {
-                altValue = images[i].getAttribute('alt');
-                toRemove = 'Title: ';
-                images[i].setAttribute('alt', altValue.replace(toRemove, ''));
-                altValue = images[i].getAttribute('alt');
-                if (!altValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                hrefValue = images[i].parentElement.getAttribute('href');
+                srcValue = images[i].getAttribute('src');
+                if (!srcValue.toLowerCase().startsWith("http")) {
+                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + hrefValue);
                 }
             }
 
