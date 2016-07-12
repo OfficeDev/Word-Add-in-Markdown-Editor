@@ -67,21 +67,24 @@ export class WordService {
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
 
-            var div = document.createElement('tempHtmlDiv');
-            div.innerHTML = html.value;
-
-            var images = div.getElementsByTagName('img');
-            var srcValue, max, i;
-
-            for (i = 0, max = images.length; i < max; i++) {
-                srcValue = images[i].getAttribute('alt');
-                if (!srcValue.toLowerCase().startsWith("~wrs")) {
-                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + srcValue);
-                }
-            }
-
             return context.sync().then(() => {
-                return this._markDownService.previewMarkdown(html.value);
+                var div = document.createElement('tempHtmlDiv');
+                div.innerHTML = html.value;
+
+                var images = div.getElementsByTagName('img');
+                var altValue, srcValue, max, i;
+                var toRemove = "Title: ";
+
+                for (i = 0, max = images.length; i < max; i++) {
+                    altValue = images[i].getAttribute('alt');
+                    altValue = altValue.replace(toRemove, "");
+                    srcValue = images[i].getAttribute('src');
+                    if (srcValue.toLowerCase().startsWith("~wrs")) {
+                        images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+
+                    }
+                }
+                return this._markDownService.previewMarkdown(div.innerHTML);
             });
         })
     }
@@ -100,13 +103,14 @@ export class WordService {
             div.innerHTML = html;
 
             var images = div.getElementsByTagName('img');
-            var hrefValue, srcValue, max, i;
+            var altValue, srcValue, max, i;
 
             for (i = 0, max = images.length; i < max; i++) {
-                hrefValue = images[i].parentElement.getAttribute('href');
+                altValue = images[i].parentElement.getAttribute('href');
                 srcValue = images[i].getAttribute('src');
+                console.log(srcValue);
                 if (!srcValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + hrefValue);
+                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
                 }
             }
 
@@ -200,13 +204,15 @@ export class WordService {
                         var uniqueNumber = new Date().getTime();
                         var fileName = "image" + uniqueNumber + "." + image.imageFormat;
                         image.hyperlink = "images/" + fileName;
-                        images.items[i].hyperlink = image.hyperlink;
+                        images.items[i].hyperlink = "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + "images/" + fileName;
                         images.items[i].altTextTitle = "images/" + fileName;
                         imagesArray.push(image);
                     }
                 }
 
-                return context.sync().then(() => imagesArray);
+                return context.sync().then(function () {                  
+                    return imagesArray;
+                });
             });
         });
     }
