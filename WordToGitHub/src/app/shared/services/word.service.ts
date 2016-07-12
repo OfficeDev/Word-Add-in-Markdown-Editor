@@ -81,7 +81,6 @@ export class WordService {
                     srcValue = images[i].getAttribute('src');
                     if (srcValue.toLowerCase().startsWith("~wrs")) {
                         images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
-
                     }
                 }
                 return this._markDownService.previewMarkdown(div.innerHTML);
