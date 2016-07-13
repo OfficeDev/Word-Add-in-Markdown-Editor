@@ -4,8 +4,15 @@ import {Utils, Repository} from '../helpers';
 
 export interface IChannel {
     name: string,
-    source$: Observable<any>,
-    dataSource?: Subject<any>
+    source$: Observable<any>
+}
+
+export interface IEventChannel extends IChannel {
+    event: EventEmitter<any>
+}
+
+export interface ISubjectChannel extends IChannel {
+    dataSource: Subject<any>
 }
 
 @Injectable()
@@ -15,20 +22,20 @@ export class MediatorService extends Repository<IChannel> {
         this.data = {};
     }
 
-    createEvent<T>(name: string) {
+    createEventChannel<T>(name: string): IEventChannel {
         var current = this.get(name);
-        if (!Utils.isNull(current)) return current;
+        if (!Utils.isNull(current)) return current as IEventChannel;
 
-        var event = new EventEmitter<T>().asObservable();
-        return this.add(name, { name: name, source$: event });
+        var event = new EventEmitter<T>();
+        return this.add(name, { name: name, source$: event.asObservable(), event: event } as IChannel) as IEventChannel;
     }
 
-    createSubject<T>(name: string) {
+    createSubjectChannel<T>(name: string): ISubjectChannel {
         var current = this.get(name);
-        if (!Utils.isNull(current)) return current;
+        if (!Utils.isNull(current)) return current as ISubjectChannel;
 
         var dataSource = new Subject<T>();
         var event = dataSource.asObservable();
-        return this.add(name, { name: name, source$: event, dataSource: dataSource });
+        return this.add(name, { name: name, source$: event, dataSource: dataSource } as IChannel) as ISubjectChannel;
     }
 }

@@ -56,7 +56,7 @@ ul {
         flex: 1 1 0;
         @include flex();
         overflow: auto;
-        overflow-x: hidden;
+        overflow-x: hidden;        
     }
 
     &__footer {
@@ -67,4 +67,9 @@ ul {
         cursor: pointer;
         height: 80px;
     }
+}
+
+repo, file-list, file-tree, file-create, file-detail {
+    @include flex();
+    flex: 1 1 100%;
 }

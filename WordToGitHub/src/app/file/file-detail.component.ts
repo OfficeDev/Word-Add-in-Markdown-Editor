@@ -7,6 +7,7 @@ import {GithubService, WordService, ICommit} from '../shared/services';
 declare var StringView: any;
 let view = 'file-detail';
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')]
 })

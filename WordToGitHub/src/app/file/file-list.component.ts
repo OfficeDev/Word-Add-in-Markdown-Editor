@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, Routes, ROUTER_DIRECTIVES} from '@angular/router';
-import {GithubService, HamburgerService, WordService, MarkdownService, IRepository, IBreadcrumb, IBranch} from '../shared/services';
+import {GithubService, MediatorService, IRepository, IBreadcrumb, IBranch, IEventChannel} from '../shared/services';
 import {FileTreeComponent} from './file-tree.component';
 import {FileDetailComponent} from './file-detail.component';
 import {Path, Utils} from '../shared/helpers';
@@ -10,11 +10,11 @@ import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component
 
 let view = 'file-list';
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
-    providers: [WordService, MarkdownService]
 })
 
 @Routes([
@@ -33,13 +33,14 @@ export class FileListComponent implements OnActivate {
     selectedRepoName: string;
     selectedBranch: IBranch;
     branches: Observable<IBranch[]>;
+    channel: IEventChannel;
 
     constructor(
         private _githubService: GithubService,
-        private _hamburgerService: HamburgerService,
+        private _mediatorService: MediatorService,
         private _router: Router
     ) {
-        
+        this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
     }
 
     selectBranch(branchName: string) {
@@ -63,6 +64,6 @@ export class FileListComponent implements OnActivate {
     }
 
     showMenu() {
-        this._hamburgerService.showMenu();
+        this.channel.event.next(true);
     }    
 }

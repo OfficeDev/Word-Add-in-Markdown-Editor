@@ -2,13 +2,14 @@
 import {Component, AfterViewInit} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {OnActivate, Router, RouteSegment, RouteTree} from '@angular/router';
-import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, IChannel} from '../shared/services';
+import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, ISubjectChannel} from '../shared/services';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
 
 @Component({
+    selector: view,
     templateUrl: Path.template(view, 'file'),
     styleUrls: [Path.style(view, 'file')],
     pipes: [SafeNamesPipe, MDFilterPipe]
@@ -20,7 +21,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
     selectedBranch: string;
     selectedPath: string;
     files: Observable<IContents[]>;
-    channel: IChannel;
+    channel: ISubjectChannel;
 
     static id: number = 1;
 
@@ -30,7 +31,7 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         private _wordService: WordService,
         private _router: Router
     ) {
-        this.channel = _mediatorService.createSubject('breadcrumbs');
+        this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs') as ISubjectChannel;
     }
 
     select(item: IContents) {
@@ -38,40 +39,9 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
             this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'tree', encodeURIComponent(item.path)]);
         }
         else {
-            this.addBreadcrumb(item.path);    
+            this.addBreadcrumb(item.path);
             this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(item.path)]);
         }
-    }
-
-    createFile() {
-        var path;
-        var fileName = "TestFileFromCreate.md";
-        var templateType = 'Code sample readme';
-
-        if (Utils.isNull(this.selectedPath)) {
-            path = fileName;
-        }
-        else {
-            path = this.selectedPath + "/" + fileName;
-        }
-
-        var body = {
-            message: "Initial commit",
-            content: "",
-            branch: this.selectedBranch
-            //committer: {
-            //    name: this._githubService.profile.user.name,
-            //    email: this._githubService.profile.user.email || 'umas@microsoft.com'
-            //}
-        };
-        return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
-            .subscribe(response => {
-                this._wordService.insertTemplate(templateType);
-                this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
-                if (Utils.isEmpty(response)) return;
-                console.log(response);
-            });
-
     }
 
     routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
@@ -96,5 +66,9 @@ export class FileTreeComponent implements OnActivate, AfterViewInit {
         this.addBreadcrumb(this.selectedPath);
 
         this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
+    }
+
+    createFile() {
+        this._router.navigate(['/create', this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(this.selectedPath)]);
     }
 }

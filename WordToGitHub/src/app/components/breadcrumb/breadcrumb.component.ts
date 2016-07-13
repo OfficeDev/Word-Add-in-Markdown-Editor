@@ -1,6 +1,6 @@
 ﻿import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {MediatorService, IBreadcrumb, IChannel} from '../../shared/services';
+import {MediatorService, IBreadcrumb, ISubjectChannel} from '../../shared/services';
 import {Path, Utils} from '../../shared/helpers';
 
 let view = 'breadcrumb';
@@ -14,14 +14,14 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;
 
-    channel: IChannel
+    channel: ISubjectChannel    
     isOverflown: boolean;
     breadcrumbs: IBreadcrumb[];
     overflownBreadcrumbs: IBreadcrumb[];
     breadcrumbSubscription: Subscription;
 
     constructor(private _mediatorService: MediatorService) {
-        this.channel = _mediatorService.createSubject('breadcrumbs');
+        this.channel = _mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs');
     }
 
     @Output() navigate: EventEmitter<IBreadcrumb> = new EventEmitter<IBreadcrumb>();

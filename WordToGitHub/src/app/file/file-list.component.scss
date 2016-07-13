@@ -22,6 +22,11 @@
             width: 100%;
         }
     }
+
+    &__files {
+        flex: 1 1 auto;  
+        @include flex(); 
+    }
 }
 
 .file-list-command-bar {

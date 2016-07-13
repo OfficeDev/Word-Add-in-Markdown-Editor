@@ -4,7 +4,7 @@ import {ROUTER_DIRECTIVES, Router, Routes} from '@angular/router';
 import {GithubService} from './shared/services';
 import {Utils} from './shared/helpers';
 
-import {RepoComponent, HamburgerComponent, FileListComponent, LoginComponent} from "./components";
+import {RepoComponent, HamburgerComponent, FileListComponent, FileCreateComponent, LoginComponent} from "./components";
 
 @Component({
     selector: 'word-to-github',
@@ -35,6 +35,10 @@ import {RepoComponent, HamburgerComponent, FileListComponent, LoginComponent} fr
     {
         path: '/files/:org/:repo/:branch',
         component: FileListComponent
+    },
+    {
+        path: '/create/:org/:repo/:branch/:path',
+        component: FileCreateComponent
     }
 ])
 
