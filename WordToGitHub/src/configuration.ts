@@ -20,14 +20,14 @@ class Configuration {
     private imports = [];
 
     private angularPackages = <IPackage[]>[
-        { name: '@angular/common', version: this.ngVersion },
-        { name: '@angular/compiler', version: this.ngVersion },
-        { name: '@angular/core', version: this.ngVersion },
-        { name: '@angular/http', version: this.ngVersion },
-        { name: '@angular/platform-browser', version: this.ngVersion },
-        { name: '@angular/platform-browser-dynamic', version: this.ngVersion },
-        { name: '@angular/router', version: '@3.0.0-beta.2' },
-        { name: '@angular/testing', version: this.ngVersion }
+        { name: 'common', version: this.ngVersion },
+        { name: 'compiler', version: this.ngVersion },
+        { name: 'core', version: this.ngVersion },
+        { name: 'http', version: this.ngVersion },
+        { name: 'platform-browser', version: this.ngVersion },
+        { name: 'platform-browser-dynamic', version: this.ngVersion },
+        { name: 'router', version: '@3.0.0-beta.2' },
+        { name: 'testing', version: this.ngVersion }
     ];
 
     configure(entryScript: string) {
@@ -97,9 +97,8 @@ class Configuration {
         var devModeFlag = true;
 
         this.angularPackages.forEach(pkg => {
-            // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }           
-            this.packages[pkg.name] = {
-                main: 'index.js',
+            this.packages['@angular/' + pkg.name] = {
+                main: 'bundles/' + pkg.name + '.umd.js',
                 defaultExtension: 'js'
             };
 
@@ -110,8 +109,7 @@ class Configuration {
                 }
             }
             else {
-                // add map entries for angular packages in the form '@angular/common': 'https://npmcdn.com/@angular/common@0.0.0-3?main=browser'                
-                this.map[pkg.name] = 'https://npmcdn.com/' + pkg.name + pkg.version;
+                this.map[pkg.name] = 'https://npmcdn.com/@angular/' + pkg.name + pkg.version + '/bundles/' + pkg.name + '.umd.min.js';
             }
         });
 
@@ -154,7 +152,7 @@ function useAppConfiguration() {
             },
             {
                 name: 'rxjs',
-                main: 'rx.js',
+                main: 'rx.umd.js',
                 development: 'node_modules/rxjs'
             },
             {
@@ -176,9 +174,14 @@ function useAppConfiguration() {
                 name: 'jquery',
                 main: 'jquery.min.js',
                 development: 'node_modules/jquery/dist'
-            }            
+            },
+            {
+                name: 'office',
+                main: 'office.js',
+                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
+            }
         ])
-        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview', 'office'])
         .configure('app');
 }
 
@@ -192,11 +195,21 @@ function useDialogConfiguration(initialScript: string) {
                 development: 'app'
             },
             {
+                name: 'office',
+                main: 'office.js',
+                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
+            },
+            {
                 name: 'underscore',
                 main: 'underscore.js',
                 development: 'node_modules/underscore'
-            }
+            },
+            {
+                name: 'jquery',
+                main: 'jquery.min.js',
+                development: 'node_modules/jquery/dist'
+            },
         ])
-        .import('underscore')
+        .import('underscore', 'jquery', 'office')
         .configure(initialScript);
 }

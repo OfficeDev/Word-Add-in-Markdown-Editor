@@ -25,11 +25,17 @@ var gulp = require('gulp'),
                 cert: "certificates/server.crt"
             },
             server: {
-                'baseDir': './wwwroot',
-                'routes': {
+                baseDir: './wwwroot',
+                routes: {
                     '/node_modules': 'node_modules',
                     '/bower_components': 'bower_components',
                     '/rxjs': 'node_modules/rxjs'
+                },
+                middleware: {
+                    1: require('connect-history-api-fallback')({
+                        index: './index.html',
+                        verbose: true
+                    })
                 }
             }
         }
