@@ -16,7 +16,6 @@ let view = 'hamburger';
 export class HamburgerComponent implements OnActivate {
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
-    favoritesChannel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
     isViewModeSet: boolean;
@@ -34,7 +33,7 @@ export class HamburgerComponent implements OnActivate {
     ngOnInit() {
         this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
-        this._favoritesService.pushDataEvent.subscribe(
+        this._favoritesService.pushDataEvent.event.subscribe(
             item => {
                 this.cache.add(item.id.toString(), item);
                 this.favoriteRepositories = _.values(this.cache.all());

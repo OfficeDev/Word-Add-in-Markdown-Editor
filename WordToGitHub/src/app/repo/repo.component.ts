@@ -19,7 +19,6 @@ export class RepoComponent implements OnActivate {
     selectedOrg: string;
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
-    favoritesChannel: IEventChannel;
 
     page: number = 1;
     pages = new Subject();
@@ -33,8 +32,6 @@ export class RepoComponent implements OnActivate {
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
-        this.favoritesChannel = this._mediatorService.createEventChannel<Event>('favorites');
-
     }
 
     selectRepo(repository: IRepository) {
