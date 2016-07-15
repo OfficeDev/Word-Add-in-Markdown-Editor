@@ -2,7 +2,7 @@
 import {Router, OnActivate} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Path, Utils, StorageHelper} from '../../shared/helpers';
-import {GithubService, MediatorService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
+import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
 let view = 'hamburger';
@@ -16,6 +16,7 @@ let view = 'hamburger';
 export class HamburgerComponent implements OnActivate {
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
+    favoritesChannel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
     isViewModeSet: boolean;
@@ -23,15 +24,22 @@ export class HamburgerComponent implements OnActivate {
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
-        private _router: Router
+        private _router: Router,
+        private _favoritesService: FavoritesService
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
     }
 
     ngOnInit() {
-        this.isShown = this.channel.source$;        
+        this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
+        this._favoritesService.pushDataEvent.subscribe(
+            item => {
+                this.cache.add(item.id.toString(), item);
+                this.favoriteRepositories = _.values(this.cache.all());
+            }
+         );
     }
 
     get profile(): IUserProfile {

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, RouteSegment, OnActivate} from '@angular/router';
 import {Path, Utils, StorageHelper} from '../shared/helpers';
-import {GithubService, MediatorService, IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
+import {GithubService, MediatorService, FavoritesService, IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
 let view = 'repo';
@@ -19,6 +19,7 @@ export class RepoComponent implements OnActivate {
     selectedOrg: string;
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
+    favoritesChannel: IEventChannel;
 
     page: number = 1;
     pages = new Subject();
@@ -27,10 +28,13 @@ export class RepoComponent implements OnActivate {
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
-        private _router: Router
+        private _router: Router,
+        private _favoritesService: FavoritesService
     ) {
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
+        this.favoritesChannel = this._mediatorService.createEventChannel<Event>('favorites');
+
     }
 
     selectRepo(repository: IRepository) {
@@ -51,6 +55,7 @@ export class RepoComponent implements OnActivate {
 
     pin(item: IRepository) {
         this.cache.add(item.id.toString(), item);
+        this._favoritesService.pushData(item);
     }
 
     showMenu() {
