@@ -2,12 +2,19 @@
 @import '../../styles/theme.scss';
 
 .file-tree-component {
+    @include flex();
+    height: 100%;
+
     &__title {
         padding: $default-spacing;
     }
 
     &__message {
         padding: $default-spacing;
+    }
+
+    &__list {
+        height: 100%;
     }
 }
 
@@ -40,22 +47,7 @@
             top: 2px;
         }
     }
-
-    &__actions {
-        max-width: 80px;
-        position: static;
-    }
-
-    &__action {
-        position: static;
-        @include focus-states(transparent);
-
-        i {
-            top: 2px;
-        }
-    }
-
-
+    
     &--separator {
         padding: 0;
         border-bottom: 1px solid $background-light;

@@ -48,7 +48,7 @@ ul {
     top: 4px;
 }
 
-.wg-container {
+.app {
     @include flex();
     height: 100vh;
 
@@ -56,7 +56,7 @@ ul {
         flex: 1 1 0;
         @include flex();
         overflow: auto;
-        overflow-x: hidden;
+        overflow-x: hidden;        
     }
 
     &__footer {
@@ -67,4 +67,27 @@ ul {
         cursor: pointer;
         height: 80px;
     }
+}
+
+@media only screen and (min-width: 700px) {
+    .app {
+        &__main {
+            margin-left: 350px;
+        }
+    }
+
+    .hamburger-menu {
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    .repo-list-command-bar__command--hamburger-menu,
+    .file-list-command-bar__command--hamburger-menu,
+    .hamburger-menu__close {
+        display: none;
+    }    
+} 
+
+repo, file-list, file-tree, file-create, file-detail {
+    @include flex();
+    flex: 1 1 100%;
 }

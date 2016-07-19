@@ -2,11 +2,11 @@
 @import '../../../styles/theme.scss';
 
 .hamburger-menu {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     height: 100%;
     width: 100%;
-    max-width: 330px;
+    max-width: 350px;
     top: 0;
     left: 0;
     background-color: $background-primary;

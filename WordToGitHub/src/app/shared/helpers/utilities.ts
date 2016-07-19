@@ -5,18 +5,18 @@ export enum ContextType {
     Word
 }
 
-export class Path {
-    static template(view: string, parent?: string): string {
-        return 'app/' + (parent || view) + '/' + view + '.component.html';
-    }
-
-    static style(view: string, parent?: string): string {
-        return 'app/' + (parent || view) + '/' + view + '.component.css';
-    }
-}
-
 export class Utils {
     private static _context: ContextType;
+
+    static component(view: string, overrides?: any, parent?: string) {
+        var defaults = {
+            selector: view,
+            templateUrl: 'app/' + (parent || view) + '/' + view + '.component.html',
+            styleUrls: ['app/' + (parent || view) + '/' + view + '.component.css']
+        }
+
+        return _.extend({}, defaults, overrides);
+    }
 
     static replace(source: string): (key: string, value: string) => any {
         return function self(key: string, value: string): any {

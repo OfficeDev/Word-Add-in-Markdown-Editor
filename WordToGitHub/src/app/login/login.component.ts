@@ -1,16 +1,10 @@
 ﻿import {Component} from '@angular/core';
-import {GithubService, IRepository} from '../shared/services';
 import {Router} from '@angular/router';
-import {Path, Utils} from '../shared/helpers';
+import {GithubService} from '../shared/services';
+import {Utils} from '../shared/helpers';
 
-let view = 'login';
-@Component({
-    templateUrl: Path.template(view),
-    styleUrls: [Path.style(view)]
-})
-
+@Component(Utils.component('login'))
 export class LoginComponent {
-
     constructor(
         private _githubService: GithubService,
         private _router: Router
@@ -19,9 +13,7 @@ export class LoginComponent {
 
     login() {
         this._githubService.login()
-            .then(profile => {
-                this._router.navigate(['/profile']);
-            })
+            .then(profile => { this._router.navigate(['']); })
             .catch(Utils.error);
     }
 }
