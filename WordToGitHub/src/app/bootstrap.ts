@@ -6,7 +6,7 @@ import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 
 import {HamburgerComponent} from "./components";
 import {APP_ROUTER_PROVIDERS} from "./routes";
-import {GithubService, WordService, MediatorService, MarkdownService} from "./shared/services";
+import {GithubService, WordService, FavoritesService, MediatorService, MarkdownService} from "./shared/services";
 import {Utils, ExceptionHelper, RequestHelper} from "./shared/helpers";
 
 function launch(reason?: Office.InitializationReason, inject?: boolean) {
@@ -17,7 +17,7 @@ function launch(reason?: Office.InitializationReason, inject?: boolean) {
     bootstrap(AppComponent, [
         HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
         provide(ExceptionHandler, { useClass: ExceptionHelper }), RequestHelper,
-        GithubService, WordService, MarkdownService, MediatorService,
+        GithubService, WordService, MarkdownService, MediatorService, FavoritesService
     ]);
 }
 

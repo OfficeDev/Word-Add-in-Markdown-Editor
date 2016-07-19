@@ -44,7 +44,37 @@ export class FileDetailComponent implements OnInit {
     }
 
     push() {
-        var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+        var subscription = Observable.fromPromise(this._wordService.getBase64EncodedStringsOfImages())
+            .subscribe(base64Strings => {
+                if (Utils.isEmpty(base64Strings) || Utils.isNull(base64Strings)) {
+                    this.updateFile();
+                }
+                base64Strings.forEach(base64String => {
+                    this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+                        .subscribe((file) => {
+                            var body = {
+                                message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
+                                content: base64String.base64ImageSrc.value,
+                                branch: this.selectedBranch,
+                                sha: file.sha
+                            };
+                            return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, base64String.hyperlink, body)
+                                .subscribe(response => {
+                                    if (Utils.isEmpty(response)) return;
+                                    console.log(response);
+                                    this.updateFile();
+                                });
+                        });
+
+                });
+            });
+
+        this.subscriptions.push(subscription);
+    }
+
+
+    updateFile() {
+             var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
                     .then((md) => {

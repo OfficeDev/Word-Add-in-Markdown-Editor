@@ -29,10 +29,6 @@ export class FileListComponent implements OnInit {
         //this.markDispose(this.channel);
     }
 
-    selectBranch() {
-        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch.name]);
-    }
-
     ngOnInit() {
         var subscription = this._route.params.subscribe(params => {
             this.selectedRepoName = params['repo'];
@@ -42,8 +38,11 @@ export class FileListComponent implements OnInit {
             }
             this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
         });
-
+    }
         //this.markDispose(subscription);
+    selectBranch(branchName: string) {
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, branchName]);
+        this.selectedBranch.name = branchName;
     }
 
     navigate(breadcrumb: IBreadcrumb) {

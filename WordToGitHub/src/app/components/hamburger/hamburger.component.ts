@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 //import {BaseComponent} from '../../components';
 import {Utils, StorageHelper} from '../../shared/helpers';
-import {GithubService, MediatorService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
+import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
 @Component(Utils.component('hamburger', { pipes: [SafeNamesPipe] }, 'components/hamburger'))
@@ -17,7 +17,8 @@ export class HamburgerComponent implements OnInit {
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
-        private _router: Router
+        private _router: Router,
+        private _favoritesService: FavoritesService
     ) {
         //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
@@ -28,6 +29,12 @@ export class HamburgerComponent implements OnInit {
     ngOnInit() {
         this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
+        this._favoritesService.pushDataEvent.event.subscribe(
+            item => {
+                this.cache.add(item.id.toString(), item);
+                this.favoriteRepositories = _.values(this.cache.all());
+            }
+         );
     }
 
     get profile(): IUserProfile {

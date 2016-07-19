@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
-import {GithubService, MediatorService} from '../shared/services';
+import {GithubService, MediatorService, FavoritesService} from '../shared/services'; 
 import {Utils, StorageHelper} from '../shared/helpers';
 //import {BaseComponent} from '../components';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
@@ -23,7 +23,8 @@ export class RepoComponent implements OnInit {
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
         private _router: Router,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _favoritesService: FavoritesService
     ) {
         //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
@@ -51,6 +52,7 @@ export class RepoComponent implements OnInit {
 
     pin(item: IRepository) {
         this.cache.add(item.id.toString(), item);
+        this._favoritesService.pushData(item);
     }
 
     showMenu() {
