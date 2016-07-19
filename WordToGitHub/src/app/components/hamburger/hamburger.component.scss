@@ -2,7 +2,7 @@
 @import '../../../styles/theme.scss';
 
 .hamburger-menu {
-    position: absolute;
+    position: fixed;
     z-index: 999;
     height: 100%;
     width: 100%;

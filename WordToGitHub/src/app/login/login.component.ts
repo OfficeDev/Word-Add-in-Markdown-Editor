@@ -13,7 +13,7 @@ export class LoginComponent {
 
     login() {
         this._githubService.login()
-            .then(profile => { this._router.navigate(['/profile']); })
+            .then(profile => { this._router.navigate(['/repos']); })
             .catch(Utils.error);
     }
 }

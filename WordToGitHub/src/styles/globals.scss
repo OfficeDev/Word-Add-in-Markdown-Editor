@@ -69,6 +69,14 @@ ul {
     }
 }
 
+@media only screen and (min-width: 700px) {
+    .app {
+        &__main {
+            margin-left: 350px;
+        }
+    }
+} 
+
 repo, file-list, file-tree, file-create, file-detail {
     @include flex();
     flex: 1 1 100%;

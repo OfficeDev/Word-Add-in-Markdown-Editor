@@ -38,7 +38,7 @@ export class RepoComponent implements OnInit {
     ngOnInit() {
         this.page = 1;
         var subscription = this._route.params.subscribe(params => {
-            this.selectedOrg = params['org'];
+            this.selectedOrg = params['org'] || this._githubService.profile.user.login;
             this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
                 .subscribe(repos => {
                     if (Utils.isEmpty(repos)) { return; }

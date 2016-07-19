@@ -1,5 +1,5 @@
-﻿<section class="hamburger-menu" [ngClass]="{'hamburger-menu--shown': isViewModeSet || (isShown|async)}">
-    <div class="hamburger-menu__close" [hidden]="isViewModeSet" (click)="closeMenu()"><i class="ms-Icon ms-Icon-large ms-Icon--menu"></i></div>
+﻿<section class="hamburger-menu" [ngClass]="{'hamburger-menu--shown': (isShown|async)}">
+    <div class="hamburger-menu__close" (click)="closeMenu()"><i class="ms-Icon ms-Icon-large ms-Icon--menu"></i></div>
     <div class="hamburger-menu__profile">
         <div class="profile__image" [ngStyle]="{'background-image': 'url('+ profile?.user?.avatar_url +')'}"></div>
         <h2 class="profile__name ms-font-xl">{{profile?.user?.name}}</h2>

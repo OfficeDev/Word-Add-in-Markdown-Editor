@@ -13,8 +13,7 @@ export class HamburgerComponent implements OnInit {
     channel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
-    isViewModeSet: boolean;
-
+    
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
@@ -27,7 +26,6 @@ export class HamburgerComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.isViewModeSet = true;
         this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
     }
@@ -47,7 +45,7 @@ export class HamburgerComponent implements OnInit {
 
     selectOrg(org: IProfile) {
         if (Utils.isNull(org)) {
-            this._router.navigate(['/repos', this.profile.user.login]);
+            this._router.navigate(['/repos']);
         }
         else {
             this._router.navigate(['/repos', org.login]);

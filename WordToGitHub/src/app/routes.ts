@@ -3,18 +3,13 @@ import {FileRoutes, HamburgerComponent, LoginComponent, RepoComponent} from "./c
 
 export const BaseRoutes: RouterConfig = [
     {
-        path: '',
-        redirectTo: 'profile',
-        pathMatch: 'full'
-    },
-    {
-        path: 'profile',
-        component: HamburgerComponent
-    },
-    {
         path: 'login',
         component: LoginComponent
     },
+    {
+        path: '',
+        component: RepoComponent
+    },    
     {
         path: 'repos/:org',
         component: RepoComponent
