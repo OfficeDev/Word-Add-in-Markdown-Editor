@@ -24,9 +24,9 @@ function launch(reason?: Office.InitializationReason, inject?: boolean) {
 @Component({
     selector: 'app',
     template:
-    `<div class="app-container">
+    `<div class="app">
         <hamburger></hamburger>
-        <main class="app-container__main ms-font-m ms-fontColor-neutralPrimary">
+        <main class="app__main ms-font-m ms-fontColor-neutralPrimary">
             <router-outlet></router-outlet>
         </main>
         <footer class="app-container__footer"></footer>

@@ -75,6 +75,16 @@ ul {
             margin-left: 350px;
         }
     }
+
+    .hamburger-menu {
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    .repo-list-command-bar__command--hamburger-menu,
+    .file-list-command-bar__command--hamburger-menu,
+    .hamburger-menu__close {
+        display: none;
+    }    
 } 
 
 repo, file-list, file-tree, file-create, file-detail {

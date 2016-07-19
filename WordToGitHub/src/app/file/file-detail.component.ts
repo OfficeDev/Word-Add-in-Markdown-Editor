@@ -68,8 +68,6 @@ export class FileDetailComponent implements OnInit {
 
                 });
             });
-
-        this.subscriptions.push(subscription);
     }
 
 

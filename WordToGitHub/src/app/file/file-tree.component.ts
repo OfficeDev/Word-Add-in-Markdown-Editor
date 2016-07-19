@@ -69,6 +69,7 @@ export class FileTreeComponent implements OnInit {
     }
 
     createFile() {
-        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(this.selectedPath), 'create']);
+        this.selectedPath = Utils.isEmpty(this.selectedPath) ? '%2f': encodeURIComponent(this.selectedPath); 
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath, 'create']);
     }
 }
