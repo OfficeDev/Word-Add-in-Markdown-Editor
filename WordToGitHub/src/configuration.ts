@@ -181,7 +181,7 @@ function useAppConfiguration() {
                 production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
             }
         ])
-        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview', 'office'])
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
         .configure('app');
 }
 
@@ -210,6 +210,6 @@ function useDialogConfiguration(initialScript: string) {
                 development: 'node_modules/jquery/dist'
             },
         ])
-        .import('underscore', 'jquery', 'office')
+        .import(['underscore', 'jquery'])
         .configure(initialScript);
 }

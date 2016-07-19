@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
+    historyApiFallback = require('connect-history-api-fallback'),
     packageConfig = require('./package.json'),
     config = {
         app: {
@@ -20,10 +21,7 @@ var gulp = require('gulp'),
             browsers: ['Safari >= 8', 'last 2 versions']
         },
         browserSync: {
-            https: {
-                key: "certificates/server.key",
-                cert: "certificates/server.crt"
-            },
+            https: true,
             server: {
                 baseDir: './wwwroot',
                 routes: {
@@ -31,12 +29,7 @@ var gulp = require('gulp'),
                     '/bower_components': 'bower_components',
                     '/rxjs': 'node_modules/rxjs'
                 },
-                middleware: {
-                    1: require('connect-history-api-fallback')({
-                        index: './index.html',
-                        verbose: true
-                    })
-                }
+                middleware: [historyApiFallback()] 
             }
         }
     };
