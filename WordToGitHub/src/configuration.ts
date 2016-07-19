@@ -1,9 +1,10 @@
 interface IPackage {
     name: string,
-    production: string,
+    production?: string,
     main?: string,
     development?: string,
-    defaultExtension?: string
+    defaultExtension?: string,
+    version?: string
 }
 
 interface IBarrel {
@@ -12,6 +13,23 @@ interface IBarrel {
 }
 
 class Configuration {
+    private map: SystemJSLoader.Config = {};
+    private packages: SystemJSLoader.Config = {};
+    private ngVersion = '@2.0.0-rc.4';
+    private devMode = false;
+    private imports = [];
+
+    private angularPackages = <IPackage[]>[
+        { name: 'common', version: this.ngVersion },
+        { name: 'compiler', version: this.ngVersion },
+        { name: 'core', version: this.ngVersion },
+        { name: 'http', version: this.ngVersion },
+        { name: 'platform-browser', version: this.ngVersion },
+        { name: 'platform-browser-dynamic', version: this.ngVersion },
+        { name: 'router', version: '@3.0.0-beta.2' },
+        { name: 'testing', version: this.ngVersion }
+    ];
+
     configure(entryScript: string) {
         System.config({
             map: this.map,
@@ -20,16 +38,18 @@ class Configuration {
                 'app/*': {
                     scriptLoad: true
                 }
-            }         
+            }
         });
 
-        return Promise.all(this.imports.map(pkg => System.import(pkg)))
+        return Promise.all(this.imports.map(pkgs => {
+            return Array.isArray(pkgs) ? Promise.all(pkgs.map(pkg => System.import(pkg))) : System.import(pkgs);
+        }))
             .then(() => System.import(entryScript))
             .then(() => console.log("All scripts have loaded"))
             .catch(console.error.bind(console));
     }
 
-    queueImport(pkgs: string) {
+    import(pkgs: string | string[]) {
         this.imports.push(pkgs);
         return this;
     }
@@ -66,6 +86,7 @@ class Configuration {
                 defaultExtension: pkg.defaultExtension || 'js'
             };
 
+            pkg.production = pkg.production || 'https://npmcdn.com/' + pkg.name + '/' + pkg.main;
             this.map[pkg.name] = this.devMode ? pkg.development || pkg.production : pkg.production;
         });
 
@@ -75,10 +96,9 @@ class Configuration {
     registerAngular2Packages() {
         var devModeFlag = true;
 
-        this.angularPackages.forEach(pkgName => {
-            // add package entries for angular packages in the form '@angular/common': { main: 'index.js', defaultExtension: 'js' }           
-            this.packages[pkgName] = {
-                main: 'index.js',
+        this.angularPackages.forEach(pkg => {
+            this.packages['@angular/' + pkg.name] = {
+                main: 'bundles/' + pkg.name + '.umd.js',
                 defaultExtension: 'js'
             };
 
@@ -89,33 +109,12 @@ class Configuration {
                 }
             }
             else {
-                // add map entries for angular packages in the form '@angular/common': 'https://npmcdn.com/@angular/common@0.0.0-3?main=browser'                
-                this.angularPackages.forEach(pkgName => {
-                    this.map[pkgName] = 'https://npmcdn.com/' + pkgName + this.ngVersion;
-                });
+                this.map[pkg.name] = 'https://npmcdn.com/@angular/' + pkg.name + pkg.version + '/bundles/' + pkg.name + '.umd.min.js';
             }
         });
 
         return this;
     }
-
-
-    private map: SystemJSLoader.Config = {};
-    private packages: SystemJSLoader.Config = {};
-    private ngVersion = '@2.0.0-rc.1';
-    private devMode = false;
-    private imports = [];
-
-    private angularPackages = [
-        '@angular/common',
-        '@angular/compiler',
-        '@angular/core',
-        '@angular/http',
-        '@angular/platform-browser',
-        '@angular/platform-browser-dynamic',
-        '@angular/router',
-        '@angular/testing'
-    ];
 }
 
 function useAppConfiguration() {
@@ -139,6 +138,7 @@ function useAppConfiguration() {
                 path: 'app/shared'
             }
         ])
+        .registerAngular2Packages()
         .registerLibraries(<IPackage[]>[
             {
                 name: 'app',
@@ -146,30 +146,42 @@ function useAppConfiguration() {
                 production: 'app'
             },
             {
+                name: 'stringview',
+                main: 'stringview.js',
+                production: 'assets'
+            },
+            {
                 name: 'rxjs',
-                main: 'rx.js',
-                production: 'node_modules/rxjs'
+                main: 'rx.umd.js',
+                development: 'node_modules/rxjs'
             },
             {
                 name: 'underscore',
-                main: 'underscore.js',
-                production: 'node_modules/underscore'
+                main: 'underscore-min.js',
+                development: 'node_modules/underscore'
             },
             {
                 name: 'marked',
-                main: 'marked.js',
-                production: 'node_modules/marked/lib'
+                main: 'marked.min.js',
+                development: 'node_modules/marked'
             },
             {
-                name: 'toMarkdown',
-                main: 'to-markdown',
-                production: 'node_modules/to-markdown/dist'
+                name: 'to-markdown',
+                main: 'to-markdown.js',
+                development: 'node_modules/to-markdown/dist'
+            },
+            {
+                name: 'jquery',
+                main: 'jquery.min.js',
+                development: 'node_modules/jquery/dist'
+            },
+            {
+                name: 'office',
+                main: 'office.js',
+                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
             }
         ])
-        .registerAngular2Packages()
-        .queueImport('underscore')
-        .queueImport('marked')
-        .queueImport('toMarkdown')
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
         .configure('app');
 }
 
@@ -180,14 +192,24 @@ function useDialogConfiguration(initialScript: string) {
             {
                 name: 'app',
                 main: 'bootstrap.js',
-                production: 'app'
+                development: 'app'
+            },
+            {
+                name: 'office',
+                main: 'office.js',
+                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
             },
             {
                 name: 'underscore',
                 main: 'underscore.js',
-                production: 'node_modules/underscore'
-            }
+                development: 'node_modules/underscore'
+            },
+            {
+                name: 'jquery',
+                main: 'jquery.min.js',
+                development: 'node_modules/jquery/dist'
+            },
         ])
-        .queueImport('underscore')
+        .import(['underscore', 'jquery'])
         .configure(initialScript);
 }

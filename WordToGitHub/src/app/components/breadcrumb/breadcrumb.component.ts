@@ -1,27 +1,23 @@
 ﻿import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {MediatorService, IBreadcrumb, ISubjectChannel} from '../../shared/services';
-import {Path, Utils} from '../../shared/helpers';
+import {Utils} from '../../shared/helpers';
+//import {BaseComponent} from '../../components';
 
-let view = 'breadcrumb';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'components/' + view),
-    styleUrls: [Path.style(view, 'components/' + view)]
-})
-
-export class BreadcrumbComponent implements OnInit, OnDestroy {
+@Component(Utils.component('breadcrumb', null, 'components/breadcrumb'))
+export class BreadcrumbComponent {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;
 
-    channel: ISubjectChannel    
+    channel: ISubjectChannel
     isOverflown: boolean;
     breadcrumbs: IBreadcrumb[];
     overflownBreadcrumbs: IBreadcrumb[];
-    breadcrumbSubscription: Subscription;
 
     constructor(private _mediatorService: MediatorService) {
+        //super();
         this.channel = _mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs');
+        //this.markDispose(this.channel);
     }
 
     @Output() navigate: EventEmitter<IBreadcrumb> = new EventEmitter<IBreadcrumb>();
@@ -49,14 +45,12 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.breadcrumbSubscription = this.channel.source$.subscribe(breadcrumb => {
+        var subscription = this.channel.source$.subscribe(breadcrumb => {
             this._breadcrumbs.push(breadcrumb);
             this._recompute();
         });
-    }
 
-    ngOnDestroy() {
-        this.breadcrumbSubscription.unsubscribe();
+        //this.markDispose(subscription);
     }
 
     private _recompute() {

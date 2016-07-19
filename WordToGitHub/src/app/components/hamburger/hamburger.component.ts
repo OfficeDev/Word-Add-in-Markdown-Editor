@@ -1,33 +1,29 @@
-﻿import {Component} from '@angular/core';
-import {Router, OnActivate} from '@angular/router';
+﻿import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-import {Path, Utils, StorageHelper} from '../../shared/helpers';
+//import {BaseComponent} from '../../components';
+import {Utils, StorageHelper} from '../../shared/helpers';
 import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
 
-let view = 'hamburger';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'components/' + view),
-    styleUrls: [Path.style(view, 'components/' + view)],
-    pipes: [SafeNamesPipe]
-})
+@Component(Utils.component('hamburger', { pipes: [SafeNamesPipe] }, 'components/hamburger'))
 
-export class HamburgerComponent implements OnActivate {
+export class HamburgerComponent implements OnInit {
     cache: StorageHelper<IRepository>;
     channel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
-    isViewModeSet: boolean;
-
+    
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
         private _router: Router,
         private _favoritesService: FavoritesService
     ) {
+        //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
+        //this.markDispose(this.channel);
     }
 
     ngOnInit() {
@@ -50,16 +46,16 @@ export class HamburgerComponent implements OnActivate {
     }
 
     selectRepository(repository: IRepository) {
-        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
+        this._router.navigate([repository.owner.login, repository.name, 'master']);
         this.closeMenu();
     }
 
     selectOrg(org: IProfile) {
         if (Utils.isNull(org)) {
-            this._router.navigate(['/repos', this.profile.user.login]);
+            this._router.navigate(['']);
         }
         else {
-            this._router.navigate(['/repos', org.login]);
+            this._router.navigate([org.login]);
         }
         this.closeMenu();
     }
@@ -73,9 +69,5 @@ export class HamburgerComponent implements OnActivate {
         this._githubService.logout();
         this._router.navigate(['/login']);
         this.closeMenu();
-    }
-
-    routerOnActivate() {
-        this.isViewModeSet = true;
     }
 }

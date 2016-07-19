@@ -3,10 +3,10 @@
   "dependencies": {},
   "globalDependencies": {
     "core-js": "registry:dt/core-js#0.0.0+20160602141332",
-    "jquery": "registry:dt/jquery#1.10.0+20160620094458",
+    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
     "office-js": "registry:dt/office-js#0.0.0+20160627000258",
-    "systemjs": "registry:dt/systemjs#0.19.29+20160624042934",
+    "systemjs": "registry:dt/systemjs#0.19.29+20160702105636",
     "underscore": "registry:dt/underscore#1.7.0+20160622050840"
   }
 }

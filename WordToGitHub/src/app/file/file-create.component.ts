@@ -1,43 +1,39 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {Router, OnActivate, RouteSegment} from '@angular/router';
-import {Path, Utils} from '../shared/helpers';
+import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
+import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-
+//import {BaseComponent} from '../components';
 declare var StringView: any;
-let view = 'file-create';
 
-export interface ITemplate {
+interface ITemplate {
     path: string,
     title: string,
     description: string
 }
 
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')]
-})
-
-export class FileCreateComponent implements OnActivate, OnDestroy {
+@Component(Utils.component('file-create', null, 'file'))
+export class FileCreateComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
     selectedFile: string;
 
-    templates: ITemplate[];    
+    templates: ITemplate[];
     selectedTemplate: ITemplate;
     templateContent: string;
-    
+
     selectedFolder: string;
-    subscriptions: Subscription[];
 
     constructor(
         private _router: Router,
+        private _route: ActivatedRoute,
         private _githubService: GithubService,
         private _wordService: WordService
     ) {
+        //super();
+
         this.templates = [
             {
                 path: '',
@@ -70,19 +66,19 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
                 description: 'Creates a new contribution markdown file',
             }
         ];
-
+    
         this.selectedTemplate = _.first(this.templates);
-     }
-
-    ngOnDestroy() {
-        _.each(this.subscriptions, subscription => subscription.unsubscribe());
     }
 
-    routerOnActivate(current: RouteSegment) {
-        this.selectedRepoName = current.getParam('repo');
-        this.selectedOrg = current.getParam('org');
-        this.selectedBranch = current.getParam('branch');
-        this.selectedPath = decodeURIComponent(current.getParam('path'));
+    ngOnInit() {
+        var subscription = this._route.params.subscribe(params => {
+            this.selectedRepoName = params['repo'];
+            this.selectedOrg = params['org'];
+            this.selectedBranch = params['branch']
+            this.selectedPath = decodeURIComponent(params['path']);
+        });
+
+        //this.markDispose(subscription);
     }
 
     createFile() {
@@ -104,7 +100,7 @@ export class FileCreateComponent implements OnActivate, OnDestroy {
         return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
             .subscribe(response => {
                 this._wordService.insertTemplate(this.selectedTemplate.path);
-                this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(path)]);
+                this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path)], 'detail');
             });
     }
 }

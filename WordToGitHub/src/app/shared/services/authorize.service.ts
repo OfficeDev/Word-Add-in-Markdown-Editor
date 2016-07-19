@@ -3,7 +3,7 @@ declare var fabric: any;
 
 class AuthorizeService {
     private _component;
-    private static CLIENT_ID = "53c1eb0d00a1ef6bf9ce";
+    private static CLIENT_ID = "61ef07373b60f4f075cd";
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
     private static SCOPE = "repo";
 
@@ -22,10 +22,9 @@ class AuthorizeService {
                 window.location.replace(this._getUrl());
                 return;
             };
-
             this.status.text('Getting token');
-            var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
-                ("@authCode", "ihzktpmvosba18j24p0o6m9gmj8wgdaubdtc")
+            var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken-Dev?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
+                ("@authCode", "6py5gqpssxpggjgh2qimhkrr9vbvcnvrgths")
                 ("@gCode", code)
                 ("@redirect_uri", AuthorizeService.REDIRECT_URI)
                 ();

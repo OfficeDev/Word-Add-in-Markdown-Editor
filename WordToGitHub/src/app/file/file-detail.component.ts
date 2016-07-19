@@ -1,51 +1,46 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Observable, Subscription} from 'rxjs/Rx';
-import {Router, RouteTree, OnActivate, RouteSegment} from '@angular/router';
-import {Path, Utils} from '../shared/helpers';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Rx';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-
+//import {BaseComponent} from '../components';
 declare var StringView: any;
-let view = 'file-detail';
-@Component({
-    selector: view,
-    templateUrl: Path.template(view, 'file'),
-    styleUrls: [Path.style(view, 'file')]
-})
 
-export class FileDetailComponent implements OnActivate, OnDestroy {
+@Component(Utils.component('file-detail', null, 'file'))
+export class FileDetailComponent implements OnInit {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
     selectedFile: string;
-    subscriptions: Subscription[];
     commits: Observable<ICommit[]>
 
     constructor(
         private _router: Router,
+        private _route: ActivatedRoute,
         private _githubService: GithubService,
         private _wordService: WordService
-    ) { }
-
-    ngOnDestroy() {
-        _.each(this.subscriptions, subscription => subscription.unsubscribe());
+    ) {
+        //super();
     }
 
-    routerOnActivate(current: RouteSegment, previous: RouteSegment, tree: RouteTree) {
-        var parent = tree.parent(current);
-        this.selectedRepoName = parent.getParam('repo');
-        this.selectedOrg = parent.getParam('org');
-        this.selectedBranch = parent.getParam('branch');
-        this.selectedPath = decodeURIComponent(current.getParam('path'));
-        this.selectedFile = _.last(this.selectedPath.split('/'));
+    ngOnInit() {
+        var subscription = this._route.params.subscribe(params => {
+            this.selectedRepoName = params['repo'];
+            this.selectedOrg = params['org'];
+            this.selectedBranch = params['branch']
+            this.selectedPath = decodeURIComponent(params['path']);
+            this.selectedFile = _.last(this.selectedPath.split('/'));
 
-        var subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
-            this._wordService.insertHtml(file);
+            let subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
+                this._wordService.insertHtml(file);
+            });
+
+            //this.markDispose(subscription);
         });
 
+        //this.markDispose(subscription);
         //this.commits = this._githubService.commits(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
-
-        this.subscriptions.push(subscription);
     }
 
     push() {
@@ -73,8 +68,6 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
 
                 });
             });
-
-        this.subscriptions.push(subscription);
     }
 
 
@@ -102,6 +95,6 @@ export class FileDetailComponent implements OnActivate, OnDestroy {
                     });
             });
 
-        this.subscriptions.push(subscription);
+        //this.markDispose(subscription);
     }
 }

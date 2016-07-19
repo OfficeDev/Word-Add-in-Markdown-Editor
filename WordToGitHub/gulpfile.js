@@ -9,28 +9,27 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     typescript = require('gulp-typescript'),
     sourcemaps = require('gulp-sourcemaps'),
+    historyApiFallback = require('connect-history-api-fallback'),
     packageConfig = require('./package.json'),
     config = {
         app: {
             source: './src',
             dest: './wwwroot',
-            exclusions: '(*.scss|*.js|*.ts|*.css|*.map)'
+            exclusions: '(*.scss|*.ts)'
         },
         autoprefixer: {
             browsers: ['Safari >= 8', 'last 2 versions']
         },
         browserSync: {
-            https: {
-                key: "certificates/server.key",
-                cert: "certificates/server.crt"
-            },
+            https: true,
             server: {
-                'baseDir': './wwwroot',
-                'routes': {
+                baseDir: './wwwroot',
+                routes: {
                     '/node_modules': 'node_modules',
                     '/bower_components': 'bower_components',
                     '/rxjs': 'node_modules/rxjs'
-                }
+                },
+                middleware: [historyApiFallback()] 
             }
         }
     };
