@@ -39,16 +39,16 @@ export class HamburgerComponent implements OnInit {
     }
 
     selectRepository(repository: IRepository) {
-        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
+        this._router.navigate([repository.owner.login, repository.name, 'master']);
         this.closeMenu();
     }
 
     selectOrg(org: IProfile) {
         if (Utils.isNull(org)) {
-            this._router.navigate(['/repos']);
+            this._router.navigate(['']);
         }
         else {
-            this._router.navigate(['/repos', org.login]);
+            this._router.navigate([org.login]);
         }
         this.closeMenu();
     }

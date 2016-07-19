@@ -5,8 +5,6 @@ import {Utils} from '../../shared/helpers';
 //import {BaseComponent} from '../../components';
 
 @Component(Utils.component('breadcrumb', null, 'breadcrumb'))
-
-
 export class BreadcrumbComponent {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;

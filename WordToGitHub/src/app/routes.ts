@@ -11,7 +11,7 @@ export const BaseRoutes: RouterConfig = [
         component: RepoComponent
     },    
     {
-        path: 'repos/:org',
+        path: ':org',
         component: RepoComponent
     }
 ];

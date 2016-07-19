@@ -3,26 +3,25 @@ import {FileListComponent, FileTreeComponent, FileDetailComponent, FileCreateCom
 
 export const FileRoutes: RouterConfig = [
     {
-        path: 'files/:org/:repo/:branch',
+        path: ':org/:repo/:branch',
         component: FileListComponent,
         children: [
             {
-                path: 'tree/:path',
+                path: '',
                 component: FileTreeComponent
             },
             {
-                path: 'detail/:path',
-                component: FileDetailComponent
+                path: ':path',
+                component: FileTreeComponent
             },
             {
-                path: '',
-                redirectTo: 'tree/null',
-                pathMatch: 'full'
-            }
+                path: ':path/detail',
+                component: FileDetailComponent
+            }                        
         ]
     },
     {
-        path: 'create/:org/:repo/:branch/:path',
+        path: ':org/:repo/:branch/:path/create',
         component: FileCreateComponent
     }
 ];

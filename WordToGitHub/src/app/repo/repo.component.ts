@@ -32,7 +32,7 @@ export class RepoComponent implements OnInit {
     }
 
     selectRepo(repository: IRepository) {
-        this._router.navigate(['/files', repository.owner.login, repository.name, 'master', 'tree', null]);
+        this._router.navigate([repository.owner.login, repository.name, 'master']);
     }
 
     ngOnInit() {

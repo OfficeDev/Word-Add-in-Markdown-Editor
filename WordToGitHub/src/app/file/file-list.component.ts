@@ -8,7 +8,7 @@ import {BreadcrumbComponent} from '../components';
 
 @Component(Utils.component('file-list', {
     pipes: [SafeNamesPipe],
-    directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
+    directives: [ROUTER_DIRECTIVES],
 }, 'file'))
 export class FileListComponent implements OnInit {
     selectedOrg: string;
@@ -30,7 +30,7 @@ export class FileListComponent implements OnInit {
     }
 
     selectBranch() {
-        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', null]);
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch.name]);
     }
 
     ngOnInit() {
@@ -48,7 +48,7 @@ export class FileListComponent implements OnInit {
 
     navigate(breadcrumb: IBreadcrumb) {
         var path = Utils.isNull(breadcrumb.href) ? null : encodeURIComponent(breadcrumb.href);
-        this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, 'tree', path]);
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, path]);
     }
 
     showMenu() {

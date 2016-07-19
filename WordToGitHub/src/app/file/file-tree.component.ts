@@ -35,20 +35,25 @@ export class FileTreeComponent implements OnInit {
 
     select(item: IContents) {
         if (item.type === 'dir') {
-            this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'tree', encodeURIComponent(item.path)]);
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path)]);
         }
         else {
             this.addBreadcrumb(item.path);
-            this._router.navigate(['/files', this.selectedOrg, this.selectedRepoName, this.selectedBranch, 'detail', encodeURIComponent(item.path)]);
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch,encodeURIComponent(item.path), 'detail']);
         }
     }
 
     ngOnInit() {
-        var subscription = this._route.params.subscribe(params => {
+        var subscription = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch']
-            this.selectedPath = decodeURIComponent(params['path']);
+        });
+
+        var subscription2 = this._route.params.subscribe(params => {
+            this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
+            this.addBreadcrumb(this.selectedPath);
+            this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
         });
 
         //this.markDispose(subscription);
@@ -63,14 +68,7 @@ export class FileTreeComponent implements OnInit {
         });
     }
 
-    ngAfterViewInit() {
-        if (!Utils.isNull(this.selectedPath)) { this.selectedPath = decodeURIComponent(this.selectedPath); }
-        this.addBreadcrumb(this.selectedPath);
-
-        this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
-    }
-
     createFile() {
-        this._router.navigate(['/create', this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(this.selectedPath)]);
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(this.selectedPath), 'create']);
     }
 }
