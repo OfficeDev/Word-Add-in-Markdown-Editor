@@ -4,11 +4,11 @@ import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {GithubService, MediatorService, IRepository, IBreadcrumb, IBranch, IEventChannel} from '../shared/services';
 import {Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
-import {BreadcrumbComponent} from '../components';
+import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component';
 
 @Component(Utils.component('file-list', {
     pipes: [SafeNamesPipe],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
 }, 'file'))
 export class FileListComponent implements OnInit {
     selectedOrg: string;
