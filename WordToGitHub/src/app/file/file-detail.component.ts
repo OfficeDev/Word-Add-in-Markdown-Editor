@@ -25,18 +25,19 @@ export class FileDetailComponent implements OnInit {
     }
 
     ngOnInit() {
-        var subscription = this._route.params.subscribe(params => {
+        var subscription = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch']
-            this.selectedPath = decodeURIComponent(params['path']);
+        });
+
+        var subscription2 = this._route.params.subscribe(params => {
+            this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
 
             let subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
                 this._wordService.insertHtml(file);
             });
-
-            //this.markDispose(subscription);
         });
 
         //this.markDispose(subscription);

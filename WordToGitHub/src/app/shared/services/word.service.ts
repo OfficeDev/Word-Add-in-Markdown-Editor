@@ -71,22 +71,31 @@ export class WordService {
                 var div = document.createElement('tempHtmlDiv');
                 div.innerHTML = html.value;
 
-                var images = div.getElementsByTagName('img');
-                var altValue, srcValue, max, i;
-                var toRemove = "Title: ";
+                // Generate the html manually for lists
+                var lists = context.document.body.lists;
+                context.load(lists);
+                var 
 
-                for (i = 0, max = images.length; i < max; i++) {
-                    altValue = images[i].getAttribute('alt');
-                    altValue = altValue.replace(toRemove, "");
-                    srcValue = images[i].getAttribute('src');
-                    if (srcValue.toLowerCase().startsWith("~wrs")) {
-                        images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                return context.sync().then(() => {
+
+                    // Fix the img tags
+                    var images = div.getElementsByTagName('img');
+                    var altValue, srcValue, max, i;
+                    var toRemove = "Title: ";
+
+                    for (i = 0, max = images.length; i < max; i++) {
+                        altValue = images[i].getAttribute('alt');
+                        altValue = altValue.replace(toRemove, "");
+                        srcValue = images[i].getAttribute('src');
+                        if (srcValue.toLowerCase().startsWith("~wrs")) {
+                            images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                        }
                     }
-                }
-                return this._markDownService.previewMarkdown(div.innerHTML);
+                    return this._markDownService.previewMarkdown(div.innerHTML);
+                });
             });
-        })
-    }
+        });
+}
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
         return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);

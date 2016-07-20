@@ -29,6 +29,7 @@ export class MarkdownService {
         //html = html.replace(/<\/tr>\n<\/table>/gmi, '</tr></tbody></table>');
 
         return Utils.regex(html)
+
             // clean the TABLE, TD, P or SPAN tags by removing any additional properties added by Word
             // this step is necessary as it optimizes the regex for further steps
             // else we end up in catastrophic backtracking http://www.regular-expressions.info/catastrophic.html

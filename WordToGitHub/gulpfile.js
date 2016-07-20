@@ -21,7 +21,10 @@ var gulp = require('gulp'),
             browsers: ['Safari >= 8', 'last 2 versions']
         },
         browserSync: {
-            https: true,
+            https: {
+                key: 'certificates/server.key',
+                cert: 'certificates/server.crt'
+            },
             server: {
                 baseDir: './wwwroot',
                 routes: {
@@ -29,7 +32,7 @@ var gulp = require('gulp'),
                     '/bower_components': 'bower_components',
                     '/rxjs': 'node_modules/rxjs'
                 },
-                middleware: [historyApiFallback()] 
+                middleware: [historyApiFallback()]
             }
         }
     };
