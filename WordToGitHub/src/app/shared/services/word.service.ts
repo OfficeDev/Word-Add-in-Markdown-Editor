@@ -74,7 +74,7 @@ export class WordService {
                 // Generate the html manually for lists
                 var lists = context.document.body.lists;
                 context.load(lists);
-                var 
+                
 
                 return context.sync().then(() => {
 
