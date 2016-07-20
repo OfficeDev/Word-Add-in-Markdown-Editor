@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
-import {GithubService, MediatorService, FavoritesService} from '../shared/services'; 
+import {GithubService, MediatorService, FavoritesService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
 //import {BaseComponent} from '../components';
+import {InfiniteScroll} from 'angular2-infinite-scroll';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 
 @Component(Utils.component('repo', {
-    pipes: [SafeNamesPipe]
+    pipes: [SafeNamesPipe],
+    directives: [InfiniteScroll]
 }))
 export class RepoComponent implements OnInit {
     repositories: IRepository[];
@@ -60,6 +62,7 @@ export class RepoComponent implements OnInit {
     }
 
     showNext() {
+        console.log('scroll invoked', this.page);
         this.page = this.page + 1;
         var subscription = this._githubService.repos(this.page, this.selectedOrg, this.selectedOrg === this._githubService.profile.user.login)
             .subscribe(repos => {

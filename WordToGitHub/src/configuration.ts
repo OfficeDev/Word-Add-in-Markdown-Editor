@@ -117,99 +117,87 @@ class Configuration {
     }
 }
 
+var barrels = <IBarrel[]>[
+    {
+        name: 'components',
+        path: 'app'
+    },
+    {
+        name: 'services',
+        path: 'app/shared'
+    },
+    {
+        name: 'helpers',
+        path: 'app/shared'
+    },
+    {
+        name: 'pipes',
+        path: 'app/shared'
+    }
+];
+
+var packages = <IPackage[]>[
+    {
+        name: 'app',
+        main: 'bootstrap.js',
+        production: 'app'
+    },
+    {
+        name: 'stringview',
+        main: 'stringview.js',
+        production: 'assets'
+    },
+    {
+        name: 'rxjs',
+        main: 'rx.js',
+        development: 'node_modules/rxjs'
+    },
+    {
+        name: 'underscore',
+        main: 'underscore-min.js',
+        development: 'node_modules/underscore'
+    },
+    {
+        name: 'marked',
+        main: 'marked.min.js',
+        development: 'node_modules/marked'
+    },
+    {
+        name: 'to-markdown',
+        main: 'to-markdown.js',
+        development: 'node_modules/to-markdown/dist'
+    },
+    {
+        name: 'jquery',
+        main: 'jquery.min.js',
+        development: 'node_modules/jquery/dist'
+    },
+    {
+        name: 'infinite-scroll',
+        main: 'angular2-infinite-scroll.js',
+        development: 'node_modules/angular2-infinite-scroll/bundles'
+    },
+    {
+        name: 'office',
+        main: 'office.js',
+        production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
+    }
+];
+
 function useAppConfiguration() {
     var conf = new Configuration()
         .useDevelopment()
-        .registerBarrels(<IBarrel[]>[
-            {
-                name: 'components',
-                path: 'app'
-            },
-            {
-                name: 'services',
-                path: 'app/shared'
-            },
-            {
-                name: 'helpers',
-                path: 'app/shared'
-            },
-            {
-                name: 'pipes',
-                path: 'app/shared'
-            }
-        ])
+        .registerBarrels(barrels)
         .registerAngular2Packages()
-        .registerLibraries(<IPackage[]>[
-            {
-                name: 'app',
-                main: 'bootstrap.js',
-                production: 'app'
-            },
-            {
-                name: 'stringview',
-                main: 'stringview.js',
-                production: 'assets'
-            },
-            {
-                name: 'rxjs',
-                main: 'rx.umd.js',
-                development: 'node_modules/rxjs'
-            },
-            {
-                name: 'underscore',
-                main: 'underscore-min.js',
-                development: 'node_modules/underscore'
-            },
-            {
-                name: 'marked',
-                main: 'marked.min.js',
-                development: 'node_modules/marked'
-            },
-            {
-                name: 'to-markdown',
-                main: 'to-markdown.js',
-                development: 'node_modules/to-markdown/dist'
-            },
-            {
-                name: 'jquery',
-                main: 'jquery.min.js',
-                development: 'node_modules/jquery/dist'
-            },
-            {
-                name: 'office',
-                main: 'office.js',
-                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
-            }
-        ])
-        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
+        .registerLibraries(packages)
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview', 'infinite-scroll'])
         .configure('app');
 }
 
 function useDialogConfiguration(initialScript: string) {
     var conf = new Configuration()
         .useDevelopment()
-        .registerLibraries(<IPackage[]>[
-            {
-                name: 'app',
-                main: 'bootstrap.js',
-                development: 'app'
-            },
-            {
-                name: 'office',
-                main: 'office.js',
-                production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
-            },
-            {
-                name: 'underscore',
-                main: 'underscore.js',
-                development: 'node_modules/underscore'
-            },
-            {
-                name: 'jquery',
-                main: 'jquery.min.js',
-                development: 'node_modules/jquery/dist'
-            },
-        ])
+        .registerLibraries(packages)
         .import(['underscore', 'jquery'])
         .configure(initialScript);
 }
