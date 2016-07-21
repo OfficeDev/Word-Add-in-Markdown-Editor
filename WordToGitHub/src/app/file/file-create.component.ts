@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-//import {BaseComponent} from '../components';
+import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
 interface ITemplate {
@@ -13,7 +13,7 @@ interface ITemplate {
 }
 
 @Component(Utils.component('file-create', null, 'file'))
-export class FileCreateComponent implements OnInit {
+export class FileCreateComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -32,7 +32,7 @@ export class FileCreateComponent implements OnInit {
         private _githubService: GithubService,
         private _wordService: WordService
     ) {
-        //super();
+        super();
 
         this.templates = [
             {
@@ -66,7 +66,7 @@ export class FileCreateComponent implements OnInit {
                 description: 'Creates a new contribution markdown file',
             }
         ];
-    
+
         this.selectedTemplate = _.first(this.templates);
     }
 
@@ -78,7 +78,7 @@ export class FileCreateComponent implements OnInit {
             this.selectedPath = decodeURIComponent(params['path']);
         });
 
-        //this.markDispose(subscription);
+        this.markDispose(subscription);
     }
 
     createFile() {

@@ -23,8 +23,8 @@ class AuthorizeService {
                 return;
             };
             this.status.text('Getting token');
-            var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken-Dev?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
-                ("@authCode", "6py5gqpssxpggjgh2qimhkrr9vbvcnvrgths")
+            var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken-Developer?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
+                ("@authCode", "vkybv91vgyefgta0xeadzz7bbk8sd3dozaz8")
                 ("@gCode", code)
                 ("@redirect_uri", AuthorizeService.REDIRECT_URI)
                 ();

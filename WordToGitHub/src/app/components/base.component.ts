@@ -1,33 +1,26 @@
-﻿import {OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Rx';
+import {Utils} from '../shared/helpers';
 import {IEventChannel, ISubjectChannel} from '../shared/services';
 
-export class BaseComponent implements OnInit, OnDestroy {
-    private _subscriptions: any[];
+export class BaseComponent {
+    private _subscriptions: Subscription[] = [];
 
-    constructor() {
-    }
-
-    protected markDispose(subscription: Subscription | IEventChannel | ISubjectChannel) {
-        this._subscriptions.push(subscription);
-    }
-
-    ngOnInit() {
+    protected markDispose(subscription: Subscription[])
+    protected markDispose(subscription: Subscription)
+    protected markDispose(subscription: any) {
+        if (Array.isArray(subscription)) {
+            this._subscriptions = this._subscriptions.concat(subscription);
+        }
+        else if (subscription instanceof Subscription) {
+            this._subscriptions.push(subscription);
+        }
     }
 
     ngOnDestroy() {
         _.each(this._subscriptions, subscription => {
-            if (subscription instanceof Subscription) {
-                subscription.unsubscribe();
-            }
-            else {
-                if (_.has(subscription, 'dataSource')) {
-                    (<ISubjectChannel>subscription).dataSource.unsubscribe();
-                }
-                else {
-                    (<IEventChannel>subscription).event.unsubscribe();
-                }
-            }
+            subscription.unsubscribe();
         });
+
+        this._subscriptions = [];
     }
 }

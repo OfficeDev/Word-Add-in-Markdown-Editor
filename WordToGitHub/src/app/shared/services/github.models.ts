@@ -167,6 +167,6 @@ export interface IToken {
 
 export interface IBreadcrumb {
     text: string;
-    key: number;
+    key?: number;
     href?: string;
 }

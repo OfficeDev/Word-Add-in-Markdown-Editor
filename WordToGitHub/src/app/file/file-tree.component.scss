@@ -3,7 +3,7 @@
 
 .file-tree-component {
     @include flex();
-    height: 100%;
+    @include vScroll();
 
     &__title {
         padding: $default-spacing;

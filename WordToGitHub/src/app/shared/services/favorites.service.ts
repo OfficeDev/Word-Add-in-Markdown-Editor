@@ -13,6 +13,6 @@ export class FavoritesService {
      
 
     pushData(item: IRepository) {
-        this.pushDataEvent.event.emit(item);
+        this.pushDataEvent.source.next(item);
     }
 }
