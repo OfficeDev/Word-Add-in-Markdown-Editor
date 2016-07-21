@@ -49,6 +49,16 @@ export class WordService {
         })
     }
 
+    //styleAsCode() {
+    //    if (!Utils.isWord) return;
+
+    //    return this._run((context) => { 
+    //        var selection = context.document.getSelection();
+    //        selection.style = 'HTML Code';
+    //        return context.sync();
+    //    });
+    //}
+
     getMarkdown() {
         if (!Utils.isWord) return;
 
