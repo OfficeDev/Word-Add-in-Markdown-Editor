@@ -78,6 +78,9 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         this.markDispose(subscription);
     }
 
+    //styleAsCode() {
+    //    this._wordService.styleAsCode();
+    //}
 
     updateFile() {
         var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
