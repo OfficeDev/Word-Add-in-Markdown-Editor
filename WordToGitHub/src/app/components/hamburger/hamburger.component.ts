@@ -1,37 +1,34 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
 import {Utils, StorageHelper} from '../../shared/helpers';
 import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
+import {BaseComponent} from '../base.component';
 
 @Component(Utils.component('hamburger', { pipes: [SafeNamesPipe] }, 'components/hamburger'))
 
-export class HamburgerComponent implements OnInit {
-    cache: StorageHelper<IRepository>;
+export class HamburgerComponent extends BaseComponent implements OnInit, OnDestroy {
     channel: IEventChannel;
     isShown: Observable<boolean>;
     favoriteRepositories: IRepository[];
-    
+
     constructor(
         private _githubService: GithubService,
         private _mediatorService: MediatorService,
         private _router: Router,
         private _favoritesService: FavoritesService
     ) {
-        this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
+        super();
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
     }
 
     ngOnInit() {
         this.isShown = this.channel.source$;
-        this.favoriteRepositories = _.values(this.cache.all());
-        this._favoritesService.pushDataEvent.source.subscribe(
-            item => {
-                this.cache.add(item.id.toString(), item);
-                this.favoriteRepositories = _.values(this.cache.all());
-            }
-         );
+        this.favoriteRepositories = _.values(this._favoritesService.all());
+        this._favoritesService.pushDataEvent.source$.subscribe(next => {
+            this.favoriteRepositories = _.values(this._favoritesService.all());
+        });
     }
 
     get profile(): IUserProfile {
@@ -58,8 +55,7 @@ export class HamburgerComponent implements OnInit {
     }
 
     unpin(repository: IRepository) {
-        this.cache.remove(repository.id.toString());
-        this.favoriteRepositories = _.values(this.cache.all());
+        this._favoritesService.unpin(repository);
     }
 
     signOut() {

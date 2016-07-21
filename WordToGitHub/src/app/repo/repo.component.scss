@@ -21,6 +21,19 @@
             padding: $default-spacing $default-spacing;
         }
     }
+
+    &__load {
+        width: 100%;
+        height: 32px;
+        text-align: center;
+        border: none;
+        outline: none;
+
+        background-color: $accent-background-primary;
+        color: $accent-foreground-primary;
+
+        @include focus-states($background-primary, $foreground-lighter);
+    }
 }
 
 .repo-list-command-bar {
