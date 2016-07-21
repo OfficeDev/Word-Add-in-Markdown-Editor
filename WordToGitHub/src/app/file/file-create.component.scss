@@ -120,7 +120,6 @@
     &__templates {
         list-style-type: none;
         flex: 1 0 auto;
-        background-color: darken($background-primary, 10%);
         width: 100%;
     }
 
@@ -133,7 +132,6 @@
         width: 100%;
         height: 32px;
         text-align: center;
-        margin-bottom: $default-spacing;
         border: none;
         outline: none;
 
@@ -157,16 +155,15 @@
     }
 
     &--selected {
-        background-color: $background-primary;
-        width: calc(100% - 30px);
+        background-color: darken($accent-background-primary, 10%);
 
         .file-template-item__title {
-            color: $foreground-lightest;
+            color: $accent-foreground-primary;
         }
 
         .file-template-item__description {
-            color: $foreground-lighter;
-        }       
+            color: $accent-foreground-primary;
+        }    
     }
 
     &__left {

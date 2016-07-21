@@ -15,21 +15,9 @@ export class WordService {
 
     }
 
-    insertTemplate(type: string) {
-        this._githubService
-            .getFileData(type)
-            .subscribe(
-            md => {
-                var html = this._markDownService.convertToHtml(md);
-                return this.insertHtml(html)
-            },
-            error => {
-                console.error(error);
-            },
-            () => {
-                console.info('completed inserting tempte');
-            }
-            );
+    insertTemplate(md: string) {
+        var html = this._markDownService.convertToHtml(md);
+        return this.insertHtml(html)
     }
 
     insertHtml(html: string) {
@@ -150,10 +138,10 @@ export class WordService {
             //var regex = new RegExp('<img src="(.*?)" (.*?)>', 'g');
             //regex.exec(html).forEach(match => {
             //    if (!Utils.isEmpty(match)) {
-                    
+
             //    }
             //});
-            
+
             //html = Utils.regex(html)
             //    (/<img src="(.*?)" (.*?)>/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>')
             //    ();
@@ -243,7 +231,7 @@ export class WordService {
                     }
                 }
 
-                return context.sync().then(function () {                  
+                return context.sync().then(function () {
                     return imagesArray;
                 });
             });

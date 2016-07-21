@@ -26,10 +26,7 @@
 
         <section class="file-create-form__section">
             <p class="file-create-form__label ms-font-s">Your file will be created at:</p>
-            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath == 'null'">{{selectedPath}}/</span>
-                <span class="file-create-form__path--folder" [hidden]="!newFolder || selectedFolder?.length <= 0">{{selectedFolder}}</span>
-                <span
-                    [hidden]="!newFolder || selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}</span></pre>
+            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath == 'null'">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="!newFolder || selectedFolder?.length <= 0">{{selectedFolder}}</span><span                    [hidden]="!newFolder || selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}.md</span></pre>
         </section>
 
         <section class="file-create-form__section file-create-form__section--header">
@@ -39,7 +36,7 @@
 
         <section class="file-create-form__section file-create-form__section--menu">
             <ul class="file-create-form__templates">
-                <li class="file-template-item file-template-item--selected" *ngFor="let template of templates" (click)="selectedTemplate = template">
+                <li class="file-template-item" *ngFor="let template of templates" (click)="selectedTemplate = template" [ngClass]="{'file-template-item--selected':template.id === selectedTemplate.id}">
                     <p class="file-template-item__title ms-font-m">{{template.title}}</p>
                     <p class="file-template-item__description ms-font-s">{{template.description}}</p>
                 </li>
@@ -47,7 +44,7 @@
         </section>
 
         <section class="file-create-form__section">
-            <input class="file-create-form__submit ms-font-m" type="submit" value="Create" />
+            <input class="file-create-form__submit ms-font-m" type="submit" value="Create" (click)="create()" />
         </section>
     </form>
 </section>
