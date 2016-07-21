@@ -71,19 +71,34 @@ export class WordService {
                 var div = document.createElement('tempHtmlDiv');
                 div.innerHTML = html.value;
 
-                // Generate the html manually for lists
-                var lists = context.document.body.lists;
-                context.load(lists);
+                //// Generate the html manually for lists
+                //var lists = context.document.body.lists.load();
                 
+                //return context.sync().then(() => {
+                //    if (lists.items.length > 0) {
+                //        for (var i = 0; i < lists.items.length; i++) {
+                //            var listHtml = "";
+                //            var parasLevel0 = lists.items[i].getLevelParagraphs(0)();
+                //            return context.sync().then(() => {
+                //                for (var j = 0; j < parasLevel0.length; j++) {
+                //                    if (parasLevel0.items[j].isListItem) {
 
-                return context.sync().then(() => {
+
+                //                    }
+                //                })
+
+                //        }
+
+
+                //        }
+                //    }
 
                     // Fix the img tags
                     var images = div.getElementsByTagName('img');
-                    var altValue, srcValue, max, i;
+                    var altValue, srcValue;
                     var toRemove = "Title: ";
 
-                    for (i = 0, max = images.length; i < max; i++) {
+                    for (var i = 0, max = images.length; i < max; i++) {
                         altValue = images[i].getAttribute('alt');
                         altValue = altValue.replace(toRemove, "");
                         srcValue = images[i].getAttribute('src');
@@ -94,7 +109,6 @@ export class WordService {
                     return this._markDownService.previewMarkdown(div.innerHTML);
                 });
             });
-        });
 }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
