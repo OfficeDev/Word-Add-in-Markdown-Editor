@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {GithubService, MediatorService, IRepository, IBreadcrumb, IBranch, IEventChannel} from '../shared/services';
 import {Utils} from '../shared/helpers';
 import {SafeNamesPipe} from '../shared/pipes';
 import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component';
+import {BaseComponent} from '../components/base.component';
+
 
 @Component(Utils.component('file-list', {
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
 }, 'file'))
-export class FileListComponent implements OnInit {
+export class FileListComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: IBranch;
@@ -24,9 +26,8 @@ export class FileListComponent implements OnInit {
         private _route: ActivatedRoute
 
     ) {
-        //super();
+        super();
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
-        //this.markDispose(this.channel);
     }
 
     ngOnInit() {
@@ -38,8 +39,10 @@ export class FileListComponent implements OnInit {
             }
             this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
         });
+
+        this.markDispose(subscription);
     }
-        //this.markDispose(subscription);
+
     selectBranch(branchName: string) {
         this._router.navigate([this.selectedOrg, this.selectedRepoName, branchName]);
         this.selectedBranch.name = branchName;

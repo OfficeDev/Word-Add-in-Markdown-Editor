@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Utils} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
-//import {BaseComponent} from '../components';
+import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
 @Component(Utils.component('file-detail', null, 'file'))
-export class FileDetailComponent implements OnInit {
+export class FileDetailComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
@@ -21,11 +21,11 @@ export class FileDetailComponent implements OnInit {
         private _githubService: GithubService,
         private _wordService: WordService
     ) {
-        //super();
+        super();
     }
 
     ngOnInit() {
-        var subscription = this._router.routerState.parent(this._route).params.subscribe(params => {
+        var subscription1 = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch']
@@ -35,13 +35,15 @@ export class FileDetailComponent implements OnInit {
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
 
-            let subscription = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).subscribe(file => {
-                this._wordService.insertHtml(file);
-            });
+            let subscription3 = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+                .subscribe(file => {
+                    this._wordService.insertHtml(file);
+                });
+
+            this.markDispose(subscription3);
         });
 
-        //this.markDispose(subscription);
-        //this.commits = this._githubService.commits(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
+        this.markDispose([subscription1, subscription2]);
     }
 
     push() {
@@ -51,16 +53,19 @@ export class FileDetailComponent implements OnInit {
                     this.updateFile();
                 }
                 base64Strings.forEach(base64String => {
-                    this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+                    var sub2 = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                         .subscribe((file) => {
+                            this.markDispose(sub2);
+
                             var body = {
                                 message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
                                 content: base64String.base64ImageSrc.value,
                                 branch: this.selectedBranch,
                                 sha: file.sha
                             };
-                            return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, base64String.hyperlink, body)
+                            var sub3 = this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, base64String.hyperlink, body)
                                 .subscribe(response => {
+                                    this.markDispose(sub3);
                                     if (Utils.isEmpty(response)) return;
                                     console.log(response);
                                     this.updateFile();
@@ -69,11 +74,13 @@ export class FileDetailComponent implements OnInit {
 
                 });
             });
+
+        this.markDispose(subscription);
     }
 
 
     updateFile() {
-             var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+        var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
                     .then((md) => {
@@ -88,14 +95,15 @@ export class FileDetailComponent implements OnInit {
                             sha: file.sha
                         };
 
-                        return this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
+                        let sub3 = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
                             .subscribe(response => {
+                                this.markDispose(sub3);
                                 if (Utils.isEmpty(response)) return;
                                 console.log(response);
                             });
                     });
             });
 
-        //this.markDispose(subscription);
+        this.markDispose(subscription);
     }
 }

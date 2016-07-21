@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService, IBreadcrumb, IContents, WordService, ISubjectChannel} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
-//import {BaseComponent} from '../components';
+import {BaseComponent} from '../components/base.component';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
@@ -11,15 +11,13 @@ let view = 'file-tree';
 @Component(Utils.component('file-tree', {
     pipes: [SafeNamesPipe, MDFilterPipe]
 }, 'file'))
-export class FileTreeComponent implements OnInit {
+export class FileTreeComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;
     selectedBranch: string;
     selectedPath: string;
     files: Observable<IContents[]>;
     channel: ISubjectChannel;
-
-    static id: number = 1;
 
     constructor(
         private _githubService: GithubService,
@@ -28,9 +26,8 @@ export class FileTreeComponent implements OnInit {
         private _router: Router,
         private _route: ActivatedRoute
     ) {
-        //super();
+        super();
         this.channel = this._mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs') as ISubjectChannel;
-        //this.markDispose(this.channel);
     }
 
     select(item: IContents) {
@@ -44,7 +41,7 @@ export class FileTreeComponent implements OnInit {
     }
 
     ngOnInit() {
-        var subscription = this._router.routerState.parent(this._route).params.subscribe(params => {
+        var subscription1 = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch']
@@ -56,20 +53,19 @@ export class FileTreeComponent implements OnInit {
             this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
         });
 
-        //this.markDispose(subscription);
+        this.markDispose([subscription1, subscription2]);
     }
 
     private addBreadcrumb(path: string) {
-        var text = Utils.isNull(path) ? 'Root' : _.last(path.split('/'));
+        var text = Utils.isEmpty(path) ? 'Root' : _.last(path.split('/'));
         this.channel.source.next(<IBreadcrumb>{
-            key: FileTreeComponent.id++,
             text: text,
             href: path
         });
     }
 
     createFile() {
-        this.selectedPath = Utils.isEmpty(this.selectedPath) ? '%2f': encodeURIComponent(this.selectedPath); 
+        this.selectedPath = Utils.isNull(this.selectedPath) ? '%2f': encodeURIComponent(this.selectedPath); 
         this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath, 'create']);
     }
 }

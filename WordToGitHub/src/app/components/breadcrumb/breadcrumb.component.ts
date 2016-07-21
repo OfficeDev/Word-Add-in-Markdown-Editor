@@ -2,12 +2,13 @@
 import {Observable, Subscription} from 'rxjs/Rx';
 import {MediatorService, IBreadcrumb, ISubjectChannel} from '../../shared/services';
 import {Utils} from '../../shared/helpers';
-//import {BaseComponent} from '../../components';
+import {BaseComponent} from '../../components/base.component';
 
 @Component(Utils.component('breadcrumb', null, 'components/breadcrumb'))
-export class BreadcrumbComponent {
+export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;
+    private id: number = 1;
 
     channel: ISubjectChannel
     isOverflown: boolean;
@@ -15,9 +16,8 @@ export class BreadcrumbComponent {
     overflownBreadcrumbs: IBreadcrumb[];
 
     constructor(private _mediatorService: MediatorService) {
-        //super();
+        super();
         this.channel = _mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs');
-        //this.markDispose(this.channel);
     }
 
     @Output() navigate: EventEmitter<IBreadcrumb> = new EventEmitter<IBreadcrumb>();
@@ -46,11 +46,12 @@ export class BreadcrumbComponent {
 
     ngOnInit() {
         var subscription = this.channel.source$.subscribe(breadcrumb => {
+            breadcrumb.key = this.id++;
             this._breadcrumbs.push(breadcrumb);
             this._recompute();
         });
 
-        //this.markDispose(subscription);
+        this.markDispose(subscription);
     }
 
     private _recompute() {
