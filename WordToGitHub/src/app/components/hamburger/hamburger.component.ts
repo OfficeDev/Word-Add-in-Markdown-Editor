@@ -1,7 +1,6 @@
 ﻿import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs/Rx';
-//import {BaseComponent} from '../../components';
 import {Utils, StorageHelper} from '../../shared/helpers';
 import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel} from '../../shared/services';
 import {SafeNamesPipe} from '../../shared/pipes';
@@ -20,16 +19,14 @@ export class HamburgerComponent implements OnInit {
         private _router: Router,
         private _favoritesService: FavoritesService
     ) {
-        //super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<boolean>('hamburger');
-        //this.markDispose(this.channel);
     }
 
     ngOnInit() {
         this.isShown = this.channel.source$;
         this.favoriteRepositories = _.values(this.cache.all());
-        this._favoritesService.pushDataEvent.event.subscribe(
+        this._favoritesService.pushDataEvent.source.subscribe(
             item => {
                 this.cache.add(item.id.toString(), item);
                 this.favoriteRepositories = _.values(this.cache.all());
@@ -42,7 +39,7 @@ export class HamburgerComponent implements OnInit {
     }
 
     closeMenu() {
-        this.channel.event.next(false);
+        this.channel.source.next(false);
     }
 
     selectRepository(repository: IRepository) {

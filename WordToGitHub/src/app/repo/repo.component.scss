@@ -14,8 +14,12 @@
         border-top: 1px solid $background-light;
     }
 
-    &__repos h2 {
-        padding: $default-spacing $default-spacing;
+    &__repos {
+        @include vScroll();
+
+        h2 {
+            padding: $default-spacing $default-spacing;
+        }
     }
 }
 

@@ -61,7 +61,7 @@ export class FileTreeComponent implements OnInit {
 
     private addBreadcrumb(path: string) {
         var text = Utils.isNull(path) ? 'Root' : _.last(path.split('/'));
-        this.channel.dataSource.next(<IBreadcrumb>{
+        this.channel.source.next(<IBreadcrumb>{
             key: FileTreeComponent.id++,
             text: text,
             href: path

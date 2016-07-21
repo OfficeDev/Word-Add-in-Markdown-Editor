@@ -51,6 +51,6 @@ export class FileListComponent implements OnInit {
     }
 
     showMenu() {
-        this.channel.event.next(true);
+        this.channel.source.next(true);
     }
 }

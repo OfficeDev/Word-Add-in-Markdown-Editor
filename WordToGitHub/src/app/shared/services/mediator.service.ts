@@ -8,11 +8,11 @@ export interface IChannel {
 }
 
 export interface IEventChannel extends IChannel {
-    event: EventEmitter<any>
+    source: EventEmitter<any>
 }
 
 export interface ISubjectChannel extends IChannel {
-    dataSource: Subject<any>
+    source: Subject<any>
 }
 
 @Injectable()
@@ -27,7 +27,7 @@ export class MediatorService extends Repository<IChannel> {
         if (!Utils.isNull(current)) return current as IEventChannel;
 
         var event = new EventEmitter<T>();
-        return this.add(name, { name: name, source$: event.asObservable(), event: event } as IChannel) as IEventChannel;
+        return this.add(name, { name: name, source$: event.asObservable(), source: event } as IChannel) as IEventChannel;
     }
 
     createSubjectChannel<T>(name: string): ISubjectChannel {
@@ -36,6 +36,6 @@ export class MediatorService extends Repository<IChannel> {
 
         var dataSource = new Subject<T>();
         var event = dataSource.asObservable();
-        return this.add(name, { name: name, source$: event, dataSource: dataSource } as IChannel) as ISubjectChannel;
+        return this.add(name, { name: name, source$: event, source: dataSource } as IChannel) as ISubjectChannel;
     }
 }

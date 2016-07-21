@@ -25,13 +25,11 @@ function launch(reason?: Office.InitializationReason, inject?: boolean) {
 @Component({
     selector: 'app',
     template:
-    `<div class="app">
-        <hamburger></hamburger>
-        <main class="app__main ms-font-m ms-fontColor-neutralPrimary">
-            <router-outlet></router-outlet>
-        </main>
-        <footer class="app-container__footer"></footer>
-     </div>`,
+    `<hamburger></hamburger>
+    <main class="app__main ms-font-m ms-fontColor-neutralPrimary">
+        <router-outlet></router-outlet>
+    </main>
+    <footer class="app-container__footer"></footer>`,
     directives: [HamburgerComponent, ROUTER_DIRECTIVES]
 })
 
