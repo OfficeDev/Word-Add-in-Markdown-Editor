@@ -7,3 +7,4 @@ export * from './mediator.service';
 export * from './github.models';
 export * from './word.model';
 export * from './favorites.service';
+export * from './auth.guard';

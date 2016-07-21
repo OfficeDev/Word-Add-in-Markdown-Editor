@@ -11,7 +11,7 @@
     </ul>
 </section>
 
-<section class="repo-list-component__repos" infinite-scroll (scrolled)="load()" [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" [scrollWindow]="false">
+<section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
     <ul class="ms-List">
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">

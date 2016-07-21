@@ -2,11 +2,11 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 import {ExceptionHandler, Component} from '@angular/core';
 import {HTTP_PROVIDERS} from '@angular/http';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {HamburgerComponent} from "./components";
 import {APP_ROUTER_PROVIDERS} from "./routes";
-import {GithubService, WordService, FavoritesService, MediatorService, MarkdownService} from "./shared/services";
+import {GithubService, WordService, FavoritesService, MediatorService, MarkdownService, AuthGuard} from "./shared/services";
 import {Utils, ExceptionHelper, RequestHelper} from "./shared/helpers";
 
 function launch(reason?: Office.InitializationReason, inject?: boolean) {
@@ -18,7 +18,7 @@ function launch(reason?: Office.InitializationReason, inject?: boolean) {
         HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
         { provide: ExceptionHandler, useClass: ExceptionHelper }, RequestHelper,
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        GithubService, WordService, MarkdownService, MediatorService, FavoritesService
+        GithubService, WordService, MarkdownService, MediatorService, FavoritesService, AuthGuard
     ]);
 }
 

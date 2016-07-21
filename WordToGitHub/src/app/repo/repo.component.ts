@@ -58,4 +58,8 @@ export class RepoComponent extends BaseComponent implements OnInit {
         
         this.markDispose(sub);
     }
+
+    showMenu() {
+        this.channel.source.next(true);
+    }
 }

@@ -1,5 +1,6 @@
 import {provideRouter, RouterConfig} from '@angular/router';
 import {FileRoutes, HamburgerComponent, LoginComponent, RepoComponent} from "./components";
+import {AuthGuard} from './shared/services';
 
 export const BaseRoutes: RouterConfig = [
     {
@@ -8,11 +9,13 @@ export const BaseRoutes: RouterConfig = [
     },
     {
         path: '',
-        component: RepoComponent
+        component: RepoComponent,
+        canActivate: [AuthGuard]
     },    
     {
         path: ':org',
-        component: RepoComponent
+        component: RepoComponent,
+        canActivate: [AuthGuard]
     }
 ];
 
