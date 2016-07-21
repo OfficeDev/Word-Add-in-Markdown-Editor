@@ -130,6 +130,7 @@ export class WordService {
             for (i = 0, max = images.length; i < max; i++) {
                 altValue = images[i].parentElement.getAttribute('href');
                 srcValue = images[i].getAttribute('src');
+                console.log(images[i].width);
                 console.log(srcValue);
                 if (!srcValue.toLowerCase().startsWith("http")) {
                     images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
