@@ -3,14 +3,12 @@ import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService, FavoritesService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
-import {InfiniteScroll} from 'angular2-infinite-scroll';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 import {BaseComponent} from '../components/base.component';
 
 @Component(Utils.component('repo', {
-    pipes: [SafeNamesPipe],
-    directives: [InfiniteScroll]
+    pipes: [SafeNamesPipe]
 }))
 export class RepoComponent extends BaseComponent implements OnInit {
     private _page = 0;
