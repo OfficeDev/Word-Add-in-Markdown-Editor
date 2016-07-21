@@ -8,7 +8,7 @@
 
 <section class="file-list-component__branches">
     <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName | safenames}}</h2>
-    <select (change)="selectBranch($event.target.value)">
+    <select [(ngModel)]="selectedBranch.name" (change)="selectBranch($event.target.value)">
         <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
             {{branch.name}}
         </option>

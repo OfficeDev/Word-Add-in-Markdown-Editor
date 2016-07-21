@@ -28,8 +28,7 @@
     "underscore": "^1.8.3",
     "marked": "^0.3.5",
     "to-markdown": "^3.0.0",
-    "office-ui-fabric": "^2.6.1",
-    "angular2-infinite-scroll": "^0.1.9"
+    "office-ui-fabric": "^2.6.1"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",

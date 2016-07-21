@@ -173,11 +173,6 @@ var packages = <IPackage[]>[
         development: 'node_modules/jquery/dist'
     },
     {
-        name: 'infinite-scroll',
-        main: 'angular2-infinite-scroll.js',
-        development: 'node_modules/angular2-infinite-scroll/bundles'
-    },
-    {
         name: 'office',
         main: 'office.js',
         production: 'https://oep.azurewebsites.net/preview/aprfork/office.js'
@@ -190,7 +185,7 @@ function useAppConfiguration() {
         .registerBarrels(barrels)
         .registerAngular2Packages()
         .registerLibraries(packages)
-        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview', 'infinite-scroll'])
+        .import(['underscore', 'jquery', 'marked', 'to-markdown', 'stringview'])
         .configure('app');
 }
 

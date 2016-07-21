@@ -56,6 +56,11 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
         this.markDispose([subscription1, subscription2]);
     }
 
+    ngOnDestroy() {
+        console.log("FileTreeComponent destroyed " + new Date());
+        super.ngOnDestroy();
+    }
+
     private addBreadcrumb(path: string) {
         var text = Utils.isEmpty(path) ? 'Root' : _.last(path.split('/'));
         this.channel.source.next(<IBreadcrumb>{

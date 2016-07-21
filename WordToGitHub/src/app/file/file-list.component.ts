@@ -56,4 +56,8 @@ export class FileListComponent extends BaseComponent implements OnInit, OnDestro
     showMenu() {
         this.channel.source.next(true);
     }
+    ngOnDestroy() {
+        console.log("FileListComponent destroyed " + new Date());
+        super.ngOnDestroy();
+    }
 }
