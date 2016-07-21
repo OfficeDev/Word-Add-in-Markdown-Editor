@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <App xmlns="http://schemas.microsoft.com/sharepoint/2012/app/manifest"
      Name="WordToGitHubAddIn"
-     ProductID="{f5127035-82fd-46f1-b68b-f9ce854d4e07}"
+     ProductID="{62e181b4-511d-47ad-a4db-baa2bce0e38a}"
      Version="1.0.0.0"
      SharePointMinVersion="15.0.0.0"
 >
