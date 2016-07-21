@@ -6,12 +6,13 @@ import {Utils, StorageHelper} from '../shared/helpers';
 import {InfiniteScroll} from 'angular2-infinite-scroll';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
+import {BaseComponent} from '../components/base.component';
 
 @Component(Utils.component('repo', {
     pipes: [SafeNamesPipe],
     directives: [InfiniteScroll]
 }))
-export class RepoComponent implements OnInit {
+export class RepoComponent extends BaseComponent implements OnInit {
     private _page = 0;
 
     repositories: IRepository[] = [];
@@ -26,15 +27,18 @@ export class RepoComponent implements OnInit {
         private _route: ActivatedRoute,
         private _favoritesService: FavoritesService
     ) {
+        super();
         this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
     }
 
     ngOnInit() {
-        var subscription = this._route.params.subscribe(params => {
+        var sub = this._route.params.subscribe(params => {
             this.selectedOrg = params['org'] || this._githubService.profile.user.login;
             this.load();
         });
+
+        this.markDispose(sub);
     }
 
     selectRepo(repository: IRepository) {
@@ -48,8 +52,10 @@ export class RepoComponent implements OnInit {
 
     load() {
         var personal = this.selectedOrg === this._githubService.profile.user.login;
-        this._githubService.repos(this._page++, this.selectedOrg, personal).subscribe(data => {
+        var sub = this._githubService.repos(this._page++, this.selectedOrg, personal).subscribe(data => {
             data.forEach(item => this.repositories.push(item));
         });
+        
+        this.markDispose(sub);
     }
 }

@@ -1,4 +1,4 @@
-﻿import {Injectable, EventEmitter} from '@angular/core';
+﻿import {Injectable, EventEmitter, OnDestroy} from '@angular/core';
 import {Subject, Observable} from 'rxjs/Rx';
 import {Utils, Repository} from '../helpers';
 
@@ -16,7 +16,7 @@ export interface ISubjectChannel extends IChannel {
 }
 
 @Injectable()
-export class MediatorService extends Repository<IChannel> {
+export class MediatorService extends Repository<IChannel> implements OnDestroy {
     constructor() {
         super();
         this.data = {};
@@ -37,5 +37,17 @@ export class MediatorService extends Repository<IChannel> {
         var dataSource = new Subject<T>();
         var event = dataSource.asObservable();
         return this.add(name, { name: name, source$: event, source: dataSource } as IChannel) as ISubjectChannel;
+    }
+
+    clear() {
+        _.each(this.data, subscription => {
+            (<IEventChannel | ISubjectChannel>(subscription)).source.unsubscribe();
+        });
+
+        super.clear();
+    }
+
+    ngOnDestroy() {
+        this.clear();
     }
 }
