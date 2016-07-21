@@ -76,7 +76,8 @@ export class GithubService {
             case 'Conceptual article':
                 url = 'assets/templates/conceptual-article.md';
                 break;
-
+            default:
+                url = 'assets/templates/simple-file.md';
         }
         return this._request.raw(url) as Observable<string>;
     }

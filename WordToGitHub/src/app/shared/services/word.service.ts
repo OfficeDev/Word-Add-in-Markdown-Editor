@@ -15,21 +15,9 @@ export class WordService {
 
     }
 
-    insertTemplate(type: string) {
-        this._githubService
-            .getFileData(type)
-            .subscribe(
-            md => {
-                var html = this._markDownService.convertToHtml(md);
-                return this.insertHtml(html)
-            },
-            error => {
-                console.error(error);
-            },
-            () => {
-                console.info('completed inserting tempte');
-            }
-            );
+    insertTemplate(md: string) {
+        var html = this._markDownService.convertToHtml(md);
+        return this.insertHtml(html)
     }
 
     insertHtml(html: string) {
@@ -74,7 +62,7 @@ export class WordService {
                 // Generate the html manually for lists
                 var lists = context.document.body.lists;
                 context.load(lists);
-                
+
 
                 return context.sync().then(() => {
 
@@ -95,7 +83,7 @@ export class WordService {
                 });
             });
         });
-}
+    }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
         return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
@@ -125,10 +113,10 @@ export class WordService {
             //var regex = new RegExp('<img src="(.*?)" (.*?)>', 'g');
             //regex.exec(html).forEach(match => {
             //    if (!Utils.isEmpty(match)) {
-                    
+
             //    }
             //});
-            
+
             //html = Utils.regex(html)
             //    (/<img src="(.*?)" (.*?)>/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>')
             //    ();
@@ -218,7 +206,7 @@ export class WordService {
                     }
                 }
 
-                return context.sync().then(function () {                  
+                return context.sync().then(function () {
                     return imagesArray;
                 });
             });

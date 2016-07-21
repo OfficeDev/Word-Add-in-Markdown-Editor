@@ -7,6 +7,7 @@ import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
 interface ITemplate {
+    id: number,
     path: string,
     title: string,
     description: string
@@ -22,8 +23,8 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
 
     templates: ITemplate[];
     selectedTemplate: ITemplate;
-    templateContent: string;
 
+    newFolder: boolean;
     selectedFolder: string;
 
     constructor(
@@ -36,31 +37,37 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
 
         this.templates = [
             {
-                path: '',
+                id: 0,
+                path: 'Code sample readme',
                 title: 'Empty',
                 description: 'Creates a new empty markdown file',
             },
             {
+                id: 1,
                 path: '',
                 title: 'Basic',
                 description: 'Creates a basic markdown file',
             },
             {
+                id: 2,
                 path: '',
                 title: 'Readme',
                 description: 'Creates a new readme markdown file with all the required sections',
             },
             {
-                path: '',
+                id: 3,
+                path: 'API spec',
                 title: 'API Documentation',
                 description: 'Creates a new api documentation markdown file with all the required sections',
             },
             {
+                id: 4,
                 path: '',
                 title: 'License',
                 description: 'Creates a new license markdown file',
             },
             {
+                id: 5,
                 path: '',
                 title: 'Contribution',
                 description: 'Creates a new contribution markdown file',
@@ -81,26 +88,42 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
         this.markDispose(subscription);
     }
 
-    createFile() {
+    create() {
         var path;
+        if (Utils.isEmpty(this.selectedFile)) {
+            return null;
+        }
 
         if (Utils.isNull(this.selectedPath)) {
             path = this.selectedFile;
         }
         else {
-            path = this.selectedPath + '/' + (this.selectedFolder ? this.selectedFolder + '/' : '') + this.selectedFile;
+            path = this.selectedPath + '/' + (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder + '/' : '') + this.selectedFile + '.md';
         }
 
-        var body = {
-            message: 'Creating ' + this.selectedFile,
-            content: this.templateContent || '',
-            branch: this.selectedBranch
-        };
+        var sub = this._githubService.getFileData(this.selectedTemplate.path).subscribe(templateContent => {
+            var mdView = new StringView(templateContent, "UTF-8");
+            var b64md = mdView.toBase64();
+            b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
 
-        return this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
-            .subscribe(response => {
-                this._wordService.insertTemplate(this.selectedTemplate.path);
-                this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path)], 'detail');
-            });
+            var body = {
+                message: 'Creating ' + this.selectedFile + '.md',
+                content: b64md || '',
+                branch: this.selectedBranch
+            };
+
+            console.log(path, body);
+
+            this._wordService.insertTemplate(templateContent);
+
+            var sub = this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
+                .subscribe(response => {
+                    this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']);
+                });
+
+            this.markDispose(sub);
+        });
+
+        this.markDispose(sub);
     }
 }
