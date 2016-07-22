@@ -11,8 +11,8 @@ export class Utils {
     static component(view: string, overrides?: any, parent?: string) {
         var defaults = {
             selector: view,
-            templateUrl: 'app/' + (parent || view) + '/' + view + '.component.html',
-            styleUrls: ['app/' + (parent || view) + '/' + view + '.component.css']
+            templateUrl: './' + (parent ? parent + '/' : '') + view + '.component.html',
+            styleUrls: [require('./' + (parent ? parent + '/' : '') + view + '.component.scss')]
         }
 
         return _.extend({}, defaults, overrides);
