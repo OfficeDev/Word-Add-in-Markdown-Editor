@@ -108,17 +108,11 @@
         flex: 1 1 0px;
     }
 
-    &__actions {
-        width: 20px;        
-        position: static;
-    }
-
     &__action {
         width: auto;
         height: auto;
         position: static;
-        @include focus-states(transparent);
-
+        
         i {
             position: static;
         }

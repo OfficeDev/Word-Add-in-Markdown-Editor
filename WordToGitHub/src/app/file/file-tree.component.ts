@@ -44,10 +44,10 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
         var subscription1 = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
-            this.selectedBranch = params['branch']
         });
 
         var subscription2 = this._route.params.subscribe(params => {
+            this.selectedBranch = params['branch'];            
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.addBreadcrumb(this.selectedPath);
             this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);

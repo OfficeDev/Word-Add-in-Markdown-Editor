@@ -4,23 +4,27 @@ import {AuthGuard} from '../shared/services';
 
 export const FileRoutes: RouterConfig = [
     {
-        path: ':org/:repo/:branch',
+        path: ':org/:repo',
         component: FileListComponent,
         canActivate: [AuthGuard],
         children: [
             {
-                path: '',
+                path: ':branch',
                 component: FileTreeComponent
             },
             {
-                path: ':path',
+                path: ':branch/:path',
                 component: FileTreeComponent
             },
             {
-                path: ':path/detail',
+                path: ':branch/:path/detail',
                 component: FileDetailComponent
             }                        
         ]
+    },
+    {
+        path: ':org/:repo/:branch/create',
+        component: FileCreateComponent
     },
     {
         path: ':org/:repo/:branch/:path/create',

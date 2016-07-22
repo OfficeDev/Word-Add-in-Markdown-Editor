@@ -13,7 +13,7 @@
 
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
-    
+
     <ul class="ms-List">
         <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
             <div class="repo-list-item__content" (click)="selectRepo(repository)">
@@ -21,10 +21,8 @@
                 <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
                 <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
             </div>
-            <div class="repo-list-item__actions ms-ListItem-actions" (click)="pin(repository)">
-                <div class="repo-list-item__action ms-ListItem-action">
-                    <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
-                </div>
+            <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
+                <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
             </div>
         </li>
     </ul>

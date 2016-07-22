@@ -34,10 +34,8 @@ export class FileListComponent extends BaseComponent implements OnInit, OnDestro
         var subscription = this._route.params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
-            this.selectedBranch = <IBranch>{
-                name: params['branch'] || 'master'
-            }
-            this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName)
+            this.selectedBranch = <IBranch>{ name: 'master' };
+            this.branches = this._githubService.branches(this.selectedOrg, this.selectedRepoName);
         });
 
         this.markDispose(subscription);

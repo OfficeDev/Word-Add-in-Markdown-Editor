@@ -28,10 +28,10 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         var subscription1 = this._router.routerState.parent(this._route).params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
-            this.selectedBranch = params['branch']
         });
 
         var subscription2 = this._route.params.subscribe(params => {
+            this.selectedBranch = params['branch'];
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
 

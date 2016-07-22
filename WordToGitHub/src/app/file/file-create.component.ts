@@ -81,7 +81,7 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
         var subscription = this._route.params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
-            this.selectedBranch = params['branch']
+            this.selectedBranch = params['branch'];
             this.selectedPath = decodeURIComponent(params['path']);
         });
 
