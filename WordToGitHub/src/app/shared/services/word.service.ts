@@ -59,6 +59,26 @@ export class WordService {
     //    });
     //}
 
+    insertNumberedList() {
+        if (!Utils.isWord) return;
+
+        return this._run((context) => { 
+            var selection = context.document.getSelection();
+            selection.insertHtml('<ol start="1"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ol>', Word.InsertLocation.after);
+            return context.sync();
+        });
+    }
+
+    insertBulletedList() {
+        if (!Utils.isWord) return;
+
+        return this._run((context) => {
+            var selection = context.document.getSelection();
+            selection.insertHtml('<ul type="disc"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ul>', Word.InsertLocation.after);
+            return context.sync();
+        });
+    }
+
     getMarkdown() {
         if (!Utils.isWord) return;
 

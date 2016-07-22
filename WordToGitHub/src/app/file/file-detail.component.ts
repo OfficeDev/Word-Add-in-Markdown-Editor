@@ -82,6 +82,14 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     //    this._wordService.styleAsCode();
     //}
 
+    insertNumberedList() {
+        this._wordService.insertNumberedList();
+    }
+
+    insertBulletedList() {
+        this._wordService.insertBulletedList();
+    }
+
     updateFile() {
         var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
