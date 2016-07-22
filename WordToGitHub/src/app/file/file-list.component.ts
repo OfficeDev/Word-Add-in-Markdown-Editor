@@ -46,16 +46,7 @@ export class FileListComponent extends BaseComponent implements OnInit, OnDestro
         this.selectedBranch.name = branchName;
     }
 
-    navigate(breadcrumb: IBreadcrumb) {
-        var path = Utils.isNull(breadcrumb.href) ? null : encodeURIComponent(breadcrumb.href);
-        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch.name, path]);
-    }
-
     showMenu() {
         this.channel.source.next(true);
-    }
-    ngOnDestroy() {
-        console.log("FileListComponent destroyed " + new Date());
-        super.ngOnDestroy();
-    }
+    }    
 }

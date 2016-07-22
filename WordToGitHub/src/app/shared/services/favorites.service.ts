@@ -15,13 +15,11 @@ export class FavoritesService extends StorageHelper<IRepository> {
     }
 
     pin(item: IRepository) {
-        console.log('pin');        
         this.add(item.id.toString(), item);
         this.pushDataEvent.source.next(item);
     }
 
     unpin(item: IRepository) {
-        console.log('unpin');
         this.remove(item.id.toString());
         this.pushDataEvent.source.next(item);
     }

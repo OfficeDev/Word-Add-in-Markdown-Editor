@@ -22,7 +22,7 @@ export interface IProfileMetadata extends IProfile {
     followers?: number,
     following?: number,
     created_at?: Date,
-    updated_at?: Date   
+    updated_at?: Date
 }
 
 export interface IUserProfile {
@@ -168,5 +168,5 @@ export interface IToken {
 export interface IBreadcrumb {
     text: string;
     key?: number;
-    href?: string;
+    href?: string | string[];
 }

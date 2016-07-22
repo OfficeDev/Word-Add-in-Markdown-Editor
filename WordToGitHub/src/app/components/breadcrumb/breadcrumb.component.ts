@@ -1,6 +1,7 @@
 ﻿import {Component, EventEmitter, Input, Output, OnInit, OnDestroy} from '@angular/core';
+import {Router, NavigationEnd} from '@angular/router';
 import {Observable, Subscription} from 'rxjs/Rx';
-import {MediatorService, IBreadcrumb, ISubjectChannel} from '../../shared/services';
+import {IBreadcrumb} from '../../shared/services';
 import {Utils} from '../../shared/helpers';
 import {BaseComponent} from '../../components/base.component';
 
@@ -8,19 +9,14 @@ import {BaseComponent} from '../../components/base.component';
 export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;
-    private id: number = 1;
 
-    channel: ISubjectChannel
     isOverflown: boolean;
     breadcrumbs: IBreadcrumb[];
     overflownBreadcrumbs: IBreadcrumb[];
 
-    constructor(private _mediatorService: MediatorService) {
+    constructor(private _router: Router) {
         super();
-        this.channel = _mediatorService.createSubjectChannel<IBreadcrumb>('breadcrumbs');
     }
-
-    @Output() navigate: EventEmitter<IBreadcrumb> = new EventEmitter<IBreadcrumb>();
 
     @Input()
     set max(value: number) {
@@ -32,29 +28,62 @@ export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     }
 
     click(breadcrumb: IBreadcrumb) {
-        var index = _.findIndex(this._breadcrumbs, item => item.key === breadcrumb.key);
-
-        if (index === -1) throw 'Breadcrumb path couldn\'t be found';
-
-        if (index === this._breadcrumbs.length - 1) return;
-
-        this._breadcrumbs = _.first(this._breadcrumbs, index);
-        this._recompute();
-
-        this.navigate.emit(breadcrumb);
+        if (Utils.isNull(breadcrumb.href)) return;
+        this._router.navigate(breadcrumb.href as string[]);
     }
 
     ngOnInit() {
-        var subscription = this.channel.source$.subscribe(breadcrumb => {
-            breadcrumb.key = this.id++;
-            this._breadcrumbs.push(breadcrumb);
-            this._recompute();
+        this._generateFromUrl(this._router.url);
+        this._recompute();
+
+        var subscription = this._router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this._generateFromUrl(this._router.url);
+                this._recompute();
+            }
         });
 
         this.markDispose(subscription);
     }
 
+    private _generateFromUrl(url: string) {
+        this._breadcrumbs = [];
+        var routerLinkArray = url.split('/');
+        var path = _.last(routerLinkArray);
+        var detail = path === 'detail';
+        path = detail ? routerLinkArray[4] : path;
+
+        var href = _.rest(_.first(routerLinkArray, 4)) as string[];
+        var branch = _.last(href);
+
+        if (!Utils.isNull(branch)) {
+            this._breadcrumbs.push({
+                key: 0,
+                text: branch,
+                href: href
+            });
+        }
+
+        if (!Utils.isNull(path) && path !== branch) {
+            var decodedSegments = decodeURIComponent(path as string).split('/');
+            _.each(decodedSegments, (segment, i) => {
+                var pathToSegment = encodeURIComponent(_.first(decodedSegments, i + 1).join('/'));
+                this._breadcrumbs.push({
+                    key: i + 1,
+                    text: segment,
+                    href: [...href, pathToSegment]
+                });
+            });
+        }
+
+        if (detail) {
+            var file = _.last(this._breadcrumbs);
+            file.href = null;
+        }
+    }
+
     private _recompute() {
+        console.log(this._breadcrumbs);
         if (Utils.isEmpty(this._breadcrumbs)) {
             this.breadcrumbs = null;
             this.overflownBreadcrumbs = null;
