@@ -12,9 +12,9 @@ import 'rxjs';
 // External styles
 require('office-ui-fabric/dist/css/fabric.component.css');
 require('office-ui-fabric/dist/css/fabric.component.min.css');
-require('../styles/globals.scss');
-require('../styles/spinner.scss');
+require('./styles/globals.scss');
+require('./styles/spinner.scss');
 
 // External scripts
-require('../assets/stringview.js');
+require('./assets/stringview.js');
 require('to-markdown/dist/to-markdown.js');

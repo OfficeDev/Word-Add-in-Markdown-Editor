@@ -7,9 +7,9 @@ var perfectionist = require('perfectionist');
 
 module.exports = {
     entry: {
-        'polyfills': './src/app/polyfills.ts',
-        'vendor': './src/app/vendor.ts',
-        'app': './src/app/app.ts'
+        'polyfills': './src/polyfills.ts',
+        'vendor': './src/vendor.ts',
+        'app': './src/app.ts'
     },
 
     resolve: {
