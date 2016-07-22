@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, MediatorService, FavoritesService} from '../shared/services';
-import {Utils, StorageHelper} from '../shared/helpers';
+import {Utils} from '../shared/helpers';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
 import {BaseComponent} from '../components/base.component';
@@ -15,7 +15,6 @@ export class RepoComponent extends BaseComponent implements OnInit {
 
     repositories: IRepository[] = [];
     selectedOrg: string;
-    cache: StorageHelper<IRepository>;
     channel: IEventChannel;
 
     constructor(
@@ -26,7 +25,6 @@ export class RepoComponent extends BaseComponent implements OnInit {
         private _favoritesService: FavoritesService
     ) {
         super();
-        this.cache = new StorageHelper<IRepository>("FavoriteRepositories");
         this.channel = this._mediatorService.createEventChannel<Event>('hamburger');
     }
 
@@ -44,8 +42,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
     }
 
     pin(item: IRepository) {
-        this.cache.add(item.id.toString(), item);
-        this._favoritesService.pushData(item);
+        this._favoritesService.pin(item);
     }
 
     load() {
@@ -53,7 +50,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
         var sub = this._githubService.repos(this._page++, this.selectedOrg, personal).subscribe(data => {
             data.forEach(item => this.repositories.push(item));
         });
-        
+
         this.markDispose(sub);
     }
 
