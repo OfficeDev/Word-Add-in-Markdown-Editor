@@ -7,11 +7,13 @@ import {SafeNamesPipe} from '../shared/pipes';
 import {BreadcrumbComponent} from '../components/breadcrumb/breadcrumb.component';
 import {BaseComponent} from '../components/base.component';
 
-
-@Component(Utils.component('file-list', {
+@Component({
+    selector: 'file-list',
+    templateUrl: './file-list.component.html',
+    styleUrls: ['./file-list.component.scss'],
     pipes: [SafeNamesPipe],
     directives: [ROUTER_DIRECTIVES, BreadcrumbComponent],
-}, 'file'))
+})
 export class FileListComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;

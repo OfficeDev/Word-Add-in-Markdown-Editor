@@ -6,7 +6,11 @@ import {GithubService, WordService, ICommit} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
-@Component(Utils.component('file-detail', null, 'file'))
+@Component({
+    selector: 'file-detail',
+    templateUrl: './file-detail.component.html',
+    styleUrls: ['./file-detail.component.scss']
+})
 export class FileDetailComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;

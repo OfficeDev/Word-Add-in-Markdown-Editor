@@ -13,7 +13,11 @@ interface ITemplate {
     description: string
 }
 
-@Component(Utils.component('file-create', null, 'file'))
+@Component({
+    selector: 'file-create',
+    templateUrl: './file-create.component.html',
+    styleUrls: ['./file-create.component.scss']
+})
 export class FileCreateComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;

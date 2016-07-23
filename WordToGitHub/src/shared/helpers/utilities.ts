@@ -8,16 +8,6 @@ export enum ContextType {
 export class Utils {
     private static _context: ContextType;
 
-    static component(view: string, overrides?: any, parent?: string) {
-        var defaults = {
-            selector: view,
-            templateUrl: './' + (parent ? parent + '/' : '') + view + '.component.html',
-            styleUrls: [require('./' + (parent ? parent + '/' : '') + view + '.component.scss')]
-        }
-
-        return _.extend({}, defaults, overrides);
-    }
-
     static replace(source: string): (key: string, value: string) => any {
         return function self(key: string, value: string): any {
             if (!key) return source;

@@ -7,9 +7,12 @@ import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/servi
 import {SafeNamesPipe} from '../shared/pipes';
 import {BaseComponent} from '../components/base.component';
 
-@Component(Utils.component('repo', {
+@Component({
+    selector: 'repo',
+    templateUrl: './repo.component.html',
+    styleUrls: ['./repo.component.scss'],
     pipes: [SafeNamesPipe]
-}))
+})
 export class RepoComponent extends BaseComponent implements OnInit {
     private _page = 0;
 

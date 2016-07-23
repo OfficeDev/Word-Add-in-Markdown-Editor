@@ -3,7 +3,11 @@ import {Router} from '@angular/router';
 import {GithubService} from '../shared/services';
 import {Utils} from '../shared/helpers';
 
-@Component(Utils.component('login'))
+@Component({
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
+})
 export class LoginComponent {
     constructor(
         private _githubService: GithubService,

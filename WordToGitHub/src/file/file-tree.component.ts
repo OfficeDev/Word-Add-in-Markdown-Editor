@@ -8,9 +8,12 @@ import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
 
-@Component(Utils.component('file-tree', {
+@Component({
+    selector: 'file-tree',
+    templateUrl: './file-tree.component.html',
+    styleUrls: ['./file-tree.component.scss'],
     pipes: [SafeNamesPipe, MDFilterPipe]
-}, 'file'))
+})
 export class FileTreeComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
     selectedRepoName: string;

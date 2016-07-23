@@ -6,8 +6,12 @@ import {GithubService, MediatorService, FavoritesService, IUserProfile, IProfile
 import {SafeNamesPipe} from '../../shared/pipes';
 import {BaseComponent} from '../base.component';
 
-@Component(Utils.component('hamburger', { pipes: [SafeNamesPipe] }))
-
+@Component({
+    selector: 'hamburger',
+    templateUrl: './hamburger.component.html',
+    styleUrls: ['./hamburger.component.scss'],
+    pipes: [SafeNamesPipe]
+})
 export class HamburgerComponent extends BaseComponent implements OnInit, OnDestroy {
     channel: IEventChannel;
     isShown: Observable<boolean>;

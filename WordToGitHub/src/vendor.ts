@@ -9,10 +9,7 @@ import '@angular/router';
 // RxJS
 import 'rxjs';
 
-// External styles
-require('office-ui-fabric/dist/css/fabric.components.css');
-require('office-ui-fabric/dist/css/fabric.components.min.css');
-
 // External scripts
-require('./assets/stringview.js');
-require('to-markdown/index.js');
+import './assets/stringview.js';
+import 'marked';
+import 'to-markdown/index.js';
