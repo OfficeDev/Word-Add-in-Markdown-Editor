@@ -10,11 +10,9 @@ import '@angular/router';
 import 'rxjs';
 
 // External styles
-require('office-ui-fabric/dist/css/fabric.component.css');
-require('office-ui-fabric/dist/css/fabric.component.min.css');
-require('./styles/globals.scss');
-require('./styles/spinner.scss');
+require('office-ui-fabric/dist/css/fabric.components.css');
+require('office-ui-fabric/dist/css/fabric.components.min.css');
 
 // External scripts
 require('./assets/stringview.js');
-require('to-markdown/dist/to-markdown.js');
+require('to-markdown/index.js');

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Utils, StorageHelper} from '../helpers';
-import marked from 'marked';
+import * as marked from 'marked';
 import {Observable, Observer} from 'rxjs/Rx'
 
 declare var toMarkdown: any;

@@ -5,7 +5,7 @@ import {IBreadcrumb} from '../../shared/services';
 import {Utils} from '../../shared/helpers';
 import {BaseComponent} from '../../components/base.component';
 
-@Component(Utils.component('breadcrumb', null, 'components/breadcrumb'))
+@Component(Utils.component('breadcrumb'))
 export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
     private _max: number;

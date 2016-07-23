@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {MarkdownService, GithubService} from "./";
 import {Utils} from "../helpers";
-import marked from 'marked';
+import * as marked from 'marked';
 import {IImage} from './';
 
 declare var toMarkdown: any;
