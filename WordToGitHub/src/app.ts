@@ -34,16 +34,21 @@ export class AppComponent {
     }
 
     static boostrap() {
-        if (window.location.href.indexOf('access_token') != 1) {
-            if (Utils.isWord) {
+        console.log(window.location);
+        if (window.location.href.indexOf('code') === -1) {
+            if (!Utils.isWeb) {
+                console.log('OfficeJS Launch');
                 Office.initialize = AppComponent.launch;
             }
             else {
+                console.log('Web Launch');
                 AppComponent.launch();
             }
         }
-        else {
-            new AuthorizeService().getToken();
+        else {        
+            var authorizeService = new AuthorizeService();    
+            console.log('Getting token');
+            authorizeService.getToken();            
         }
     }
 }
