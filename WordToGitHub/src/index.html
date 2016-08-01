@@ -8,11 +8,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.components.min.css">
-    <link rel="stylesheet" href="node_modules/office-ui-fabric/dist/css/fabric.min.css">
-    <link rel="stylesheet" href="app.css">
-    
     <!-- 1. Basic dependencies -->
     <!--<script src="https://oep.azurewebsites.net/preview/aprfork/office.js"></script>-->
     <!--<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>-->
@@ -33,7 +28,7 @@
                 <div class="ms-progress">
                     <div class="ms-Spinner large"></div>
                     <div class="ms-ProgressIndicator-itemName">Loading</div>
-                    <div class="ms-ProgressIndicator-itemDescription">Fetching libraries</div>
+                    <div id="status" class="ms-ProgressIndicator-itemDescription">Fetching libraries</div>
                 </div>
             </footer>
         </div>

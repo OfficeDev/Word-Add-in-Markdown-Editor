@@ -1,7 +1,6 @@
 ﻿import {Utils} from '../helpers/utilities';
-declare var fabric: any;
 
-class AuthorizeService {
+export class AuthorizeService {
     private _component;
     private static CLIENT_ID = "61ef07373b60f4f075cd";
     private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
@@ -74,5 +73,3 @@ class AuthorizeService {
         return params;
     }
 }
-
-$(document).ready(() => { new AuthorizeService().getToken(); });

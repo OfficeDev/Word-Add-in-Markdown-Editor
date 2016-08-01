@@ -83,8 +83,7 @@ export class GithubService {
     }
 
     login(): Promise<IUserProfile> {
-        if (!Utils.isWord) return;
-
+        if (!Utils.isWord) Promise.reject('Cannot be executed outside of word');
         return new Promise(this._showAuthDialog.bind(this));
     }
 
