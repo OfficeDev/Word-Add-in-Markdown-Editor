@@ -1,7 +1,9 @@
 var webpack = require('webpack');
+var helpers = require('./helpers');
+
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var helpers = require('./helpers');
 var autoprefixer = require('autoprefixer');
 var perfectionist = require('perfectionist');
 
@@ -32,22 +34,33 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                exclude: helpers.root('src', 'app'),
+                exclude: helpers.root('src', 'assets'),
                 loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
             },
             {
                 test: /\.css$/,
-                include: helpers.root('src', 'app'),
+                include: helpers.root('src', 'assets'),
                 loader: 'raw'
             },
-            { 
-                test: /^(?!.*component).*\.scss$/, 
+            {
+                test: /^(?!.*component).*\.scss$/,
                 loaders: ['style', 'css', 'resolve-url', 'postcss', 'sass']
             },
-            { 
-                test: /\.component\.scss$/, 
-                loaders: ['raw', 'resolve-url', 'postcss', 'sass'] 
-            }            
+            {
+                test: /\.component\.scss$/,
+                loaders: ['raw', 'resolve-url', 'postcss', 'sass']
+            }
+        ],
+        preLoaders: [
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            {
+                test: /\.js$/,
+                loader: "source-map-loader",
+                exclude: [
+                    helpers.node_modules('node_modules/rxjs'),
+                    helpers.node_modules('node_modules/@angular')
+                ]
+            }
         ]
     },
 
@@ -55,13 +68,25 @@ module.exports = {
         return [autoprefixer({ browsers: ['Safari >= 8', 'last 2 versions'] }), perfectionist];
     },
 
+    externals: {
+        '_': 'underscore',
+        '$': 'jquery'
+    },
+
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: ['polyfills', 'vendor', 'app'].reverse()
         }),
 
         new HtmlWebpackPlugin({
             template: 'src/index.html'
-        })
+        }),
+
+        new CopyWebpackPlugin([            
+            {
+                from: './src/assets/images',
+                to: 'assets/images',
+            }
+        ]),
     ]
 };

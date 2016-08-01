@@ -8,7 +8,9 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "noEmitOnError": true
+    "noEmitOnError": true,
+    "rootDir": "src",
+    "outDir": "dist"
   },
   "exclude": [
     "node_modules"
