@@ -1,0 +1,9 @@
+// Fabric & Bootstrap
+require('office-ui-fabric/dist/css/fabric.min.css');
+require('office-ui-fabric/dist/css/fabric.components.min.css');
+
+// Spinner & Theme
+require('./assets/styles/spinner.scss');
+require('./assets/styles/globals.scss');
+
+require('./assets/scripts/stringview.js');

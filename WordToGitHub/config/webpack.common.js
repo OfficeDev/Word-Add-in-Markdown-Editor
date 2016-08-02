@@ -9,6 +9,7 @@ var perfectionist = require('perfectionist');
 
 module.exports = {
     entry: {
+        'assets': './src/assets.ts',
         'polyfills': './src/polyfills.ts',
         'vendor': './src/vendor.ts',
         'app': './src/app.ts'
@@ -30,11 +31,10 @@ module.exports = {
             },
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-                loader: 'file?name=assets/[name].[hash].[ext]'
+                loader: 'file?name=assets/[name].[ext]'
             },
             {
-                test: /\.css$/,
-                exclude: helpers.root('src', 'assets'),
+                test: /\.css$/,                
                 loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
             },
             {
@@ -75,7 +75,7 @@ module.exports = {
 
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['polyfills', 'vendor', 'app'].reverse()
+            name: ['polyfills', 'assets', 'vendor', 'app'].reverse()
         }),
 
         new HtmlWebpackPlugin({

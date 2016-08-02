@@ -2,8 +2,7 @@
 
 export enum ContextType {
     Web,
-    Word,
-    Office
+    Word
 }
 
 export class Utils {
@@ -57,10 +56,9 @@ export class Utils {
         if (_.has(window, 'Office')) {
             if (_.has(window, 'Word')) {
                 this._context = ContextType.Word;
-            }
-            else {
-                this._context = ContextType.Office;
-            }
+            }            
+
+            this._context = ContextType.Web;
         }
         else {
             this._context = ContextType.Web;

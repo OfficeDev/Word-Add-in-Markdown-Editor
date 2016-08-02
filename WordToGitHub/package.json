@@ -4,7 +4,7 @@
   "repository": "",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack-dev-server --https --hot --inline --progress --compress --port 3000 --cert certificates/localhost.crt --key certificates/localhost.key --open",
+    "start": "webpack-dev-server --https --inline --progress --compress --port 3000 --cert certificates/localhost.crt --key certificates/localhost.key --open",
     "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --colors --display-chunks --display-modules",
     "postinstall": "typings install"
