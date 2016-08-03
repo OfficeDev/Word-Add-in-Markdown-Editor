@@ -1,27 +1,13 @@
 ﻿import {Utils} from '../helpers/utilities';
-declare var fabric: any;
 
-class AuthorizeService {
-    private _component;
-    private static CLIENT_ID = "61ef07373b60f4f075cd";
-    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
-    private static SCOPE = "repo";
-
+export class AuthorizeService {
+    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;    
     status = $('#status');
 
-    constructor() { }
-
-    getToken() {
-        if (!Utils.isWord) return;
-
+    getToken() {        
         var context = Office.context as any;
         try {
             var code = this._getCode();
-            if (code == null) {
-                this.status.text('Redirecting to Github');
-                window.location.replace(this._getUrl());
-                return;
-            };
             this.status.text('Getting token');
             var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken-Developer?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
                 ("@authCode", "vkybv91vgyefgta0xeadzz7bbk8sd3dozaz8")
@@ -42,15 +28,6 @@ class AuthorizeService {
             this.status.text('Oops! Something went wrong.');
             context.ui.messageParent(JSON.stringify(exception));
         }
-    }
-
-    private _getUrl() {
-        var baseUrl = "https://github.com/login/oauth/authorize?client_id=@client_id&redirect_uri=@redirect_uri&scope=@scope";
-        return Utils.replace(baseUrl)
-            ('@client_id', AuthorizeService.CLIENT_ID)
-            ('@redirect_uri', AuthorizeService.REDIRECT_URI)
-            ('@scope', AuthorizeService.SCOPE)
-            ();
     }
 
     private _getCode() {
@@ -74,5 +51,3 @@ class AuthorizeService {
         return params;
     }
 }
-
-$(document).ready(() => { new AuthorizeService().getToken(); });

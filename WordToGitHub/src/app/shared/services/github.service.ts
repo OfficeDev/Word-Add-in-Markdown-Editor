@@ -7,6 +7,10 @@ declare var Microsoft: any;
 
 @Injectable()
 export class GithubService {
+    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;
+    private static CLIENT_ID = "61ef07373b60f4f075cd";    
+    private static SCOPE = "repo";
+
     private _baseUrl: string = "";
     private _profile: IUserProfile;
     private _profileStorage: StorageHelper<IUserProfile>;
@@ -83,8 +87,6 @@ export class GithubService {
     }
 
     login(): Promise<IUserProfile> {
-        if (!Utils.isWord) return;
-
         return new Promise(this._showAuthDialog.bind(this));
     }
 
@@ -113,7 +115,7 @@ export class GithubService {
 
     private _showAuthDialog(resolve, reject) {
         var context = Office.context as any;
-        context.ui.displayDialogAsync(window.location.protocol + "//" + window.location.host + "/authorize.html", { height: 35, width: 30 },
+        context.ui.displayDialogAsync(this._getUrl(), { height: 45, width: 35 },
             result => {
                 var dialog = result.value;
                 dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
@@ -151,5 +153,14 @@ export class GithubService {
                     }
                 });
             });
+    }
+
+    private _getUrl() {
+        var baseUrl = "https://github.com/login/oauth/authorize?client_id=@client_id&redirect_uri=@redirect_uri&scope=@scope";
+        return Utils.replace(baseUrl)
+            ('@client_id', GithubService.CLIENT_ID)
+            ('@redirect_uri', GithubService.REDIRECT_URI)
+            ('@scope', GithubService.SCOPE)
+            ();
     }
 }

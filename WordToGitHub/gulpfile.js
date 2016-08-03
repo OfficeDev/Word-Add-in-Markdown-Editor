@@ -22,8 +22,8 @@ var gulp = require('gulp'),
         },
         browserSync: {
             https: {
-                key: 'certificates/server.key',
-                cert: 'certificates/server.crt'
+                key: 'certificates/localhost.key',
+                cert: 'certificates/localhost.crt'
             },
             server: {
                 baseDir: './wwwroot',
