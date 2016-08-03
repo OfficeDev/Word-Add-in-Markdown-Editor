@@ -7,7 +7,7 @@ declare var Microsoft: any;
 
 @Injectable()
 export class GithubService {
-    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";
+    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;
     private static CLIENT_ID = "61ef07373b60f4f075cd";    
     private static SCOPE = "repo";
 
@@ -87,7 +87,6 @@ export class GithubService {
     }
 
     login(): Promise<IUserProfile> {
-        if (!Utils.isWord) Promise.reject('Addin needs to work inside of Word');
         return new Promise(this._showAuthDialog.bind(this));
     }
 

@@ -23,7 +23,7 @@ import {Utils, ExceptionHelper, RequestHelper} from "./shared/helpers";
 export class AppComponent {
     static bootstrap() {
         console.log('Bootstrapping');
-        if (window.location.href.indexOf('code') !== -1) {
+        if (window.location.href.indexOf('code') !== -1 || window.location.href.indexOf('error') !== -1) {
             console.log('Found code.. getting token..');
             new AuthorizeService().getToken();
             return;

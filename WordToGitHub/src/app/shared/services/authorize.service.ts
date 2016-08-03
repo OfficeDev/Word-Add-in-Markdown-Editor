@@ -1,7 +1,7 @@
 ﻿import {Utils} from '../helpers/utilities';
 
 export class AuthorizeService {
-    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host + "/authorize.html";    
+    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;    
     status = $('#status');
 
     getToken() {        
