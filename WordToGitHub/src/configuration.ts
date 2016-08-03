@@ -139,7 +139,7 @@ var barrels = <IBarrel[]>[
 var packages = <IPackage[]>[
     {
         name: 'app',
-        main: 'bootstrap.js',
+        main: 'app.js',
         production: 'app'
     },
     {
