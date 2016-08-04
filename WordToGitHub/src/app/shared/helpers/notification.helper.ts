@@ -47,7 +47,7 @@ export class NotificationHelper {
     }
 
     notify(message: string, type?: string)
-    notify(message: IMessage, type?: string)
+    notify(message: IMessage)
     notify(message: any, type?: string) {
         if (Utils.isEmpty(message)) return;
         if (_.isString(message)) {
@@ -60,11 +60,17 @@ export class NotificationHelper {
         else this.banner = message;
     }
 
-    showToast(message: string, title?: string) {
-        this.toast = {
-            message: message,
-            title: title,
-            show: true            
-        };
+    showToast(message: IToast)
+    showToast(message: string, title?: string)
+    showToast(message: any, title?: any) {
+        if (Utils.isEmpty(message)) return;
+        if (_.isString(message)) {
+            this.toast = {
+                message: message,
+                title: title,
+                show: true
+            };
+        }
+        else this.toast = message;
     }
 }
