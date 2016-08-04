@@ -64,8 +64,8 @@ gulp.task('build', ['compile:sass', 'compile:common:sass', 'copy']);
 // start webserver and observe fiels for changes
 gulp.task('serve', ['build'], function () {
     browserSync.init(config.browserSync);
+    gulp.watch(config.app.source + '/**/*.ts').on('change', browserSync.reload);;
     gulp.watch(config.app.source + '/app/**/*.scss', ['compile:sass']);
     gulp.watch(config.app.source + '/styles/**/*.scss', ['compile:common:sass']);
-    gulp.watch(config.app.source + '/**/!' + config.app.exclusions, ['copy'])
-        .on('change', browserSync.reload);
+    gulp.watch(config.app.source + '/**/!' + config.app.exclusions, ['copy']).on('change', browserSync.reload);
 });

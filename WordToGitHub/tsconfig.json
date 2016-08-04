@@ -12,6 +12,7 @@
     "outDir": "./wwwroot"    
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "wwwroot"
   ]
 }

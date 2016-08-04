@@ -83,7 +83,6 @@ export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     }
 
     private _recompute() {
-        console.log(this._breadcrumbs);
         if (Utils.isEmpty(this._breadcrumbs)) {
             this.breadcrumbs = null;
             this.overflownBreadcrumbs = null;
