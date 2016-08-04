@@ -3,14 +3,12 @@
 
 // initialize all the requried libraries and files
 var gulp = require('gulp'),
+    debug = require('gulp-debug'),
     browserSync = require('browser-sync').create(),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
-    typescript = require('gulp-typescript'),
-    sourcemaps = require('gulp-sourcemaps'),
     historyApiFallback = require('connect-history-api-fallback'),
-    packageConfig = require('./package.json'),
     config = {
         app: {
             source: './src',
@@ -37,14 +35,6 @@ var gulp = require('gulp'),
         }
     };
 
-// create the typescript project for transpiling
-var tsProject = typescript.createProject('./tsconfig.json');
-
-// clean the destination folder
-gulp.task('clean', function (done) {
-    return rimraf('./wwwroot', done);
-});
-
 gulp.task('compile:common:sass', function () {
     return gulp.src(config.app.source + '/styles/**/*.scss', { base: config.app.source })
         .pipe(sass())
@@ -63,34 +53,19 @@ gulp.task('compile:sass', function () {
         .pipe(browserSync.stream());
 });
 
-// compile all typescript files
-gulp.task('compile:ts', function () {
-    var tsResult = tsProject.src()
-        .pipe(sourcemaps.init())
-        .pipe(typescript(tsProject))
-
-    tsResult.js
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(config.app.dest))
-        .pipe(browserSync.stream());
-});
-
 // copy anything that is not a sass file or typescript file
 gulp.task('copy', function () {
     gulp.src(config.app.source + '/**/!' + config.app.exclusions, { base: config.app.source })
         .pipe(gulp.dest(config.app.dest))
 });
 
-gulp.task('build', ['compile:sass', 'compile:common:sass', 'compile:ts', 'copy']);
+gulp.task('build', ['compile:sass', 'compile:common:sass', 'copy']);
 
 // start webserver and observe fiels for changes
 gulp.task('serve', ['build'], function () {
     browserSync.init(config.browserSync);
-
     gulp.watch(config.app.source + '/app/**/*.scss', ['compile:sass']);
     gulp.watch(config.app.source + '/styles/**/*.scss', ['compile:common:sass']);
-    gulp.watch(config.app.source + '/**/*.ts', ['compile:ts']);
-
     gulp.watch(config.app.source + '/**/!' + config.app.exclusions, ['copy'])
         .on('change', browserSync.reload);
 });
