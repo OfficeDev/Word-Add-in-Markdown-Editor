@@ -1,4 +1,5 @@
 ﻿import {Utils} from './';
+import {Observable} from 'rxjs/Rx';
 
 export interface IMessage {
     message: string;
@@ -45,7 +46,25 @@ export class NotificationHelper {
         });
     }
 
-    showToast = (toast: IToast) => this.toast = toast;
+    notify(message: string, type?: string)
+    notify(message: IMessage, type?: string)
+    notify(message: any, type?: string) {
+        if (Utils.isEmpty(message)) return;
+        if (_.isString(message)) {
+            this.banner = {
+                message: message,
+                show: true,
+                type: type
+            };
+        }
+        else this.banner = message;
+    }
 
-    showMessage = (message: IMessage) => this.banner = message;
+    showToast(message: string, title?: string) {
+        this.toast = {
+            message: message,
+            title: title,
+            show: true            
+        };
+    }
 }
