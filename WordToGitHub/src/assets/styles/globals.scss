@@ -59,7 +59,7 @@ ul {
 
     &__footer {
         @include background-fill(contain, $background-primary) {
-            background-image: url("assets/images/black_brandbar.png");
+            background-image: url("../images/black_brandbar.png");
         }
 
         cursor: pointer;

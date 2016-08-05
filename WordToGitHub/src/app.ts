@@ -9,9 +9,12 @@ import {APP_ROUTER_PROVIDERS} from "./routes";
 import {GithubService, AuthorizeService, WordService, FavoritesService, MediatorService, MarkdownService, AuthGuard} from "./shared/services";
 import {Utils, ExceptionHelper, RequestHelper, NotificationHelper} from "./shared/helpers";
 
+require('./assets/styles/spinner.scss');
+require('./assets/styles/globals.scss');
+
 @Component({
     selector: 'app',
-    template:
+    template:    
     `<hamburger></hamburger>
     <main class="app__main ms-font-m ms-fontColor-neutralPrimary">
         <message-bar [message]="notification.banner?.message" [url]="notification.banner?.url" [action]="notification.banner?.action" [show]="notification.banner?.show" [type]="notification.banner?.type"></message-bar>        
