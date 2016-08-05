@@ -34,7 +34,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
     ngOnInit() {
         var sub = this._route.params.subscribe(params => {
             this.selectedOrg = params['org'] || this._githubService.profile.user.login;
-            this.load();
+            this.load(true);
         });
 
         this.markDispose(sub);
@@ -48,7 +48,8 @@ export class RepoComponent extends BaseComponent implements OnInit {
         this._favoritesService.pin(item);
     }
 
-    load() {
+    load(clear: boolean = false) {
+        if (clear) this.repositories = [];
         var personal = this.selectedOrg === this._githubService.profile.user.login;
         var sub = this._githubService.repos(this._page++, this.selectedOrg, personal).subscribe(data => {
             data.forEach(item => this.repositories.push(item));

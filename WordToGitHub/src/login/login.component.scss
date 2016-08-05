@@ -24,7 +24,7 @@
     letter-spacing: 1px;
 }
 
-#ms-firstrun-login__image {
+.ms-firstrun-login__image {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -38,7 +38,7 @@
     background-size: cover;
     width: 90px;
     height: 90px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .ms-firstrun-login__title {
@@ -66,6 +66,7 @@
     flex-wrap: nowrap;
     padding-left: 20px;
     padding-right: 20px;
+    flex: 1 1 auto;    
 }
 
 .ms-firstrun-login__content--centered {
@@ -88,7 +89,10 @@
     transition: background ease 0.1s, color ease 0.1s;
 }
 
-#buttonSignInToGitHub:active {
-    color: #33cc33;
-    cursor: pointer;
+.ms-firstrun-login__centering-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
 }

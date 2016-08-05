@@ -85,7 +85,7 @@ ul {
     }    
 } 
 
-repo, file-list, file-tree, file-create, file-detail {
+repo, file-list, file-tree, file-create, file-detail, login {
     @include flex();
     flex: 1 1 100%;
 }
