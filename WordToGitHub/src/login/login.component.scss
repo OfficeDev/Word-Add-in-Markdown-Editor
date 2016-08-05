@@ -1,0 +1,98 @@
+﻿.ms-firstrun-login {
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    background-color: #212121;
+}
+
+.ms-firstrun-login__brand {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.ms-firstrun-login__brand h1 {
+    letter-spacing: 1px;
+}
+
+.ms-firstrun-login__image {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex: 0 1 0;
+}
+
+#word-github-logo {
+    background: transparent no-repeat center center;
+    background-image: url("assets/images/logo.png");
+    background-size: cover;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+}
+
+.ms-firstrun-login__title {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.ms-firstrun-login__centering-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;    
+    flex: 1 1 auto;
+}
+
+.ms-firstrun-login__action {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex: 1 1 auto;    
+}
+
+.ms-firstrun-login__content--centered {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 5px;
+}
+
+.ms-firstrun-login__button {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    -moz-transition: background ease 0.1s, color ease 0.1s;
+    -o-transition: background ease 0.1s, color ease 0.1s;
+    -webkit-transition: background ease 0.1s, color ease 0.1s;
+    transition: background ease 0.1s, color ease 0.1s;
+}
+
+.ms-firstrun-login__centering-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}

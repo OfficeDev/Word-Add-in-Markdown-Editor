@@ -1,0 +1,35 @@
+@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/theme.scss';
+
+.mw-message-bar {
+    width: 100%;
+
+    &__content {
+        @include inline-flex();
+        width: 100%;
+
+        .ms-Icon-large {
+            top: 0;
+        }
+    }
+
+    &__message {
+        flex: 1 1 0px;
+        width: 0px !important; // reset width to depend on the flex-basis instead. why?
+        @include ellipsis();
+
+        a {
+            font-size: 9pt;
+        }        
+    }
+
+    &__icon {
+        color: $foreground-primary;
+        margin-right: $default-spacing;
+        
+        &:hover {
+            cursor: pointer;
+            color: $accent-background-primary;
+        }
+    }
+}
