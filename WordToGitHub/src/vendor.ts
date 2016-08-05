@@ -13,3 +13,4 @@ import 'rxjs';
 // External scripts
 import 'marked';
 import 'to-markdown/index.js';
+require('./assets/scripts/stringview.js');

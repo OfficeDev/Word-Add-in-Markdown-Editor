@@ -13,7 +13,7 @@ import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
             <p class="ms-toast__message ms-font-m">{{message}}</p>
         </div>
     </div>`,
-    styleUrls: ['app/components/notification/toast.component.css']
+    styleUrls: ['./toast.component.scss']
 })
 export class ToastComponent implements OnChanges {
     @Input() message: string;

@@ -113,15 +113,6 @@ export class GithubService {
         }
     }
 
-    private _getUrl() {
-        var baseUrl = "https://github.com/login/oauth/authorize?client_id=@client_id&redirect_uri=@redirect_uri&scope=@scope";
-        return Utils.replace(baseUrl)
-            ('@client_id', GithubService.CLIENT_ID)
-            ('@redirect_uri', GithubService.REDIRECT_URI)
-            ('@scope', GithubService.SCOPE)
-            ();
-    }
-
     private _showAuthDialog(resolve, reject) {
         var context = Office.context as any;
         context.ui.displayDialogAsync(this._getUrl(), { height: 50, width: 35 },

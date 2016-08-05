@@ -2,7 +2,7 @@ import {Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange} from '
 
 @Component({
     selector: 'message-bar',
-    styleUrls: ['app/components/notification/message-bar.component.css'],
+    styleUrls: ['./message-bar.component.scss'],
     template: `
     <div class="ms-MessageBar mw-message-bar" [ngClass]="variant.class" *ngIf="show">
         <div class="ms-MessageBar-content mw-message-bar__content">
