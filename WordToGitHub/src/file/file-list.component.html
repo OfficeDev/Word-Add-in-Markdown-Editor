@@ -1,0 +1,21 @@
+﻿<section class="file-list-component__header">
+    <ul class="file-list-command-bar">
+        <li class="file-list-command-bar__command file-list-command-bar__command--hamburger-menu" (click)="showMenu()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
+        <!--<li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
+        <li class="file-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>-->
+    </ul>
+</section>
+
+<section class="file-list-component__branches">
+    <h2 class="ms-font-xl ms-fontWeight-light ms-fontColor-themeDarker">{{selectedRepoName | safenames}}</h2>
+    <select [(ngModel)]="selectedBranch.name" (change)="selectBranch($event.target.value)">
+        <option *ngFor="let branch of (branches | async)" value="{{branch.name}}">
+            {{branch.name}}
+        </option>
+    </select>
+</section>
+
+<section class="file-list-component__files">
+    <breadcrumb max="3"></breadcrumb>
+    <router-outlet></router-outlet>
+</section>

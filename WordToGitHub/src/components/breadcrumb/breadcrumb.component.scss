@@ -1,0 +1,72 @@
+﻿@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/theme.scss';
+
+.breadcrumb-component {
+    @include inline-flex(null, center);
+    position: relative;
+    padding: $default-spacing $default-spacing/2;
+
+    &__ellipsis {
+        position: relative;
+        top: 4px;
+    }
+
+    &__list {
+        list-style-type: none;
+        @include inline-flex();
+
+        &-item {
+            padding: $default-spacing/2;
+            @include focus-states(transparent, $accent-background-primary);
+            @include ellipsis();
+
+            &--ellipsis-container:active > .breadcrumb-component__list--overflow,
+            &--ellipsis-container:focus > .breadcrumb-component__list--overflow {
+                display: block;
+            }
+
+            &:hover::before {
+                color: $foreground-primary;
+            }
+
+            &::before {
+                content: "\e08a";
+                font-family: "Office365Icons";
+                line-height: 1;
+                speak: none;
+                position: relative;
+                padding-right: $default-spacing * 0.75;
+            }
+
+            &:first-child::before {
+                display: none;
+            }
+        }
+
+        &--overflow {
+            @include flex();
+            display: none;
+            background-color: $background-white;
+            position: absolute;
+            top: 2.5 * $default-spacing;
+            left: 0;
+            box-shadow: 0 0 10px 0 rgba(#000, 0.4);
+            z-index: 998;
+
+            &:hover, &:active, &:focus {
+                display: block;
+            }
+
+            .breadcrumb-component__list-item {
+                @include focus-states($background-lightest, $accent-background-primary);
+                padding: $default-spacing * 0.75 $default-spacing;
+                overflow: auto;
+                max-width: none;
+
+                &::before {
+                    display: none;
+                }
+            }
+        }
+    }
+}

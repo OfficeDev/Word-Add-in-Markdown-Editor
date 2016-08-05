@@ -1,0 +1,91 @@
+﻿@import 'theme.scss';
+@import 'mixins.scss';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    color: $foreground-primary;
+}
+
+body {
+    position: relative;
+}
+
+main {
+    height: 100%;
+}
+
+footer {
+    width: 100%;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    padding: 0;
+}
+
+.clearfix {
+    display: block;
+    clear: both;
+    height: 0;
+}
+
+.ms-Icon-large {
+    position: relative;
+    font-size: 20px;
+    top: 4px;
+}
+
+.app {
+    @include flex();
+    height: 100vh;
+
+    &__main {
+        flex: 1 1 0;
+        @include flex();
+    }
+
+    &__footer {
+        @include background-fill(contain, $background-primary) {
+            background-image: url("assets/images/black_brandbar.png");
+        }
+
+        cursor: pointer;
+        height: 80px;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .app {
+        &__main {
+            margin-left: 350px;
+        }
+    }
+
+    .hamburger-menu {
+        transform: translate3d(0, 0, 0) !important;
+    }
+
+    .repo-list-command-bar__command--hamburger-menu,
+    .file-list-command-bar__command--hamburger-menu,
+    .hamburger-menu__close {
+        display: none;
+    }    
+} 
+
+repo, file-list, file-tree, file-create, file-detail, login {
+    @include flex();
+    flex: 1 1 100%;
+}

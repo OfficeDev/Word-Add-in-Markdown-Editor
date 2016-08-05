@@ -77,13 +77,13 @@
         <bt:Url id="W2G.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="W2G.TaskpaneButton.Label" DefaultValue="Show" />
+        <bt:String id="W2G.TaskpaneButton.Label" DefaultValue="Edit markdown" />
         <bt:String id="W2G.Group1Label" DefaultValue="Markdown Writer" />
-        <bt:String id="W2G.GetStarted.Title" DefaultValue="Author Markdown files in Word" />
+        <bt:String id="W2G.GetStarted.Title" DefaultValue="Markdown Writer for Word" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="W2G.TaskpaneButton.Tooltip" DefaultValue="Click to launch Markdown Writer" />
-        <bt:String id="W2G.GetStarted.Description" DefaultValue="Markdown Writer was installed successfully. Go to the HOME tab and click the 'Show app' button to get started." />
+        <bt:String id="W2G.GetStarted.Description" DefaultValue="Create and edit markdown files and push them to GitHub." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
