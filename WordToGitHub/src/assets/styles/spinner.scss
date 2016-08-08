@@ -6,6 +6,15 @@
     background-color: $background-primary;
     @include flex();
 
+    &.async-view {
+        background-color: $foreground-white;
+        flex: 1 1 100%;
+
+        &__content {
+            height: 100%;
+        }
+    }
+
     &__main {
         height: 100%;
         flex: 1 1 0px;

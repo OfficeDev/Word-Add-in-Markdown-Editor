@@ -1,0 +1,20 @@
+<div class="async-view ms-progress-component" *ngIf="isLoading">
+    <main class="ms-progress-component__main">
+        <h2 class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{loading}}</h2>
+    </main>
+    <footer class="ms-progress-component__footer">
+        <div class="ms-progress">
+            <div class="ms-Spinner large"></div>
+        </div>
+    </footer>
+</div>
+<div class="async-view ms-progress-component--error" *ngIf="showError">
+    <img src="../../assets/images/logo.png" />
+    <h2 class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{error}}</h2>
+</div>
+<div class="async-view ms-progress-component--content" *ngIf="!isLoading && !showError">
+    <h2 *ngIf="isEmpty" class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{placeholder}}</h2>
+    <div class="async-view__content" *ngIf="!isEmpty">
+        <ng-content></ng-content>
+    </div>
+</div>

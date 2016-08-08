@@ -9,3 +9,4 @@ export * from './hamburger/hamburger.component';
 export * from './breadcrumb/breadcrumb.component';
 export * from './notification/message-bar.component';
 export * from './notification/toast.component';
+export * from './notification/async-view.component';

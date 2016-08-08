@@ -14,18 +14,19 @@
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
 
-    <ul class="ms-List">
-        <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
-            <div class="repo-list-item__content" (click)="selectRepo(repository)">
-                <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
-                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
-                <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
-            </div>
-            <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
-                <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
-            </div>
-        </li>
-    </ul>
-
-    <button class="repo-list-component__load ms-font-m" (click)="load()">Load more</button>
+    <async-view [observable]="repositories" placeholder="repos are empty" loading="loading" error="error">
+        <ul class="ms-List">
+            <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
+                <div class="repo-list-item__content" (click)="selectRepo(repository)">
+                    <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
+                    <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
+                    <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
+                </div>
+                <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
+                    <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
+                </div>
+            </li>
+        </ul>
+        <button class="repo-list-component__load ms-font-m" (click)="load()">Load more</button>
+    </async-view>
 </section>

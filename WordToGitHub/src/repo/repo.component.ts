@@ -5,12 +5,14 @@ import {GithubService, MediatorService, FavoritesService} from '../shared/servic
 import {Utils} from '../shared/helpers';
 import {IRepository, IRepositoryCollection, IEventChannel} from '../shared/services';
 import {SafeNamesPipe} from '../shared/pipes';
+import {AsyncViewComponent} from '../components/notification/async-view.component';
 import {BaseComponent} from '../components/base.component';
 
 @Component({
     selector: 'repo',
     templateUrl: './repo.component.html',
     styleUrls: ['./repo.component.scss'],
+    directives: [AsyncViewComponent],
     pipes: [SafeNamesPipe]
 })
 export class RepoComponent extends BaseComponent implements OnInit {
@@ -51,9 +53,12 @@ export class RepoComponent extends BaseComponent implements OnInit {
     load(clear: boolean = false) {
         if (clear) this.repositories = [];
         var personal = this.selectedOrg === this._githubService.profile.user.login;
-        var sub = this._githubService.repos(this._page++, this.selectedOrg, personal).subscribe(data => {
-            data.forEach(item => this.repositories.push(item));
-        });
+        var sub = this._githubService
+            .repos(this._page++, this.selectedOrg, personal)
+            .subscribe(data => {
+                console.log(data);
+                this.repositories = this.repositories.concat(data)
+            });
 
         this.markDispose(sub);
     }
