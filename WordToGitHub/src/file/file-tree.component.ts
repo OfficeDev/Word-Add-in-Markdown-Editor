@@ -57,7 +57,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
     }
 
     createFile() {
-        this.selectedPath = Utils.isNull(this.selectedPath) ? '%2f': encodeURIComponent(this.selectedPath); 
+        this.selectedPath = Utils.isNull(this.selectedPath) ? encodeURIComponent('/root'): encodeURIComponent(this.selectedPath); 
         this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath, 'create']);
     }
 }

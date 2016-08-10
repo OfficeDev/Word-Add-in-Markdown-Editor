@@ -14,13 +14,14 @@
 <article class="file-detail__actions">
     <!--<a role="button" class="ms-font-s-plus file-detail__action file-detail__action--link" title="Style current selection as code" (click)="styleAsCode()">Style as code</a>-->
     <div class="file-detail__actions--row">
-        <button id="buttonNumberedList" class="ms-Button file-detail__action file-detail__action--secondary" (click)="insertNumberedList()">Insert numbered list</button>
-        <button id="buttonBulletedList" class="ms-Button file-detail__action file-detail__action--secondary" (click)="insertBulletedList()">Insert bulleted list</button>
+        <button class="ms-Button file-detail__action file-detail__action--secondary file-detail__action--split" (click)="insertNumberedList()">Add bullets</button>
+        <button class="ms-Button file-detail__action file-detail__action--secondary file-detail__action--split" (click)="insertBulletedList()">Add numbering</button>
     </div>
-    <a role="button" class="ms-font-s-plus file-detail__action file-detail__action--link" title="Open the file in a webpage on GitHub">View on GitHub</a>
-    <button id="buttonPush" class="ms-Button file-detail__action file-detail__action--primary" (click)="push()">Push</button>
+    <a [href]="viewLink" target="_blank" role="button" class="ms-font-s-plus file-detail__action file-detail__action--link" title="Open the file in a webpage on GitHub">View on GitHub</a>
     <div class="file-detail__actions--row">
-        <button id="buttonDiscard" class="ms-Button file-detail__action file-detail__action--secondary file-detail__action--disabled" (click)="discard()">Discard</button>
-        <button id="buttonPull" class="ms-Button file-detail__action file-detail__action--secondary" (click)="pull()">Pull</button>
+        <button class="ms-Button file-detail__action file-detail__action--secondary" (click)="pull()">Pull</button>
+    </div>
+    <div class="file-detail__actions--row">
+        <button class="ms-Button file-detail__action file-detail__action--primary" (click)="push()">Push</button>
     </div>
 </article>

@@ -17,6 +17,9 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     selectedBranch: string;
     selectedPath: string;
     selectedFile: string;
+    viewLink: string;
+
+    private _file: any;
     commits: Observable<ICommit[]>
 
     constructor(
@@ -39,10 +42,11 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             this.selectedBranch = params['branch'];
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
-
+            this.viewLink = `https://github.com/${this.selectedOrg}/${this.selectedRepoName}/blob/${this.selectedBranch}/${this.selectedPath}`;
             let subscription3 = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                 .subscribe(file => {
-                    this._wordService.insertHtml(file);
+                    this._file = file;
+                    this._wordService.insertHtml(this._file);
                 });
 
             this.markDispose(subscription3);
@@ -83,6 +87,11 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                         this.updateFile();
                     });
             });
+    }
+
+    discard() {
+        // show toast to confirm
+        this._wordService.insertHtml(this._file);
     }
 
     //styleAsCode() {
