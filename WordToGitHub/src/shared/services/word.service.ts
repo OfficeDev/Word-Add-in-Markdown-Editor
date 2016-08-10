@@ -22,7 +22,6 @@ export class WordService {
 
     insertHtml(html: string) {
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
-
         return Promise.resolve(this._insertHtmlIntoWord(html))
             .then(() => this._formatTables())
     }
@@ -38,8 +37,6 @@ export class WordService {
     }
 
     getHtml() {
-        if (!Utils.isWord) return;
-
         return this._run<string>((context) => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
@@ -50,8 +47,6 @@ export class WordService {
     }
 
     //styleAsCode() {
-    //    if (!Utils.isWord) return;
-
     //    return this._run((context) => { 
     //        var selection = context.document.getSelection();
     //        selection.style = 'HTML Code';
@@ -60,9 +55,7 @@ export class WordService {
     //}
 
     insertNumberedList() {
-        if (!Utils.isWord) return;
-
-        return this._run((context) => { 
+        return this._run((context) => {
             var selection = context.document.getSelection();
             selection.insertHtml('<ol start="1"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ol>', Word.InsertLocation.after);
             return context.sync();
@@ -70,8 +63,6 @@ export class WordService {
     }
 
     insertBulletedList() {
-        if (!Utils.isWord) return;
-
         return this._run((context) => {
             var selection = context.document.getSelection();
             selection.insertHtml('<ul type="disc"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ul>', Word.InsertLocation.after);
@@ -80,54 +71,26 @@ export class WordService {
     }
 
     getMarkdown() {
-        if (!Utils.isWord) return;
-
-        return this._run<string>((context) => {
+        return Word.run(context => {
             var html = context.document.body.getHtml();
-
             return context.sync().then(() => {
                 var div = document.createElement('tempHtmlDiv');
                 div.innerHTML = html.value;
-
-                //// Generate the html manually for lists
-                //var lists = context.document.body.lists.load();
-                
-                //return context.sync().then(() => {
-                //    if (lists.items.length > 0) {
-                //        for (var i = 0; i < lists.items.length; i++) {
-                //            var listHtml = "";
-                //            var parasLevel0 = lists.items[i].getLevelParagraphs(0)();
-                //            return context.sync().then(() => {
-                //                for (var j = 0; j < parasLevel0.length; j++) {
-                //                    if (parasLevel0.items[j].isListItem) {
-
-
-                //                    }
-                //                })
-
-                //        }
-
-
-                //        }
-                //    }
-
-                    // Fix the img tags
-                    var images = div.getElementsByTagName('img');
-                    var altValue, srcValue;
-                    var toRemove = "Title: ";
-
-                    for (var i = 0, max = images.length; i < max; i++) {
-                        altValue = images[i].getAttribute('alt');
-                        altValue = altValue.replace(toRemove, "");
-                        srcValue = images[i].getAttribute('src');
-                        if (srcValue.toLowerCase().startsWith("~wrs")) {
-                            images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
-                        }
+                var images = div.getElementsByTagName('img');
+                var altValue, srcValue;
+                var toRemove = "Title: ";
+                for (var i = 0, max = images.length; i < max; i++) {
+                    altValue = images[i].getAttribute('alt');
+                    altValue = altValue.replace(toRemove, "");
+                    srcValue = images[i].getAttribute('src');
+                    if (srcValue.toLowerCase().startsWith("~wrs")) {
+                        images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
                     }
-                    return this._markDownService.previewMarkdown(div.innerHTML);
-                });
+                }
+                return this._markDownService.previewMarkdown(div.innerHTML);
             });
-}
+        });
+    }
 
     private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
         return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
