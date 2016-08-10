@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Utils} from '../shared/helpers';
+import {Utils, NotificationHelper} from '../shared/helpers';
 import {GithubService, WordService, ICommit} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
@@ -23,7 +23,8 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         private _router: Router,
         private _route: ActivatedRoute,
         private _githubService: GithubService,
-        private _wordService: WordService
+        private _wordService: WordService,
+        private _notificationHelper: NotificationHelper
     ) {
         super();
     }
@@ -51,35 +52,37 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     push() {
-        var subscription = Observable.fromPromise(this._wordService.getBase64EncodedStringsOfImages())
-            .subscribe(base64Strings => {
-                if (Utils.isEmpty(base64Strings) || Utils.isNull(base64Strings)) {
-                    this.updateFile();
-                }
-                base64Strings.forEach(base64String => {
-                    var sub2 = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
+        this._wordService.getBase64EncodedStringsOfImages()
+            .then(images => {
+                if (Utils.isEmpty(images)) { return this.updateFile(); }
+
+                var arrayOfObservables = [];
+                images.forEach(image => {
+                    var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
                         .subscribe((file) => {
-                            this.markDispose(sub2);
+                            this.markDispose(subscription);
 
                             var body = {
                                 message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
-                                content: base64String.base64ImageSrc.value,
+                                content: image.base64ImageSrc.value,
                                 branch: this.selectedBranch,
                                 sha: file.sha
                             };
-                            var sub3 = this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, base64String.hyperlink, body)
-                                .subscribe(response => {
-                                    this.markDispose(sub3);
-                                    if (Utils.isEmpty(response)) return;
-                                    console.log(response);
-                                    this.updateFile();
-                                });
+
+                            var observable = this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body);
+                            arrayOfObservables.push(observable);
                         });
 
                 });
-            });
 
-        this.markDispose(subscription);
+                var subscription = Observable.forkJoin(arrayOfObservables)
+                    .subscribe(response => {
+                        this.markDispose(subscription);
+                        if (Utils.isEmpty(response)) return;
+                        console.log(response);
+                        this.updateFile();
+                    });
+            });
     }
 
     //styleAsCode() {
@@ -95,6 +98,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     updateFile() {
+        debugger;
         var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
@@ -110,13 +114,17 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                             sha: file.sha
                         };
 
+                        console.log(body);
+
                         let sub3 = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
                             .subscribe(response => {
                                 this.markDispose(sub3);
-                                if (Utils.isEmpty(response)) return;
-                                console.log(response);
-                            });
-                    });
+                                this._notificationHelper.notify('Updated file successfully', 'Success');
+                                this._notificationHelper.showToast('Updated file successfully');
+                            },
+                            error => this._notificationHelper.notify(JSON.stringify(error), 'Error')
+                            );
+                    }, error => console.error.bind(console));
             });
 
         this.markDispose(subscription);

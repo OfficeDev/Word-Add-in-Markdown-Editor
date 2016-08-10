@@ -59,7 +59,8 @@ module.exports = {
 
     externals: {
         '_': 'underscore',
-        '$': 'jquery'
+        '$': 'jquery',
+        'toMarkdown': 'to-markdown'
     },
 
     plugins: [
@@ -75,6 +76,10 @@ module.exports = {
             {
                 from: './src/assets/images',
                 to: 'assets/images',
+            },
+            {
+                from: './src/assets/scripts',
+                to: 'assets/scripts',
             }
         ])        
     ]
