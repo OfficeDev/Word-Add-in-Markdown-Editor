@@ -21,6 +21,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
     repositories: IRepository[] = [];
     selectedOrg: string;
     channel: IEventChannel;
+    loadComplete: boolean;
 
     constructor(
         private _githubService: GithubService,
@@ -51,11 +52,20 @@ export class RepoComponent extends BaseComponent implements OnInit {
     }
 
     load(clear: boolean = false) {
-        if (clear) this.repositories = [];
+        if (clear) {
+            this.repositories = [];
+            this.loadComplete = false;
+        }
         var personal = this.selectedOrg === this._githubService.profile.user.login;
         var sub = this._githubService
             .repos(this._page++, this.selectedOrg, personal)
-            .subscribe(data => this.repositories = this.repositories.concat(data));
+            .subscribe(data => {
+                if (Utils.isEmpty(data)) {
+                    this.loadComplete = true;
+                    return;
+                }
+                this.repositories = this.repositories.concat(data);
+            });
 
         this.markDispose(sub);
     }

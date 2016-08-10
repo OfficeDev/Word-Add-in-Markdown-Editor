@@ -98,7 +98,6 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     updateFile() {
-        debugger;
         var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
             .subscribe((file) => {
                 this._wordService.getMarkdown()
@@ -113,8 +112,6 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                             branch: this.selectedBranch,
                             sha: file.sha
                         };
-
-                        console.log(body);
 
                         let sub3 = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
                             .subscribe(response => {
