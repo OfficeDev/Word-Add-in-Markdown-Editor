@@ -9,7 +9,6 @@ class PreviewService {
     }
 
     showPreview() {
-        if (!Utils.isWord) return;
         var md = this._storage.get('preview');
         $('#spinnerContainer').hide();
         $('#previewContainer').show();

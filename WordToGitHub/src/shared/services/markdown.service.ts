@@ -15,32 +15,30 @@ export class MarkdownService {
         this._storage = new StorageHelper<string>('MarkdownPreview');
         this.convertors = [
             {
-            filter: 'li',
-            replacement: function (content, node) {
-                content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ')
-                var prefix = '*   '
-                var parent = node.parentNode
-                var grandparent = parent.parentNode
-                var index = Array.prototype.indexOf.call(parent.children, node) + 1
+                filter: 'li',
+                replacement: function (content, node) {
+                    content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ')
+                    var prefix = '*   '
+                    var parent = node.parentNode
+                    var grandparent = parent.parentNode
+                    var index = Array.prototype.indexOf.call(parent.children, node) + 1
 
-                if (/ol/i.test(grandparent.nodeName) || /ul/i.test(grandparent.nodeName)) {
-                    prefix = /ol/i.test(parent.nodeName) ? ' ' + index + '.  ' : ' *   '
-                }
-                else {
-                    prefix = /ol/i.test(parent.nodeName) ? index + '.  ' : '*   '
-                }
+                    if (/ol/i.test(grandparent.nodeName) || /ul/i.test(grandparent.nodeName)) {
+                        prefix = /ol/i.test(parent.nodeName) ? ' ' + index + '.  ' : ' *   '
+                    }
+                    else {
+                        prefix = /ol/i.test(parent.nodeName) ? index + '.  ' : '*   '
+                    }
 
-                return prefix + content
-            }
+                    return prefix + content
+                }
             }
         ];
-}
-    
-    
+    }
+
+
 
     convertToHtml(markdown: string) {
-        if (!Utils.isWord) return;
-
         return marked(markdown);
     }
 
@@ -95,8 +93,6 @@ export class MarkdownService {
     }
 
     previewMarkdown(html: string) {
-        if (!Utils.isWord) return;
-
         var context = Office.context as any;
         var cleanedHtml = this.cleanHtml(html)
         //var cleanedHtml = html;
@@ -104,5 +100,5 @@ export class MarkdownService {
         md = md.replace(/(<div class="WordSection1">\s)/gi, '');
         md = md.replace(/(\s<\/div>)/g, '');
         return md;
-}
+    }
 }

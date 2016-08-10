@@ -32,10 +32,6 @@ export class Utils {
         return Utils.isNull(obj) || _.isEmpty(obj);
     }
 
-    static get isWord() {
-        return this._context == ContextType.Word;
-    }
-
     static get isWeb() {
         return this._context == ContextType.Web;
     }
@@ -43,11 +39,11 @@ export class Utils {
     static error<T>(exception?: any): Observable<T> | Promise<T> | OfficeExtension.IPromise<T> {
         console.log('Error: ' + JSON.stringify(exception));
 
-        if (Utils.isWord) {
+        //if (Utils.isWord) {
             if (exception instanceof OfficeExtension.Error) {
                 console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
             }
-        }
+        //}
 
         return exception;
     }
