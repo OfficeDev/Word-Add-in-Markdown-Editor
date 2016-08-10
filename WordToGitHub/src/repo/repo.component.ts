@@ -55,10 +55,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
         var personal = this.selectedOrg === this._githubService.profile.user.login;
         var sub = this._githubService
             .repos(this._page++, this.selectedOrg, personal)
-            .subscribe(data => {
-                console.log(data);
-                this.repositories = this.repositories.concat(data)
-            });
+            .subscribe(data => this.repositories = this.repositories.concat(data));
 
         this.markDispose(sub);
     }

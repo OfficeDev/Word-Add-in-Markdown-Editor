@@ -25,7 +25,7 @@ export class ToastComponent implements OnChanges {
     private _timeout;
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes['show'] && changes['show'].currentValue) {
+        if (changes['show'] && changes['show'].currentValue) {            
             this.showToast();
         }
     }

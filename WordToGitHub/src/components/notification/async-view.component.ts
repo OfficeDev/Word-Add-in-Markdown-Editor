@@ -1,13 +1,14 @@
-import {Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange} from '@angular/core';
+import {Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges, SimpleChange} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {BaseComponent} from '../base.component';
-import {Utils} from '../../shared/helpers';
+import {Utils, NotificationHelper} from '../../shared/helpers';
 
 @Component({
     selector: 'async-view',
-    templateUrl: './async-view.component.html'
+    templateUrl: './async-view.component.html',
+    styleUrls: ['./async-view.component.scss']
 })
-export class AsyncViewComponent extends BaseComponent implements OnInit, OnChanges {
+export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() observable: any | Observable<any>;
     @Input() placeholder: string;
     @Input() loading: string;
@@ -16,7 +17,7 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnChang
     showError: boolean;
     data: any;
 
-    constructor() {
+    constructor(private _notificationHelper: NotificationHelper) {
         super();
     }
 

@@ -55,10 +55,6 @@ ul {
     &__main {
         flex: 1 1 0;
         @include flex();
-
-        .async-view {
-            height: 100%;
-        }
     }
 
     &__footer {

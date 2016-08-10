@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 
 @Component({
     selector: 'message-bar',
@@ -19,7 +19,7 @@ import {Component, Input, OnInit, OnChanges, SimpleChanges, SimpleChange} from '
         </div>
     </div>`
 })
-export class MessageBarComponent implements OnChanges, OnInit {
+export class MessageBarComponent implements OnChanges {
     @Input() message: string;
     @Input() url: string;
     @Input() action: string;
@@ -30,10 +30,6 @@ export class MessageBarComponent implements OnChanges, OnInit {
         class: string;
         icon: string;
     };
-
-    ngOnInit() {
-        this._determineVariant(this.type);
-    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes['type']) {                        

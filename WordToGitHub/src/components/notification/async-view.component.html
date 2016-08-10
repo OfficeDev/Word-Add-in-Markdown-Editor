@@ -1,19 +1,19 @@
 <div class="async-view ms-progress-component" *ngIf="isLoading">
     <main class="ms-progress-component__main">
-        <h2 class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{loading}}</h2>
-    </main>
-    <footer class="ms-progress-component__footer">
+        <h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{loading}}</h2>
         <div class="ms-progress">
             <div class="ms-Spinner large"></div>
         </div>
-    </footer>
+    </main>    
 </div>
-<div class="async-view ms-progress-component--error" *ngIf="showError">
-    <img src="../../assets/images/logo.png" />
-    <h2 class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{error}}</h2>
+<div class="async-view ms-progress-component" *ngIf="!isLoading && showError">
+    <main class="ms-progress-component__main">
+        <div class="async-view__error ms-fontColor-themeDarker"></div>
+        <h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{error}}</h2>        
+    </main>    
 </div>
-<div class="async-view ms-progress-component--content" *ngIf="!isLoading && !showError">
-    <h2 *ngIf="isEmpty" class="ms-progress-component__title ms-font-l ms-fontWeight-light">{{placeholder}}</h2>
+<div class="async-view ms-progress-component" *ngIf="!isLoading && !showError">
+    <h2 *ngIf="isEmpty" class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{placeholder}}</h2>
     <div class="async-view__content" *ngIf="!isEmpty">
         <ng-content></ng-content>
     </div>

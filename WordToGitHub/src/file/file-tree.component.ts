@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, IContents, WordService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
 import {BaseComponent} from '../components/base.component';
+import {AsyncViewComponent} from '../components/notification/async-view.component';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
@@ -12,6 +13,7 @@ let view = 'file-tree';
     selector: 'file-tree',
     templateUrl: './file-tree.component.html',
     styleUrls: ['./file-tree.component.scss'],
+    directives: [AsyncViewComponent],
     pipes: [SafeNamesPipe, MDFilterPipe]
 })
 export class FileTreeComponent extends BaseComponent implements OnInit, OnDestroy {

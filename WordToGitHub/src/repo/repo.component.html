@@ -14,7 +14,11 @@
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
 
-    <async-view [observable]="repositories" placeholder="repos are empty" loading="loading" error="error">
+    <async-view [observable]="repositories" 
+                placeholder="Seems like we couldn't find any repositories. Head over to GitHub to create a new repository." 
+                loading="{{'Fetching repositories for @' + selectedOrg}}" 
+                error="Oops, something went really wrong when were fetching repositories.">
+
         <ul class="ms-List">
             <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
                 <div class="repo-list-item__content" (click)="selectRepo(repository)">
