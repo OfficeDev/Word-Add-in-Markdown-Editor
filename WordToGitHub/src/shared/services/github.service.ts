@@ -86,7 +86,6 @@ export class GithubService {
     }
 
     login(): Promise<IUserProfile> {
-        if (Utils.isWeb) Promise.reject('Cannot be executed outside of word');
         return new Promise(this._showAuthDialog.bind(this));
     }
 
@@ -120,7 +119,7 @@ export class GithubService {
                 var dialog = result.value;
                 dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
                     dialog.close();
-
+                    console.log(args);
                     try {
                         if (Utils.isEmpty(args.message)) {
                             reject("No token received");
