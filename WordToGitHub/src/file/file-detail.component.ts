@@ -74,6 +74,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                             };
 
                             var observable = this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body);
+                            observable.subscribe(next => console.log(next));
                             arrayOfObservables.push(observable);
                         });
 

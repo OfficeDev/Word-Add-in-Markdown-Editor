@@ -207,6 +207,10 @@ export class WordService {
                     if (Utils.isEmpty(image.hyperlink)) {
                         var uniqueNumber = new Date().getTime();
                         var fileName = "image" + uniqueNumber + "." + image.imageFormat;
+                        if (!Utils.isEmpty(images.items[i].altTextDescription)) {
+                            fileName = _.last(images.items[i].altTextDescription.split('\\'));
+                        }
+
                         image.hyperlink = "images/" + fileName;
                         images.items[i].hyperlink = "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + "images/" + fileName;
                         images.items[i].altTextTitle = "images/" + fileName;
