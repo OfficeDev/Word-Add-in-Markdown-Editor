@@ -60,7 +60,7 @@ WordToGitHub/bin/**
 WordToGitHub/*.user
 WordToGitHub/node_modules
 WordToGitHub/typings
-WordToGitHub/wwwroot
+WordToGitHub/dist
 WordToGitHub/npm-debug.log
 /GitHubProxy/obj
 /GitHubProxy/bin
