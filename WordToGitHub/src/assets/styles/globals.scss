@@ -6,6 +6,10 @@
     padding: 0;
 }
 
+*[hidden] {
+    display: none !important;
+}
+
 html, body {
     width: 100%;
     height: 100%;
@@ -85,7 +89,7 @@ ul {
     }    
 } 
 
-repo, file-list, file-tree, file-create, file-detail, login {
+repo, file-list, file-tree, file-create, file-detail, login, async-view {
     @include flex();
     flex: 1 1 100%;
 }

@@ -1,6 +1,6 @@
 ﻿<section class="file-create-component__header">
     <ul class="file-create-command-bar">
-        <li class="file-create-command-bar__command"><i class="ms-Icon ms-Icon--chevronThinLeft"></i></li>
+        <li class="file-create-command-bar__command" (click)="back()"><i class="ms-Icon ms-Icon--chevronThinLeft"></i></li>
         <li class="file-create-command-bar__text">
             <h1 class="ms-font-l ms-fontweight-light">New File</h1>
         </li>
@@ -24,14 +24,13 @@
             <input class="file-create-form__text ms-font-m" type="text" name="foldername" [(ngModel)]="selectedFolder" />
         </section>
 
-        <section class="file-create-form__section">
+        <section class="file-create-form__section file-create-form__path-section">
             <p class="file-create-form__label ms-font-s">Your file will be created at:</p>
-            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath == 'null'">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="!newFolder || selectedFolder?.length <= 0">{{selectedFolder}}</span><span                    [hidden]="!newFolder || selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile}}.md</span></pre>
+            <pre class="file-create-form__path">@{{selectedOrg}}/{{selectedRepoName}}/{{selectedBranch}}/<span [hidden]="selectedPath == null">{{selectedPath}}/</span><span class="file-create-form__path--folder" [hidden]="!newFolder || selectedFolder?.length <= 0">{{selectedFolder|safenames:true}}</span><span                    [hidden]="!newFolder || selectedFolder?.length <= 0">/</span><span class="file-create-form__path--file">{{selectedFile|safenames:true}}.md</span></pre>
         </section>
 
         <section class="file-create-form__section file-create-form__section--header">
             <h2 class="file-create-form__title ms-font-l ms-fontweight-light">Templates</h2>
-            <p class="file-create-form__label ms-font-s ms-fontweight-light">Choose a template from the list below to load it in Word.</p>
         </section>
 
         <section class="file-create-form__section file-create-form__section--menu">

@@ -16,10 +16,11 @@
 
     &__repos {
         @include vScroll();
+        @include flex();
 
         h2 {
             padding: $default-spacing $default-spacing;
-        }
+        }        
     }
 
     &__load {

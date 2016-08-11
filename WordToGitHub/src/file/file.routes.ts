@@ -19,6 +19,10 @@ export const FileRoutes: RouterConfig = [
             {
                 path: ':branch/:path/detail',
                 component: FileDetailComponent
+            },
+            {
+                path: ':branch/:path/detail',
+                component: FileDetailComponent
             }                        
         ]
     },

@@ -15,43 +15,18 @@ export class WordService {
 
     }
 
-    insertTemplate(md: string) {
+    insertTemplate(md: string, link: string) {
         var html = this._markDownService.convertToHtml(md);
-        return this.insertHtml(html)
+        return this.insertHtml(html, link)
     }
 
-    insertHtml(html: string) {
+    insertHtml(html: string, link: string) {
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
-
-        return Promise.resolve(this._insertHtmlIntoWord(html))
-            .then(() => this._formatTables())
-    }
-
-    private _insertGeneratedHtmlIntoWord() {
-        return this._run((context) => {
-            var html = context.document.body.getHtml().value;
-            return context.sync().then(() => {
-                context.document.body.insertText(html, Word.InsertLocation.end);
-                return context.sync();
-            })
-        })
-    }
-
-    getHtml() {
-        if (!Utils.isWord) return;
-
-        return this._run<string>((context) => {
-            var html = context.document.body.getHtml();
-            return context.sync().then(() => {
-                var md = toMarkdown(html.value, { gfm: true });
-                return md;
-            });
-        })
+        return Promise.resolve(this._insertHtmlIntoWord(html, link))
+            .then(() => this._formatStyles())
     }
 
     //styleAsCode() {
-    //    if (!Utils.isWord) return;
-
     //    return this._run((context) => { 
     //        var selection = context.document.getSelection();
     //        selection.style = 'HTML Code';
@@ -60,9 +35,7 @@ export class WordService {
     //}
 
     insertNumberedList() {
-        if (!Utils.isWord) return;
-
-        return this._run((context) => { 
+        return this._run(context => {
             var selection = context.document.getSelection();
             selection.insertHtml('<ol start="1"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ol>', Word.InsertLocation.after);
             return context.sync();
@@ -70,163 +43,38 @@ export class WordService {
     }
 
     insertBulletedList() {
-        if (!Utils.isWord) return;
-
-        return this._run((context) => {
+        return this._run(context => {
             var selection = context.document.getSelection();
             selection.insertHtml('<ul type="disc"><li>Item1</li><li>Item2</li><li>Item3</li><li></li></ul>', Word.InsertLocation.after);
             return context.sync();
         });
     }
 
-    getMarkdown() {
-        if (!Utils.isWord) return;
-
-        return this._run<string>((context) => {
+    getMarkdown(link: string) {
+        return this._run(context => {
             var html = context.document.body.getHtml();
-
             return context.sync().then(() => {
                 var div = document.createElement('tempHtmlDiv');
                 div.innerHTML = html.value;
-
-                //// Generate the html manually for lists
-                //var lists = context.document.body.lists.load();
-                
-                //return context.sync().then(() => {
-                //    if (lists.items.length > 0) {
-                //        for (var i = 0; i < lists.items.length; i++) {
-                //            var listHtml = "";
-                //            var parasLevel0 = lists.items[i].getLevelParagraphs(0)();
-                //            return context.sync().then(() => {
-                //                for (var j = 0; j < parasLevel0.length; j++) {
-                //                    if (parasLevel0.items[j].isListItem) {
-
-
-                //                    }
-                //                })
-
-                //        }
-
-
-                //        }
-                //    }
-
-                    // Fix the img tags
-                    var images = div.getElementsByTagName('img');
-                    var altValue, srcValue;
-                    var toRemove = "Title: ";
-
-                    for (var i = 0, max = images.length; i < max; i++) {
-                        altValue = images[i].getAttribute('alt');
-                        altValue = altValue.replace(toRemove, "");
-                        srcValue = images[i].getAttribute('src');
-                        if (srcValue.toLowerCase().startsWith("~wrs")) {
-                            images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
-                        }
+                var images = div.getElementsByTagName('img');
+                var altValue, srcValue;
+                var toRemove = "Title: ";
+                for (var i = 0, max = images.length; i < max; i++) {
+                    altValue = images[i].getAttribute('alt');
+                    altValue = altValue.replace(toRemove, "");
+                    srcValue = images[i].getAttribute('src');
+                    if (srcValue.toLowerCase().startsWith("~wrs")) {
+                        images[i].setAttribute('src', link + "/" + altValue);
                     }
-                    return this._markDownService.previewMarkdown(div.innerHTML);
-                });
-            });
-}
-
-    private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
-        return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
-    }
-
-    private _insertHtmlIntoWord(html: string) {
-        return this._run((context) => {
-
-            var body = context.document.body;
-
-
-            var div = document.createElement('tempHtmlDiv');
-            div.innerHTML = html;
-
-            var images = div.getElementsByTagName('img');
-            var altValue, srcValue, max, i;
-
-            for (i = 0, max = images.length; i < max; i++) {
-                altValue = images[i].parentElement.getAttribute('href');
-                srcValue = images[i].getAttribute('src');
-                console.log(images[i].width);
-                console.log(srcValue);
-                if (!srcValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
                 }
-            }
-
-            //var regex = new RegExp('<img src="(.*?)" (.*?)>', 'g');
-            //regex.exec(html).forEach(match => {
-            //    if (!Utils.isEmpty(match)) {
-
-            //    }
-            //});
-
-            //html = Utils.regex(html)
-            //    (/<img src="(.*?)" (.*?)>/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>')
-            //    ();
-
-            html = div.innerHTML;
-
-            body.insertHtml(html, Word.InsertLocation.replace);
-
-
-            //var re = /<img src="(.*?)" (.*?)>/g;
-            //var newHtml = html.replace(re, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>');
-
-            ////html = Utils.regex(html)
-            ////    (/<img src="(.*?)" alt.*?>/g, 'https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1')
-            ////    ();
-            //body.insertHtml(newHtml, Word.InsertLocation.replace);
-            return context.sync();
-        })
-    }
-
-    private _insertTextIntoWord(html: string) {
-        return this._run((context) => {
-            var body = context.document.body;
-            body.insertText(html, 'Replace');
-            return context.sync();
-        })
-    }
-
-    private _cleanupLists() {
-        return this._run((context) => {
-            var paras = context.document.body.paragraphs;
-            paras.load();
-            return context.sync()
-                .then(() => {
-                    var para = paras.items[2] as any;
-                    var list = para.startNewList();
-                    list.load();
-                    return context.sync().then(() => {
-                        list.insertParagraph("item1", 'start');
-                        list.insertParagraph("item2", 'end');
-                        list.insertParagraph("normal Paragraph before", 'before');
-                        list.insertParagraph("normal Paragraph after", 'after');
-                        return context.sync();
-                    })
-                });
+                return this._markDownService.convertToMD(div.innerHTML);
+            });
         });
     }
 
-    private _formatTables() {
-        return this._run((context) => {
-            var body = context.document.body as any;
-            var tables = body.tables;
-            tables.load("style");
-            return context.sync().then(() => {
-                _.each(tables.items, (table: any) => {
-                    table.style = "Grid Table 4 - Accent 1";
-                });
-                return context.sync();
-            })
-        });
-    }
-
-    getBase64EncodedStringsOfImages(): OfficeExtension.IPromise<IImage[]> {
+    getBase64EncodedStringsOfImages(link: string): OfficeExtension.IPromise<IImage[]> {
         var imagesArray: IImage[] = [];
-        return this._run((context) => {
+        return this._run(context => {
             var images = context.document.body.inlinePictures;
             images.load();
             return context.sync().then(() => {
@@ -244,8 +92,12 @@ export class WordService {
                     if (Utils.isEmpty(image.hyperlink)) {
                         var uniqueNumber = new Date().getTime();
                         var fileName = "image" + uniqueNumber + "." + image.imageFormat;
+                        if (!Utils.isEmpty(images.items[i].altTextDescription)) {
+                            fileName = _.last(images.items[i].altTextDescription.split('\\'));
+                        }
+
                         image.hyperlink = "images/" + fileName;
-                        images.items[i].hyperlink = "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + "images/" + fileName;
+                        images.items[i].hyperlink = link + "/" + "images/" + fileName;
                         images.items[i].altTextTitle = "images/" + fileName;
                         imagesArray.push(image);
                     }
@@ -255,6 +107,50 @@ export class WordService {
                     return imagesArray;
                 });
             });
+        });
+    }
+
+    private _run<T>(batch: (context: Word.RequestContext) => OfficeExtension.IPromise<T>): OfficeExtension.IPromise<T> {
+        return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
+    }
+
+    private _insertHtmlIntoWord(html: string, link: string) {
+        return this._run((context) => {
+            var body = context.document.body;
+            var div = document.createElement('tempHtmlDiv');
+            div.innerHTML = html;
+
+            var images = div.getElementsByTagName('img');
+            var altValue, srcValue, max, i;
+            for (i = 0, max = images.length; i < max; i++) {
+                altValue = images[i].parentElement.getAttribute('href');
+                srcValue = images[i].getAttribute('src');
+                var filename = _.last(srcValue.split('/'));
+                console.log(images[i].width);
+                if (!srcValue.toLowerCase().startsWith("http")) {
+                    images[i].setAttribute('src', link + "/" + "images/"+ filename);
+                }
+            }
+
+            html = div.innerHTML;
+            body.insertHtml(html, Word.InsertLocation.replace);
+            return context.sync();
+        })
+    }
+
+    private _formatStyles() {
+        return this._run((context) => {
+            var body = context.document.body;
+            // body.font.name = 'Segoe UI';
+            // body.font.color = '#333333';
+            var tables = body.tables;
+            tables.load("style");
+            return context.sync().then(() => {
+                _.each(tables.items, (table: any) => {
+                    table.style = "Grid Table 4 - Accent 1";
+                });
+                return context.sync();
+            })
         });
     }
 }

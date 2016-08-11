@@ -2,7 +2,8 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {Utils} from '../shared/helpers';
-import {GithubService, WordService, ICommit} from '../shared/services';
+import {SafeNamesPipe} from '../shared/pipes';
+import {GithubService, WordService, NotificationService, ICommit} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
@@ -16,7 +17,8 @@ interface ITemplate {
 @Component({
     selector: 'file-create',
     templateUrl: './file-create.component.html',
-    styleUrls: ['./file-create.component.scss']
+    styleUrls: ['./file-create.component.scss'],
+    pipes: [SafeNamesPipe]
 })
 export class FileCreateComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
@@ -35,44 +37,39 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
         private _router: Router,
         private _route: ActivatedRoute,
         private _githubService: GithubService,
-        private _wordService: WordService
+        private _wordService: WordService,
+        private _notificationService: NotificationService
     ) {
         super();
 
         this.templates = [
             {
                 id: 0,
-                path: 'Code sample readme',
+                path: null,
                 title: 'Empty',
                 description: 'Creates a new empty markdown file',
             },
             {
-                id: 1,
-                path: '',
-                title: 'Basic',
-                description: 'Creates a basic markdown file',
-            },
-            {
                 id: 2,
-                path: '',
+                path: 'readme',
                 title: 'Readme',
                 description: 'Creates a new readme markdown file with all the required sections',
             },
             {
                 id: 3,
-                path: 'API spec',
+                path: 'object-definition',
                 title: 'API Documentation',
                 description: 'Creates a new api documentation markdown file with all the required sections',
             },
             {
                 id: 4,
-                path: '',
+                path: 'mit-license',
                 title: 'License',
-                description: 'Creates a new license markdown file',
+                description: 'Creates a new MIT license markdown file',
             },
             {
                 id: 5,
-                path: '',
+                path: 'contributing',
                 title: 'Contribution',
                 description: 'Creates a new contribution markdown file',
             }
@@ -87,47 +84,36 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch'];
             this.selectedPath = decodeURIComponent(params['path']);
+            this.selectedPath = this.selectedPath === '#!/' ? null : this.selectedPath;
         });
 
         this.markDispose(subscription);
     }
 
+    back = () => Utils.isNull(this.selectedPath) ?
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch]) :
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath]);
+
     create() {
-        var path;
-        if (Utils.isEmpty(this.selectedFile)) {
-            return null;
-        }
+        if (Utils.isEmpty(this.selectedFile)) return null;
 
-        if (Utils.isNull(this.selectedPath)) {
-            path = this.selectedFile;
-        }
-        else {
-            path = this.selectedPath + '/' + (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder + '/' : '') + this.selectedFile + '.md';
-        }
+        var path = '';
+        if (!Utils.isEmpty(this.selectedPath)) path += this.selectedPath + '/';
+        path += (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder.replace(/\s/g, '-') + '/' : '') + this.selectedFile.replace(/\s/g, '-') + '.md';
 
-        var sub = this._githubService.getFileData(this.selectedTemplate.path).subscribe(templateContent => {
-            var mdView = new StringView(templateContent, "UTF-8");
-            var b64md = mdView.toBase64();
-            b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
-
-            var body = {
-                message: 'Creating ' + this.selectedFile + '.md',
-                content: b64md || '',
-                branch: this.selectedBranch
-            };
-
-            console.log(path, body);
-
-            this._wordService.insertTemplate(templateContent);
-
-            var sub = this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
-                .subscribe(response => {
-                    this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']);
-                });
-
-            this.markDispose(sub);
-        });
-
-        this.markDispose(sub);
+        this._githubService.getFileData(this.selectedTemplate.path).toPromise()
+            .then(templateContent => {
+                var base64Content = new StringView(templateContent, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');
+                this._wordService.insertTemplate(templateContent, `https://raw.githubusercontent.com/${this.selectedOrg}/${this.selectedRepoName}/${this.selectedBranch}`);
+                return {
+                    message: 'Creating ' + this.selectedFile + '.md',
+                    content: base64Content,
+                    branch: this.selectedBranch
+                };
+            })
+            .then(body => this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body).toPromise())
+            .then(response => this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']))
+            .then(() => this._notificationService.toast(`${this.selectedFile} was created successfully`, 'File created'))
+            .catch(exception => this._notificationService.error(exception));
     }
 }

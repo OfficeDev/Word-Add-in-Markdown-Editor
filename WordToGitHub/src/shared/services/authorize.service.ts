@@ -3,11 +3,10 @@
 export class AuthorizeService {
     status = $('#status');
 
-    getToken() {
-        if (!Utils.isWord) return;
+    getToken(): Promise<any> {
         var context = Office.context;
         try {
-            var code = this._getCode();
+            var code = this._getCode();            
             this.status.text('Getting token');
             var url = Utils.replace("https://githubproxy.azurewebsites.net/api/GetToken-Developer?code=@authCode&gcode=@gCode&redirect_uri=@redirect_uri")
                 ("@authCode", "vkybv91vgyefgta0xeadzz7bbk8sd3dozaz8")
@@ -15,18 +14,20 @@ export class AuthorizeService {
                 ("@redirect_uri", window.location.protocol + "//" + window.location.host)
                 ();
 
-            $.get(url).then(
+            return $.get(url).then(
                 response => {
                     this.status.text('Loading profile');
                     var token = this._extractToken(response);
                     context.ui.messageParent(JSON.stringify(token));
+                    return token;
                 },
                 error => context.ui.messageParent(JSON.stringify(error))
-            );
+            ) as any;
         }
         catch (exception) {
             this.status.text('Oops! Something went wrong.');
             context.ui.messageParent(JSON.stringify(exception));
+            return Promise.resolve(null);
         }
     }
 

@@ -59,7 +59,8 @@ module.exports = {
 
     externals: {
         '_': 'underscore',
-        '$': 'jquery'
+        '$': 'jquery',
+        'toMarkdown': 'to-markdown'
     },
 
     plugins: [
@@ -73,8 +74,8 @@ module.exports = {
 
         new CopyWebpackPlugin([
             {
-                from: './src/assets/images',
-                to: 'assets/images',
+                from: './src/assets',
+                to: 'assets',
             }
         ])        
     ]

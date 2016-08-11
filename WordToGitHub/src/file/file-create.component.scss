@@ -62,8 +62,8 @@
 
         &--menu {
             padding: 0;
-            flex: 1 0 auto;
             position: relative;
+            @include vScroll();
         }
 
         &--header {
@@ -100,6 +100,10 @@
 
     &__check {
         padding-right: $default-spacing / 2;
+    }
+
+    &__path-section {
+        flex: 1 0 auto;
     }
 
     &__path {

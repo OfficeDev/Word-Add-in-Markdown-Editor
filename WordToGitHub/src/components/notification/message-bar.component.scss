@@ -7,6 +7,7 @@
     &__content {
         @include inline-flex();
         width: 100%;
+        align-items: center;
 
         .ms-Icon-large {
             top: 0;
@@ -14,13 +15,9 @@
     }
 
     &__message {
-        flex: 1 1 0px;
-        width: 0px !important; // reset width to depend on the flex-basis instead. why?
         @include ellipsis();
-
-        a {
-            font-size: 9pt;
-        }        
+        flex: 1 1 auto;     
+        width: calc(100vw - 70px);               
     }
 
     &__icon {
@@ -30,6 +27,38 @@
         &:hover {
             cursor: pointer;
             color: $accent-background-primary;
+        }
+    }
+
+    &__actions {
+        @include flex();
+        padding: $default-spacing;
+
+        &--row {
+            @include inline-flex();
+            margin-top: 7px;
+        }
+    }
+
+    &__action {
+        border: solid 1px $foreground-primary;
+        outline: none;
+        color: $foreground-primary;
+        text-align: center;
+        @include focus-states($foreground-primary, $background-light);
+        margin-bottom: $default-spacing/2;
+        flex: 1 1 50%;
+        @include ellipsis();
+
+        &--primary {
+            background-color: $accent-background-primary;
+            color: $accent-foreground-primary;
+            border-color: $accent-background-primary;            
+        }
+
+        &--secondary {
+            background-color: $foreground-white;
+            color: $foreground-primary;            
         }
     }
 }

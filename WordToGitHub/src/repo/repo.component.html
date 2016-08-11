@@ -1,31 +1,29 @@
-﻿<!--<div class="repo-list-component__search ms-SearchBox">
-    <input class="repo-list-search__input ms-SearchBox-field ms-font-s-plus" type="search" [(ngModel)]="query">
-    <label class="repo-list-search__label ms-SearchBox-label ms-font-s-plus" [hidden]="query"><i class="ms-SearchBox-icon ms-Icon ms-Icon--search"></i>Search for repositories by name or url.</label>
-</div>-->
-
-<section class="repo-list-component__header">
+﻿<section class="repo-list-component__header">
     <ul class="repo-list-command-bar">
         <li class="repo-list-command-bar__command repo-list-command-bar__command--hamburger-menu" (click)="showMenu()"><i class="ms-Icon ms-Icon--menu ms-fontColor-themePrimary"></i></li>
-        <!--<li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--search ms-fontColor-themePrimary"></i></li>
-        <li class="repo-list-command-bar__command"><i class="ms-Icon ms-Icon--refresh ms-fontColor-themePrimary"></i></li>-->
     </ul>
 </section>
 
 <section class="repo-list-component__repos">
     <h2 class="ms-font-xl ms-fontWeight-light">Repositories</h2>
 
-    <ul class="ms-List">
-        <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
-            <div class="repo-list-item__content" (click)="selectRepo(repository)">
-                <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
-                <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
-                <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
-            </div>
-            <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
-                <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
-            </div>
-        </li>
-    </ul>
+    <async-view [observable]="repositories" 
+                placeholder="Seems like we couldn't find any repositories. Head over to GitHub to create a new repository." 
+                loading="{{'Fetching repositories for @' + selectedOrg}}" 
+                error="Oops, something went really wrong when were fetching repositories.">
 
-    <button class="repo-list-component__load ms-font-m" (click)="load()">Load more</button>
+        <ul class="ms-List">
+            <li class="repo-list-item ms-ListItem" *ngFor="let repository of repositories">
+                <div class="repo-list-item__content" (click)="selectRepo(repository)">
+                    <p class="repo-list-item__primary-text ms-ListItem-primaryText ms-fontColor-themeDark ms-font-m-plus">{{repository.name | safenames}}</p>
+                    <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
+                    <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
+                </div>
+                <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
+                    <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
+                </div>
+            </li>
+        </ul>
+        <button *ngIf="!loadComplete" class="repo-list-component__load ms-font-m" (click)="load()">Load more</button>
+    </async-view>
 </section>

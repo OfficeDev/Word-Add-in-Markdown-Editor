@@ -28,25 +28,33 @@
         text-align: center;
         @include focus-states($foreground-primary, $background-light);
         margin-bottom: $default-spacing/2;
+        flex: 1 0 auto;
+
+        &--split {
+            flex: 1 1 50%;
+            @include ellipsis();
+        }
 
         &--link {
+            margin: $default-spacing*2 0;
             border: none;
             outline: none;
             background: transparent;
             @include focus-states(transparent, $accent-background-primary);
+            margin-bottom: $default-spacing;
         }
 
         &--primary {
             background-color: $accent-background-primary;
             color: $accent-foreground-primary;
             border-color: $accent-background-primary;
+            width: 100%;
         }
 
         &--secondary {
             background-color: $foreground-white;
             color: $foreground-primary;
-            flex: 1 0 auto;
-            margin-right: $default-spacing/2;
+            width: 100%;
 
             &:last-child {
                 margin-right: 0;
@@ -72,7 +80,7 @@
         }
 
         &__details {
-            flex: 1 0 auto;            
+            flex: 1 0 auto;
         }
 
         &__message {

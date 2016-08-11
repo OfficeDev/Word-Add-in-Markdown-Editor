@@ -4,6 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {GithubService, IContents, WordService} from '../shared/services';
 import {Utils, StorageHelper} from '../shared/helpers';
 import {BaseComponent} from '../components/base.component';
+import {AsyncViewComponent} from '../components/notification/async-view.component';
 import {SafeNamesPipe, MDFilterPipe} from '../shared/pipes';
 
 let view = 'file-tree';
@@ -12,6 +13,7 @@ let view = 'file-tree';
     selector: 'file-tree',
     templateUrl: './file-tree.component.html',
     styleUrls: ['./file-tree.component.scss'],
+    directives: [AsyncViewComponent],
     pipes: [SafeNamesPipe, MDFilterPipe]
 })
 export class FileTreeComponent extends BaseComponent implements OnInit, OnDestroy {
@@ -35,7 +37,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
             this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path)]);
         }
         else {
-            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch,encodeURIComponent(item.path), 'detail']);
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path), 'detail']);
         }
     }
 
@@ -46,7 +48,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
         });
 
         var subscription2 = this._route.params.subscribe(params => {
-            this.selectedBranch = params['branch'];            
+            this.selectedBranch = params['branch'];
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
         });
@@ -55,7 +57,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
     }
 
     createFile() {
-        this.selectedPath = Utils.isNull(this.selectedPath) ? '%2f': encodeURIComponent(this.selectedPath); 
-        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath, 'create']);
+        var path = Utils.isEmpty(this.selectedPath) ? '#!/' : this.selectedPath;
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'create']);
     }
 }

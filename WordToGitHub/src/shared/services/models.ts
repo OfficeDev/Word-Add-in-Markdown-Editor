@@ -159,6 +159,11 @@ export interface IContents {
     }
 }
 
+export interface IUploadCommit {
+    commit: ICommit,
+    content: IContents
+}
+
 export interface IToken {
     access_token: string;
     token_type: string;
@@ -169,4 +174,16 @@ export interface IBreadcrumb {
     text: string;
     key?: number;
     href?: string | string[];
+}
+
+export interface IImage {
+    id?: number,
+    altTextTitle?: string,
+    altTextDescription?: string,
+    height?: number,
+    hyperlink?: string,
+    imageFormat?: string,
+    lockAspectRatio?: boolean,
+    width?: number,
+    base64ImageSrc?: OfficeExtension.ClientResult<string>
 }
