@@ -4,8 +4,6 @@ The WoodGrove Bank Expense Trends add-in demonstrates how you can use the new Ja
 
 _Applies to: Excel 2016, Excel for iPad, Excel for Mac_
 
-![WoodGrove Bank Expense Trends Add-in - Ribbon] (images/woodgrove_taskpane_ribbon.PNG)
-
 ## Table of Contents
 
 * [Prerequisites](#prerequisites)

@@ -67,22 +67,9 @@ export class GithubService {
         return this._request.put<IUploadCommit>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + fileName, body) as Observable<IUploadCommit>;
     }
 
-    getFileData(type: string): Observable<string> {
-        var url;
-        switch (type) {
-            case 'Code sample readme':
-                url = 'assets/templates/readme-code-sample.md';
-                break;
-            case 'API spec':
-                url = 'assets/templates/object-definition.md';
-                break;
-            case 'Conceptual article':
-                url = 'assets/templates/conceptual-article.md';
-                break;
-            default:
-                url = 'assets/templates/simple-file.md';
-        }
-        return this._request.raw(url) as Observable<string>;
+    getFileData(filename: string): Observable<string> {
+        if (filename == null) return Observable.of('');
+        return this._request.raw('assets/templates/' + filename + '.md') as Observable<string>;
     }
 
     login(): Promise<IUserProfile> {
