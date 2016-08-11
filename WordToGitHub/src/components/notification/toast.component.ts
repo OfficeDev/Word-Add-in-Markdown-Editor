@@ -27,7 +27,7 @@ export class ToastComponent extends BaseComponent implements OnDestroy {
     constructor(private _mediatorService: MediatorService) {
         super();
         this._toastChannel = this._mediatorService.createEventChannel<IToast>('toast-channel');
-        var subscription = this._toastChannel.source$.debounce(200 as any).subscribe(toast => this.showToast(toast));
+        var subscription = this._toastChannel.source$.debounceTime(200).subscribe(toast => this.showToast(toast));
         this.markDispose(subscription);
     }
 
@@ -41,5 +41,6 @@ export class ToastComponent extends BaseComponent implements OnDestroy {
     dismiss() {
         this.toast = null;
         this.isHidden = true;
+        clearTimeout(this._timeout);
     }
 }

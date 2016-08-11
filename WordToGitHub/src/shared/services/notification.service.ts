@@ -51,7 +51,7 @@ export class NotificationService {
                 type: type
             });
         }
-        else this._messageChannel.source.emit(message);
+        else this._messageChannel.source.next(message);
     }
 
     toast(toast: IToast)

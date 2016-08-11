@@ -6,22 +6,22 @@ import {MediatorService, IEventChannel, IMessage, MessageType} from '../../share
     selector: 'message-bar',
     styleUrls: ['./message-bar.component.scss'],
     template: `
-    <div class="ms-MessageBar mw-message-bar" [ngClass]="variant.class" *ngIf="show">
+    <div class="ms-MessageBar mw-message-bar" [ngClass]="variant.class" *ngIf="!isHidden">
         <div class="ms-MessageBar-content mw-message-bar__content">
             <div class="ms-MessageBar-icon">
                 <i class="ms-Icon ms-Icon-large" [ngClass]="variant.icon"></i>
             </div>
             <div class="ms-MessageBar-text mw-message-bar__message ms-font-m">
-                {{message.message}}<br>
-                <div class="ms-MessageBar__actions--row" *ngIf="message.action">
-                    <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--primary" (click)="yes()">{{message.action.yes}}</button>
-                    <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--secondary" (click)="no()">{{message.action.no}}</button>
-                </div>                
+                <p>{{message.message}}</p>                
             </div>
             <div class="mw-message-bar__icon" (click)="dismiss()">
                 <i class="ms-Icon ms-Icon--x"></i>
             </div>
         </div>
+        <div class="ms-MessageBar__actions--row" *ngIf="message.action">
+            <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--primary" (click)="yes()">{{message.action.yes}}</button>
+            <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--secondary" (click)="no()">{{message.action.no}}</button>
+        </div>                
     </div>`
 })
 export class MessageBarComponent extends BaseComponent implements OnDestroy {
@@ -37,8 +37,8 @@ export class MessageBarComponent extends BaseComponent implements OnDestroy {
 
     constructor(private _mediatorService: MediatorService) {
         super();
-        this._messageChannel = this._mediatorService.createEventChannel<IMessage>('toast-channel');
-        var subscription = this._messageChannel.source$.debounce(200 as any).subscribe(toast => this.showMessage(toast));
+        this._messageChannel = this._mediatorService.createEventChannel<IMessage>('message-channel');
+        var subscription = this._messageChannel.source$.debounceTime(200).subscribe(message => this.showMessage(message));
         this.markDispose(subscription);
     }
 
