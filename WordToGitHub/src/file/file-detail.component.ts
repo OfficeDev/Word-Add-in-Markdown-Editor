@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Utils, NotificationHelper} from '../shared/helpers';
-import {GithubService, WordService, ICommit} from '../shared/services';
+import {Utils} from '../shared/helpers';
+import {GithubService, WordService, NotificationService, ICommit, MessageType} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
@@ -20,6 +20,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     viewLink: string;
 
     private _file: any;
+    private _sha: string;
     commits: Observable<ICommit[]>
 
     constructor(
@@ -27,7 +28,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         private _route: ActivatedRoute,
         private _githubService: GithubService,
         private _wordService: WordService,
-        private _notificationHelper: NotificationHelper
+        private _notificationService: NotificationService
     ) {
         super();
     }
@@ -43,13 +44,9 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
             this.viewLink = `https://github.com/${this.selectedOrg}/${this.selectedRepoName}/blob/${this.selectedBranch}/${this.selectedPath}`;
-            let subscription3 = this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
-                .subscribe(file => {
-                    this._file = file;
-                    this._wordService.insertHtml(this._file);
-                });
-
-            this.markDispose(subscription3);
+            this.pull()
+                .then(file => this._wordService.insertHtml(file))
+                .catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
         });
 
         this.markDispose([subscription1, subscription2]);
@@ -59,45 +56,39 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         this._wordService.getBase64EncodedStringsOfImages()
             .then(images => {
                 if (Utils.isEmpty(images)) { return this.updateFile(); }
+                var promises = images.map(image => {
+                    var body = {
+                        message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
+                        content: image.base64ImageSrc.value,
+                        branch: this.selectedBranch
+                    };
 
-                var arrayOfObservables = [];
-                images.forEach(image => {
-                    var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
-                        .subscribe((file) => {
-                            this.markDispose(subscription);
-
-                            var body = {
-                                message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
-                                content: image.base64ImageSrc.value,
-                                branch: this.selectedBranch,
-                                sha: file.sha
-                            };
-
-                            var observable = this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body);
-                            observable.subscribe(next => console.log(next));
-                            arrayOfObservables.push(observable);
-                        });
-
+                    return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body).toPromise();
                 });
 
-                var subscription = Observable.forkJoin(arrayOfObservables)
-                    .subscribe(response => {
-                        this.markDispose(subscription);
-                        if (Utils.isEmpty(response)) return;
-                        console.log(response);
-                        this.updateFile();
-                    });
+                Promise.all(promises).then(response => this.updateFile());
             });
     }
 
-    discard() {
-        // show toast to confirm
-        this._wordService.insertHtml(this._file);
-    }
+    pull() {
+        var promises = [
+            this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
+            this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise()
+        ];
 
-    //styleAsCode() {
-    //    this._wordService.styleAsCode();
-    //}
+        return Promise.all(promises)
+            .then(results => {
+                var sha = results[0] && (results[0] as any).sha;
+                this._file = results[1];
+                if (!this._sha) this._sha = sha;
+                if (this._sha === sha) {
+                    return this._file;
+                }
+                else {
+                    throw 'Merge conflit!';
+                }
+            });
+    }
 
     insertNumberedList() {
         this._wordService.insertNumberedList();
@@ -108,32 +99,28 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     updateFile() {
-        var subscription = this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath)
-            .subscribe((file) => {
+        this.pull()
+            .then(file => {
                 this._wordService.getMarkdown()
-                    .then((md) => {
-                        var mdView = new StringView(md, "UTF-8");
-                        var b64md = mdView.toBase64();
-                        b64md = b64md.replace(/(?:\r\n|\r|\n)/g, '');
-
+                    .then(md => {
+                        var base64Data = new StringView(md, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');
                         var body = {
                             message: "Update: " + new Date().toISOString() + " from Word to GitHub Add-in",
-                            content: b64md,
+                            content: base64Data,
                             branch: this.selectedBranch,
                             sha: file.sha
                         };
 
-                        let sub3 = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
+                        let subscription = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
                             .subscribe(response => {
-                                this.markDispose(sub3);
-                                this._notificationHelper.notify('Updated file successfully', 'Success');
-                                this._notificationHelper.showToast('Updated file successfully');
+                                this.markDispose(subscription);
+                                this._notificationService.toast(`Updated ${this.selectedFile}`);
                             },
-                            error => this._notificationHelper.notify(JSON.stringify(error), 'Error')
-                            );
-                    }, error => console.error.bind(console));
-            });
-
-        this.markDispose(subscription);
+                            error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+                    }, error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+            })
+            .catch(exception => {
+                // handle merge conflit;
+            })
     }
 }

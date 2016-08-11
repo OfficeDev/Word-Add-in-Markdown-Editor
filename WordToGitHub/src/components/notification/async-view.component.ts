@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, OnDestroy, OnChanges, SimpleChanges, SimpleChange} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {BaseComponent} from '../base.component';
-import {Utils, NotificationHelper} from '../../shared/helpers';
+import {Utils} from '../../shared/helpers';
+import {NotificationService, MessageType} from '../../shared/services';
 
 @Component({
     selector: 'async-view',
@@ -17,7 +18,7 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestr
     showError: boolean;
     data: any;
 
-    constructor(private _notificationHelper: NotificationHelper) {
+    constructor(private _notificationService: NotificationService) {
         super();
     }
 
@@ -33,7 +34,7 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestr
         else {
             this.data = observable.currentValue;
             this.isLoading = false;
-            this.showError = false;
+            this.showError = false;            
         }
     }
 
@@ -43,7 +44,10 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestr
                 this.data = next;
                 this.showError = false;
             },
-            error => this.showError = true,
+            error => {
+                this.showError = true;
+                this._notificationService.message(JSON.stringify(error), MessageType.Error);
+            },
             () => this.isLoading = false
         )
         this.markDispose(subscription);
@@ -59,6 +63,7 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestr
             error => {
                 this.showError = true;
                 this.isLoading = false;
+                this._notificationService.message(JSON.stringify(error), MessageType.Error);
             }
         )
     }

@@ -32,4 +32,35 @@
             color: $accent-background-primary;
         }
     }
+
+    &__actions {
+        @include flex();
+        padding: $default-spacing;
+
+        &--row {
+            @include inline-flex();
+        }
+    }
+
+    &__action {
+        border: solid 1px $foreground-primary;
+        outline: none;
+        color: $foreground-primary;
+        text-align: center;
+        @include focus-states($foreground-primary, $background-light);
+        margin-bottom: $default-spacing/2;
+        flex: 1 1 50%;
+        @include ellipsis();
+
+        &--primary {
+            background-color: $accent-background-primary;
+            color: $accent-foreground-primary;
+            border-color: $accent-background-primary;            
+        }
+
+        &--secondary {
+            background-color: $foreground-white;
+            color: $foreground-primary;            
+        }
+    }
 }
