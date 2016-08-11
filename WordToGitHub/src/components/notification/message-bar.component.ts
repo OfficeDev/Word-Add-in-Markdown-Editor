@@ -18,9 +18,9 @@ import {MediatorService, IEventChannel, IMessage, MessageType} from '../../share
                 <i class="ms-Icon ms-Icon--x"></i>
             </div>
         </div>
-        <div class="ms-MessageBar__actions--row" [hidden]="!message?.action">
-            <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--primary" (click)="yes()">{{message?.action?.yes}}</button>
-            <button class="ms-Button ms-MessageBar__action ms-MessageBar__action--secondary" (click)="no()">{{message?.action?.no}}</button>
+        <div class="mw-message-bar__actions--row" [hidden]="!message?.action">
+            <button class="ms-Button mw-message-bar__action mw-message-bar__action--primary" [hidden]="!message?.action?.yes" (click)="yes()">{{message?.action?.yes}}</button>
+            <button class="ms-Button mw-message-bar__action mw-message-bar__action--secondary" [hidden]="!message?.action?.no" (click)="no()">{{message?.action?.no}}</button>
         </div>                
     </div>`
 })
@@ -44,7 +44,7 @@ export class MessageBarComponent extends BaseComponent implements OnDestroy {
 
     dismiss() {
         if (this.message.action && this.message.action.dismissEvent) {
-            this.message.action.dismissEvent.next('dismiss');
+            this.message.action.dismissEvent.next(null);
         }
         this.message = null;
         this.isHidden = true;        
@@ -59,12 +59,14 @@ export class MessageBarComponent extends BaseComponent implements OnDestroy {
     yes() {
         if (this.message.action && this.message.action.actionEvent) {
             this.message.action.actionEvent.next(true);
+            this.dismiss();
         }
     }
 
     no() {
         if (this.message.action && this.message.action.actionEvent) {
             this.message.action.actionEvent.next(false);
+            this.dismiss();
         }
     }
 

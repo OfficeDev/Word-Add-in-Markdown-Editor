@@ -2,7 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import {Router, ActivatedRoute} from '@angular/router';
 import {Utils} from '../shared/helpers';
-import {GithubService, WordService, NotificationService, ICommit, MessageType} from '../shared/services';
+import {GithubService, WordService, NotificationService, ICommit, IMessage, MessageAction, MessageType} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
 
@@ -46,7 +46,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             this.selectedFile = _.last(this.selectedPath.split('/'));
             this.viewLink = `https://github.com/${this.selectedOrg}/${this.selectedRepoName}/blob/${this.selectedBranch}/${this.selectedPath}`;
             this._imageLink = `https://raw.githubusercontent.com/${this.selectedOrg}/${this.selectedRepoName}/${this.selectedBranch}`;
-            this.pull();
+            this._pull();
         });
 
         this.markDispose([subscription1, subscription2]);
@@ -74,6 +74,30 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     pull() {
+        var actions = new MessageAction('Yes', 'No');
+        var subscription = actions.actionEvent.subscribe(result => {
+            if (!result) return null;
+            this._pull();
+        });
+
+        this._notificationService.message({
+            message: "Are you sure?",
+            type: MessageType.Info,
+            action: actions
+        });
+
+        this.markDispose(subscription);
+    }
+
+    insertNumberedList() {
+        this._wordService.insertNumberedList();
+    }
+
+    insertBulletedList() {
+        this._wordService.insertBulletedList();
+    }
+
+    private _pull() {
         var promises = [
             this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
             this._githubService.file(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise()
@@ -95,20 +119,12 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             .catch(error => this._notificationService.error(error));
     }
 
-    insertNumberedList() {
-        this._wordService.insertNumberedList();
-    }
-
-    insertBulletedList() {
-        this._wordService.insertBulletedList();
-    }
-
     private _updateFile() {
         var promises = [
             this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
             this._wordService.getMarkdown(this._imageLink)
         ];
-        
+
         return Promise.all(promises)
             .then(results => {
                 var file = results[0] as any;

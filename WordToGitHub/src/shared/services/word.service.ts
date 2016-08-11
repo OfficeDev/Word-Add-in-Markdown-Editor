@@ -125,10 +125,10 @@ export class WordService {
             for (i = 0, max = images.length; i < max; i++) {
                 altValue = images[i].parentElement.getAttribute('href');
                 srcValue = images[i].getAttribute('src');
+                var filename = _.last(srcValue.split('/'));
                 console.log(images[i].width);
-                console.log(srcValue);
                 if (!srcValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', link + "/" + altValue);
+                    images[i].setAttribute('src', link + "/" + "images/"+ filename);
                 }
             }
 

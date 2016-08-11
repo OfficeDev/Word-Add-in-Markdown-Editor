@@ -15,8 +15,7 @@ export enum MessageType {
 export interface IMessage {
     message: string;
     type: MessageType;
-    url?: string;
-    action?: IAction;
+    action?: MessageAction;
 }
 
 export interface IToast {
@@ -24,11 +23,14 @@ export interface IToast {
     title: string;
 }
 
-export interface IAction {
-    yes: string;
-    no: string;
+export class MessageAction {
     actionEvent: EventEmitter<any>
     dismissEvent: EventEmitter<any>
+
+    constructor(public yes: string, public no?: string) {
+        this.actionEvent = new EventEmitter<boolean>();
+        this.dismissEvent = new EventEmitter();
+    }
 }
 
 @Injectable()

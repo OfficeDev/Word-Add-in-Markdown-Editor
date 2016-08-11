@@ -36,6 +36,7 @@
 
         &--row {
             @include inline-flex();
+            margin-top: 7px;
         }
     }
 
