@@ -51,7 +51,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     push() {
-        this._wordService.getBase64EncodedStringsOfImages()
+        this._wordService.getBase64EncodedStringsOfImages(this.selectedOrg, this.selectedRepoName, this.selectedBranch)
             .then(images => {
                 if (Utils.isEmpty(images)) { return this.updateFile(); }
                 var promises = images.map(image => {
@@ -80,7 +80,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                 this._file = results[1];
                 if (!this._sha) this._sha = sha;
                 if (this._sha === sha) {
-                    this._wordService.insertHtml(this._file);
+                    this._wordService.insertHtml(this._file, this.selectedOrg, this.selectedRepoName, this.selectedBranch);
                     return this._file;
                 }
                 else {
@@ -100,7 +100,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     updateFile() {
         var promises = [
             this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
-            this._wordService.getMarkdown()
+            this._wordService.getMarkdown(this.selectedOrg, this.selectedRepoName, this.selectedBranch)
         ];        
 
         return Promise.all(promises)

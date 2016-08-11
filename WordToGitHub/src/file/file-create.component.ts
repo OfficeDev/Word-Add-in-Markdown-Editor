@@ -128,7 +128,7 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
                 branch: this.selectedBranch
             };
 
-            this._wordService.insertTemplate(templateContent);
+            this._wordService.insertTemplate(templateContent, this.selectedOrg, this.selectedRepoName, this.selectedBranch);
             var sub = this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
                 .subscribe(response => {
                     this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']);

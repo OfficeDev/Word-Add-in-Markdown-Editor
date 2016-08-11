@@ -15,14 +15,14 @@ export class WordService {
 
     }
 
-    insertTemplate(md: string) {
+    insertTemplate(md: string, orgName: string, repoName: string, branchName: string) {
         var html = this._markDownService.convertToHtml(md);
-        return this.insertHtml(html)
+        return this.insertHtml(html, orgName, repoName, branchName)
     }
 
-    insertHtml(html: string) {
+    insertHtml(html: string, orgName: string, repoName: string, branchName: string) {
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
-        return Promise.resolve(this._insertHtmlIntoWord(html))
+        return Promise.resolve(this._insertHtmlIntoWord(html, orgName, repoName, branchName))
             .then(() => this._formatTables())
     }
 
@@ -70,7 +70,7 @@ export class WordService {
         });
     }
 
-    getMarkdown() {
+    getMarkdown(orgName: string, repoName: string, branchName: string) {
         return Word.run(context => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
@@ -84,7 +84,7 @@ export class WordService {
                     altValue = altValue.replace(toRemove, "");
                     srcValue = images[i].getAttribute('src');
                     if (srcValue.toLowerCase().startsWith("~wrs")) {
-                        images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                        images[i].setAttribute('src', "https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + altValue);
                     }
                 }
                 return this._markDownService.previewMarkdown(div.innerHTML);
@@ -96,7 +96,7 @@ export class WordService {
         return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
     }
 
-    private _insertHtmlIntoWord(html: string) {
+    private _insertHtmlIntoWord(html: string, orgName: string, repoName: string, branchName: string) {
         return this._run((context) => {
 
             var body = context.document.body;
@@ -114,33 +114,14 @@ export class WordService {
                 console.log(images[i].width);
                 console.log(srcValue);
                 if (!srcValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + altValue);
+                    images[i].setAttribute('src', "https://raw.githubusercontent.com/" + orgName + "/" + repoName + "/" + branchName + "/" + altValue);
                 }
             }
-
-            //var regex = new RegExp('<img src="(.*?)" (.*?)>', 'g');
-            //regex.exec(html).forEach(match => {
-            //    if (!Utils.isEmpty(match)) {
-
-            //    }
-            //});
-
-            //html = Utils.regex(html)
-            //    (/<img src="(.*?)" (.*?)>/g, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>')
-            //    ();
 
             html = div.innerHTML;
 
             body.insertHtml(html, Word.InsertLocation.replace);
 
-
-            //var re = /<img src="(.*?)" (.*?)>/g;
-            //var newHtml = html.replace(re, '<img src="https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1" $2>');
-
-            ////html = Utils.regex(html)
-            ////    (/<img src="(.*?)" alt.*?>/g, 'https://raw.githubusercontent.com/umasubra/office-js-docs/master/$1')
-            ////    ();
-            //body.insertHtml(newHtml, Word.InsertLocation.replace);
             return context.sync();
         })
     }
@@ -187,7 +168,7 @@ export class WordService {
         });
     }
 
-    getBase64EncodedStringsOfImages(): OfficeExtension.IPromise<IImage[]> {
+    getBase64EncodedStringsOfImages(orgName: string, repoName: string, branchName: string): OfficeExtension.IPromise<IImage[]> {
         var imagesArray: IImage[] = [];
         return this._run((context) => {
             var images = context.document.body.inlinePictures;
@@ -212,7 +193,7 @@ export class WordService {
                         }
 
                         image.hyperlink = "images/" + fileName;
-                        images.items[i].hyperlink = "https://raw.githubusercontent.com/umasubra/office-js-docs/master/" + "images/" + fileName;
+                        images.items[i].hyperlink = "https://raw.githubusercontent.com/"+orgName+"/"+repoName+"/"+branchName+"/" + "images/" + fileName;
                         images.items[i].altTextTitle = "images/" + fileName;
                         imagesArray.push(image);
                     }
