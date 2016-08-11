@@ -43,11 +43,11 @@ export class MessageBarComponent extends BaseComponent implements OnDestroy {
     }
 
     dismiss() {
-        this.message = null;
-        this.isHidden = true;
         if (this.message.action && this.message.action.dismissEvent) {
             this.message.action.dismissEvent.next('dismiss');
         }
+        this.message = null;
+        this.isHidden = true;        
     }
 
     showMessage(message: IMessage) {

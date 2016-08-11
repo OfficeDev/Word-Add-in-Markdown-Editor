@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, Observer} from 'rxjs/Rx';
 import {Utils, RequestHelper, StorageHelper} from '../helpers';
-import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile, ICommit} from './';
+import {IRepository, IBranch, IToken, IContents, IProfileMetadata, IUserProfile, ICommit, IUploadCommit} from './';
 
 declare var Microsoft: any;
 
@@ -55,16 +55,16 @@ export class GithubService {
         return this._request.get<IContents>(url + "?ref=" + branchName) as Observable<IContents>;
     }
 
-    createFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
-        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
+    createFile(orgName: string, repoName: string, filePath: string, body: any): Observable<IUploadCommit> {
+        return this._request.put<IUploadCommit>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<IUploadCommit>;
     }
 
-    updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<string> {
-        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<string>;
+    updateFile(orgName: string, repoName: string, filePath: string, body: any): Observable<IUploadCommit> {
+        return this._request.put<IUploadCommit>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + filePath, body) as Observable<IUploadCommit>;
     }
 
-    uploadImage(orgName: string, repoName: string, fileName: string, body: any): Observable<string> {
-        return this._request.put<string>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + fileName, body) as Observable<string>;
+    uploadImage(orgName: string, repoName: string, fileName: string, body: any): Observable<IUploadCommit> {
+        return this._request.put<IUploadCommit>("https://api.github.com/repos/" + orgName + "/" + repoName + "/contents/" + fileName, body) as Observable<IUploadCommit>;
     }
 
     getFileData(type: string): Observable<string> {
@@ -119,7 +119,6 @@ export class GithubService {
                 var dialog = result.value;
                 dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
                     dialog.close();
-                    console.log(args);
                     try {
                         if (Utils.isEmpty(args.message)) {
                             reject("No token received");

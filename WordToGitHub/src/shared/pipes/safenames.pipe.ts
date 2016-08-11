@@ -6,8 +6,14 @@ import {Utils} from '../helpers';
 })
 
 export class SafeNamesPipe implements PipeTransform {
-    transform(name: string) {
+    transform(name: string, dashed: boolean) {
         if (Utils.isEmpty(name)) return name;
-        return name.replace(/-/g, ' ');
+
+        if (!!!dashed) {
+            return name.replace(/-/g, ' ');
+        }
+        else {
+            return name.replace(/\s/g, '-');
+        }
     }
 }

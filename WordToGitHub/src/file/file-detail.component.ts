@@ -44,9 +44,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
             this.viewLink = `https://github.com/${this.selectedOrg}/${this.selectedRepoName}/blob/${this.selectedBranch}/${this.selectedPath}`;
-            this.pull()
-                .then(file => this._wordService.insertHtml(file))
-                .catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+            this.pull().catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
         });
 
         this.markDispose([subscription1, subscription2]);
@@ -82,6 +80,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                 this._file = results[1];
                 if (!this._sha) this._sha = sha;
                 if (this._sha === sha) {
+                    this._wordService.insertHtml(this._file);
                     return this._file;
                 }
                 else {
@@ -99,28 +98,32 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     updateFile() {
-        this.pull()
-            .then(file => {
-                this._wordService.getMarkdown()
-                    .then(md => {
-                        var base64Data = new StringView(md, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');
-                        var body = {
-                            message: "Update: " + new Date().toISOString() + " from Word to GitHub Add-in",
-                            content: base64Data,
-                            branch: this.selectedBranch,
-                            sha: file.sha
-                        };
+        var promises = [
+            this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
+            this._wordService.getMarkdown()
+        ];        
 
-                        let subscription = this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body)
-                            .subscribe(response => {
-                                this.markDispose(subscription);
-                                this._notificationService.toast(`Updated ${this.selectedFile}`);
-                            },
-                            error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
-                    }, error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+        return Promise.all(promises)
+            .then(results => {
+                var file = results[0] as any;
+                var md = results[1];
+
+                if (Utils.isNull(md) || Utils.isNull(file)) throw 'Couldn\'t get the markdown of current document';
+                if (this._sha !== file.sha) throw 'We noticed a merge conflict!';
+
+                var base64Data = new StringView(md, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');
+                return {
+                    message: "Update: " + new Date().toISOString() + " from Word to GitHub Add-in",
+                    content: base64Data,
+                    branch: this.selectedBranch,
+                    sha: file.sha
+                };
             })
-            .catch(exception => {
-                // handle merge conflit;
+            .then(body => this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body).toPromise())
+            .then(response => {
+                console.log(response);                
+                this._sha = response.content.sha;                
             })
+            .catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
     }
 }

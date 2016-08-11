@@ -37,7 +37,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
             this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path)]);
         }
         else {
-            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch,encodeURIComponent(item.path), 'detail']);
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path), 'detail']);
         }
     }
 
@@ -48,7 +48,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
         });
 
         var subscription2 = this._route.params.subscribe(params => {
-            this.selectedBranch = params['branch'];            
+            this.selectedBranch = params['branch'];
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.files = this._githubService.files(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath);
         });
@@ -57,7 +57,7 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
     }
 
     createFile() {
-        this.selectedPath = Utils.isNull(this.selectedPath) ? encodeURIComponent('/root'): encodeURIComponent(this.selectedPath); 
-        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath, 'create']);
+        var path = Utils.isEmpty(this.selectedPath) ? '#!/' : this.selectedPath;
+        this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'create']);
     }
 }

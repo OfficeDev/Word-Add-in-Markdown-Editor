@@ -159,6 +159,11 @@ export interface IContents {
     }
 }
 
+export interface IUploadCommit {
+    commit: ICommit,
+    content: IContents
+}
+
 export interface IToken {
     access_token: string;
     token_type: string;

@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {Router, ActivatedRoute, ROUTER_DIRECTIVES} from '@angular/router';
 import {Utils} from '../shared/helpers';
+import {SafeNamesPipe} from '../shared/pipes';
 import {GithubService, WordService, ICommit} from '../shared/services';
 import {BaseComponent} from '../components/base.component';
 declare var StringView: any;
@@ -16,7 +17,8 @@ interface ITemplate {
 @Component({
     selector: 'file-create',
     templateUrl: './file-create.component.html',
-    styleUrls: ['./file-create.component.scss']
+    styleUrls: ['./file-create.component.scss'],
+    pipes: [SafeNamesPipe]
 })
 export class FileCreateComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
@@ -87,9 +89,19 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
             this.selectedOrg = params['org'];
             this.selectedBranch = params['branch'];
             this.selectedPath = decodeURIComponent(params['path']);
+            this.selectedPath = this.selectedPath === '#!/' ? null : this.selectedPath;
         });
 
         this.markDispose(subscription);
+    }
+
+    back() {
+        if (Utils.isNull(this.selectedPath)) {
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch]);
+        }
+        else {
+            this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath]);
+        }
     }
 
     create() {
@@ -98,11 +110,11 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
             return null;
         }
 
-        if (Utils.isNull(this.selectedPath)) {
-            path = this.selectedFile;
+        if (Utils.isEmpty(this.selectedPath)) {
+            path = (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder.replace(/\s/g, '-') + '/' : '') + this.selectedFile.replace(/\s/g, '-') + '.md';
         }
         else {
-            path = this.selectedPath + '/' + (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder + '/' : '') + this.selectedFile + '.md';
+            path = this.selectedPath + '/' + (this.newFolder && !Utils.isEmpty(this.selectedFolder) ? this.selectedFolder.replace(/\s/g, '-') + '/' : '') + this.selectedFile.replace(/\s/g, '-') + '.md';
         }
 
         var sub = this._githubService.getFileData(this.selectedTemplate.path).subscribe(templateContent => {
@@ -116,10 +128,7 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
                 branch: this.selectedBranch
             };
 
-            console.log(path, body);
-
             this._wordService.insertTemplate(templateContent);
-
             var sub = this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body)
                 .subscribe(response => {
                     this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']);

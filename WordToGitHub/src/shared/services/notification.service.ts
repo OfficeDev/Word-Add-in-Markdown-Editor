@@ -38,7 +38,7 @@ export class NotificationService {
 
     constructor(private _mediatorService: MediatorService) {
         this._toastChannel = this._mediatorService.createEventChannel<IToast>('toast-channel');
-        this._messageChannel = this._mediatorService.createEventChannel<IMessage>('message-channel');        
+        this._messageChannel = this._mediatorService.createEventChannel<IMessage>('message-channel');
     }
 
     message(message: string, type?: MessageType)
@@ -52,6 +52,13 @@ export class NotificationService {
             });
         }
         else this._messageChannel.source.next(message);
+    }
+
+    error(message: string)
+    error(message: any) {
+        if (_.isString(message)) this.message(message, MessageType.Error);
+        else this.message(JSON.stringify(message), MessageType.Error);
+        Utils.error(JSON.stringify(message));
     }
 
     toast(toast: IToast)
