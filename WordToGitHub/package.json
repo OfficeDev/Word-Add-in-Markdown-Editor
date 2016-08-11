@@ -5,9 +5,10 @@
   "version": "1.0.0",
   "scripts": {
     "start": "webpack-dev-server --https --inline --progress --compress --port 3000 --cert certificates/localhost.crt --key certificates/localhost.key --open",
-    "test": "karma start",
     "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --colors --display-chunks --display-modules",
-    "postinstall": "typings install"
+    "postinstall": "typings install",
+    "test": "npm run tslint",
+    "tslint": "tslint -c tslint.json --project tsconfig.json"
   },
   "license": "MIT",
   "dependencies": {
@@ -30,6 +31,7 @@
     "office-ui-fabric": "^2.6.1"
   },
   "devDependencies": {
+    "tslint": "^3.14.0",
     "codelyzer": "^0.0.26",
     "resolve-url-loader": "^1.6.0",
     "perfectionist": "^2.1.3",
