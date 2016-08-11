@@ -104,7 +104,7 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
         this._githubService.getFileData(this.selectedTemplate.path).toPromise()
             .then(templateContent => {
                 var base64Content = new StringView(templateContent, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');
-                this._wordService.insertTemplate(templateContent, this.selectedOrg, this.selectedRepoName, this.selectedBranch);
+                this._wordService.insertTemplate(templateContent, `https://raw.githubusercontent.com/${this.selectedOrg}/${this.selectedRepoName}/${this.selectedBranch}`);
                 return {
                     message: 'Creating ' + this.selectedFile + '.md',
                     content: base64Content,
@@ -113,7 +113,7 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
             })
             .then(body => this._githubService.createFile(this.selectedOrg, this.selectedRepoName, path, body).toPromise())
             .then(response => this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(path), 'detail']))
-            .then(()=>this._notificationService.toast('File created', `${this.selectedFile} was created successfully`))
+            .then(() => this._notificationService.toast(`${this.selectedFile} was created successfully`, 'File created'))
             .catch(exception => this._notificationService.error(exception));
     }
 }

@@ -5,14 +5,14 @@ import {MediatorService, IEventChannel, IToast} from '../../shared/services';
 @Component({
     selector: 'toast',
     template: `
-    <div class="ms-toast" *ngIf="!isHidden" [ngClass]="{'ms-toast--shown':!isHidden}">
+    <div class="ms-toast" [hidden]="isHidden" [ngClass]="{'ms-toast--shown':!isHidden}">
         <div class="ms-toast__header">
-            <h4 class="ms-toast__title ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold">{{toast.title}}</h4>
+            <h4 class="ms-toast__title ms-font-l ms-fontColor-themePrimary ms-fontWeight-semibold">{{toast?.title}}</h4>
             <i class="ms-toast__close ms-Icon ms-Icon--x" (click)="dismiss()"></i>
         </div>
         <div class="ms-toast__content">
             <i class="ms-toast__info ms-Icon ms-Icon-large ms-Icon--infoCircle ms-fontColor-themePrimary"></i>
-            <p class="ms-toast__message ms-font-m">{{toast.toast}}</p>
+            <p class="ms-toast__message ms-font-m">{{toast?.toast}}</p>
         </div>
     </div>`,
     styleUrls: ['./toast.component.scss']
@@ -27,7 +27,7 @@ export class ToastComponent extends BaseComponent implements OnDestroy {
     constructor(private _mediatorService: MediatorService) {
         super();
         this._toastChannel = this._mediatorService.createEventChannel<IToast>('toast-channel');
-        var subscription = this._toastChannel.source$.debounceTime(200).subscribe(toast => this.showToast(toast));
+        var subscription = this._toastChannel.source$.debounceTime(300).subscribe(toast => this.showToast(toast));
         this.markDispose(subscription);
     }
 

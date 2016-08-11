@@ -40,7 +40,7 @@ export class AppComponent {
             HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
             { provide: ExceptionHandler, useClass: ExceptionHelper }, RequestHelper,
             { provide: LocationStrategy, useClass: HashLocationStrategy },
-            GithubService, WordService, MarkdownService, MediatorService, FavoritesService, AuthGuard, NotificationService
+            NotificationService, GithubService, WordService, MarkdownService, MediatorService, FavoritesService, AuthGuard
         ]);
     }
 }

@@ -14,20 +14,50 @@ export class MarkdownService {
         this._storage = new StorageHelper<string>('MarkdownPreview');
     }
 
-
-
     convertToHtml(markdown: string) {
         return marked(markdown);
     }
 
-    cleanHtml(html: string): string {
-        //html = html.replace(/(<td valign=top style='border:solid #5B9BD5 1.0pt;border-right:none;\n..background:#5B9BD5;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;\nmargin-bottom:.0001pt;line-height:\n..normal'><span style='color:white'>)/gmi, '<th align="left">');
-        //html = html.replace(/<th align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</th>');
-        //html = html.replace(/(<td valign=top style='border:solid #9CC2E5 1.0pt;border-top:none;background:\n..#DEEAF6;padding:0in 5.4pt 0in 5.4pt'>\n..<p class=MsoNormal style='margin-bottom:0in;margin-bottom:.0001pt;line-height:\n..normal'><b>)/gmi, '<td align="left">');
-        //html = html.replace(/<td align="left">.*?(<\/span><\/p>\n..<\/td>)/gmi, '</td>');
-        //html = html.replace(/(<\/th>\n.<\/tr>\n.<tr>\n..<td)/gmi, '</th></tr></thead><tbody><tr><td');
-        //html = html.replace(/<\/tr>\n<\/table>/gmi, '</tr></tbody></table>');
+    convertToMD(html: string) {
+        var context = Office.context as any;
 
+        var type1 = $(html);
+        var type2 = $(`<div>${html}</div>`);
+        var divType1 = type1.find('.WordSection1');
+        var divType2 = type2.find('.WordSection1');
+        debugger;
+
+        var cleanedHtml = this._cleanHtml(html);
+
+        var md = toMarkdown(cleanedHtml, {
+            gfm: true,
+            converters: [{
+                filter: 'li',
+                replacement: function (content, node) {
+                    content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ')
+                    var prefix = '*   '
+                    var parent = node.parentNode
+                    var grandparent = parent.parentNode
+                    var index = Array.prototype.indexOf.call(parent.children, node) + 1
+
+                    if (/ol/i.test(grandparent.nodeName) || /ul/i.test(grandparent.nodeName)) {
+                        prefix = /ol/i.test(parent.nodeName) ? ' ' + index + '.  ' : ' *   '
+                    }
+                    else {
+                        prefix = /ol/i.test(parent.nodeName) ? index + '.  ' : '*   '
+                    }
+
+                    return prefix + content
+                }
+            }]
+        });
+
+        md = md.replace(/(<div class="WordSection1">\s)/gi, '');
+        md = md.replace(/(\s<\/div>)/g, '');
+        return md;
+    }
+
+    private _cleanHtml(html: string): string {
         return Utils.regex(html)
 
             // clean the TABLE, TD, P or SPAN tags by removing any additional properties added by Word
@@ -67,38 +97,5 @@ export class MarkdownService {
 
             // generate output
             ();
-
-    }
-
-    previewMarkdown(html: string) {
-        var context = Office.context as any;
-        var cleanedHtml = this.cleanHtml(html)
-
-        var md = toMarkdown(cleanedHtml, {
-            gfm: true,
-            converters: [{
-                filter: 'li',
-                replacement: function (content, node) {
-                    content = content.replace(/^\s+/, '').replace(/\n/gm, '\n    ')
-                    var prefix = '*   '
-                    var parent = node.parentNode
-                    var grandparent = parent.parentNode
-                    var index = Array.prototype.indexOf.call(parent.children, node) + 1
-
-                    if (/ol/i.test(grandparent.nodeName) || /ul/i.test(grandparent.nodeName)) {
-                        prefix = /ol/i.test(parent.nodeName) ? ' ' + index + '.  ' : ' *   '
-                    }
-                    else {
-                        prefix = /ol/i.test(parent.nodeName) ? index + '.  ' : '*   '
-                    }
-
-                    return prefix + content
-                }
-            }]
-        });
-
-        md = md.replace(/(<div class="WordSection1">\s)/gi, '');
-        md = md.replace(/(\s<\/div>)/g, '');
-        return md;
     }
 }

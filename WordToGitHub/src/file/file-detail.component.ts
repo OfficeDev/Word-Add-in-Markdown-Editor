@@ -21,6 +21,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
 
     private _file: any;
     private _sha: string;
+    private _imageLink: string;
     commits: Observable<ICommit[]>
 
     constructor(
@@ -44,16 +45,17 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             this.selectedPath = Utils.isEmpty(params['path']) ? '' : decodeURIComponent(params['path']);
             this.selectedFile = _.last(this.selectedPath.split('/'));
             this.viewLink = `https://github.com/${this.selectedOrg}/${this.selectedRepoName}/blob/${this.selectedBranch}/${this.selectedPath}`;
-            this.pull().catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+            this._imageLink = `https://raw.githubusercontent.com/${this.selectedOrg}/${this.selectedRepoName}/${this.selectedBranch}`;
+            this.pull();
         });
 
         this.markDispose([subscription1, subscription2]);
     }
 
     push() {
-        this._wordService.getBase64EncodedStringsOfImages(this.selectedOrg, this.selectedRepoName, this.selectedBranch)
+        this._wordService.getBase64EncodedStringsOfImages(this._imageLink)
             .then(images => {
-                if (Utils.isEmpty(images)) { return this.updateFile(); }
+                if (Utils.isEmpty(images)) { return this._updateFile(); }
                 var promises = images.map(image => {
                     var body = {
                         message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
@@ -64,8 +66,11 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                     return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body).toPromise();
                 });
 
-                Promise.all(promises).then(response => this.updateFile());
-            });
+                promises.push(this._updateFile() as any);
+                return Promise.all(promises);
+            })
+            .then(() => { this._notificationService.toast(`${this.selectedFile} was updated successfully`, 'File updated'); })
+            .catch(error => this._notificationService.error(error));
     }
 
     pull() {
@@ -80,13 +85,14 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                 this._file = results[1];
                 if (!this._sha) this._sha = sha;
                 if (this._sha === sha) {
-                    this._wordService.insertHtml(this._file, this.selectedOrg, this.selectedRepoName, this.selectedBranch);
+                    this._wordService.insertHtml(this._file, this._imageLink);
                     return this._file;
                 }
                 else {
                     throw 'Merge conflit!';
                 }
-            });
+            })
+            .catch(error => this._notificationService.error(error));
     }
 
     insertNumberedList() {
@@ -97,12 +103,12 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
         this._wordService.insertBulletedList();
     }
 
-    updateFile() {
+    private _updateFile() {
         var promises = [
             this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
-            this._wordService.getMarkdown(this.selectedOrg, this.selectedRepoName, this.selectedBranch)
-        ];        
-
+            this._wordService.getMarkdown(this._imageLink)
+        ];
+        
         return Promise.all(promises)
             .then(results => {
                 var file = results[0] as any;
@@ -120,10 +126,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                 };
             })
             .then(body => this._githubService.updateFile(this.selectedOrg, this.selectedRepoName, this.selectedPath, body).toPromise())
-            .then(response => {
-                console.log(response);                
-                this._sha = response.content.sha;                
-            })
-            .catch(error => this._notificationService.message(JSON.stringify(error), MessageType.Error));
+            .then(response => this._sha = response.content.sha)
+            .catch(error => this._notificationService.error(error));
     }
 }
