@@ -40,17 +40,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file?name=assets/[name].[ext]'
             }            
-        ],
-        preLoaders: [
-            {
-                test: /\.js$/,
-                loader: "source-map-loader",
-                exclude: [
-                    helpers.node_modules('node_modules/rxjs'),
-                    helpers.node_modules('node_modules/@angular')
-                ]
-            }
-        ]
+        ]        
     },
 
     postcss: function () {

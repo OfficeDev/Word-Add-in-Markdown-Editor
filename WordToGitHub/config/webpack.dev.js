@@ -5,15 +5,13 @@ var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
 module.exports = webpackMerge(commonConfig, {
-    cache: true,
-    devtool: 'cheap-eval-source-map',
+    devtool: 'source-map',
 
     output: {
         path: helpers.root('dist'),
         publicPath: 'https://localhost:3000/',
         filename: '[name].js',
-        chunkFilename: '[id].chunk.js',
-        sourceMapFilename: '[name].map'
+        chunkFilename: '[id].chunk.js'
     },
 
     tslint: {
