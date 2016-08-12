@@ -39,18 +39,12 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file?name=assets/[name].[ext]'
-            }            
-        ]        
+            }
+        ]
     },
 
     postcss: function () {
         return [autoprefixer({ browsers: ['Safari >= 8', 'last 2 versions'] }), perfectionist];
-    },
-
-    externals: {
-        '_': 'underscore',
-        '$': 'jquery',
-        'toMarkdown': 'to-markdown'
     },
 
     plugins: [
@@ -67,6 +61,12 @@ module.exports = {
                 from: './src/assets',
                 to: 'assets',
             }
-        ])        
+        ]),
+
+        new webpack.ProvidePlugin({
+            _: 'underscore',
+            $: 'jquery',
+            toMarkdown: 'to-markdown'
+        }),
     ]
 };

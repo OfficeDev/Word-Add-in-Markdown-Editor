@@ -5,8 +5,6 @@ var commonConfig = require('./webpack.common.js');
 var helpers = require('./helpers');
 
 module.exports = webpackMerge(commonConfig, {
-    devtool: 'source-map',
-
     output: {
         path: helpers.root('dist'),
         publicPath: 'https://localhost:3000/',
@@ -21,7 +19,21 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-        new ExtractTextPlugin('[name].css')
+        //new webpack.optimize.DedupePlugin(),
+        //new webpack.optimize.OccurrenceOrderPlugin(),
+        //new webpack.optimize.UglifyJsPlugin({
+        //    compress: {
+        //        warnings: false
+        //    }
+        //}),        
+        new webpack.SourceMapDevToolPlugin({
+            filename: '[file].map',
+            exclude: [
+                'vendor.js',
+                'polyfills.js'
+            ]
+        }),
+        new ExtractTextPlugin('[name].css')       
     ],
 
     devServer: {
