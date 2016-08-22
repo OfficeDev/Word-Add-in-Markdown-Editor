@@ -26,13 +26,6 @@ export class WordService {
             .then(() => this._formatStyles())
     }
 
-    //styleAsCode() {
-    //    return this._run((context) => { 
-    //        var selection = context.document.getSelection();
-    //        selection.style = 'HTML Code';
-    //        return context.sync();
-    //    });
-    //}
 
     insertNumberedList() {
         return this._run(context => {
@@ -62,10 +55,12 @@ export class WordService {
                 for (var i = 0, max = images.length; i < max; i++) {
                     altValue = images[i].getAttribute('alt');
                     altValue = altValue.replace(toRemove, "");
+                    console.log("altvalue "+ altValue);
                     srcValue = images[i].getAttribute('src');
                     if (srcValue.toLowerCase().startsWith("~wrs")) {
                         images[i].setAttribute('src', link + "/" + altValue);
                     }
+                    images[i].setAttribute('alt', altValue);
                 }
                 return this._markDownService.convertToMD(div.innerHTML);
             });
@@ -91,14 +86,14 @@ export class WordService {
                     }
                     if (Utils.isEmpty(image.hyperlink)) {
                         var uniqueNumber = new Date().getTime();
-                        var fileName = "image" + uniqueNumber + "." + image.imageFormat;
-                        if (!Utils.isEmpty(images.items[i].altTextDescription)) {
-                            fileName = _.last(images.items[i].altTextDescription.split('\\'));
-                        }
+                        var fileName = "Image" + uniqueNumber + "." + image.imageFormat;
 
                         image.hyperlink = "images/" + fileName;
+                        image.altTextTitle = "images/" + fileName;
+                        image.altTextDescription = "";
                         images.items[i].hyperlink = link + "/" + "images/" + fileName;
                         images.items[i].altTextTitle = "images/" + fileName;
+                        images.items[i].altTextDescription = "";
                         imagesArray.push(image);
                     }
                 }
