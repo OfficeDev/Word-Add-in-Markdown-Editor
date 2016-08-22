@@ -31,7 +31,7 @@ export class AppComponent {
             new AuthorizeService().getToken();
         }
         else {
-            Office.initialize = AppComponent._initialize;            
+            Office.initialize = AppComponent._initialize;
         }
     }
 

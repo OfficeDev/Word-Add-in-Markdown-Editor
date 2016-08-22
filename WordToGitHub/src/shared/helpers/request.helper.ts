@@ -70,16 +70,12 @@ export class RequestHelper {
 
     private _text(request: Observable<any>): Observable<string> {
         return request
-            .retryWhen(error => error.delay(500))
-            .timeout(2000, new Error('delay exceeded'))
             .map(response => response.text() as string)
             .catch((err: any, caught: Observable<string>) => Utils.error<string>(err) as Observable<string>);
     }
 
     private _json<T>(request: Observable<any>): Observable<T> {
         return request            
-            .retryWhen(error => error.delay(500))
-            .timeout(2000, new Error('delay exceeded'))
             .map(response => response.json() as T)
             .catch((err: any, caught: Observable<T>) => Utils.error<T>(err) as Observable<T>);
     }
