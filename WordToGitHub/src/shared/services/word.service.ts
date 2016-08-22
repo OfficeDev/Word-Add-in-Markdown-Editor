@@ -43,25 +43,30 @@ export class WordService {
         });
     }
 
-    getMarkdown(link: string) {
+    getMarkdown(link: string, hasInlinePictures: boolean) {
+        console.log(hasInlinePictures);
         return this._run(context => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
                 var div = document.createElement('tempHtmlDiv');
                 div.innerHTML = html.value;
-                var images = div.getElementsByTagName('img');
-                var altValue, srcValue;
-                var toRemove = "Title: ";
-                for (var i = 0, max = images.length; i < max; i++) {
-                    altValue = images[i].getAttribute('alt');
-                    altValue = altValue.replace(toRemove, "");
-                    console.log("altvalue "+ altValue);
-                    srcValue = images[i].getAttribute('src');
-                    if (srcValue.toLowerCase().startsWith("~wrs")) {
-                        images[i].setAttribute('src', link + "/" + altValue);
+
+                if (hasInlinePictures) {
+                    var images = div.getElementsByTagName('img');
+                    var altValue, srcValue;
+                    var toRemove = "Title: ";
+                    for (var i = 0, max = images.length; i < max; i++) {
+                        altValue = images[i].getAttribute('alt');
+                        altValue = altValue.replace(toRemove, "");
+                        console.log("altvalue " + altValue);
+                        srcValue = images[i].getAttribute('src');
+                        if (srcValue.toLowerCase().startsWith("~wrs")) {
+                            images[i].setAttribute('src', link + "/" + altValue);
+                        }
+                        //images[i].setAttribute('alt', altValue);
                     }
-                    images[i].setAttribute('alt', altValue);
                 }
+                context.document.body.insertText(html.value, Word.InsertLocation.end);
                 return this._markDownService.convertToMD(div.innerHTML);
             });
         });

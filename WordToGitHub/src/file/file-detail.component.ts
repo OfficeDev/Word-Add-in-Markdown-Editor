@@ -55,8 +55,10 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     push() {
         this._wordService.getBase64EncodedStringsOfImages(this._imageLink)
             .then(images => {
-                if (Utils.isEmpty(images)) { return this._updateFile(); }
+                var hasInlinePictures = true;
+                if (Utils.isEmpty(images)) { return this._updateFile(false); }
                 var promises = images.map(image => {
+                    hasInlinePictures = true;
                     var body = {
                         message: "Image Upload: " + new Date().toISOString() + " from Word to GitHub Add-in",
                         content: image.base64ImageSrc.value,
@@ -66,7 +68,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                     return this._githubService.uploadImage(this.selectedOrg, this.selectedRepoName, image.hyperlink, body).toPromise();
                 });
 
-                promises.push(this._updateFile() as any);
+                promises.push(this._updateFile(hasInlinePictures) as any);
                 return Promise.all(promises);
             })
             .then(() => { this._notificationService.toast(`${this.selectedFile} was updated successfully`, 'File updated'); })
@@ -119,10 +121,10 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
             .catch(error => this._notificationService.error(error));
     }
 
-    private _updateFile() {
+    private _updateFile(hasInlinePictures: boolean) {
         var promises = [
             this._githubService.getSha(this.selectedOrg, this.selectedRepoName, this.selectedBranch, this.selectedPath).toPromise(),
-            this._wordService.getMarkdown(this._imageLink)
+            this._wordService.getMarkdown(this._imageLink, hasInlinePictures)
         ];
 
         return Promise.all(promises)
