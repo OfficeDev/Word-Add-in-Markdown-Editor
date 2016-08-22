@@ -63,10 +63,8 @@ export class WordService {
                         if (srcValue.toLowerCase().startsWith("~wrs")) {
                             images[i].setAttribute('src', link + "/" + altValue);
                         }
-                        //images[i].setAttribute('alt', altValue);
                     }
                 }
-                context.document.body.insertText(html.value, Word.InsertLocation.end);
                 return this._markDownService.convertToMD(div.innerHTML);
             });
         });
