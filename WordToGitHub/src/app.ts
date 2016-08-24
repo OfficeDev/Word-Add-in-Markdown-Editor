@@ -26,16 +26,15 @@ require('./assets/styles/globals.scss');
 })
 
 export class AppComponent {
-    static bootstrap() {
-        if (window.location.href.indexOf('code') !== -1 || window.location.href.indexOf('error') !== -1) {
-            new AuthorizeService().getToken();
-        }
-        else {
-            Office.initialize = AppComponent._initialize;
+    static boostrap() {
+        Office.initialize = reason => {
+            (window.location.href.indexOf('code') !== -1 || window.location.href.indexOf('error') !== -1) ?
+                AuthorizeService.getToken() :
+                AppComponent._loadAngular();
         }
     }
 
-    private static _initialize(reason?: Office.InitializationReason) {
+    private static _loadAngular(reason?: Office.InitializationReason) {
         bootstrap(AppComponent, [
             HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
             { provide: ExceptionHandler, useClass: ExceptionHelper }, RequestHelper,
@@ -45,4 +44,4 @@ export class AppComponent {
     }
 }
 
-AppComponent.bootstrap();
+AppComponent.boostrap();

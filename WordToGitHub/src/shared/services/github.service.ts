@@ -8,7 +8,7 @@ declare var Microsoft: any;
 @Injectable()
 export class GithubService {
     private static CLIENT_ID = "61ef07373b60f4f075cd";
-    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;
+    private static REDIRECT_URI = location.origin;
     private static SCOPE = "repo";
     private _baseUrl: string = "";
     private _profile: IUserProfile;
@@ -100,26 +100,17 @@ export class GithubService {
     }
 
     private _showAuthDialog(resolve, reject) {
-        var context = Office.context as any;
-        context.ui.displayDialogAsync(this._getUrl(), { height: 50, width: 35 },
+        Office.context.ui.displayDialogAsync(this._getUrl(), { height: 50, width: 35 },
             result => {
                 var dialog = result.value;
-                dialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, args => {
-                    dialog.close();
+                dialog.addEventHandler((<any>Office.EventType).DialogMessageReceived, args => {
                     try {
-                        if (Utils.isEmpty(args.message)) {
-                            reject("No token received");
-                        }
-
-                        if (args.message.indexOf('access_token') == -1) {
+                        var response = JSON.parse(args.message);
+                        if (!('access_token' in response)) {
                             reject(JSON.parse(args.message));
                         }
 
-                        let token = this._request.token(JSON.parse(args.message));
-                        if (Utils.isNull(token)) {
-                            reject("Unable to parse token");
-                        }
-
+                        let token = this._request.token(response);
                         this.user().toPromise().then(userMetadata => {
                             this.orgs(userMetadata.login).toPromise()
                                 .then(orgs => {
@@ -129,6 +120,7 @@ export class GithubService {
                                         token: token
                                     };
 
+                                    dialog.close();
                                     resolve(this.profile);
                                 }, error => reject);
                         }, error => reject);
