@@ -60,6 +60,7 @@ export class HamburgerComponent extends BaseComponent implements OnInit, OnDestr
 
     unpin(repository: IRepository) {
         this._favoritesService.unpin(repository);
+        repository.isPinned = false;
     }
 
     signOut() {
