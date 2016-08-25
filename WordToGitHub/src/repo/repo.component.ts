@@ -48,6 +48,7 @@ export class RepoComponent extends BaseComponent implements OnInit {
     }
 
     pin(item: IRepository) {
+        item.isPinned = true;
         this._favoritesService.pin(item);
     }
 

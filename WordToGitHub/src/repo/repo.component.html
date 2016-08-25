@@ -19,7 +19,7 @@
                     <p class="repo-list-item__secondary-text ms-ListItem-secondaryText ms-font-s-plus">@{{repository.owner.login}}</p>
                     <p class="repo-list-item__tertiary-text ms-ListItem-tertiaryText ms-font-s">{{repository.description}}</p>
                 </div>
-                <div class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
+                <div *ngIf="!repository.isPinned" class="repo-list-item__action ms-ListItem-action" (click)="pin(repository)">
                     <i class="ms-Icon ms-Icon-large ms-Icon--starEmpty"></i>
                 </div>
             </li>
