@@ -6,8 +6,9 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 import {HamburgerComponent, ToastComponent, MessageBarComponent} from "./components";
 import {APP_ROUTER_PROVIDERS} from "./routes";
-import {GithubService, AuthorizeService, WordService, FavoritesService, MediatorService, MarkdownService, NotificationService, AuthGuard} from "./shared/services";
+import {GithubService, ApplicationInsightsService, AuthorizeService, WordService, FavoritesService, MediatorService, MarkdownService, NotificationService, AuthGuard} from "./shared/services";
 import {Utils, ExceptionHelper, RequestHelper} from "./shared/helpers";
+import 'rxjs/add/operator/filter';
 
 require('./assets/styles/spinner.scss');
 require('./assets/styles/globals.scss');
@@ -39,9 +40,11 @@ export class AppComponent {
             HTTP_PROVIDERS, APP_ROUTER_PROVIDERS,
             { provide: ExceptionHandler, useClass: ExceptionHelper }, RequestHelper,
             { provide: LocationStrategy, useClass: HashLocationStrategy },
-            NotificationService, GithubService, WordService, MarkdownService, MediatorService, FavoritesService, AuthGuard
+            NotificationService, ApplicationInsightsService, GithubService, WordService, MarkdownService, MediatorService, FavoritesService, AuthGuard
         ]);
     }
+
+
 }
 
 AppComponent.boostrap();
