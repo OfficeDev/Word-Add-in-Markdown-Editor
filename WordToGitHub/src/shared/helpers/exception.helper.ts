@@ -9,6 +9,8 @@ export class ExceptionHelper extends ExceptionHandler {
 
     call(exception: any, stackTrace?: any, reason?: string) {
         // track appinsights exceptions here.
+        this.appInsights.client.trackException(exception);
+        this.appInsights.client.trackTrace(exception);
         console.group(exception.description || 'Handled Exception');
         console.error(exception);
         console.groupCollapsed('Stack Trace');

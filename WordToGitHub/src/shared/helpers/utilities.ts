@@ -37,6 +37,8 @@ export class Utils {
     }
 
     static error<T>(exception?: any): Observable<T> | Promise<T> | OfficeExtension.IPromise<T> {
+
+
         console.log('Error: ' + JSON.stringify(exception));
 
         //if (Utils.isWord) {
