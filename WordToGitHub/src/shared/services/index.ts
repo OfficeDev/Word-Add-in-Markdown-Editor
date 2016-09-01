@@ -6,4 +6,5 @@ export * from './mediator.service';
 export * from './models';
 export * from './favorites.service';
 export * from './auth.guard';
+export * from './application.insights.service';
 export * from './notification.service';

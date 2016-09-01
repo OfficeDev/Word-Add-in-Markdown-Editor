@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {MarkdownService, GithubService} from "./";
+import {MarkdownService, GithubService, ApplicationInsightsService} from "./";
 import {Utils} from "../helpers";
 import * as marked from 'marked';
 import {IImage} from './';
@@ -10,7 +10,8 @@ declare var toMarkdown: any;
 export class WordService {
     constructor(
         private _githubService: GithubService,
-        private _markDownService: MarkdownService
+        private _markDownService: MarkdownService,
+        private _appInsightsService: ApplicationInsightsService
     ) {
 
     }
@@ -21,11 +22,16 @@ export class WordService {
     }
 
     insertHtml(html: string, link: string): Promise<any> {
+        var startTime = performance.now();
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
         return this._run(context => {
             return this._insertHtmlIntoWord(context, html, link)
                 .then(() => this._formatStyles(context));
-        });
+                .then(() => {
+                    var endTime = performance.now();
+                    this._appInsightsService.client.trackMetric("Insert HTML into Word Complete", endTime - startTime);
+                });
+        })            
     }
 
     insertNumberedList() {
@@ -143,7 +149,7 @@ export class WordService {
                     case 'HTML Preformatted':
                     case 'undefined':
                     case '':
-                    case 'pl-c':                        
+                    case 'pl-c':
                         paragraph.style = 'HTML Preformatted';
                         break;
 

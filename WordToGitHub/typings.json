@@ -2,6 +2,7 @@
   "name": "markdown-editor-for-word",
   "dependencies": {},
   "globalDependencies": {
+    "applicationinsights": "registry:dt/applicationinsights#0.15.12+20160323212307",
     "core-js": "registry:dt/core-js#0.0.0+20160725163759",
     "jquery": "registry:dt/jquery#1.10.0+20160704162008",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
