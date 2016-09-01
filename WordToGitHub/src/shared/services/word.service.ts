@@ -24,14 +24,15 @@ export class WordService {
     insertHtml(html: string, link: string): Promise<any> {
         var startTime = performance.now();
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
-        return Promise.resolve(this._insertHtmlIntoWord(html, link))
-            .then(() => this._formatStyles())
-            .then(() => {
-                var endTime = performance.now();
-                this._appInsightsService.client.trackMetric("Insert HTML into Word Complete", endTime-startTime);
-            });
+        return this._run(context => {
+            return this._insertHtmlIntoWord(context, html, link)
+                .then(() => this._formatStyles(context));
+                .then(() => {
+                    var endTime = performance.now();
+                    this._appInsightsService.client.trackMetric("Insert HTML into Word Complete", endTime - startTime);
+                });
+        })            
     }
-
 
     insertNumberedList() {
         return this._run(context => {
@@ -50,7 +51,6 @@ export class WordService {
     }
 
     getMarkdown(link: string, hasInlinePictures: boolean) {
-        console.log(hasInlinePictures);
         return this._run(context => {
             var html = context.document.body.getHtml();
             return context.sync().then(() => {
@@ -118,43 +118,62 @@ export class WordService {
         return Word.run<T>(batch).catch(exception => Utils.error<T>(exception) as OfficeExtension.IPromise<T>);
     }
 
-    private _insertHtmlIntoWord(html: string, link: string) {
-        return this._run((context) => {
-            var body = context.document.body;
-            var div = document.createElement('tempHtmlDiv');
-            div.innerHTML = html;
+    private _insertHtmlIntoWord(context: Word.RequestContext, html: string, link: string) {
+        var body = context.document.body;
+        var div = document.createElement('tempHtmlDiv');
+        div.innerHTML = html;
 
-            var images = div.getElementsByTagName('img');
-            var altValue, srcValue, max, i;
-            for (i = 0, max = images.length; i < max; i++) {
-                altValue = images[i].parentElement.getAttribute('href');
-                srcValue = images[i].getAttribute('src');
-                var filename = _.last(srcValue.split('/'));
-                console.log(images[i].width);
-                if (!srcValue.toLowerCase().startsWith("http")) {
-                    images[i].setAttribute('src', link + "/" + "images/"+ filename);
-                }
+        var images = div.getElementsByTagName('img');
+        var altValue, srcValue, max, i;
+        for (i = 0, max = images.length; i < max; i++) {
+            altValue = images[i].parentElement.getAttribute('href');
+            srcValue = images[i].getAttribute('src');
+            var filename = _.last(srcValue.split('/'));
+            console.log(images[i].width);
+            if (!srcValue.toLowerCase().startsWith("http")) {
+                images[i].setAttribute('src', link + "/" + "images/" + filename);
             }
+        }
 
-            html = div.innerHTML;
-            body.insertHtml(html, Word.InsertLocation.replace);
-            return context.sync();
-        })
+        html = div.innerHTML;
+        body.insertHtml(html, Word.InsertLocation.replace);
+        return context.sync();
     }
 
-    private _formatStyles() {
-        return this._run((context) => {
-            var body = context.document.body;
-            // body.font.name = 'Segoe UI';
-            // body.font.color = '#333333';
-            var tables = body.tables;
-            tables.load("style");
-            return context.sync().then(() => {
-                _.each(tables.items, (table: any) => {
-                    table.style = "Grid Table 4 - Accent 1";
-                });
-                return context.sync();
-            })
+    private _formatStyles(context: Word.RequestContext) {
+        var tables = context.document.body.tables.load('style');
+        var paragraphs = context.document.body.paragraphs.load(['style', 'text']);
+        return context.sync().then(() => {
+            _.each(paragraphs.items, paragraph => {
+                switch (paragraph.style) {
+                    case 'HTML Preformatted':
+                    case 'undefined':
+                    case '':
+                    case 'pl-c':
+                        paragraph.style = 'HTML Preformatted';
+                        break;
+
+                    case 'Normal (Web)':
+                        paragraph.style = 'Normal';
+
+                    default:
+                        paragraph.font.size = 11;
+                        paragraph.font.name = 'Segoe UI';
+                        paragraph.font.color = '#333333';
+                        break;
+                }
+            });
+
+            _.each(tables.items, table => {
+                table.style = "Plain Table 1";
+                table.verticalAlignment = Word.VerticalAlignment.center;
+                table.styleFirstColumn = false;
+                table.headerRowCount = 0;
+                table.styleBandedRows = true;
+                table.autoFitContents();
+            });
+
+            return context.sync();
         });
     }
 }
