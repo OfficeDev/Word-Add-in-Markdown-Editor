@@ -32,6 +32,7 @@ export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     }
 
     click(breadcrumb: IBreadcrumb) {
+        appInsights.trackEvent('Breadcrumb clicked', { "name": breadcrumb.text });
         if (Utils.isNull(breadcrumb.href)) return;
         this._router.navigate(breadcrumb.href as string[]);
     }

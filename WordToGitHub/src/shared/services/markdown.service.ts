@@ -19,6 +19,9 @@ export class MarkdownService {
     }
 
     convertToMD(html: string) {
+        appInsights.trackEvent('convert html to md');
+        var start = performance.now();
+
         var wrappingElement = document.createElement('div');
         wrappingElement.classList.add('highlight')
         wrappingElement.classList.add('highlight-javascript');
@@ -68,6 +71,8 @@ export class MarkdownService {
             }]
         });
 
+        var end = performance.now();
+        appInsights.trackMetric("markdown conversion duration", (end - start) / 1000);
         return md;
     }
 

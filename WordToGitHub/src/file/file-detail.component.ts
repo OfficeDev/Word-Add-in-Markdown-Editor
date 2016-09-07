@@ -53,6 +53,8 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     push() {
+        appInsights.trackEvent('push to github');
+        var start = performance.now();    
         this._wordService.getBase64EncodedStringsOfImages(this._imageLink)
             .then(images => {
                 var hasInlinePictures = true;
@@ -71,11 +73,16 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
                 promises.push(this._updateFile(hasInlinePictures) as any);
                 return Promise.all(promises);
             })
-            .then(() => { this._notificationService.toast(`${this.selectedFile} was updated successfully`, 'File updated'); })
+            .then(() => {
+                this._notificationService.toast(`${this.selectedFile} was updated successfully`, 'File updated');
+                var end = performance.now();    
+                appInsights.trackMetric('push duration', (end - start)/1000);
+            })
             .catch(error => this._notificationService.error(error));
     }
 
     pull() {
+        appInsights.trackEvent('pull from github');
         var actions = new MessageAction('Yes', 'No');
         var subscription = actions.actionEvent.subscribe(result => {
             if (!result) return null;
@@ -92,10 +99,12 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     insertNumberedList() {
+        appInsights.trackEvent('insert numbered list');
         this._wordService.insertNumberedList();
     }
 
     insertBulletedList() {
+        appInsights.trackEvent('insert bulleted list');
         this._wordService.insertBulletedList();
     }
 

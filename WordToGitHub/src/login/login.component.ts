@@ -16,8 +16,16 @@ export class LoginComponent {
     }
 
     login() {
+        appInsights.trackEvent('login to github');
+        appInsights.clearAuthenticatedUserContext();
+        var start = performance.now();
         this._githubService.login()
-            .then(profile => { this._router.navigate(['']); })
+            .then(profile => {
+                var end = performance.now();
+                appInsights.setAuthenticatedUserContext(profile.user.login);
+                appInsights.trackMetric('login duration', (end - start) / 1000);                
+                this._router.navigate(['']);
+            })
             .catch(Utils.error);
     }
 }

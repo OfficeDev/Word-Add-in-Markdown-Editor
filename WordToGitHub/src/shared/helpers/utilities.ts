@@ -40,6 +40,7 @@ export class Utils {
 
 
         console.log('Error: ' + JSON.stringify(exception));
+        appInsights.trackException(exception);
 
         //if (Utils.isWord) {
             if (exception instanceof OfficeExtension.Error) {

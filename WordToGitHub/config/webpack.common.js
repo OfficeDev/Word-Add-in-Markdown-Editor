@@ -65,8 +65,7 @@ module.exports = {
 
         new webpack.ProvidePlugin({
             _: 'underscore',
-            $: 'jquery',
-            AppInsights: 'applicationinsights-js',
+            $: 'jquery',            
             toMarkdown: 'to-markdown'
         }),
     ]

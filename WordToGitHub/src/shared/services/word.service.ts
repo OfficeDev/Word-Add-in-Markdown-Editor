@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
-import {MarkdownService, GithubService, ApplicationInsightsService} from "./";
+import {MarkdownService, GithubService, IImage} from "../services";
 import {Utils} from "../helpers";
 import * as marked from 'marked';
-import {IImage} from './';
 
 declare var toMarkdown: any;
 
@@ -10,8 +9,7 @@ declare var toMarkdown: any;
 export class WordService {
     constructor(
         private _githubService: GithubService,
-        private _markDownService: MarkdownService,
-        private _appInsightsService: ApplicationInsightsService
+        private _markDownService: MarkdownService
     ) {
 
     }
@@ -22,16 +20,17 @@ export class WordService {
     }
 
     insertHtml(html: string, link: string): Promise<any> {
-        var startTime = performance.now();
+        appInsights.trackEvent('insert html', null, { 'length': html.length });
+        var start = performance.now();
         if (Utils.isEmpty(html)) return Promise.reject<string>(null);
         return this._run(context => {
             return this._insertHtmlIntoWord(context, html, link)
-                .then(() => this._formatStyles(context));
+                .then(() => this._formatStyles(context))
                 .then(() => {
-                    var endTime = performance.now();
-                    this._appInsightsService.client.trackMetric("Insert HTML into Word Complete", endTime - startTime);
+                    var end = performance.now();
+                    appInsights.trackMetric("Insert HTML duration", (end - start) / 1000);
                 });
-        })            
+        })
     }
 
     insertNumberedList() {
@@ -77,6 +76,7 @@ export class WordService {
     }
 
     getBase64EncodedStringsOfImages(link: string): OfficeExtension.IPromise<IImage[]> {
+        var start = performance.now();
         var imagesArray: IImage[] = [];
         return this._run(context => {
             var images = context.document.body.inlinePictures;
@@ -108,6 +108,9 @@ export class WordService {
                 }
 
                 return context.sync().then(function () {
+                    var end = performance.now();
+                    appInsights.trackEvent('images loaded from word', null, { "number of images": imagesArray.length });
+                    appInsights.trackMetric('images load duration', (end - start) / 1000);
                     return imagesArray;
                 });
             });
