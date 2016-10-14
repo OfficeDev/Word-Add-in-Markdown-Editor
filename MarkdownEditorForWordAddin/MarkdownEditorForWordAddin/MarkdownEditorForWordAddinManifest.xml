@@ -30,33 +30,33 @@
       <Host xsi:type="Document">
         <DesktopFormFactor>
           <GetStarted>
-            <Title resid="W2G.GetStarted.Title"/>
-            <Description resid="W2G.GetStarted.Description"/>
-            <LearnMoreUrl resid="W2G.GetStarted.LearnMoreUrl"/>
+            <Title resid="ME4W.GetStarted.Title"/>
+            <Description resid="ME4W.GetStarted.Description"/>
+            <LearnMoreUrl resid="ME4W.GetStarted.LearnMoreUrl"/>
           </GetStarted>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabHome">
-              <Group id="W2G.Group1">
-                <Label resid="W2G.Group1Label" />
+              <Group id="ME4W.Group1">
+                <Label resid="ME4W.Group1Label" />
                 <Icon>
-                  <bt:Image size="16" resid="W2G.tpicon_16x16" />
-                  <bt:Image size="32" resid="W2G.tpicon_32x32" />
-                  <bt:Image size="80" resid="W2G.tpicon_80x80" />
+                  <bt:Image size="16" resid="ME4W.tpicon_16x16" />
+                  <bt:Image size="32" resid="ME4W.tpicon_32x32" />
+                  <bt:Image size="80" resid="ME4W.tpicon_80x80" />
                 </Icon>
-                <Control xsi:type="Button" id="W2G.TaskpaneButton">
-                  <Label resid="W2G.TaskpaneButton.Label" />
+                <Control xsi:type="Button" id="ME4W.TaskpaneButton">
+                  <Label resid="ME4W.TaskpaneButton.Label" />
                   <Supertip>
-                    <Title resid="W2G.TaskpaneButton.Label" />
-                    <Description resid="W2G.TaskpaneButton.Tooltip" />
+                    <Title resid="ME4W.TaskpaneButton.Label" />
+                    <Description resid="ME4W.TaskpaneButton.Tooltip" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="W2G.tpicon_16x16" />
-                    <bt:Image size="32" resid="W2G.tpicon_32x32" />
-                    <bt:Image size="80" resid="W2G.tpicon_80x80" />
+                    <bt:Image size="16" resid="ME4W.tpicon_16x16" />
+                    <bt:Image size="32" resid="ME4W.tpicon_32x32" />
+                    <bt:Image size="80" resid="ME4W.tpicon_80x80" />
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ButtonId1</TaskpaneId>
-                    <SourceLocation resid="W2G.Taskpane.Url" />
+                    <SourceLocation resid="ME4W.Taskpane.Url" />
                   </Action>
                 </Control>
               </Group>
@@ -68,22 +68,22 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="W2G.tpicon_16x16" DefaultValue="https://localhost:3000/assets/images/logo_16.png" />
-        <bt:Image id="W2G.tpicon_32x32" DefaultValue="https://localhost:3000/assets/images/logo_32.png" />
-        <bt:Image id="W2G.tpicon_80x80" DefaultValue="https://localhost:3000/assets/images/logo_80.png" />
+        <bt:Image id="ME4W.tpicon_16x16" DefaultValue="https://localhost:3000/assets/images/logo_16.png" />
+        <bt:Image id="ME4W.tpicon_32x32" DefaultValue="https://localhost:3000/assets/images/logo_32.png" />
+        <bt:Image id="ME4W.tpicon_80x80" DefaultValue="https://localhost:3000/assets/images/logo_80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="W2G.Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
-        <bt:Url id="W2G.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
+        <bt:Url id="ME4W.Taskpane.Url" DefaultValue="https://localhost:3000/index.html" />
+        <bt:Url id="ME4W.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="W2G.TaskpaneButton.Label" DefaultValue="Edit markdown" />
-        <bt:String id="W2G.Group1Label" DefaultValue="Markdown Writer" />
-        <bt:String id="W2G.GetStarted.Title" DefaultValue="Markdown Writer for Word" />
+        <bt:String id="ME4W.TaskpaneButton.Label" DefaultValue="Edit markdown" />
+        <bt:String id="ME4W.Group1Label" DefaultValue="Markdown Writer" />
+        <bt:String id="ME4W.GetStarted.Title" DefaultValue="Markdown Writer for Word" />
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="W2G.TaskpaneButton.Tooltip" DefaultValue="Click to launch Markdown Writer" />
-        <bt:String id="W2G.GetStarted.Description" DefaultValue="Create and edit markdown files and push them to GitHub." />
+        <bt:String id="ME4W.TaskpaneButton.Tooltip" DefaultValue="Click to launch Markdown Writer" />
+        <bt:String id="ME4W.GetStarted.Description" DefaultValue="Create and edit markdown files and push them to GitHub." />
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
