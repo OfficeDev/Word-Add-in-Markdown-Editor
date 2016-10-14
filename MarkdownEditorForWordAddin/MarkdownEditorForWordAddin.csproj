@@ -43,10 +43,10 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="WordToGitHubAddInManifest\SharePointProjectItem.spdata">
+    <None Include="MarkdownEditorForWordAddin\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{648ba33d-3a1b-4179-bd9c-37ad80e9b6ed}</SharePointProjectItemId>
     </None>
-    <Content Include="WordToGitHubAddInManifest\WordToGitHubAddInManifest.xml">
+    <Content Include="MarkdownEditorForWordAddin\MarkdownEditorForWordAddinManifest.xml">
       <OpcRelationship>manifest-oemanifest</OpcRelationship>
     </Content>
   </ItemGroup>
