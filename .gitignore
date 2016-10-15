@@ -62,3 +62,4 @@ $RECYCLE.BIN/
 /MarkdownEditorForWordAddin/bin/**
 /MarkdownEditorForWordAddin/obj/**
 **/*.user
+/MarkdownEditorForWordAddin/pkgobj/Debug/AppManifest.xml
