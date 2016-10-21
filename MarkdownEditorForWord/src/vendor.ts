@@ -11,4 +11,7 @@ import '@angular/router';
 import 'rxjs';
 
 // External scripts
-import 'marked';
+import 'jquery';
+import 'underscore';
+import 'to-markdown';
+import './assets/scripts/stringview.js';

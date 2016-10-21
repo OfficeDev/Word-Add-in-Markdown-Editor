@@ -39,7 +39,7 @@ module.exports = {
             {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file?name=assets/[name].[ext]'
-            }            
+            }
         ],
         preLoaders: [
             {
@@ -58,9 +58,9 @@ module.exports = {
     },
 
     externals: {
-        '_': 'underscore',
-        '$': 'jquery',
-        'toMarkdown': 'to-markdown'
+        'underscore': '_',
+        'jquery': '$',
+        'to-markdown': 'toMarkdown'
     },
 
     plugins: [
@@ -77,6 +77,6 @@ module.exports = {
                 from: './src/assets',
                 to: 'assets',
             }
-        ])        
+        ])
     ]
 };
