@@ -9,6 +9,7 @@ import '@angular/router';
 
 // RxJS
 import 'rxjs';
+import '@microsoft/office-js-helpers';
 
 // External scripts
 import 'jquery';
