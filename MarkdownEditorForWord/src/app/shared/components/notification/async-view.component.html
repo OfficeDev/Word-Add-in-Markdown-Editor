@@ -1,20 +1,20 @@
 <div class="async-view ms-progress-component" *ngIf="isLoading">
-    <main class="ms-progress-component__main">
-        <h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{loading}}</h2>
-        <div class="ms-progress">
-            <div class="ms-Spinner large"></div>
-        </div>
-    </main>    
+	<main class="ms-progress-component__main">
+		<h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{loading}}</h2>
+		<div class="ms-progress">
+			<div class="ms-Spinner large"></div>
+		</div>
+	</main>
 </div>
 <div class="async-view ms-progress-component" *ngIf="!isLoading && showError">
-    <main class="ms-progress-component__main">
-        <div class="async-view__error ms-fontColor-themeDarker"></div>
-        <h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{error}}</h2>        
-    </main>    
+	<main class="ms-progress-component__main">
+		<div class="async-view__error ms-fontColor-themeDarker"></div>
+		<h2 class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{error}}</h2>
+	</main>
 </div>
 <div class="async-view ms-progress-component" *ngIf="!isLoading && !showError">
-    <h2 *ngIf="isEmpty" class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{placeholder}}</h2>
-    <div class="async-view__content" *ngIf="!isEmpty">
-        <ng-content></ng-content>
-    </div>
+	<h2 *ngIf="isEmpty" class="ms-progress-component__title ms-font-l ms-fontColor-themeDarker ms-fontWeight-semilight">{{placeholder}}</h2>
+	<div class="async-view__content" *ngIf="!isEmpty">
+		<ng-content></ng-content>
+	</div>
 </div>

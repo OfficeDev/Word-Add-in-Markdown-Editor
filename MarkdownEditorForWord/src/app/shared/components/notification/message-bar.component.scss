@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins.scss';
-@import '../../assets/styles/theme.scss';
+@import '../../../../assets/styles/mixins.scss';
+@import '../../../../assets/styles/theme.scss';
 
 .mw-message-bar {
     width: 100%;
@@ -16,14 +16,14 @@
 
     &__message {
         @include ellipsis();
-        flex: 1 1 auto;     
-        width: calc(100vw - 70px);               
+        flex: 1 1 auto;
+        width: calc(100vw - 70px);
     }
 
     &__icon {
         color: $foreground-primary;
         margin-right: $default-spacing;
-        
+
         &:hover {
             cursor: pointer;
             color: $accent-background-primary;
@@ -53,12 +53,12 @@
         &--primary {
             background-color: $accent-background-primary;
             color: $accent-foreground-primary;
-            border-color: $accent-background-primary;            
+            border-color: $accent-background-primary;
         }
 
         &--secondary {
             background-color: $foreground-white;
-            color: $foreground-primary;            
+            color: $foreground-primary;
         }
     }
 }

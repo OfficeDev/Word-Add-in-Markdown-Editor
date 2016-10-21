@@ -34,7 +34,7 @@
 
 #word-github-logo {
     background: transparent no-repeat center center;
-    background-image: url("assets/images/logo.png");
+    background-image: url("../../assets/images/logo.png");
     background-size: cover;
     width: 90px;
     height: 90px;
@@ -56,7 +56,7 @@
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
     flex: 1 1 auto;
 }
 
@@ -66,7 +66,7 @@
     flex-wrap: nowrap;
     padding-left: 20px;
     padding-right: 20px;
-    flex: 1 1 auto;    
+    flex: 1 1 auto;
 }
 
 .ms-firstrun-login__content--centered {

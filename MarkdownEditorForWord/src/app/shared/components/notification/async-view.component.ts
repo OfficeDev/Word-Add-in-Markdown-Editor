@@ -3,11 +3,11 @@ import { Observable, Subscription } from 'rxjs';
 import { BaseComponent } from '../base.component';
 import { Utilities } from '../../helpers';
 import { NotificationService, MessageType } from '../../services';
-import 'async-view.component.scss';
+import './async-view.component.scss';
 
 @Component({
     selector: 'async-view',
-    templateUrl: './async-view.component.html'
+    templateUrl: 'async-view.component.html'
 })
 export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestroy, OnChanges {
     @Input() observable: any | Observable<any>;

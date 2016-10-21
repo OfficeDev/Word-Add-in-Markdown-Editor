@@ -1,5 +1,5 @@
-﻿@import '../assets/styles/mixins.scss';
-@import '../assets/styles/theme.scss';
+﻿@import '../../../assets/styles/mixins.scss';
+@import '../../../assets/styles/theme.scss';
 
 .file-list-component {
     &__separator {
@@ -24,8 +24,8 @@
     }
 
     &__files {
-        flex: 1 1 auto;  
-        @include flex(); 
+        flex: 1 1 auto;
+        @include flex();
     }
 }
 

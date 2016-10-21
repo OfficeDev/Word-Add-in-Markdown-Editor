@@ -1,5 +1,5 @@
-﻿@import '../assets/styles/mixins.scss';
-@import '../assets/styles/theme.scss';
+﻿@import '../../../assets/styles/mixins.scss';
+@import '../../../assets/styles/theme.scss';
 
 .file-detail {
     &__content {
@@ -59,36 +59,6 @@
             &:last-child {
                 margin-right: 0;
             }
-        }
-    }
-
-    &__commits {
-        @include flex();
-        margin-top: $default-spacing;
-    }
-
-    &-commit {
-        @include inline-flex(null, center);
-        margin-bottom: $default-spacing;
-
-        &__avatar {
-            @include background-fill() {
-                @include background-image-circle(30px);
-            }
-
-            margin-right: $default-spacing;
-        }
-
-        &__details {
-            flex: 1 0 auto;
-        }
-
-        &__message {
-            @include ellipsis();
-        }
-
-        &__name {
-            color: $foreground-light;
         }
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { MediatorService, IEventChannel, IMessage, MessageType } from '../../services';
-import 'message-bar.component.scss';
+import './message-bar.component.scss';
 
 @Component({
     selector: 'message-bar',

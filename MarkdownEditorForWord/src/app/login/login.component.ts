@@ -2,11 +2,11 @@
 import { Router } from '@angular/router';
 import { GithubService } from '../shared/services';
 import { Utilities } from '../shared/helpers';
-import 'login.component.scss';
+import './login.component.scss';
 
 @Component({
     selector: 'login',
-    templateUrl: './login.component.html'
+    templateUrl: 'login.component.html'
 })
 export class LoginComponent {
     constructor(
@@ -18,6 +18,9 @@ export class LoginComponent {
     login() {
         this._githubService.login()
             .then(profile => this._router.navigate(['']))
-            .catch(Utilities.error);
+            .catch(error => {
+                $('status').text(JSON.stringify(error));
+                Utilities.error(error);
+            });
     }
 }

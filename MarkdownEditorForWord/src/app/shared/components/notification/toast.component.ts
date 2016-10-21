@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { MediatorService, IEventChannel, IToast } from '../../services';
+import './toast.component.scss';
 
 @Component({
     selector: 'toast',
@@ -14,8 +15,7 @@ import { MediatorService, IEventChannel, IToast } from '../../services';
             <i class="ms-toast__info ms-Icon ms-Icon-large ms-Icon--infoCircle ms-fontColor-themePrimary"></i>
             <p class="ms-toast__message ms-font-m">{{toast?.toast}}</p>
         </div>
-    </div>`,
-    styleUrls: ['./toast.component.scss']
+    </div>`
 })
 export class ToastComponent extends BaseComponent implements OnDestroy {
     toast: IToast;

@@ -21,7 +21,7 @@ const BaseRoutes: Routes = [
 ];
 
 export const BASE_ROUTES = RouterModule.forRoot(BaseRoutes, {
-    enableTracing: true
+    useHash: true
 });
 
 export const FILE_ROUTES = File.FILE_ROUTES;

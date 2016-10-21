@@ -38,6 +38,13 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('style-loader', 'css!postcss?sourceMap=inline!sass'),
                 exclude: /node_modules/
             }
+        ],
+
+        preLoaders: [
+            {
+                test: /\.js$/,
+                loader: "source-map-loader"
+            }
         ]
     },
 

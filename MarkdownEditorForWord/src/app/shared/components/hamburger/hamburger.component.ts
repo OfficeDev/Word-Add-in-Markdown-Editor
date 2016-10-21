@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Rx';
 import { Utilities } from '../../helpers';
 import { GithubService, MediatorService, FavoritesService, IUserProfile, IProfile, IRepository, IEventChannel } from '../../services';
 import { BaseComponent } from '../base.component';
-import 'hamburger.component.scss';
+import './hamburger.component.scss';
 
 @Component({
     selector: 'hamburger',
-    templateUrl: './hamburger.component.html'
+    templateUrl: 'hamburger.component.html'
 })
 export class HamburgerComponent extends BaseComponent implements OnInit, OnDestroy {
     channel: IEventChannel;

@@ -4,11 +4,9 @@
   "repository": "",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack-dev-server --https --inline --progress --compress --port 3000 --cert certificates/localhost.crt --key certificates/localhost.key --open",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --colors --display-chunks --display-modules",
-    "postinstall": "typings install",
-    "test": "npm run tslint",
-    "tslint": "tslint -c tslint.json --project tsconfig.json"
+    "start": "webpack-dev-server --inline --progress --compress --port 3000 --display-error-details --open",
+    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail --colors --display-modules",
+    "postinstall": "typings install"
   },
   "license": "MIT",
   "dependencies": {
@@ -40,6 +38,7 @@
     "postcss-loader": "^1.0.0",
     "sass-loader": "^4.0.2",
     "extract-text-webpack-plugin": "^1.0.1",
+    "source-map-loader": "^0.1.5",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.22.0",

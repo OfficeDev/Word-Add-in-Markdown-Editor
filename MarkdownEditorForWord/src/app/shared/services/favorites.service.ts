@@ -2,7 +2,8 @@
 import { Storage } from '@microsoft/office-js-helpers';
 import { Utilities } from '../helpers';
 import { Observable, Observer, Subscription } from 'rxjs/Rx';
-import { MediatorService, IRepository, IEventChannel } from '../../shared/services';
+import { IRepository } from './models';
+import { MediatorService, IEventChannel } from './mediator.service';
 
 @Injectable()
 export class FavoritesService extends Storage<IRepository> {

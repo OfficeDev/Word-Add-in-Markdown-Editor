@@ -15,14 +15,6 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     plugins: [
-        new webpack.SourceMapDevToolPlugin({
-            filename: '[file].[hash].map',
-            exclude: [
-                'vendor.js',
-                'polyfills.js'
-            ]
-        }),
-
         new ExtractTextPlugin('[name].css')
     ],
 

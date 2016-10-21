@@ -1,5 +1,5 @@
-﻿@import '../../assets/styles/mixins.scss';
-@import '../../assets/styles/theme.scss';
+﻿@import '../../../../assets/styles/mixins.scss';
+@import '../../../../assets/styles/theme.scss';
 
 .hamburger-menu {
     position: fixed;
@@ -44,11 +44,11 @@
 
 .profile {
     &__image {
-        @include background-fill() {
-            @include background-image-circle(120px);
-        }
-
-        margin-bottom: $default-spacing;
+        background: transparent no-repeat center center;
+        background-size: contain;
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
     }
 
     &__name {
@@ -127,10 +127,10 @@
     }
 
     &__thumb {
-        @include background-fill() {
-            @include background-image-square(24px);
-        }
-
+        background: transparent no-repeat center center;
+        background-size: contain;
+        width: 24px;
+        height: 24px;
         margin-right: $default-spacing;
     }
 

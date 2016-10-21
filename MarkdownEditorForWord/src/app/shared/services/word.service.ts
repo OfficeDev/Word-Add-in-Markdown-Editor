@@ -1,5 +1,6 @@
-import { Injectable } from "@angular/core";
-import { MarkdownService, GithubService } from "../services";
+import { Inject, Injectable } from "@angular/core";
+import { GithubService } from "./github.service";
+import { MarkdownService } from './markdown.service';
 import { Utilities } from "../helpers";
 import * as marked from 'marked';
 import { IImage } from './';

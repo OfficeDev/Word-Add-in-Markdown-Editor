@@ -5,11 +5,11 @@ import { GithubService, MediatorService, FavoritesService, IRepository, IReposit
 import { Utilities } from '../shared/helpers';
 import { SafeNamesPipe } from '../shared/pipes';
 import { BaseComponent } from '../shared/components';
-import 'repo.component.scss';
+import './repo.component.scss';
 
 @Component({
     selector: 'repo',
-    templateUrl: './repo.component.html'
+    templateUrl: 'repo.component.html'
 })
 export class RepoComponent extends BaseComponent implements OnInit {
     private _page = 0;

@@ -4,12 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Utilities } from '../../shared/helpers';
 import { GithubService, WordService, NotificationService, ICommit, IMessage, MessageAction, MessageType } from '../../shared/services';
 import { BaseComponent } from '../../shared/components';
-import 'file-detail.component.scss';
+import './file-detail.component.scss';
 
 declare var StringView: any;
 @Component({
     selector: 'file-detail',
-    templateUrl: './file-detail.component.html'
+    templateUrl: 'file-detail.component.html'
 })
 export class FileDetailComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
@@ -35,7 +35,7 @@ export class FileDetailComponent extends BaseComponent implements OnInit, OnDest
     }
 
     ngOnInit() {
-        var subscription1 = this._router.routerState.root.params.subscribe(params => {
+        var subscription1 = this._route.parent.params.subscribe(params => {
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
         });

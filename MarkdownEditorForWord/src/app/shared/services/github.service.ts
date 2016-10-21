@@ -23,7 +23,7 @@ export class GithubService {
             clientId: '61ef07373b60f4f075cd',
             baseUrl: 'https://github.com/login',
             authorizeUrl: '/oauth/authorize',
-            tokenUrl: 'https://githubproxy.azurewebsites.net/api/GetToken-Developer',
+            tokenUrl: 'https://github-auth.azurewebsites.net/api/dev?code=qejcs0qlvjpl21vz960s02j4ii8ra632cat2vp3et3b8hhncdiskoa8nrqd4ucksj0kinlba9k9',
             scope: 'repo',
             state: true
         });

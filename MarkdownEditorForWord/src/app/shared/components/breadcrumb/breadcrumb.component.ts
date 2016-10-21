@@ -3,12 +3,12 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { IBreadcrumb } from '../../services';
 import { Utilities } from '../../helpers';
-import { BaseComponent } from '../../components';
-import 'breadcrumb.component.scss';
+import { BaseComponent } from '../base.component';
+import './breadcrumb.component.scss';
 
 @Component({
     selector: 'breadcrumb',
-    templateUrl: './breadcrumb.component.html'
+    templateUrl: 'breadcrumb.component.html'
 })
 export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
     private _breadcrumbs: IBreadcrumb[] = [];
@@ -52,7 +52,7 @@ export class BreadcrumbComponent extends BaseComponent implements OnDestroy {
 
     private _generateFromUrl(url: string) {
         this._breadcrumbs = [];
-        var routerLinkArray = url.split('/');
+        var routerLinkArray = decodeURIComponent(url).split('/');
         var path = _.last(routerLinkArray);
         var detail = path === 'detail';
         path = detail ? routerLinkArray[4] : path;

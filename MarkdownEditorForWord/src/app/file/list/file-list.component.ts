@@ -3,11 +3,11 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GithubService, MediatorService, IBranch, IEventChannel } from '../../shared/services';
 import { BaseComponent } from '../../shared/components';
-import 'file-list.component.scss';
+import './file-list.component.scss';
 
 @Component({
     selector: 'file-list',
-    templateUrl: './file-list.component.html'
+    templateUrl: 'file-list.component.html'
 })
 export class FileListComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;

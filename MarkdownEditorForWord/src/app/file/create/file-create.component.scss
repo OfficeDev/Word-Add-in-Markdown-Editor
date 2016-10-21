@@ -1,5 +1,5 @@
-﻿@import '../assets/styles/mixins.scss';
-@import '../assets/styles/theme.scss';
+﻿@import '../../../assets/styles/mixins.scss';
+@import '../../../assets/styles/theme.scss';
 
 .file-create-component {
     &__separator {
@@ -167,7 +167,7 @@
 
         .file-template-item__description {
             color: $accent-foreground-primary;
-        }    
+        }
     }
 
     &__left {
@@ -186,6 +186,6 @@
 
     &__description {
         color: $foreground-lighter;
-        pointer-events: none;        
+        pointer-events: none;
     }
 }

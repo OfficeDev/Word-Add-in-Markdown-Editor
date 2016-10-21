@@ -1,15 +1,15 @@
-@import '../../assets/styles/mixins.scss';
-@import '../../assets/styles/theme.scss';
+@import '../../../../assets/styles/mixins.scss';
+@import '../../../../assets/styles/theme.scss';
 
 .async-view {
-    background-color: $foreground-white;
+    background-color: $foreground-white !important;
     flex: 1 1 100%;
 
     &__content {
         height: 100%;
     }
 
-    &__error {        
+    &__error {
         margin-bottom: $default-spacing * 4;
         align-self: flex-start;
 

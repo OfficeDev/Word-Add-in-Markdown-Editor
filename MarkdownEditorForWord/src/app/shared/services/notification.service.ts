@@ -1,7 +1,7 @@
 ﻿import { Injectable, EventEmitter } from '@angular/core'
 import { Utilities } from '../helpers';
 import { Observable } from 'rxjs/Rx';
-import { MediatorService, IEventChannel } from '../services';
+import { MediatorService, IEventChannel } from './mediator.service';
 
 export enum MessageType {
     Info,

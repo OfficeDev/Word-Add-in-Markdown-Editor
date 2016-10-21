@@ -4,13 +4,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GithubService, IContents, WordService } from '../../shared/services';
 import { Utilities } from '../../shared/helpers';
 import { BaseComponent } from '../../shared/components';
-
-let view = 'file-tree';
+import './file-tree.component.scss';
 
 @Component({
     selector: 'file-tree',
-    templateUrl: './file-tree.component.html',
-    styleUrls: ['./file-tree.component.scss']
+    templateUrl: 'file-tree.component.html'
 })
 export class FileTreeComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
@@ -38,7 +36,8 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
     }
 
     ngOnInit() {
-        var subscription1 = this._router.routerState.root.params.subscribe(params => {
+        var subscription1 = this._route.parent.params.subscribe(params => {
+            console.log(params);
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
         });

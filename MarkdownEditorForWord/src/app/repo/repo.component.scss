@@ -1,5 +1,5 @@
-﻿@import '../assets/styles/mixins.scss';
-@import '../assets/styles/theme.scss';
+﻿@import '../../assets/styles/mixins.scss';
+@import '../../assets/styles/theme.scss';
 
 .repo-list-component {
     &__search {
@@ -20,7 +20,7 @@
 
         h2 {
             padding: $default-spacing $default-spacing;
-        }        
+        }
     }
 
     &__load {
@@ -113,7 +113,7 @@
         width: auto;
         height: auto;
         position: static;
-        
+
         i {
             position: static;
         }

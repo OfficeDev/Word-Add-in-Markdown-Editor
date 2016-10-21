@@ -9,10 +9,6 @@ import '@angular/router';
 
 // RxJS
 import 'rxjs';
-import '@microsoft/office-js-helpers';
 
 // External scripts
-import 'jquery';
-import 'underscore';
-import 'to-markdown';
 import './assets/scripts/stringview.js';

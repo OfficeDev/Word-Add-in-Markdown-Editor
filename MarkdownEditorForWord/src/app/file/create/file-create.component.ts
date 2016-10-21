@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Utilities } from '../../shared/helpers';
 import { GithubService, WordService, NotificationService, ICommit } from '../../shared/services';
 import { BaseComponent } from '../../shared/components';
+import './file-create.component.scss';
 declare var StringView: any;
 
 interface ITemplate {
@@ -15,8 +16,7 @@ interface ITemplate {
 
 @Component({
     selector: 'file-create',
-    templateUrl: './file-create.component.html',
-    styleUrls: ['./file-create.component.scss']
+    templateUrl: 'file-create.component.html'
 })
 export class FileCreateComponent extends BaseComponent implements OnInit, OnDestroy {
     selectedOrg: string;
