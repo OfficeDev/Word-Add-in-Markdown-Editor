@@ -21,34 +21,22 @@ module.exports = {
     module: {
         loaders: [
             {
+                test: /\.ts$/,
+                loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+                exclude: /node_modules/
+            },
+            {
                 test: /\.html$/,
                 loader: 'html'
             },
             {
-                test: /\.ts$/,
-                loaders: ['ts', 'angular2-template-loader']
-            },
-            {
-                test: /^(?!.*component).*\.scss$/,
-                loader: ExtractTextPlugin.extract('css!postcss!sass')
-            },
-            {
-                test: /\.component\.scss$/,
-                loaders: ['raw', 'resolve-url', 'postcss', 'sass']
-            },
-            {
                 test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
                 loader: 'file?name=assets/[name].[ext]'
-            }
-        ],
-        preLoaders: [
+            },
             {
-                test: /\.js$/,
-                loader: "source-map-loader",
-                exclude: [
-                    helpers.node_modules('node_modules/rxjs'),
-                    helpers.node_modules('node_modules/@angular')
-                ]
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('style-loader', 'css!postcss?sourceMap=inline!sass'),
+                exclude: /node_modules/
             }
         ]
     },
@@ -69,7 +57,9 @@ module.exports = {
         }),
 
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'src/index.html',
+            title: 'Markdown Editor for Word',
+            filename: 'index.html'
         }),
 
         new CopyWebpackPlugin([

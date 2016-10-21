@@ -11,9 +11,8 @@ module.exports = webpackMerge(commonConfig, {
 
     output: {
         path: helpers.root('dist'),
-        publicPath: '/',
-        filename: '[name].[hash].js',
-        chunkFilename: '[id].[hash].chunk.js'
+        filename: '[name].js',
+        chunkFilename: '[id].chunk.js'
     },
 
     htmlLoader: {
@@ -22,7 +21,13 @@ module.exports = webpackMerge(commonConfig, {
 
     plugins: [
         new webpack.NoErrorsPlugin(),
-        new ExtractTextPlugin('[name].[hash].css'),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
+            mangle: {
+                keep_fnames: true
+            }
+        }),
+        new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({
             'process.env': {
                 'ENV': JSON.stringify(ENV)
