@@ -2,11 +2,11 @@
   "name": "markdown-editor-for-word",
   "dependencies": {},
   "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160725163759",
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
+    "core-js": "registry:dt/core-js#0.0.0+20160914114559",
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
     "marked": "registry:dt/marked#0.0.0+20160325085301",
-    "node": "registry:dt/node#6.0.0+20160807145350",
-    "office-js": "registry:dt/office-js#0.0.0+20160627000258",
-    "underscore": "registry:dt/underscore#1.7.0+20160720002543"
+    "node": "registry:dt/node#6.0.0+20161019125345",
+    "office-js": "registry:dt/office-js#0.0.0+20161003175149",
+    "underscore": "registry:dt/underscore#1.8.3+20160908111004"
   }
 }
