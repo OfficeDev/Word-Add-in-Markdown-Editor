@@ -1,6 +1,10 @@
 @import '../../../../assets/styles/mixins.scss';
 @import '../../../../assets/styles/theme.scss';
 
+async-view {
+    height: 100%;
+}
+
 .async-view {
     background-color: $foreground-white !important;
     flex: 1 1 100%;
@@ -24,7 +28,7 @@
         margin-top: $default-spacing * 4;
     }
 
-    .ms-Spinner {
+    .ms-progress .ms-Spinner {
         font-size: 7px;
         width: 1em;
         height: 1em;

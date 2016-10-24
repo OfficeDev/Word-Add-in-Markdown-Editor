@@ -95,4 +95,8 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+
+    .ms-progress-component__title {
+        margin-bottom: 35px;
+    }
 }

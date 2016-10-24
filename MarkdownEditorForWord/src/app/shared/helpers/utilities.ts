@@ -42,9 +42,11 @@ export class Utilities {
 
     static error<T>(exception?: any): Observable<T> | Promise<T> | OfficeExtension.IPromise<T> {
         console.group(`Error: ${exception.message}`);
-        console.groupCollapsed('Stack Trace');
-        console.error(exception.stack);
-        console.groupEnd();
+        if (exception.stack) {
+            console.groupCollapsed('Stack Trace');
+            console.error(exception.stack);
+            console.groupEnd();
+        }
         if (Utilities.isWord) {
             console.groupCollapsed('Office Exception');
             if (exception instanceof OfficeExtension.Error) {
