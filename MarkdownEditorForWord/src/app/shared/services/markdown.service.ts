@@ -20,17 +20,36 @@ export class MarkdownService {
     }
 
     convertToMD(html: string) {
-        var context = Office.context as any;
+        appInsights.trackEvent('convert html to md');
+        var start = performance.now();
 
-        var type1 = $(html);
-        var type2 = $(`<div>${html}</div>`);
-        var divType1 = type1.find('.WordSection1');
-        var divType2 = type2.find('.WordSection1');
-        debugger;
+        var wrappingElement = document.createElement('div');
+        wrappingElement.classList.add('highlight')
+        wrappingElement.classList.add('highlight-javascript');
 
-        var cleanedHtml = this._cleanHtml(html);
+        var extractedHtml = $(`<div>${this._cleanHtml(html)}</div>`).find('.WordSection1');
+        extractedHtml.children('pre').wrap(wrappingElement);
 
-        var md = toMarkdown(cleanedHtml, {
+        extractedHtml.find('td').each((index, elem) => {
+            var content = '';
+            var td = $(elem);
+
+            var ps = td.children('p');
+            if (ps.length == 1) {
+                content = ps.text();
+                ps.remove();
+            }
+            else {
+                ps.each((index, p) => {
+                    content += $(p).text();
+                    $(p).remove();
+                });
+            }
+
+            td.text(content);
+        });
+
+        var md = toMarkdown(extractedHtml.html(), {
             gfm: true,
             converters: [{
                 filter: 'li',
@@ -53,8 +72,8 @@ export class MarkdownService {
             }]
         });
 
-        md = md.replace(/(<div class="WordSection1">\s)/gi, '');
-        md = md.replace(/(\s<\/div>)/g, '');
+        var end = performance.now();
+        appInsights.trackMetric("markdown conversion duration", (end - start) / 1000);
         return md;
     }
 
@@ -69,32 +88,17 @@ export class MarkdownService {
             // wrap the first TR in a table with THEAD tag and start a TBODY tag at the end of it
             (/<table(?:.|\s)*?tr>((?:.|\s)*?)<\/tr>/g, '<table>\n<thead>\n<tr>$1</tr>\n</thead>\n<tbody>\n')
 
-            // move all content inside P tags created in TD to TD
-            (/<td(?:.|\s)*?p>((?:.|\s)*?)<\/p(?:.|\s)*?td>/g, '<td>$1</td>')
-
-            // move contents in SPAN outside the block
-            // affected sections are tables and code
-            (/<span>((?:.|\s)*?)<\/span>/g, '$1')
-
-            // clear all &nbsp;
-            // affected sections are code
-            (/<pre>&nbsp;<\/pre>/g, '')
-
-            // remove all PREs that come in between code blocks and add a new line instead
-            (/<\/pre><pre>/g, '\n')
-
-            // perform positive look ahead for all divs that come before a pre = begining of a code block section
-            // the replacement value is a specific class that toMarkdown looks for to determine syntax highlighting
-            (/<div>(?=<pre>)<pre>/g, '<div class="highlight highlight-javascript"><pre>\n')
-
-            // look for all ; characters not a part of &quot; and add a line spacing to them
-            (/;\s/g, ';\n\n')
-
-            // clear all B tags as they are illegal in this scenario
-            (/<\/?b>/g, '')
-
             // end the ending TABLE tag with TBODY
             (/<\/table>/, '</tbody>\n</table>\n')
+
+            // replace all span with their contents
+            (/<(?:\/|)span>/g, '')
+
+            // replace all var with blockquotes
+            (/<(\/|)var>/g, '<$1blockquote>')
+
+            // replace all span with their contents
+            (/<\/pre><pre>/g, '\n')
 
             // generate output
             ();

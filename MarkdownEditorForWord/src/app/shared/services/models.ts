@@ -65,7 +65,8 @@ export interface IRepository {
         admin?: boolean,
         push?: boolean,
         pull: boolean
-    }
+    },
+    isPinned?: boolean
 }
 
 export interface IRepositoryCollection {

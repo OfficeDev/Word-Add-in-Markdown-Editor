@@ -38,6 +38,7 @@ export class FileListComponent extends BaseComponent implements OnInit, OnDestro
     }
 
     selectBranch(branchName: string) {
+        appInsights.trackEvent('switch branch');
         this._router.navigate([this.selectedOrg, this.selectedRepoName, branchName]);
         this.selectedBranch.name = branchName;
     }

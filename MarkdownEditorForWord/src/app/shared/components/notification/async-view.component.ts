@@ -28,14 +28,7 @@ export class AsyncViewComponent extends BaseComponent implements OnInit, OnDestr
 
     ngOnChanges(changes: SimpleChanges) {
         var observable = changes['observable'];
-
-        if (Utilities.isNull(observable) || Utilities.isNull(observable.currentValue)) {
-            this.data = observable.currentValue;
-            this.isLoading = false;
-            this.showError = false;
-            return;
-        }
-
+        if (Utilities.isNull(observable) || Utilities.isNull(observable.currentValue)) return;
         if (observable.currentValue instanceof Observable) this._subscribe();
         else if (observable.currentValue instanceof Promise) this._then();
         else {

@@ -99,6 +99,8 @@ export class FileCreateComponent extends BaseComponent implements OnInit, OnDest
         if (!Utilities.isEmpty(this.selectedPath)) path += this.selectedPath + '/';
         path += (this.newFolder && !Utilities.isEmpty(this.selectedFolder) ? this.selectedFolder.replace(/\s/g, '-') + '/' : '') + this.selectedFile.replace(/\s/g, '-') + '.md';
 
+        appInsights.trackEvent('Create new file', { "template": this.selectedTemplate.title });
+
         this._githubService.getFileData(this.selectedTemplate.path).toPromise()
             .then(templateContent => {
                 var base64Content = new StringView(templateContent, "UTF-8").toBase64().replace(/(?:\r\n|\r|\n)/g, '');

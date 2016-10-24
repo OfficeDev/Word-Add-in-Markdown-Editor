@@ -26,11 +26,12 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
         super();
     }
 
-    select(item: IContents) {
+    select(item: IContents) {        
         if (item.type === 'dir') {
             this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path)]);
         }
         else {
+            appInsights.trackEvent('select file to display');
             this._router.navigate([this.selectedOrg, this.selectedRepoName, this.selectedBranch, encodeURIComponent(item.path), 'detail']);
         }
     }

@@ -40,14 +40,18 @@ export class RepoComponent extends BaseComponent implements OnInit {
     }
 
     selectRepo(repository: IRepository) {
+        appInsights.trackEvent('select repository from list');
         this._router.navigate([repository.owner.login, repository.name, 'master']);
     }
 
     pin(item: IRepository) {
+        appInsights.trackEvent('pin repository from list');
+        item.isPinned = true;
         this._favoritesService.pin(item);
     }
 
     load(clear: boolean = false) {
+        appInsights.trackEvent('load repositories', null, { "maxPage": this._page });
         if (clear) {
             this.repositories = [];
             this.loadComplete = false;

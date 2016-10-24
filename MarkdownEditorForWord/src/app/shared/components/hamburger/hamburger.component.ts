@@ -42,12 +42,14 @@ export class HamburgerComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     selectRepository(repository: IRepository) {
+        appInsights.trackEvent('Navigate to repository from hamburger');
         this._router.navigate([repository.owner.login, repository.name, 'master']);
         this.closeMenu();
     }
 
     selectOrg(org: IProfile) {
         if (Utilities.isNull(org)) {
+            appInsights.trackEvent('Navigate to org from hamburger');
             this._router.navigate(['']);
         }
         else {
@@ -57,10 +59,14 @@ export class HamburgerComponent extends BaseComponent implements OnInit, OnDestr
     }
 
     unpin(repository: IRepository) {
+        appInsights.trackEvent('Unpin repository from hamburger');
         this._favoritesService.unpin(repository);
+        repository.isPinned = false;
     }
 
     signOut() {
+        appInsights.trackEvent('Logout from hamburger');
+        appInsights.clearAuthenticatedUserContext();
         this._githubService.logout();
         this._router.navigate(['/login']);
         this.closeMenu();

@@ -41,6 +41,8 @@ export class Utilities {
     }
 
     static error<T>(exception?: any): Observable<T> | Promise<T> | OfficeExtension.IPromise<T> {
+        appInsights.trackException(exception);
+
         console.group(`Error: ${exception.message}`);
         if (exception.stack) {
             console.groupCollapsed('Stack Trace');

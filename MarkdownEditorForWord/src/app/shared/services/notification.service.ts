@@ -61,6 +61,7 @@ export class NotificationService {
         if (_.isString(message)) this.message(message, MessageType.Error);
         else this.message(JSON.stringify(message), MessageType.Error);
         Utilities.error(JSON.stringify(message));
+        appInsights.trackException(message);
     }
 
     toast(toast: IToast)
