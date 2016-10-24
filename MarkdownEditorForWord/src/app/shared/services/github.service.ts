@@ -8,9 +8,6 @@ declare var Microsoft: any;
 
 @Injectable()
 export class GithubService {
-    private static CLIENT_ID = "61ef07373b60f4f075cd";
-    private static REDIRECT_URI = window.location.protocol + "//" + window.location.host;
-    private static SCOPE = "repo";
     private _baseUrl: string = "";
     private _profile: IUserProfile;
     private _profileStorage: Storage<IUserProfile>;
@@ -23,7 +20,7 @@ export class GithubService {
             clientId: '61ef07373b60f4f075cd',
             baseUrl: 'https://github.com/login',
             authorizeUrl: '/oauth/authorize',
-            tokenUrl: 'https://github-auth.azurewebsites.net/api/dev?code=qejcs0qlvjpl21vz960s02j4ii8ra632cat2vp3et3b8hhncdiskoa8nrqd4ucksj0kinlba9k9',
+            tokenUrl: 'https://markdowneditorforwordauth.azurewebsites.net/api/dev?code=6b3ox717lvxoltr4whgruanhfrqppnjuf35r3geoorsqrm5cdid91xuwuifqhj7g24q9rafw29',
             scope: 'repo',
             state: true
         });
