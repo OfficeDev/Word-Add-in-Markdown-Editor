@@ -23,11 +23,11 @@ require('./assets/styles/globals.scss');
 export class AppModule {
 }
 
-Office.initialize = reason => {
-    if (Authenticator.isAuthDialog()) {
-        $('status').text('Loading GitHub profile');
-    }
-    else {
-        platformBrowserDynamic().bootstrapModule(AppModule);
-    }
-};
+Office.initialize = reason => { }
+if (Authenticator.isAuthDialog()) {
+    $('status').text('Loading GitHub profile');
+}
+else {
+    platformBrowserDynamic().bootstrapModule(AppModule);
+}
+// };

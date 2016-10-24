@@ -37,7 +37,6 @@ export class FileTreeComponent extends BaseComponent implements OnInit, OnDestro
 
     ngOnInit() {
         var subscription1 = this._route.parent.params.subscribe(params => {
-            console.log(params);
             this.selectedRepoName = params['repo'];
             this.selectedOrg = params['org'];
         });

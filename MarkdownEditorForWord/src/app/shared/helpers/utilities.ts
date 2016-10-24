@@ -32,19 +32,28 @@ export class Utilities {
         return Utilities.isNull(obj) || _.isEmpty(obj);
     }
 
+    static get isWord() {
+        return this._context == ContextType.Word;
+    }
+
     static get isWeb() {
         return this._context == ContextType.Web;
     }
 
     static error<T>(exception?: any): Observable<T> | Promise<T> | OfficeExtension.IPromise<T> {
-        console.log('Error: ' + JSON.stringify(exception));
-
-        //if (Utils.isWord) {
-        if (exception instanceof OfficeExtension.Error) {
-            console.log('Debug info: ' + JSON.stringify(exception.debugInfo));
+        console.group(`Error: ${exception.message}`);
+        console.groupCollapsed('Stack Trace');
+        console.error(exception.stack);
+        console.groupEnd();
+        if (Utilities.isWord) {
+            console.groupCollapsed('Office Exception');
+            if (exception instanceof OfficeExtension.Error) {
+                console.error('Debug info: ' + JSON.stringify(exception.debugInfo));
+            }
+            console.groupEnd();
         }
-        //}
 
+        console.groupEnd();
         return exception;
     }
 
@@ -53,8 +62,6 @@ export class Utilities {
             if (_.has(window, 'Word')) {
                 this._context = ContextType.Word;
             }
-
-            this._context = ContextType.Web;
         }
         else {
             this._context = ContextType.Web;

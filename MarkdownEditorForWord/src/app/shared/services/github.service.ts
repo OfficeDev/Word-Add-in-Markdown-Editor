@@ -108,7 +108,7 @@ export class GithubService {
     set profile(value: IUserProfile) {
         if (!Utilities.isEmpty(value)) {
             this._profile = value;
-            this._profileStorage.add(value.user.login, value);
+            this._profileStorage.insert(value.user.login, value);
         }
     }
 

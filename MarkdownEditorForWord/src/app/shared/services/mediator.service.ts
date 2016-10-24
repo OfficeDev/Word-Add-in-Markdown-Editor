@@ -27,7 +27,7 @@ export class MediatorService extends Dictionary<IChannel> implements OnDestroy {
         if (!Utilities.isNull(current)) return current as IEventChannel;
 
         var event = new EventEmitter<T>();
-        return this.add(name, { name: name, source$: event.asObservable(), source: event } as IChannel) as IEventChannel;
+        return this.insert(name, { name: name, source$: event.asObservable(), source: event } as IChannel) as IEventChannel;
     }
 
     createSubjectChannel<T>(name: string): ISubjectChannel {
@@ -36,7 +36,7 @@ export class MediatorService extends Dictionary<IChannel> implements OnDestroy {
 
         var dataSource = new Subject<T>();
         var event = dataSource.asObservable();
-        return this.add(name, { name: name, source$: event, source: dataSource } as IChannel) as ISubjectChannel;
+        return this.insert(name, { name: name, source$: event, source: dataSource } as IChannel) as ISubjectChannel;
     }
 
     clear() {

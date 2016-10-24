@@ -17,7 +17,7 @@ export class FavoritesService extends Storage<IRepository> {
     }
 
     pin(item: IRepository) {
-        this.add(item.id.toString(), item);
+        this.insert(item.id.toString(), item);
         this.pushDataEvent.source.next(item);
     }
 
