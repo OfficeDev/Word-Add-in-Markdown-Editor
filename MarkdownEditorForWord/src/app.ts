@@ -1,4 +1,4 @@
-import { platformBrowserDynamic, } from '@angular/platform-browser-dynamic';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,11 +23,11 @@ require('./assets/styles/globals.scss');
 export class AppModule {
 }
 
-Office.initialize = reason => { }
-if (Authenticator.isAuthDialog()) {
-    $('status').text('Loading GitHub profile');
-}
-else {
-    platformBrowserDynamic().bootstrapModule(AppModule);
-}
-// };
+Office.initialize = reason => {
+    if (Authenticator.isAuthDialog()) {
+        $('status').text('Loading GitHub profile');
+    }
+    else {
+        platformBrowserDynamic().bootstrapModule(AppModule);
+    }
+};
