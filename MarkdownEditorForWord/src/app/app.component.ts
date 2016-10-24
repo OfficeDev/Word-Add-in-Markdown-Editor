@@ -23,11 +23,12 @@ export class AppComponent {
                 appInsights.startTrackPage(name);
             }
             else if (next instanceof NavigationEnd) {
-                if (Utilities.isEmpty(next.url)) return;
-                var name = next.url.split('/')[1];
+                var url = (next as NavigationEnd).url
+                if (Utilities.isEmpty(url)) return;
+                var name = url.split('/')[1];
                 appInsights.stopTrackPage(
                     name,
-                    next.url
+                    url
                 );
             }
         });

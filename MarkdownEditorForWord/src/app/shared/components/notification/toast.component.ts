@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ApplicationRef } from '@angular/core';
 import { BaseComponent } from '../base.component';
 import { MediatorService, IEventChannel, IToast } from '../../services';
 import './toast.component.scss';
@@ -24,7 +24,10 @@ export class ToastComponent extends BaseComponent implements OnDestroy {
     private _timeout;
     private _toastChannel: IEventChannel;
 
-    constructor(private _mediatorService: MediatorService) {
+    constructor(
+        private _mediatorService: MediatorService,
+        private _ref: ApplicationRef
+    ) {
         super();
         this._toastChannel = this._mediatorService.createEventChannel<IToast>('toast-channel');
         var subscription = this._toastChannel.source$.debounceTime(300).subscribe(toast => this.showToast(toast));
@@ -35,7 +38,8 @@ export class ToastComponent extends BaseComponent implements OnDestroy {
         this.toast = toast;
         if (this._timeout) clearTimeout(this._timeout);
         this.isHidden = false;
-        setTimeout(() => this.dismiss(), 3000);
+        this._ref.tick();
+        // setTimeout(() => this.dismiss(), 3000);
     }
 
     dismiss() {

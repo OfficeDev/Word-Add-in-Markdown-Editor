@@ -24,7 +24,7 @@ export class WordService {
     insertHtml(html: string, link: string): Promise<any> {
         appInsights.trackEvent('insert html', null, { 'length': html.length });
         var start = performance.now();
-        if (Utils.isEmpty(html)) return Promise.reject<string>(null);
+        if (Utilities.isEmpty(html)) return Promise.reject<string>(null);
         return this._run(context => {
             return this._insertHtmlIntoWord(context, html, link)
                 .then(() => this._formatStyles(context))
@@ -81,8 +81,7 @@ export class WordService {
         var start = performance.now();
         var imagesArray: IImage[] = [];
         return this._run(context => {
-            var images = context.document.body.inlinePictures;
-            images.load();
+            var images = context.document.body.inlinePictures.load();
             return context.sync().then(() => {
                 for (var i = 0; i < images.items.length; i++) {
                     var image = <IImage>{
@@ -146,38 +145,45 @@ export class WordService {
     }
 
     private _formatStyles(context: Word.RequestContext) {
-        var tables = context.document.body.tables.load('style');
-        var paragraphs = context.document.body.paragraphs.load(['style', 'text']);
+        var tables = context.document.body.tables;
+        if (tables) tables.load('style');
+
+        var paragraphs = context.document.body.paragraphs;
+        if (paragraphs) paragraphs.load(['style', 'text']);
+
         return context.sync().then(() => {
-            _.each(paragraphs.items, paragraph => {
-                switch (paragraph.style) {
-                    case 'HTML Preformatted':
-                    case 'undefined':
-                    case '':
-                    case 'pl-c':
-                        paragraph.style = 'HTML Preformatted';
-                        break;
+            if (paragraphs) {
+                _.each(paragraphs.items, paragraph => {
+                    switch (paragraph.style) {
+                        case 'HTML Preformatted':
+                        case 'undefined':
+                        case '':
+                        case 'pl-c':
+                            paragraph.style = 'HTML Preformatted';
+                            break;
 
-                    case 'Normal (Web)':
-                        paragraph.style = 'Normal';
+                        case 'Normal (Web)':
+                            paragraph.style = 'Normal';
 
-                    default:
-                        paragraph.font.size = 11;
-                        paragraph.font.name = 'Segoe UI';
-                        paragraph.font.color = '#333333';
-                        break;
-                }
-            });
+                        default:
+                            paragraph.font.size = 11;
+                            paragraph.font.name = 'Segoe UI';
+                            paragraph.font.color = '#333333';
+                            break;
+                    }
+                });
+            }
 
-            _.each(tables.items, table => {
-                table.style = "Plain Table 1";
-                table.verticalAlignment = Word.VerticalAlignment.center;
-                table.styleFirstColumn = false;
-                table.headerRowCount = 0;
-                table.styleBandedRows = true;
-                table.autoFitContents();
-            });
-
+            if (tables) {
+                _.each(tables.items, table => {
+                    table.style = "Plain Table 1";
+                    table.verticalAlignment = Word.VerticalAlignment.center;
+                    table.styleFirstColumn = false;
+                    table.headerRowCount = 0;
+                    table.styleBandedRows = true;
+                    table.autoFitContents();
+                });
+            }
             return context.sync();
         });
     }

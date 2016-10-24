@@ -6,7 +6,7 @@
   z-index: 999;
   bottom: 15px;
   left: 15px;
-  width: calc(100% - 50px);  
+  width: calc(100% - 50px);
   opacity: 0;
   background-color: #FFF;
   transition: opacity ease-in-out 0.1s;
@@ -15,11 +15,11 @@
   -webkit-flex-direction: column;
           flex-direction: column;
   -webkit-flex-wrap: nowrap;
-          flex-wrap: nowrap; }    
+          flex-wrap: nowrap; }
 
 .ms-toast--shown {
     opacity: 1;
-}          
+}
 
   .ms-toast__content, .ms-toast__header {
     display: -webkit-inline-flex;
@@ -42,7 +42,7 @@
       top: 0;
       transition: background ease 0.1s, color ease 0.1s; }
       .ms-toast__content .ms-Icon.ms-Icon--x, .ms-toast__header .ms-Icon.ms-Icon--x {
-        color: #666; }
+        color: #666; position: absolute; right: 15px; top: 15px; }
       .ms-toast__content .ms-Icon:active, .ms-toast__content .ms-Icon:hover, .ms-toast__header .ms-Icon:active, .ms-toast__header .ms-Icon:hover {
         background: transparent;
         color: #0078d7;
