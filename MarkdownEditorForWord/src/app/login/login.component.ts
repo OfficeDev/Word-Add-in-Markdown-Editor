@@ -19,14 +19,20 @@ export class LoginComponent {
     }
 
     login() {
+        appInsights.trackEvent('login to github');
+        appInsights.clearAuthenticatedUserContext();
         this.loading = "Loading your GitHub profile";
         this.progress = true;
+        var start = performance.now();
 
         this._githubService.login()
             .then(profile => {
                 this.loading = null;
                 this.progress = false;
-                this._router.navigate([''])
+                var end = performance.now();
+                appInsights.setAuthenticatedUserContext(profile.user.login);
+                appInsights.trackMetric('login duration', (end - start) / 1000);
+                this._router.navigate(['']);
             })
             .catch(error => {
                 debugger;
