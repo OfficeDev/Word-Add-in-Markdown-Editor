@@ -18,11 +18,13 @@ November 2016:
 
 ## Overview
 The Word Add-in Markdown Editor add-in is designed to make working with markdown file, tables, adding images, etc, easier. You can use Word to edit the document . When you’re ready to sync the changes to GitHub, the add-in converts the document to markdown and uploads it to GitHub.  You don’t have to format it to markdown; the add-in does it for you.
- >  **Note:** For instructions on how to install and run the add-in, see [ReadMe] (..\ReadMe.md)
+
+ >  **Note:** For instructions on how to install and run the add-in, see the [ReadMe] (ReadMe.md).
 
 
 ## Add-in capabilities
 The add-in in has the following capabilities:
+
 1.	Sign in to GitHub from within Word.
 2.	Browse your personal and organizational repositories.
 3.	Mark favorite repositories so you can quickly access them in the future.
@@ -43,11 +45,13 @@ Try out the add-in and use it to do the usual things you’d do to create your t
 GitHub only supports HTML styles. Therefore, instead of using Title, Subtitle, etc., use Heading1, Heading2, etc. in your Word documents. 
 
 ### Bulleted and numbered lists
+
 - Although you can edit lists that already exist in a document, if you want to start a new list, you cannot use the lists UI in Word (for now). To work around this, the add-in has two buttons – **Insert Bullets** and **Insert Numbering**, on the **File Details** page. Use them when you want to start a new list and once the list is inserted, you can edit them. 
 - Only two levels of nesting are supported in lists. In addition, for now, each list inserted this way needs to be followed by a paragraph (the paragraph can be empty).
 
 ### Code
 If you want to insert new code fragments and style them as code, you can do so using the **HTML Code** style in Word. However, this may not be as straightforward as it seems because Word only shows the recommended styles by default in the UI. To get the **HTML Code** style to show up in the UI, you need to follow these steps once. 
+
 1.	At the bottom of the style pane, click on the **options...** hyperlink to display the **Style Pane Options** dialog.
 2.	In the **Select Styles to Show** drop down, select **All Styles**. Click **OK**.  
 
@@ -56,6 +60,7 @@ You should now see all the styles in the **Styles** box. When you want to format
 
 ### Favorite repositories
 For repositories you access often, you can add them as favorites. You can then easily access them in the future from the hamburger menu which is displayed at launch, skipping the repositories screen altogether. 
+
 > **Note:** Currently there is no indicator that made a repository a favorite on the repositories screen. 
 
 ## Questions and comments
