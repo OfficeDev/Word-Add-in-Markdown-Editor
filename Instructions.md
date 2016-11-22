@@ -6,7 +6,7 @@ Learn how you use the the add-in after you've installed it.
 * [Change History](#change-history)
 * [Overview](#overview)
 * [Add-in capabilities](#capabilities)
-* [Instructions for using the add-in](#instructions)
+* [Instructions and known issues](#instructions)
 * [Questions and comments](#questions-and-comments)
 * [Additional resources](#additional-resources)
 
@@ -37,7 +37,7 @@ The add-in in has the following capabilities:
 10.	Get notification in case of a merge conflict.
 
 
-## Instructions for using the add-in
+## Instructions and known issues
 Try out the add-in and use it to do the usual things you’d do to create your typical markdown files. There are, however, a few things to point out:
 
 
@@ -62,6 +62,25 @@ You should now see all the styles in the **Styles** box. When you want to format
 For repositories you access often, you can add them as favorites. You can then easily access them in the future from the hamburger menu which is displayed at launch, skipping the repositories screen altogether. 
 
 > **Note:** Currently there is no indicator that made a repository a favorite on the repositories screen. 
+
+### Images
+
+- The add-in assumes images are stored in the **Images** folder under the root of the repository. 
+- For images inserted into Word, image names are auto-generated.
+- There is currently no image resizing API. Therefore, sometimes, you might notice a large image imported into Word. Simply resize the image again. Currently there isn't any workaround for this.
+- Only pictures can be inserted into the document. If you've any other embedded object, such as a chart or a shape, the API call will fail. Therefore, make sure not to have anything else other than pictures in your document.
+
+### Commit messages
+Commit messages are auto-generated now and not user provided.
+
+### Underlines
+There’s no underline support in markdown, so there’s no support for underlines.
+
+### Digital pens 
+Digital pens aren't supported. If you write on your document with a digital pen, the API calls will fail. So do not write on your documents with digital pens.
+
+### Merge conflicts 
+Currently the add-in doesn't support merge conflicts. You must manage merge conflicts yourself.
 
 ## Questions and comments
 
