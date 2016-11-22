@@ -72,7 +72,7 @@ On the Ribbon:
 
 ## Questions and comments
 
-We'd love to get your feedback about the Word Redact sample. You can send your feedback to us in the *Issues* section of this repository.
+We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
 
 Questions about Microsoft Office 365 development in general should be posted to [Stack Overflow](http://stackoverflow.com/questions/tagged/office-js+API). Make sure that your questions are tagged with [office-js] and [API].
 
