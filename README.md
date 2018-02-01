@@ -1,5 +1,5 @@
 # Word-Add-in-Markdown-Editor
-Learn how you can write in Word and convert the document to markdown, save to Github and vice versa.    
+Learn how you can write in Word and convert the document to markdown, save to GitHub and vice versa.    
 
 ## Table of Contents
 * [Change History](#change-history)
