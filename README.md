@@ -1,3 +1,17 @@
+---
+topic: sample
+products:
+- Word
+- Office 365
+languages:
+- TypeScript
+- JavaScript
+extensions:
+  contentType: samples
+  technologies:
+  - Add-ins
+  createdDate: 9/28/2016 3:29:10 PM
+---
 # Word-Add-in-Markdown-Editor
 Learn how you can write in Word and convert the document to markdown, save to Github and vice versa.    
 
